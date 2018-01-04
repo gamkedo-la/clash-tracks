@@ -9,7 +9,6 @@ window.onload = function() {
 
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
-
 	loadImages();
 }
 
@@ -34,12 +33,26 @@ function updateAll() {
 }
 
 function moveAll() {
+	cameraFollow();
+
 	blueCar.move();
 	greenCar.move();
 }
 
 function drawAll() {
-	drawTracks();
+	// drawTracks();
+	canvasContext.save(); // needed to undo this .translate() used for scroll
+
+    // this next line is like subtracting camPanX and camPanY from every
+    // canvasContext draw operation up until we call canvasContext.restore
+    // this way we can just draw them at their "actual" position coordinates
+  canvasContext.translate(-camPanX,-camPanY);
+
+  drawTracks();
+
+
 	blueCar.draw();
 	greenCar.draw();
-} 
+	canvasContext.restore(); // undoes the .translate() used for cam scroll
+
+}
