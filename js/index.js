@@ -33,10 +33,11 @@ function updateAll() {
 }
 
 function moveAll() {
-	cameraFollow();
 
 	blueCar.move();
 	greenCar.move();
+	cameraFollow();
+	
 }
 
 function drawAll() {

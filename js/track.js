@@ -79,7 +79,7 @@ function cameraFollow() {
     var playerDistFromCameraFocusX = Math.abs(blueCar.x - cameraFocusCenterX);
     var playerDistFromCameraFocusY = Math.abs(blueCar.y -cameraFocusCenterY);
 
-    if(playerDistFromCameraFocusX > PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X) {
+    /*if(playerDistFromCameraFocusX > PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X) {
       if(cameraFocusCenterX < blueCar.x)  {
         camPanX += CAM_SCROLL_SPEED;
       } else {
@@ -92,7 +92,11 @@ function cameraFollow() {
       } else {
         camPanY -= CAM_SCROLL_SPEED;
       }
-    }
+    }*/
+
+    camPanX += 0.15*(blueCar.x - cameraFocusCenterX);
+    camPanY += 0.15*(blueCar.y - cameraFocusCenterY);
+
 
     // instantCamFollow();
 
