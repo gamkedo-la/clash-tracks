@@ -14,7 +14,7 @@ var levelOne = [4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4,
 				 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 4, 0, 0, 1, 0, 0, 1,
 				 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
 				 1, 0, 0, 1, 0, 0, 4, 0, 0, 0, 4, 0, 0, 1, 0, 0, 1, 0, 0, 1,
-				 1, 2, 2, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 4, 0, 0, 1,
+				 1, 2, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 4, 0, 0, 1,
 				 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
 				 0, 3, 0, 0, 0, 0, 1, 4, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1,
 				 0, 3, 0, 0, 0, 0, 1, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1,
@@ -26,7 +26,7 @@ const TRACK_ROAD = 0;
 const TRACK_WALL = 1;
 const TRACK_PLAYERSTART = 2;
 const TRACK_GOAL = 3;
-const TRACK_TREE = 4;
+const TRACK_DISK = 4;
 const TRACK_FLAG = 5;
 
 var camPanX = 0.0;
@@ -76,26 +76,26 @@ function cameraFollow() {
     var cameraFocusCenterX = camPanX + canvas.width/2;
     var cameraFocusCenterY = camPanY + canvas.height/2;
 
-    var playerDistFromCameraFocusX = Math.abs(blueCar.x - cameraFocusCenterX);
-    var playerDistFromCameraFocusY = Math.abs(blueCar.y -cameraFocusCenterY);
+    var playerDistFromCameraFocusX = Math.abs(playerCar.x - cameraFocusCenterX);
+    var playerDistFromCameraFocusY = Math.abs(playerCar.y -cameraFocusCenterY);
 
     /*if(playerDistFromCameraFocusX > PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X) {
-      if(cameraFocusCenterX < blueCar.x)  {
+      if(cameraFocusCenterX < playerCar.x)  {
         camPanX += CAM_SCROLL_SPEED;
       } else {
         camPanX -= CAM_SCROLL_SPEED;
       }
     }
     if(playerDistFromCameraFocusY > PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_Y) {
-      if(cameraFocusCenterY < blueCar.y)  {
+      if(cameraFocusCenterY < playerCar.y)  {
         camPanY += CAM_SCROLL_SPEED;
       } else {
         camPanY -= CAM_SCROLL_SPEED;
       }
     }*/
 
-    camPanX += 0.15*(blueCar.x - cameraFocusCenterX);
-    camPanY += 0.15*(blueCar.y - cameraFocusCenterY);
+    camPanX += 0.13*(playerCar.x - cameraFocusCenterX);
+    camPanY += 0.13*(playerCar.y - cameraFocusCenterY);
 
 
     // instantCamFollow();
@@ -141,36 +141,3 @@ function drawTracks() {
 
 } // end of drawTracks func
 
-function drawOnlyTracksOnScreen() {
-	 //what are the top-left most col and row visible on canvas?
-  var cameraLeftMostCol = Math.floor(camPanX / TRACK_W);
-  var cameraTopMostRow = Math.floor(camPanY / TRACK_H);
-
-  // how many columns and rows of tiles fit on one screenful of area?
-  var colsThatFitOnScreen = Math.floor(canvas.width / TRACK_W);
-  var rowsThatFitOnScreen = Math.floor(canvas.height / TRACK_H);
-
-  // finding the rightmost and bottommost tiles to draw.
-  // the +1 and + 2 on each pushes the new tile popping in off visible area
-  // +2 for columns since TRACK_W doesn't divide evenly into canvas.width
-  var cameraRightMostCol = cameraLeftMostCol + colsThatFitOnScreen + 2;
-  var cameraBottomMostRow = cameraTopMostRow + rowsThatFitOnScreen + 1;
-  var arrayIndex = 0;
-  var drawTileX = 0;
-  var drawTileY = 0;
-  for(var eachCol=cameraLeftMostCol; eachCol<cameraRightMostCol; eachCol++) {
- 	 for(var eachRow=cameraTopMostRow; eachRow<cameraBottomMostRow; eachRow++) {
- 		 var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
- 		 var tileKindHere = trackGrid[arrayIndex];
- 		 var useImg = trackPics[tileKindHere];
-
- 		 canvasContext.drawImage(useImg,drawTileX,drawTileY);
- 		 drawTileX += TRACK_W;
- 		 arrayIndex++;
-
- 	 } // end of for eachRow
- 	 drawTileY += TRACK_H;
- 	 drawTileX = 0;
-  } // end of for eachCol
- // } // end of drawBricks()
-}

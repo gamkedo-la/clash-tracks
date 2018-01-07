@@ -4,9 +4,13 @@ const REVERSE_POWER = 0.2;
 const TURN_RATE = 0.06;
 const MIN_SPEED_TO_TURN = 0.5;
 
+
 function carClass() {
 	this.x = 75;
 	this.y = 75;
+	this.prevX = 0;
+	this.prevY = 0;
+
 	this.ang = 0;
 	this.speed = 0;
 	this.myCarPic; // which picture to use
@@ -16,16 +20,9 @@ function carClass() {
 	this.keyHeld_TurnLeft = false;
 	this.keyHeld_TurnRight = false;
 
-	this.controlKeyUp;
-	this.controlKeyRight;
-	this.controlKeyDown;
-	this.controlKeyLeft;
-
-	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
-		this.controlKeyUp = upKey;
-		this.controlKeyRight = rightKey;
-		this.controlKeyDown = downKey;
-		this.controlKeyLeft = leftKey;
+	this.shoot = function(){
+		
+		bullets.push(new Bullet(this.x,this.y, this.ang));
 	}
 
 	this.reset = function(whichImage, carName) {
@@ -49,6 +46,9 @@ function carClass() {
 	} // end of carReset func
 
 	this.move = function() {
+		this.prevX = this.x;
+		this.prevY = this.y;
+
 		this.speed *= GROUNDSPEED_DECAY_MULT;
 
 		if(this.keyHeld_Gas) {
