@@ -48,8 +48,6 @@ function drawAll() {
   	drawTracks();
   	drawBullets();
 
-  	console.log(bullets);
-
 	playerCar.draw();
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 
