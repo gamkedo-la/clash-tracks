@@ -29,7 +29,9 @@ function loadImages() {
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},
 		{trackType: TRACK_GOAL, theFile: "track_goal.png"},
 		{trackType: TRACK_DISK, theFile: "track_disk.png"},
-		{trackType: TRACK_FLAG, theFile: "track_flag.png"}
+		{trackType: TRACK_CITIES, theFile: "aliencities.png"},
+		{trackType: TRACK_BRICKS, theFile: "alienBricks.png"},
+
 		];
 
 	picsToLoad = imageList.length;
