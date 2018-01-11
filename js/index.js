@@ -1,11 +1,12 @@
 var canvas, canvasContext;
-
+var debug = false;
 var playerCar = new carClass();
+var enemyCar = new carClass();
+
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
-
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	loadImages();
@@ -23,6 +24,8 @@ function imageLoadingDoneSoStartGame() {
 function loadLevel(whichLevel) {
 	trackGrid = whichLevel.slice();
 	playerCar.reset(playerCarPic, "Player");
+	enemyCar.reset(enemyCarPic, "Enemy");
+
 }
 
 function updateAll() {
@@ -33,6 +36,7 @@ function updateAll() {
 function moveAll() {
 
 	playerCar.move();
+	enemyCar.move();
 	cameraFollow();
 	
 }
@@ -49,6 +53,11 @@ function drawAll() {
   	drawBullets();
 
 	playerCar.draw();
+	enemyCar.draw();
+
+
+
+
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 
 }

@@ -9,6 +9,7 @@ const KEY_S = 83;
 const KEY_D = 68;
 
 const SPACE_BAR = 32;
+const KEY_O = 79;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -39,7 +40,7 @@ function setupInput() {
 
 function keyPressed(evt) {
 
-	// console.log(evt.keyCode);
+	console.log(evt.keyCode);
 
 
 	switch(evt.keyCode){
@@ -66,6 +67,8 @@ function keyPressed(evt) {
 		case SPACE_BAR:
 			playerCar.shooting = true;
 			break;
+		case KEY_O:
+			debug = !debug;
 	}
 
 	evt.preventDefault();

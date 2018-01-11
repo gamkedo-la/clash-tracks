@@ -7,7 +7,7 @@ const CAM_SCROLL_SPEED = 6
 var levelOne = [ 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5,
 				 5, 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1,
+				 1, 0, 0, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1,
 				 1, 0, 0, 1, 1, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 0, 0, 1,
 				 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1,
 				 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1,
@@ -40,20 +40,7 @@ var levelOne = [ 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5,
 				 1,	5, 5, 5, 5, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 
 				 1,	5, 5, 5, 5, 6, 6, 1, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 
 				 1,	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-
-
-
-
-
-
-
-
 				 ];
-
-
-
-
-				
 
 var trackGrid = [];
 
@@ -64,6 +51,11 @@ const TRACK_GOAL = 3;
 const TRACK_DISK = 4;
 const TRACK_CITIES = 5;
 const TRACK_BRICKS = 6;
+const TRACK_ENEMYSTART = 7;
+
+// var carCornerPoints = [{},{},{},{}];
+var carLeftBottomPointX,carLeftBottomPointY;
+
 
 
 var camPanX = 0.0;
@@ -82,26 +74,80 @@ function returnTileTypeAtColRow(col, row) {
 }
 
 function carTrackHandling(whichCar) {
-	var carTrackCol = Math.floor(whichCar.x / TRACK_W);
-	var carTrackRow = Math.floor(whichCar.y / TRACK_H);
-	var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
+	//using sign and cos get all corner points of car.
+	 whichCar.CollisionPoints[0].x = whichCar.x;
+	 whichCar.CollisionPoints[0].y = whichCar.y;
 
-	if(carTrackCol >= 0 && carTrackCol < TRACK_COLS &&
-		carTrackRow >= 0 && carTrackRow < TRACK_ROWS) {
-		var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
+	 whichCar.CollisionPoints[1].x = whichCar.x +  Math.cos(whichCar.ang )* whichCar.width/2;
+	 whichCar.CollisionPoints[1].y = whichCar.y;
 
-		if(tileHere == TRACK_GOAL) {
-			console.log(whichCar.name + " WINS!");
-			loadLevel(levelOne);
-		} else if(tileHere != TRACK_ROAD) {
-			// next two lines added to fix a bug, mentioned in video 9.6
-			// undoes the car movement which got it onto the wall
-			whichCar.x -= Math.cos(whichCar.ang) * whichCar.speed;
-			whichCar.y -= Math.sin(whichCar.ang) * whichCar.speed;
+	 whichCar.CollisionPoints[2].x = whichCar.x - Math.cos(whichCar.ang )*whichCar.width/2;
+	 whichCar.CollisionPoints[2].y = whichCar.y;
 
-			whichCar.speed *= -0.5;
-		} // end of track found
-	} // end of valid col and row
+
+	 whichCar.CollisionPoints[3].x = whichCar.x ;
+	 whichCar.CollisionPoints[3].y = whichCar.y + Math.cos(whichCar.ang )*whichCar.height/2;
+
+	 whichCar.CollisionPoints[4].x = whichCar.x ;
+	 whichCar.CollisionPoints[4].y = whichCar.y - Math.cos(whichCar.ang )*whichCar.height/2;
+
+
+	 whichCar.CollisionPoints[5].x = whichCar.x  +  Math.cos(whichCar.ang + Math.PI/2)* whichCar.width/2;
+	 whichCar.CollisionPoints[5].y = whichCar.y;
+
+	 whichCar.CollisionPoints[6].x = whichCar.x  -  Math.cos(whichCar.ang + Math.PI/2)* whichCar.width/2;
+	 whichCar.CollisionPoints[6].y = whichCar.y;
+
+	 whichCar.CollisionPoints[7].x = whichCar.x ;
+	 whichCar.CollisionPoints[7].y = whichCar.y + Math.cos(whichCar.ang + Math.PI/2)*whichCar.height/2;
+
+	 whichCar.CollisionPoints[8].x = whichCar.x;
+	 whichCar.CollisionPoints[8].y = whichCar.y - Math.cos(whichCar.ang + Math.PI/2)*whichCar.height/2;
+
+
+
+
+	 // console.log(carLeftBottomPointX);
+
+	 for(var i = 0; i < whichCar.CollisionPoints.length; i++){
+
+	 	// console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
+	 
+	 	var carTrackCol = Math.floor((whichCar.CollisionPoints[i].x) / TRACK_W);
+		var carTrackRow = Math.floor((whichCar.CollisionPoints[i].y) / TRACK_H);
+		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
+
+		if(carTrackCol >= 0 && carTrackCol < TRACK_COLS &&
+			carTrackRow >= 0 && carTrackRow < TRACK_ROWS) {
+			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
+
+			if(tileHere == TRACK_GOAL) {
+				console.log(whichCar.name + " WINS!");
+				loadLevel(levelOne);
+			} else if(tileHere != TRACK_ROAD) {
+				// next two lines added to fix a bug, mentioned in video 9.6
+				// undoes the car movement which got it onto the wall
+
+			
+				whichCar.x -= Math.cos(whichCar.ang ) * whichCar.speed;
+				whichCar.y -= Math.sin(whichCar.ang ) * whichCar.speed ;
+			
+				whichCar.speed *= 0.4;
+
+
+
+
+			} // end of track found
+		} // end of valid col and row
+
+
+
+
+	 }
+
+    
+
+	
 } // end of carTrackHandling func
 
 function rowColToArrayIndex(col, row) {

@@ -19,6 +19,47 @@ function carClass() {
 	this.keyHeld_Reverse = false;
 	this.keyHeld_TurnLeft = false;
 	this.keyHeld_TurnRight = false;
+	this.height = this.width = 44;
+
+	this.CollisionPoints = [
+		//center
+		{
+			x: 75, y: 75
+		},
+		//bottom
+		{
+			x: 75, y: 75
+		},
+		//top
+		{
+			x: 75, y: 75
+		},
+		//left
+		{
+			x: 75, y: 75
+		},
+		//right
+		{
+			x: 75, y: 75
+		},
+		//corner 1
+		{
+			x: 75, y: 75
+		},
+		//corner 2
+		{
+			x: 75, y: 75
+		},
+		//corner 3
+		{
+			x: 75, y: 75
+		},
+		//corner 4
+		{
+			x: 75, y: 75
+		}
+
+	];
 
 	this.shoot = function(){
 		
@@ -29,20 +70,31 @@ function carClass() {
 		this.name = carName;
 		this.myCarPic = whichImage;
 		this.speed = 0;
+		var trackValueToCheck =0;
+		console.log(carName);
+		if(carName == "Player"){
+			trackValueToCheck = TRACK_PLAYERSTART;
+		}
+		else{
+			trackValueToCheck = TRACK_ENEMYSTART;
+		}
 
+		// console.log(trackValueToCheck);
 		for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
 				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-				if(trackGrid[arrayIndex] == TRACK_PLAYERSTART) {
-					trackGrid[arrayIndex] = TRACK_ROAD;
-					this.ang = -Math.PI/2;
-					this.x = eachCol * TRACK_W + TRACK_W/2;
-					this.y = eachRow * TRACK_H + TRACK_H/2;
-					return;
+					if(trackGrid[arrayIndex] == trackValueToCheck) {
+						trackGrid[arrayIndex] = TRACK_ROAD;
+						this.ang = -Math.PI/2;
+						this.x = eachCol * TRACK_W + TRACK_W/2;
+						this.y = eachRow * TRACK_H + TRACK_H/2;
+						return;
 				} // end of player start if
 			} // end of col for
 		} // end of row for
+
 		console.log("NO PLAYER START FOUND!");
+		
 	} // end of carReset func
 
 	this.move = function() {
@@ -57,14 +109,14 @@ function carClass() {
 		if(this.keyHeld_Reverse) {
 			this.speed -= REVERSE_POWER;
 		}
-		if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
+		// if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
 			if(this.keyHeld_TurnLeft) {
 				this.ang -= TURN_RATE;
 			}
 			if(this.keyHeld_TurnRight) {
 				this.ang += TURN_RATE;
 			}
-		}
+		// }
 
 		this.x += Math.cos(this.ang) * this.speed;
 		this.y += Math.sin(this.ang) * this.speed;
@@ -74,5 +126,16 @@ function carClass() {
 
 	this.draw = function() {
 		drawBitmapCenteredWithRotation(this.myCarPic, this.x,this.y, this.ang);
+		if(debug){
+
+			colorCircle(this.x,this.y ,5,"lime");
+
+			for(var i = 0; i<this.CollisionPoints.length; i++){
+				colorCircle(this.CollisionPoints[i].x,this.CollisionPoints[i].y ,5,"lime");
+			}
+		}
+
+
 	}
+
 }
