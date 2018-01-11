@@ -37,6 +37,7 @@ function moveAll() {
 
 	playerCar.move();
 	enemyCar.move();
+	// playerCar.checkOtherCarCollision(enemyCar);
 	cameraFollow();
 	
 }

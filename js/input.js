@@ -39,8 +39,8 @@ function setupInput() {
 
 
 function keyPressed(evt) {
-
-	console.log(evt.keyCode);
+// 
+	// console.log(evt.keyCode);
 
 
 	switch(evt.keyCode){

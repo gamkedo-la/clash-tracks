@@ -71,15 +71,17 @@ function carClass() {
 		this.myCarPic = whichImage;
 		this.speed = 0;
 		var trackValueToCheck =0;
-		console.log(carName);
+		// console.log(carName);
 		if(carName == "Player"){
 			trackValueToCheck = TRACK_PLAYERSTART;
+			this.height = 29;
+			this.weight = 44;
 		}
 		else{
 			trackValueToCheck = TRACK_ENEMYSTART;
-		}
-
-		// console.log(trackValueToCheck);
+			this.height = 19;
+			this.weight = 44;
+		}	
 		for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
 				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
@@ -98,6 +100,7 @@ function carClass() {
 	} // end of carReset func
 
 	this.move = function() {
+
 		this.prevX = this.x;
 		this.prevY = this.y;
 
@@ -122,20 +125,52 @@ function carClass() {
 		this.y += Math.sin(this.ang) * this.speed;
 
 		carTrackHandling(this);
+		carCarHandling(this);
+
 	}
 
 	this.draw = function() {
 		drawBitmapCenteredWithRotation(this.myCarPic, this.x,this.y, this.ang);
 		if(debug){
-
 			colorCircle(this.x,this.y ,5,"lime");
-
 			for(var i = 0; i<this.CollisionPoints.length; i++){
 				colorCircle(this.CollisionPoints[i].x,this.CollisionPoints[i].y ,5,"lime");
 			}
 		}
+	}
+
+	
+
+}
 
 
+function carCarHandling(whichCar){
+	// console.log(whichCar);
+
+	if(whichCar.name == "Player"){
+		var xDistance ,yDistance;
+
+
+		for(var i = 0; i < whichCar.CollisionPoints.length; i++){
+			for(var j = 0; j < enemyCar.CollisionPoints.length; j++){
+					
+					xDistance = Math.abs(whichCar.CollisionPoints[i].x - enemyCar.CollisionPoints[j].x);
+					yDistance = Math.abs(whichCar.CollisionPoints[i].y - enemyCar.CollisionPoints[j].y);
+					console.log(xDistance);
+					console.log(yDistance);
+					if(xDistance <= 5 &&  xDistance >=0 && yDistance <= 5 &&  yDistance >=0){
+				
+						whichCar.x -= Math.cos(whichCar.ang) * whichCar.speed ;
+						whichCar.y -= Math.cos(whichCar.ang) * whichCar.speed ;
+						whichCar.speed *= -0.6;
+
+
+					}
+
+			}
+		}
+
+		
 	}
 
 }
