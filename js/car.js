@@ -26,11 +26,11 @@ function carClass() {
 		{
 			x: 75, y: 75
 		},
-		//bottom
+		//top
 		{
 			x: 75, y: 75
 		},
-		//top
+		//bottom
 		{
 			x: 75, y: 75
 		},
@@ -42,7 +42,7 @@ function carClass() {
 		{
 			x: 75, y: 75
 		},
-		//corner 1
+		//corner right
 		{
 			x: 75, y: 75
 		},
@@ -50,11 +50,11 @@ function carClass() {
 		{
 			x: 75, y: 75
 		},
-		//corner 3
+		// //corner 3
 		{
 			x: 75, y: 75
 		},
-		//corner 4
+		// //corner 4
 		{
 			x: 75, y: 75
 		}
@@ -74,13 +74,14 @@ function carClass() {
 		// console.log(carName);
 		if(carName == "Player"){
 			trackValueToCheck = TRACK_PLAYERSTART;
+
 			this.height = 29;
-			this.weight = 44;
+			this.weight = 29;
 		}
 		else{
 			trackValueToCheck = TRACK_ENEMYSTART;
-			this.height = 19;
-			this.weight = 44;
+			this.height = 29;
+			this.weight = 29;
 		}	
 		for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
@@ -156,8 +157,8 @@ function carCarHandling(whichCar){
 					
 					xDistance = Math.abs(whichCar.CollisionPoints[i].x - enemyCar.CollisionPoints[j].x);
 					yDistance = Math.abs(whichCar.CollisionPoints[i].y - enemyCar.CollisionPoints[j].y);
-					console.log(xDistance);
-					console.log(yDistance);
+					// console.log(xDistance);
+					// console.log(yDistance);
 					if(xDistance <= 5 &&  xDistance >=0 && yDistance <= 5 &&  yDistance >=0){
 				
 						whichCar.x -= Math.cos(whichCar.ang) * whichCar.speed ;
