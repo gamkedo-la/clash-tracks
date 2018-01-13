@@ -6,9 +6,13 @@ function particleSystem() {
 
     var particle = [];
         
-    this.add = function(x, y, sprite, life, size, color) {
+    this.add = function(x, y, sprite, life, size, color, rotationSpeed, forcedAngle) {
 
         var p, pnum, pcount;
+        
+        if (rotationSpeed==undefined) rotationSpeed = Math.random()*3-2;
+        if (forcedAngle==undefined) forcedAngle = 0;
+
         for (pnum = 0, pcount = particle.length; pnum < pcount; pnum++)
         {
             p = particle[pnum];
@@ -35,9 +39,9 @@ function particleSystem() {
             p.birth = (new Date()).getTime();
             p.death = p.birth + life;
             p.color = color;
-            p.angle = 0;
+            p.angle = forcedAngle;
             p.alpha = 1;
-            p.rotSpd = Math.random()*3-2;
+            p.rotSpd = rotationSpeed;
         }
 
     }

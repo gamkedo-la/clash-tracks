@@ -131,10 +131,10 @@ function carClass() {
 		if (window.tireTracks) tireTracks.add(this.x, this.y, this.ang, 0.5);
 
 		if(this.carName == 'Player'){
-		    particles.add(this.x,this.y,particlePic,350,64,"rgb(255,105,180)");
+		    particles.add(this.x,this.y,particlePic,1500,32,"rgb(255,105,180)",0,this.ang-Math.PI);
 		}
 		else{
-			particles.add(this.x,this.y,particlePic,350,64,"rgb(173,216,230)");
+			particles.add(this.x,this.y,particlePic,1500,32,"rgb(173,216,230)",0,this.ang-Math.PI);
 		}
 	}
 
