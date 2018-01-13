@@ -2,7 +2,6 @@
 let bullets = [];
 
 class Bullet{
-	
 	constructor(x, y, angle,origin){
 		this.x = x;
 		this.y = y;
@@ -23,13 +22,11 @@ class Bullet{
 		if(this.origin == 'player'){
 			this.y += this.velocityY + Math.sin(this.angle)*playerCar.speed ;
 			this.x += this.velocityX + Math.cos(this.angle)*playerCar.speed ;
-
 		}
 		else{
 			this.y += this.velocityY ;
 			this.x += this.velocityX ;
-		}
-		
+		}		
 	}
 
 	draw(){
@@ -42,8 +39,6 @@ class Bullet{
 	brickHandling(){
       	var bulletTrackCol = Math.floor(this.x / TRACK_W);
 		var bulletTrackRow = Math.floor(this.y / TRACK_H);
-        
-        
         if(bulletTrackCol >= 0 && bulletTrackCol < TRACK_COLS && bulletTrackRow >= 0 && bulletTrackRow < TRACK_ROWS) {
             let tileHere =returnTileTypeAtColRow(bulletTrackCol, bulletTrackRow);
             if( tileHere != TRACK_ROAD ) {
@@ -60,15 +55,10 @@ function drawBullets(){
 	for(var i = 0; i < bullets.length; i++){
 		bullets[i].draw();
 	}
-
-
+	//removing
 	for(var i = 0; i < bullets.length; i++){
 		if(bullets[i].remove){
 			bullets.splice(i,1);
 		}
 	}
-
-	//removing
-
-
 }

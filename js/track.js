@@ -55,9 +55,6 @@ const TRACK_ENEMYSTART = 7;
 
 // var carCornerPoints = [{},{},{},{}];
 var carLeftBottomPointX,carLeftBottomPointY;
-
-
-
 var camPanX = 0.0;
 var camPanY = 0.0;
 const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X = 60;
@@ -74,8 +71,6 @@ function returnTileTypeAtColRow(col, row) {
 }
 
 function carTrackHandling(whichCar) {
-	
-
 	//Center Point
 	 whichCar.CollisionPoints[0].x = whichCar.x;
 	 whichCar.CollisionPoints[0].y = whichCar.y;
@@ -140,16 +135,14 @@ function carTrackHandling(whichCar) {
 
 			} // end of track found
 		} // end of valid col and row
-
-	 }
-	
+	 }//end of collision for loop
 } // end of carTrackHandling func
 
 function rowColToArrayIndex(col, row) {
 	return col + TRACK_COLS * row;
 }
 
-
+//scroll cam
 function cameraFollow() {
     var cameraFocusCenterX = camPanX + canvas.width/2;
     var cameraFocusCenterY = camPanY + canvas.height/2;
@@ -171,12 +164,9 @@ function cameraFollow() {
         camPanY -= CAM_SCROLL_SPEED;
       }
     }*/
-
     camPanX += 0.13*(playerCar.x - cameraFocusCenterX);
     camPanY += 0.13*(playerCar.y - cameraFocusCenterY);
-
     // instantCamFollow();
-
     // this next code blocks the game from showing out of bounds
     // (this isn't required, if you don't mind seeing beyond edges)
     if(camPanX < 0) {
@@ -197,7 +187,6 @@ function cameraFollow() {
 
 
 function drawTracks() {
-
 	var arrayIndex = 0;
 	var drawTileX = 0;
 	var drawTileY = 0;
@@ -215,6 +204,5 @@ function drawTracks() {
 		drawTileY += TRACK_H;
 		drawTileX = 0;
 	} // end of for each row
-
 } // end of drawTracks func
 

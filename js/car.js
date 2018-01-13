@@ -10,7 +10,6 @@ function carClass() {
 	this.y = 75;
 	this.prevX = 0;
 	this.prevY = 0;
-
 	this.ang = 0;
 	this.speed = 0;
 	this.myCarPic; // which picture to use
@@ -20,7 +19,6 @@ function carClass() {
 	this.keyHeld_TurnLeft = false;
 	this.keyHeld_TurnRight = false;
 	this.height = this.width = 44;
-
 	this.CollisionPoints = [
 		//center
 		{
@@ -96,20 +94,15 @@ function carClass() {
 				} // end of player start if
 			} // end of col for
 		} // end of row for
-
-		console.log("NO PLAYER START FOUND!");
-		
+		console.log("NO PLAYER START FOUND!");		
 	} // end of carReset func
 
 
 
 	this.move = function() {
-
 		this.prevX = this.x;
 		this.prevY = this.y;
-
 		this.speed *= GROUNDSPEED_DECAY_MULT;
-
 		if(this.keyHeld_Gas) {
 			this.speed += DRIVE_POWER;
 		}
@@ -124,21 +117,18 @@ function carClass() {
 				this.ang += TURN_RATE;
 			}
 		// }
-
 		this.x += Math.cos(this.ang) * this.speed;
 		this.y += Math.sin(this.ang) * this.speed;
-
 		carTrackHandling(this);
 		carCarHandling(this);
-
 		// white trail
 		// particles.add(this.x+Math.random()*20-10,this.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
-		// pinkish fire
-		// particles.add(this.x,this.y,particlePic,350,64,"rgb(255,105,180)");
-		//bluish fire
-		particles.add(this.x,this.y,particlePic,350,64,"rgb(173,216,230)");
-
-
+		if(this.carName == 'Player'){
+		    particles.add(this.x,this.y,particlePic,350,64,"rgb(255,105,180)");
+		}
+		else{
+			particles.add(this.x,this.y,particlePic,350,64,"rgb(173,216,230)");
+		}
 	}
 
 	this.draw = function() {
@@ -150,40 +140,29 @@ function carClass() {
 			}
 		}
 	}
-
-	
-
-}
+}// car class 
 
 
+//car collision handling
 function carCarHandling(whichCar){
 	// console.log(whichCar);
-
 	if(whichCar.name == "Player"){
 		var xDistance ,yDistance;
-
-
 		// for(var i = 0; i < whichCar.CollisionPoints.length; i++){
-			for(var j = 0; j < enemyCar.CollisionPoints.length; j++){
-					
-					xDistance = Math.pow((whichCar.CollisionPoints[0].x - enemyCar.CollisionPoints[j].x),2);
-					yDistance = Math.pow((whichCar.CollisionPoints[0].y - enemyCar.CollisionPoints[j].y),2);
-					// console.log(Math.sqrt(xDistance + yDistance));
-					if(Math.sqrt(xDistance + yDistance) <= 18){
-
-				
-						whichCar.x -= Math.cos(whichCar.ang) * whichCar.speed ;
-						whichCar.y -= Math.sin(whichCar.ang) * whichCar.speed ;
-						var random = Math.random()*2;
-						var sign = random == 1 ? -1 : 1;
-						whichCar.ang += sign * 0.05;
-						whichCar.speed *= -0.5;						
-						break;
-
-					}
+			for(var j = 0; j < enemyCar.CollisionPoints.length; j++){					
+				xDistance = Math.pow((whichCar.CollisionPoints[0].x - enemyCar.CollisionPoints[j].x),2);
+				yDistance = Math.pow((whichCar.CollisionPoints[0].y - enemyCar.CollisionPoints[j].y),2);
+				// console.log(Math.sqrt(xDistance + yDistance));
+				if(Math.sqrt(xDistance + yDistance) <= 18){
+					whichCar.x -= Math.cos(whichCar.ang) * whichCar.speed ;
+					whichCar.y -= Math.sin(whichCar.ang) * whichCar.speed ;
+					var random = Math.random()*2;
+					var sign = random == 1 ? -1 : 1;
+					whichCar.ang += sign * 0.05;
+					whichCar.speed *= -0.5;						
+					break;
+				}
 			}
-		// }
-		
+		// }		
 	}
-
 }

@@ -3,7 +3,6 @@ var debug = false;
 var playerCar = new carClass();
 var enemyCar = new carClass();
 
-
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -15,9 +14,7 @@ window.onload = function() {
 function imageLoadingDoneSoStartGame() {
 	var framesPerSecond = 30;
 	setInterval(updateAll, 1000/framesPerSecond);
-
 	setupInput();
-
 	loadLevel(levelOne);
 }
 
@@ -25,7 +22,6 @@ function loadLevel(whichLevel) {
 	trackGrid = whichLevel.slice();
 	playerCar.reset(playerCarPic, "Player");
 	enemyCar.reset(enemyCarPic, "Enemy");
-
 }
 
 function updateAll() {
@@ -35,31 +31,22 @@ function updateAll() {
 }
 
 function moveAll() {
-
 	playerCar.move();
 	enemyCar.move();
 	// playerCar.checkOtherCarCollision(enemyCar);
-	cameraFollow();
-	
+	cameraFollow();	
 }
 
 function drawAll() {
 	canvasContext.save(); // needed to undo this .translate() used for scroll
-
     // this next line is like subtracting camPanX and camPanY from every
     // canvasContext draw operation up until we call canvasContext.restore
     // this way we can just draw them at their "actual" position coordinates
   	canvasContext.translate(-camPanX,-camPanY);
-
-
 	drawTracks();
 	particles.draw();
 	playerCar.draw();
 	enemyCar.draw();
-	drawBullets();
-	
-
-	
+	drawBullets();	
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
-
 }
