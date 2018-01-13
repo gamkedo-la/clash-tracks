@@ -1,6 +1,7 @@
 var playerCarPic = document.createElement("img");
 var enemyCarPic = document.createElement("img");
 var particlePic = document.createElement("img");
+var playerBulletPic = document.createElement("img");
 
 var trackPics = [];
 
@@ -29,6 +30,7 @@ function loadImages() {
 		{varName: playerCarPic, theFile: "playercar.png"},
 		{varName: enemyCarPic, theFile: "enemycar.png"},
 		{varName: particlePic, theFile: "particle.png"},
+		{varName: playerBulletPic, theFile: "playerBullet.png"},
 
 		{trackType: TRACK_ROAD, theFile: "track_road.png"},
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},

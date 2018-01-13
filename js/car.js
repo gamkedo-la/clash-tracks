@@ -61,10 +61,11 @@ function carClass() {
 
 	];
 
-	this.shoot = function(){
+	this.shoot = function(origin){
 		
-		bullets.push(new Bullet(this.x,this.y, this.ang));
+		bullets.push(new Bullet(this.x,this.y, this.ang, origin));
 	}
+
 
 	this.reset = function(whichImage, carName) {
 		this.name = carName;
@@ -99,6 +100,8 @@ function carClass() {
 		console.log("NO PLAYER START FOUND!");
 		
 	} // end of carReset func
+
+
 
 	this.move = function() {
 

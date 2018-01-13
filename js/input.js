@@ -98,7 +98,7 @@ function keyReleased(evt) {
 			break;
 
 		case SPACE_BAR:
-			playerCar.shoot();
+			playerCar.shoot(origin = 'player');
 			playerCar.shooting = false;
 
 			break;

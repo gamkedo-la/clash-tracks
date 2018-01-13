@@ -3,33 +3,40 @@ let bullets = [];
 
 class Bullet{
 	
-	constructor(x, y, angle){
+	constructor(x, y, angle,origin){
 		this.x = x;
 		this.y = y;
-		this.speed = 5
-		this.velocityY = Math.sin(angle)*(this.speed + playerCar.speed);
-		this.velocityX  = Math.cos(angle)*(this.speed + playerCar.speed);
+		this.speed = 7
+		this.velocityY = Math.sin(angle)*this.speed;
+		this.velocityX  = Math.cos(angle)*this.speed;
 		this.height = 5;
 		this.width = 5;
 		this.remove = false;
+		this.angle = angle;
+		this.origin = origin;
 	}
 
 	move(){
-	
-
 		if(this.y < 0 && this.y > canvas.height && this.x > canvas.height && this.x < 0){
 			this.remove = true;			
-
-		
 		}
-			this.y += this.velocityY;
-			this.x += this.velocityX
+		if(this.origin == 'player'){
+			this.y += this.velocityY + Math.sin(this.angle)*playerCar.speed ;
+			this.x += this.velocityX + Math.cos(this.angle)*playerCar.speed ;
+
+		}
+		else{
+			this.y += this.velocityY ;
+			this.x += this.velocityX ;
+		}
+		
 	}
 
 	draw(){
 		this.move();
 		this.brickHandling();
-		colorRect(this.x, this.y, this.width, this.height, 'red');
+		drawBitmapCenteredWithRotation(playerBulletPic, this.x,this.y, this.angle - Math.PI/2)
+		// colorRect(this.x, this.y, this.width, this.height, 'red');
 	}
 
 	brickHandling(){
@@ -44,29 +51,6 @@ class Bullet{
             }
 		}
 	}
-
-// 	function carTrackHandling(whichCar) {
-// 	var carTrackCol = Math.floor(whichCar.x / TRACK_W);
-// 	var carTrackRow = Math.floor(whichCar.y / TRACK_H);
-// 	var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
-
-// 	if(carTrackCol >= 0 && carTrackCol < TRACK_COLS &&
-// 		carTrackRow >= 0 && carTrackRow < TRACK_ROWS) {
-// 		var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
-
-// 		if(tileHere == TRACK_GOAL) {
-// 			console.log(whichCar.name + " WINS!");
-// 			loadLevel(levelOne);
-// 		} else if(tileHere != TRACK_ROAD) {
-// 			// next two lines added to fix a bug, mentioned in video 9.6
-// 			// undoes the car movement which got it onto the wall
-// 			whichCar.x -= Math.cos(whichCar.ang) * whichCar.speed;
-// 			whichCar.y -= Math.sin(whichCar.ang) * whichCar.speed;
-
-// 			whichCar.speed *= -0.5;
-// 		} // end of track found
-// 	} // end of valid col and row
-// } // end of carTrackHandling func
 
 }
 

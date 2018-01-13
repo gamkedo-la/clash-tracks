@@ -54,9 +54,10 @@ function drawAll() {
 
 	drawTracks();
 	particles.draw();
-	drawBullets();
 	playerCar.draw();
 	enemyCar.draw();
+	drawBullets();
+	
 
 	
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
