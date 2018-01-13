@@ -31,6 +31,7 @@ function loadLevel(whichLevel) {
 function updateAll() {
 	moveAll();
 	drawAll();
+	particles.update();
 }
 
 function moveAll() {
@@ -50,15 +51,14 @@ function drawAll() {
     // this way we can just draw them at their "actual" position coordinates
   	canvasContext.translate(-camPanX,-camPanY);
 
-  	drawTracks();
-  	drawBullets();
 
+	drawTracks();
+	particles.draw();
+	drawBullets();
 	playerCar.draw();
 	enemyCar.draw();
 
-
-
-
+	
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 
 }

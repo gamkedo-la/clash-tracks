@@ -1,6 +1,6 @@
 var playerCarPic = document.createElement("img");
 var enemyCarPic = document.createElement("img");
-
+var particlePic = document.createElement("img");
 
 var trackPics = [];
 
@@ -28,13 +28,14 @@ function loadImages() {
 	var imageList = [
 		{varName: playerCarPic, theFile: "playercar.png"},
 		{varName: enemyCarPic, theFile: "enemycar.png"},
+		{varName: particlePic, theFile: "particle.png"},
 
 		{trackType: TRACK_ROAD, theFile: "track_road.png"},
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},
 		{trackType: TRACK_GOAL, theFile: "track_goal.png"},
 		{trackType: TRACK_DISK, theFile: "track_disk.png"},
 		{trackType: TRACK_CITIES, theFile: "aliencities.png"},
-		{trackType: TRACK_BRICKS, theFile: "alienBricks.png"},
+		{trackType: TRACK_BRICKS, theFile: "alienBricks.png"}
 
 		];
 

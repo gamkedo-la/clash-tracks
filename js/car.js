@@ -128,6 +128,11 @@ function carClass() {
 		carTrackHandling(this);
 		carCarHandling(this);
 
+		// white trail
+		particles.add(this.x+Math.random()*20-10,this.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
+		// red fire
+		particles.add(this.x,this.y,particlePic,350,64,"rgb(255,100,0)");
+
 	}
 
 	this.draw = function() {
@@ -159,6 +164,7 @@ function carCarHandling(whichCar){
 					yDistance = Math.pow((whichCar.CollisionPoints[0].y - enemyCar.CollisionPoints[j].y),2);
 					// console.log(Math.sqrt(xDistance + yDistance));
 					if(Math.sqrt(xDistance + yDistance) <= 18){
+
 				
 						whichCar.x -= Math.cos(whichCar.ang) * whichCar.speed ;
 						whichCar.y -= Math.sin(whichCar.ang) * whichCar.speed ;
