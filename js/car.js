@@ -152,24 +152,27 @@ function carCarHandling(whichCar){
 		var xDistance ,yDistance;
 
 
-		for(var i = 0; i < whichCar.CollisionPoints.length; i++){
+		// for(var i = 0; i < whichCar.CollisionPoints.length; i++){
 			for(var j = 0; j < enemyCar.CollisionPoints.length; j++){
 					
-					xDistance = Math.abs(whichCar.CollisionPoints[i].x - enemyCar.CollisionPoints[j].x);
-					yDistance = Math.abs(whichCar.CollisionPoints[i].y - enemyCar.CollisionPoints[j].y);
-					// console.log(xDistance);
-					// console.log(yDistance);
-					if(xDistance <= 5 &&  xDistance >=0 && yDistance <= 5 &&  yDistance >=0){
+					xDistance = Math.pow((whichCar.CollisionPoints[0].x - enemyCar.CollisionPoints[j].x),2);
+					yDistance = Math.pow((whichCar.CollisionPoints[0].y - enemyCar.CollisionPoints[j].y),2);
+					// console.log(Math.sqrt(xDistance + yDistance));
+					if(Math.sqrt(xDistance + yDistance) <= 18){
 				
 						whichCar.x -= Math.cos(whichCar.ang) * whichCar.speed ;
-						whichCar.y -= Math.cos(whichCar.ang) * whichCar.speed ;
-						whichCar.speed *= -0.6;
+						whichCar.y -= Math.sin(whichCar.ang) * whichCar.speed ;
+						var random = Math.random()*2;
+						var sign = random == 1 ? -1 : 1;
+						whichCar.ang += sign * 0.05;
+						whichCar.speed *= -0.5;						
+						break;
 
 
 					}
 
 			}
-		}
+		// }
 
 		
 	}
