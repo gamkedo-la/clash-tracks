@@ -75,13 +75,13 @@ function carClass() {
 		if(carName == "Player"){
 			trackValueToCheck = TRACK_PLAYERSTART;
 
-			this.height = 29;
-			this.weight = 29;
+			this.height = 25;
+			this.weight = 44;
 		}
 		else{
 			trackValueToCheck = TRACK_ENEMYSTART;
-			this.height = 29;
-			this.weight = 29;
+			this.height = 18;
+			this.weight = 44;
 		}	
 		for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
@@ -129,14 +129,14 @@ function carClass() {
 		carCarHandling(this);
 
 		// white trail
-		particles.add(this.x+Math.random()*20-10,this.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
+		// particles.add(this.x+Math.random()*20-10,this.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
 		// red fire
-		particles.add(this.x,this.y,particlePic,350,64,"rgb(255,100,0)");
+		particles.add(this.x,this.y,particlePic,350,64,"rgb(255,105,180)");
 
 	}
 
 	this.draw = function() {
-		drawBitmapCenteredWithRotation(this.myCarPic, this.x,this.y, this.ang);
+		drawBitmapCenteredWithRotation(this.myCarPic, this.x ,this.y, this.ang);
 		if(debug){
 			colorCircle(this.x,this.y ,5,"lime");
 			for(var i = 0; i<this.CollisionPoints.length; i++){
@@ -174,12 +174,9 @@ function carCarHandling(whichCar){
 						whichCar.speed *= -0.5;						
 						break;
 
-
 					}
-
 			}
 		// }
-
 		
 	}
 
