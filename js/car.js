@@ -130,8 +130,11 @@ function carClass() {
 
 		// white trail
 		// particles.add(this.x+Math.random()*20-10,this.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
-		// red fire
-		particles.add(this.x,this.y,particlePic,350,64,"rgb(255,105,180)");
+		// pinkish fire
+		// particles.add(this.x,this.y,particlePic,350,64,"rgb(255,105,180)");
+		//bluish fire
+		particles.add(this.x,this.y,particlePic,350,64,"rgb(173,216,230)");
+
 
 	}
 
