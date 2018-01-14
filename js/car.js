@@ -1,10 +1,13 @@
 const GROUNDSPEED_DECAY_MULT = 0.94;
+const GROUNDSPEED_DECAY_MULT_NOS = 0.97;
+
 const DRIVE_POWER = 0.6;
 const REVERSE_POWER = 0.2;
 const TURN_RATE = 0.08;
 const DRIFT_TURN_RATE = 0.18;
 const MIN_SPEED_TO_TURN = 1;
 const DRIFT_MIN_SPEED = 2;
+var PLAYER_NOS = false;
 
 
 function carClass() {
@@ -78,7 +81,6 @@ function carClass() {
 		// console.log(carName);
 		if(carName == "Player"){
 			trackValueToCheck = TRACK_PLAYERSTART;
-
 			this.height = 25;
 			this.weight = 44;
 		}
@@ -107,7 +109,15 @@ function carClass() {
 	this.move = function() {
 		this.prevX = this.x;
 		this.prevY = this.y;
-		this.speed *= GROUNDSPEED_DECAY_MULT;
+
+		if(PLAYER_NOS){
+			this.speed *= GROUNDSPEED_DECAY_MULT_NOS;
+
+		}else{
+			this.speed *= GROUNDSPEED_DECAY_MULT;
+
+		}
+
 		if(this.keyHeld_Gas) {
 			this.speed += DRIVE_POWER;
 		}

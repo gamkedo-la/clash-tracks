@@ -8,6 +8,7 @@ const KEY_S = 83;
 const KEY_D = 68;
 const SPACE_BAR = 32;
 const KEY_O = 79;
+const KEY_SHIFT = 16;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -32,9 +33,8 @@ function setupInput() {
 // 	carSpeedY = -4;*/
 // }
 
-
 function keyPressed(evt) {
-	// console.log(evt.keyCode);
+	console.log(evt.keyCode);
 	switch(evt.keyCode){
 		case KEY_UP_ARROW:
 		case KEY_W:
@@ -57,6 +57,8 @@ function keyPressed(evt) {
 			break;
 		case KEY_O:
 			debug = !debug;
+		case KEY_SHIFT:
+			PLAYER_NOS = true;
 	}
 	evt.preventDefault();
 }
@@ -82,6 +84,8 @@ function keyReleased(evt) {
 		case SPACE_BAR:
 			playerCar.shoot(origin = 'player');
 			playerCar.shooting = false;
-			break;		
+			break;
+		case KEY_SHIFT:
+			PLAYER_NOS = false;		
 	}	
 }

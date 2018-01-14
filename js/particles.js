@@ -93,7 +93,6 @@ function particleSystem() {
     this.draw = function()
     {
         var drew = 0;
-
         particle.forEach(
             function (p) {
                 if (!p.inactive) // and visible in screen bbox
@@ -112,9 +111,7 @@ function particleSystem() {
             }
         );
         //console.log('drew'+drew);
-    }
-
-    
+    }    
 };
 
 // helper function (inclusive: eg 1,10 may include 1 or 10)
