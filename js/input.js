@@ -58,7 +58,7 @@ function keyPressed(evt) {
 		case KEY_O:
 			debug = !debug;
 		case KEY_SHIFT:
-			PLAYER_NOS = true;
+			player_nos = true;
 	}
 	evt.preventDefault();
 }
@@ -86,6 +86,6 @@ function keyReleased(evt) {
 			playerCar.shooting = false;
 			break;
 		case KEY_SHIFT:
-			PLAYER_NOS = false;		
+			player_nos = false;		
 	}	
 }

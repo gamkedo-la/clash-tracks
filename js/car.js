@@ -7,7 +7,7 @@ const TURN_RATE = 0.08;
 const DRIFT_TURN_RATE = 0.18;
 const MIN_SPEED_TO_TURN = 1;
 const DRIFT_MIN_SPEED = 2;
-var PLAYER_NOS = false;
+var player_nos = false;
 
 
 function carClass() {
@@ -60,8 +60,25 @@ function carClass() {
 		// //corner right bottom
 		{
 			x: 75, y: 75
+		},
+		//30 degree corners for removing collision bugs, Between middle and corner points
+		//top right
+		{
+			x: 75, y: 75
+		},
+		//corner left top
+		{
+			x: 75, y: 75
+		},
+		// //corner left bottom
+		{
+			x: 75, y: 75
+		},
+		// // //corner right bottom
+		{
+			x: 75, y: 75
 		}
-		// co
+		
 
 
 	];
@@ -110,7 +127,7 @@ function carClass() {
 		this.prevX = this.x;
 		this.prevY = this.y;
 
-		if(PLAYER_NOS){
+		if(player_nos){
 			this.speed *= GROUNDSPEED_DECAY_MULT_NOS;
 
 		}else{
@@ -155,9 +172,15 @@ function carClass() {
 		if (window.tireTracks) tireTracks.add(this.x, this.y, this.ang, 0.5);
 
 		if(this.name == 'Player'){
-		    particles.add(this.x,this.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
-			particles.add(this.x,this.y,particlePic,500,64,"rgb(46,148,183)",0,this.ang-Math.PI);
+			if(player_nos){
+				particles.add(this.x,this.y,particlePic,500,64,"rgb(46,148,200)",0,this.ang-Math.PI);
+			}
+			else{
+				particles.add(this.x,this.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
+				particles.add(this.x,this.y,particlePic,500,64,"rgb(46,148,193)",0,this.ang-Math.PI);
 
+			}
+		    
 		}
 		else{
 			particles.add(this.x,this.y,particlePic,1500,32,"rgb(173,216,230)",0,this.ang-Math.PI);

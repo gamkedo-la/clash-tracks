@@ -9,6 +9,7 @@ window.onload = function() {
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	loadImages();
+	player_nos = false;
 }
 
 function imageLoadingDoneSoStartGame() {
