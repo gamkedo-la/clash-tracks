@@ -68,7 +68,7 @@ function particleSystem() {
 
                 // FIXME: framerate dependent
                 p.x += p.velX;
-                p.x += p.velY;
+                p.y += p.velY;
                 p.velX*=0.94;
                 p.velY*=0.94;
                 
@@ -122,22 +122,34 @@ function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)
 
 // custom stuff for this game:
 
-function carCollisionEffect(x,y)
-{
-    for (var i=0; i<16; i++)
-        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(255,255,0)",0.1,this.ang-Math.PI,Math.random()*2-1);					
+function sparksEffect(x,y) {
+    var num = randomInt(2,6);
+    for (var i=0; i<num; i++) { // sparks
+        particles.add(x,y,particlePic,randomInt(200,500),randomInt(1,8),"rgb(255,255,255)",0.1,0,Math.random()*16-8,Math.random()*16-8);					
+    }
 }
 
-function wallCollisionEffect(x,y)
-{
-    for (var i=0; i<16; i++)
-        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(0,255,255)",0.1,this.ang-Math.PI,Math.random()*2-1);					
+function carCollisionEffect(x,y) {
+    for (var i=0; i<16; i++) {
+        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(255,255,0)",0.1,0,Math.random()*2-1,Math.random()*2-1);
+    }
+    sparksEffect(x,y);
+}
+
+function wallCollisionEffect(x,y) {
+    for (var i=0; i<16; i++) {
+        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(0,255,255)",0.1,0,Math.random()*2-1,Math.random()*2-1);					
+    }
+    sparksEffect(x,y);
 }
 
 function bulletHitWallEffect(x,y)
 {
-    for (var i=0; i<8; i++) // fire
-        particles.add(x+randomInt(0,20)-10,y+randomInt(0,20)-10,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+randomInt(200,255)+","+randomInt(100,200)+",0)",0.1,this.ang-Math.PI,Math.random()*1-0.5);					
-    for (var i=0; i<8; i++) // smoke
-        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+randomInt(0,64)+","+randomInt(0,64)+","+randomInt(0,64)+")",0.1,this.ang-Math.PI,Math.random()*4-2);
+    for (var i=0; i<8; i++) { // fire
+        particles.add(x+randomInt(0,20)-10,y+randomInt(0,20)-10,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+randomInt(200,255)+","+randomInt(100,200)+",0)",0.1,0,Math.random()*1-0.5,Math.random()*1-0.5);
+    }
+    for (var i=0; i<8; i++) { // smoke
+        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+randomInt(0,64)+","+randomInt(0,64)+","+randomInt(0,64)+")",0.1,0,Math.random()*4-2,Math.random()*4-2);
+    }
+    sparksEffect(x,y);
 }
