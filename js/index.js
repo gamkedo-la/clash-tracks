@@ -3,8 +3,6 @@ var debug = false;
 var playerCar = new carClass();
 var enemyCar = new carClass();
 
-const USE_LIGHT_TRAILS = false; // not quite working: doesn't know about the camera pan
-
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -18,12 +16,6 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/framesPerSecond);
 	setupInput();
 	loadLevel(levelOne);
-	if (USE_LIGHT_TRAILS)
-	{
-		// so we can call tireTracks.add(x,y,r); in car.js
-		window.tireTracks = new decalManager(); 
-		tireTracks.resize();
-	}
 }
 
 function loadLevel(whichLevel) {
@@ -52,7 +44,6 @@ function drawAll() {
     // this way we can just draw them at their "actual" position coordinates
   	canvasContext.translate(-camPanX,-camPanY);
 	drawTracks();
-	if (USE_LIGHT_TRAILS) tireTracks.draw();
 	particles.draw();
 	playerCar.draw();
 	enemyCar.draw();

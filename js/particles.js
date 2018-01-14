@@ -66,6 +66,7 @@ function particleSystem() {
                 if (lifePercent>1) lifePercent = 1;
                 if (lifePercent<0) lifePercent = 0;
 
+                // FIXME: framerate dependent
                 p.x += p.velX;
                 p.x += p.velY;
                 p.velX*=0.94;
@@ -131,4 +132,12 @@ function wallCollisionEffect(x,y)
 {
     for (var i=0; i<16; i++)
         particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(0,255,255)",0.1,this.ang-Math.PI,Math.random()*2-1);					
+}
+
+function bulletHitWallEffect(x,y)
+{
+    for (var i=0; i<8; i++) // fire
+        particles.add(x+randomInt(0,20)-10,y+randomInt(0,20)-10,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+randomInt(200,255)+","+randomInt(100,200)+",0)",0.1,this.ang-Math.PI,Math.random()*1-0.5);					
+    for (var i=0; i<8; i++) // smoke
+        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+randomInt(0,64)+","+randomInt(0,64)+","+randomInt(0,64)+")",0.1,this.ang-Math.PI,Math.random()*4-2);
 }

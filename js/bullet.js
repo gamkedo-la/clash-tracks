@@ -42,7 +42,8 @@ class Bullet{
         if(bulletTrackCol >= 0 && bulletTrackCol < TRACK_COLS && bulletTrackRow >= 0 && bulletTrackRow < TRACK_ROWS) {
             let tileHere =returnTileTypeAtColRow(bulletTrackCol, bulletTrackRow);
             if( tileHere != TRACK_ROAD ) {
-               this.remove = true;	
+			   this.remove = true;
+			   bulletHitWallEffect(this.x,this.y);	
             }
 		}
 	}
