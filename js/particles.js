@@ -104,7 +104,22 @@ function particleSystem() {
         //console.log('drew'+drew);
     }
 
-       // helper function (inclusive: eg 1,10 may include 1 or 10)
-    function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
     
 };
+
+// helper function (inclusive: eg 1,10 may include 1 or 10)
+function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+// custom stuff for this game:
+
+function carCollisionEffect(x,y)
+{
+    for (var i=0; i<16; i++)
+        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(255,255,0)",0.1,this.ang-Math.PI);					
+}
+
+function wallCollisionEffect(x,y)
+{
+    for (var i=0; i<16; i++)
+        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(0,255,255)",0.1,this.ang-Math.PI);					
+}

@@ -166,7 +166,8 @@ function carCarHandling(whichCar){
 					var random = Math.random()*2;
 					var sign = random == 1 ? -1 : 1;
 					whichCar.ang += sign * 0.05;
-					whichCar.speed *= -0.5;						
+					whichCar.speed *= -0.5;	
+					carCollisionEffect(whichCar.CollisionPoints[0].x,whichCar.CollisionPoints[0].y);
 					break;
 				}
 			}

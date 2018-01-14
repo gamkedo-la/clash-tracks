@@ -126,7 +126,8 @@ function carTrackHandling(whichCar) {
 				// next two lines added to fix a bug, mentioned in video 9.6
 				// undoes the car movement which got it onto the wall
 
-			
+				wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
+
 				whichCar.x -= Math.cos(whichCar.ang ) * whichCar.speed;
 				whichCar.y -= Math.sin(whichCar.ang ) * whichCar.speed ;
 				// whichCar.ang += 0.05;
