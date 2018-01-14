@@ -6,9 +6,11 @@ function particleSystem() {
 
     var particle = [];
         
-    this.add = function(x, y, sprite, life, size, color, rotationSpeed, forcedAngle) {
+    this.add = function(x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY) {
 
         var p, pnum, pcount;
+        if (velX==undefined) velX = 0;
+        if (velY==undefined) velY = 0;
         
         if (rotationSpeed==undefined) rotationSpeed = Math.random()*3-2;
         if (forcedAngle==undefined) forcedAngle = 0;
@@ -42,6 +44,8 @@ function particleSystem() {
             p.angle = forcedAngle;
             p.alpha = 1;
             p.rotSpd = rotationSpeed;
+            p.velX = velX;
+            p.velY = velY;
         }
 
     }
@@ -62,6 +66,11 @@ function particleSystem() {
                 if (lifePercent>1) lifePercent = 1;
                 if (lifePercent<0) lifePercent = 0;
 
+                p.x += p.velX;
+                p.x += p.velY;
+                p.velX*=0.94;
+                p.velY*=0.94;
+                
                 //console.log('p.death: ' + p.death);
                 //console.log('timestamp: ' + timestamp);
 
@@ -115,11 +124,11 @@ function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)
 function carCollisionEffect(x,y)
 {
     for (var i=0; i<16; i++)
-        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(255,255,0)",0.1,this.ang-Math.PI);					
+        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(255,255,0)",0.1,this.ang-Math.PI,Math.random()*2-1);					
 }
 
 function wallCollisionEffect(x,y)
 {
     for (var i=0; i<16; i++)
-        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(0,255,255)",0.1,this.ang-Math.PI);					
+        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb(0,255,255)",0.1,this.ang-Math.PI,Math.random()*2-1);					
 }
