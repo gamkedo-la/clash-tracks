@@ -91,11 +91,11 @@ function carTrackHandling(whichCar) {
 	 whichCar.CollisionPoints[4].x = whichCar.x  - Math.sin(whichCar.ang )*whichCar.height/2;
 	 whichCar.CollisionPoints[4].y = whichCar.y + Math.cos(whichCar.ang )*whichCar.height/2;
 
-	 //right corner collision body
+	 //top right corner collision body
 	 whichCar.CollisionPoints[5].x = whichCar.x +  Math.cos(whichCar.ang )* whichCar.width/4 -  Math.sin(whichCar.ang )* whichCar.width/4; 
 	 whichCar.CollisionPoints[5].y = whichCar.y + Math.cos(whichCar.ang )* whichCar.width/4 +  Math.sin(whichCar.ang )* whichCar.width/4; ;
 
-	 //left collision body
+	 //top left corner collision body
 	 whichCar.CollisionPoints[6].x = whichCar.x + Math.cos(whichCar.ang )* whichCar.width/4 +  Math.sin(whichCar.ang )* whichCar.width/4;
 	 whichCar.CollisionPoints[6].y = whichCar.y - Math.cos(whichCar.ang )* whichCar.width/4 +  Math.sin(whichCar.ang )* whichCar.width/4;
 

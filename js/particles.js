@@ -146,10 +146,10 @@ function wallCollisionEffect(x,y) {
 function bulletHitWallEffect(x,y)
 {
     for (var i=0; i<8; i++) { // fire
-        particles.add(x+randomInt(0,20)-10,y+randomInt(0,20)-10,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+randomInt(200,255)+","+randomInt(100,200)+",0)",0.1,0,Math.random()*1-0.5,Math.random()*1-0.5);
+        particles.add(x+randomInt(0,20)-10,y+randomInt(0,20)-10,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+ randomInt(0,130) + "," + randomInt(0,50) + "," + randomInt(170,255)+ ")",0.1,0,Math.random()*1-0.5,Math.random()*1-0.5);
     }
     for (var i=0; i<8; i++) { // smoke
-        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+randomInt(0,64)+","+randomInt(0,64)+","+randomInt(0,64)+")",0.1,0,Math.random()*4-2,Math.random()*4-2);
+        particles.add(x+randomInt(0,32)-16,y+randomInt(0,32)-16,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+randomInt(0,60)+","+randomInt(0,10)+","+randomInt(0,180)+")",0.1,0,Math.random()*4-2,Math.random()*4-2);
     }
     sparksEffect(x,y);
 }

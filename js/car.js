@@ -1,8 +1,10 @@
 const GROUNDSPEED_DECAY_MULT = 0.94;
-const DRIVE_POWER = 0.5;
+const DRIVE_POWER = 0.6;
 const REVERSE_POWER = 0.2;
-const TURN_RATE = 0.06;
-const MIN_SPEED_TO_TURN = 0.5;
+const TURN_RATE = 0.08;
+const DRIFT_TURN_RATE = 0.18;
+const MIN_SPEED_TO_TURN = 1;
+const DRIFT_MIN_SPEED = 2;
 
 
 function carClass() {
@@ -40,33 +42,33 @@ function carClass() {
 		{
 			x: 75, y: 75
 		},
-		//corner right
+		//corner right top
 		{
 			x: 75, y: 75
 		},
-		//corner 2
+		//corner left top
 		{
 			x: 75, y: 75
 		},
-		// //corner 3
+		// //corner left bottom
 		{
 			x: 75, y: 75
 		},
-		// //corner 4
+		// //corner right bottom
 		{
 			x: 75, y: 75
 		}
+		// co
+
 
 	];
 
 	// Clear tracks when creating a new car
 	if (window.tireTracks) tireTracks.reset();
 
-	this.shoot = function(origin){
-		
+	this.shoot = function(origin){		
 		bullets.push(new Bullet(this.x,this.y, this.ang, origin));
 	}
-
 
 	this.reset = function(whichImage, carName) {
 		this.name = carName;
@@ -113,13 +115,25 @@ function carClass() {
 			this.speed -= REVERSE_POWER;
 		}
 		// if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
+		// }
+		if(Math.abs(this.speed) > DRIFT_MIN_SPEED){
+			if(this.keyHeld_TurnLeft) {
+				this.ang -= DRIFT_TURN_RATE;
+			}
+			if(this.keyHeld_TurnRight) {
+				this.ang += DRIFT_TURN_RATE;
+			}
+		}
+		else{
 			if(this.keyHeld_TurnLeft) {
 				this.ang -= TURN_RATE;
+				
 			}
 			if(this.keyHeld_TurnRight) {
 				this.ang += TURN_RATE;
+				
 			}
-		// }
+		}	
 		this.x += Math.cos(this.ang) * this.speed;
 		this.y += Math.sin(this.ang) * this.speed;
 		carTrackHandling(this);
@@ -130,11 +144,14 @@ function carClass() {
 		
 		if (window.tireTracks) tireTracks.add(this.x, this.y, this.ang, 0.5);
 
-		if(this.carName == 'Player'){
-		    particles.add(this.x,this.y,particlePic,1500,32,"rgb(255,105,180)",0,this.ang-Math.PI);
+		if(this.name == 'Player'){
+		    particles.add(this.x,this.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
+			particles.add(this.x,this.y,particlePic,500,64,"rgb(46,148,183)",0,this.ang-Math.PI);
+
 		}
 		else{
 			particles.add(this.x,this.y,particlePic,1500,32,"rgb(173,216,230)",0,this.ang-Math.PI);
+
 		}
 	}
 
