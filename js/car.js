@@ -17,8 +17,10 @@ function carClass() {
 	this.prevY = 0;
 	this.ang = 0;
 	this.speed = 0;
+	this.health = 3;
 	this.myCarPic; // which picture to use
 	this.name = "Untitled Car";
+	this.isDead = false;
 	this.keyHeld_Gas = false;
 	this.keyHeld_Reverse = false;
 	this.keyHeld_TurnLeft = false;
@@ -121,7 +123,17 @@ function carClass() {
 		console.log("NO PLAYER START FOUND!");		
 	} // end of carReset func
 
-
+	this.gotHurt = function (damageDealt) {
+		if (this.isDead == true) {
+			return;
+		}
+		this.health -= damageDealt;
+		console.log("New health is " + this.health + " due to damage " + damageDealt);
+		if (this.health <= 0) {
+			console.log("You got me this time! (car dead)");
+			this.isDead = true;
+		}
+	}
 
 	this.move = function() {
 		this.prevX = this.x;

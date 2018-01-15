@@ -10,6 +10,7 @@ class Bullet{
 		this.velocityX  = Math.cos(angle)*this.speed;
 		this.height = 5;
 		this.width = 5;
+		this.damage = 1;
 		this.remove = false;
 		this.angle = angle;
 		this.origin = origin;
@@ -40,7 +41,8 @@ class Bullet{
 	carHandling() {
 		if (enemyCar.withinDistOfCollision(this.speed * 0.7, this.x, this.y)) {
 			this.remove = true;
-			bulletHitWallEffect(this.x,this.y);	
+			bulletHitWallEffect(this.x,this.y);
+			enemyCar.gotHurt(this.damage);
 		}
 	}
 
