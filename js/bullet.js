@@ -26,14 +26,22 @@ class Bullet{
 		else{
 			this.y += this.velocityY ;
 			this.x += this.velocityX ;
-		}		
+		}
 	}
 
 	draw(){
 		this.move();
 		this.brickHandling();
+		this.carHandling();
 		drawBitmapCenteredWithRotation(playerBulletPic, this.x,this.y, this.angle - Math.PI/2)
 		// colorRect(this.x, this.y, this.width, this.height, 'red');
+	}
+
+	carHandling() {
+		if (enemyCar.withinDistOfCollision(this.speed * 0.7, this.x, this.y)) {
+			this.remove = true;
+			bulletHitWallEffect(this.x,this.y);	
+		}
 	}
 
 	brickHandling(){

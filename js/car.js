@@ -197,6 +197,18 @@ function carClass() {
 			}
 		}
 	}
+
+	this.withinDistOfCollision = function(dist, testX, testY) {
+		for(var i = 0; i<this.CollisionPoints.length; i++){
+			var xd = Math.abs(this.CollisionPoints[i].x - testX);
+			var yd = Math.abs(this.CollisionPoints[i].y - testY);
+			var approxDist = xd + yd;
+			if (approxDist < dist) {
+				return true;
+			}
+		}
+		return false;
+	}
 }// car class 
 
 
