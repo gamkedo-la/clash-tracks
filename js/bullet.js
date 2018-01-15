@@ -6,8 +6,8 @@ class Bullet{
 		this.x = x;
 		this.y = y;
 		this.speed = 7
-		this.velocityY = Math.sin(angle)*this.speed;
 		this.velocityX  = Math.cos(angle)*this.speed;
+		this.velocityY = Math.sin(angle)*this.speed;
 		this.height = 5;
 		this.width = 5;
 		this.damage = 1;
@@ -20,13 +20,13 @@ class Bullet{
 		if(this.y < 0 && this.y > canvas.height && this.x > canvas.height && this.x < 0){
 			this.remove = true;			
 		}
-		if(this.origin == 'player'){
-			this.y += this.velocityY + Math.sin(this.angle)*playerCar.speed ;
-			this.x += this.velocityX + Math.cos(this.angle)*playerCar.speed ;
+		if(this.origin != null){
+			this.x += this.velocityX + Math.cos(this.angle)*this.origin.speed;
+			this.y += this.velocityY + Math.sin(this.angle)*this.origin.speed;
 		}
 		else{
-			this.y += this.velocityY ;
-			this.x += this.velocityX ;
+			this.x += this.velocityX;
+			this.y += this.velocityY;
 		}
 	}
 
@@ -39,10 +39,12 @@ class Bullet{
 	}
 
 	carHandling() {
-		if (enemyCar.withinDistOfCollision(this.speed * 0.7, this.x, this.y)) {
-			this.remove = true;
-			bulletHitWallEffect(this.x,this.y);
-			enemyCar.gotHurt(this.damage);
+		for(var i = 0; i < carList.length; i++) {
+			if (carList[i] != this.origin && carList[i].withinDistOfCollision(this.speed * 0.7, this.x, this.y)) {
+				this.remove = true;
+				bulletHitWallEffect(this.x,this.y);
+				carList[i].gotHurt(this.damage);
+			}
 		}
 	}
 

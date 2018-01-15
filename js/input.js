@@ -53,12 +53,13 @@ function keyPressed(evt) {
 			playerCar.keyHeld_TurnRight = true;
 			break;
 		case SPACE_BAR:
-			playerCar.shooting = true;
+			playerCar.keyHeld_Shooting = true;
 			break;
 		case KEY_O:
 			debug = !debug;
 		case KEY_SHIFT:
-			player_nos = true;
+			playerCar.keyHeld_Nos = true;
+			break;
 	}
 	evt.preventDefault();
 }
@@ -82,10 +83,10 @@ function keyReleased(evt) {
 			playerCar.keyHeld_TurnRight = false;
 			break;
 		case SPACE_BAR:
-			playerCar.shoot(origin = 'player');
-			playerCar.shooting = false;
+			playerCar.keyHeld_Shooting = false;
 			break;
 		case KEY_SHIFT:
-			player_nos = false;		
+			playerCar.keyHeld_Nos = false;
+			break;	
 	}	
 }

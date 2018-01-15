@@ -2,6 +2,7 @@ var canvas, canvasContext;
 var debug = false;
 var playerCar = new carClass();
 var enemyCar = new carClass();
+var carList = [playerCar, enemyCar];
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -9,7 +10,6 @@ window.onload = function() {
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	loadImages();
-	player_nos = false;
 }
 
 function imageLoadingDoneSoStartGame() {

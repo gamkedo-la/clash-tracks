@@ -7,7 +7,6 @@ const TURN_RATE = 0.08;
 const DRIFT_TURN_RATE = 0.18;
 const MIN_SPEED_TO_TURN = 1;
 const DRIFT_MIN_SPEED = 2;
-var player_nos = false;
 
 
 function carClass() {
@@ -20,11 +19,17 @@ function carClass() {
 	this.health = 3;
 	this.myCarPic; // which picture to use
 	this.name = "Untitled Car";
+	this.isAI = false;
 	this.isDead = false;
+
+	this.keyHeld_Nos = false;
 	this.keyHeld_Gas = false;
 	this.keyHeld_Reverse = false;
 	this.keyHeld_TurnLeft = false;
 	this.keyHeld_TurnRight = false;
+	this.keyHeld_Shooting = false;
+	this.semiAutoLock = false;
+
 	this.height = this.width = 44;
 	this.CollisionPoints = [
 		//center
@@ -88,14 +93,15 @@ function carClass() {
 	// Clear tracks when creating a new car
 	if (window.tireTracks) tireTracks.reset();
 
-	this.shoot = function(origin){		
-		bullets.push(new Bullet(this.x,this.y, this.ang, origin));
+	this.shoot = function(){		
+		bullets.push(new Bullet(this.x,this.y, this.ang, this));
 	}
 
 	this.reset = function(whichImage, carName) {
 		this.name = carName;
 		this.myCarPic = whichImage;
 		this.speed = 0;
+		this.keyHeld_Nos = false;
 		var trackValueToCheck =0;
 		// console.log(carName);
 		if(carName == "Player"){
@@ -107,6 +113,8 @@ function carClass() {
 			trackValueToCheck = TRACK_ENEMYSTART;
 			this.height = 18;
 			this.weight = 44;
+			this.isAI = true;
+			console.log("Enemy AI is set to " + this.isAI);
 		}	
 		for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
@@ -124,7 +132,7 @@ function carClass() {
 	} // end of carReset func
 
 	this.gotHurt = function (damageDealt) {
-		if (this.isDead == true) {
+		if (this.isDead) {
 			return;
 		}
 		this.health -= damageDealt;
@@ -138,13 +146,31 @@ function carClass() {
 	this.move = function() {
 		this.prevX = this.x;
 		this.prevY = this.y;
+		if (this.isAI) {
+			this.keyHeld_Gas = true;
+			this.keyHeld_TurnRight = true;
+			this.keyHeld_Shooting = Math.random() < 0.05;
+		}
+		if (this.isDead) {
+			this.keyHeld_Gas = false;
+			this.keyHeld_Reverse = false;
+			this.keyHeld_TurnLeft = false;
+			this.keyHeld_TurnRight = false;
+			this.keyHeld_Nos = false;
+		}
+		if(this.keyHeld_Shooting) {
+			if (this.semiAutoLock == false) {
+				this.shoot();
+			}
+			this.semiAutoLock = true;  // semi-automatic
+		} else {
+			this.semiAutoLock = false;
+		}
 
-		if(player_nos){
+		if(this.keyHeld_Nos){
 			this.speed *= GROUNDSPEED_DECAY_MULT_NOS;
-
 		}else{
 			this.speed *= GROUNDSPEED_DECAY_MULT;
-
 		}
 
 		if(this.keyHeld_Gas) {
@@ -184,7 +210,7 @@ function carClass() {
 		if (window.tireTracks) tireTracks.add(this.x, this.y, this.ang, 0.5);
 
 		if(this.name == 'Player'){
-			if(player_nos){
+			if(this.keyHeld_Nos){
 				particles.add(this.x,this.y,particlePic,500,64,"rgb(46,148,200)",0,this.ang-Math.PI);
 			}
 			else{
