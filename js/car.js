@@ -151,12 +151,13 @@ function carClass() {
 			this.keyHeld_TurnRight = true;
 			this.keyHeld_Shooting = Math.random() < 0.05;
 		}
-		if (this.isDead) {
+		if (this.isDead) {  // shutting off all controls for AI/player since car is dead.
 			this.keyHeld_Gas = false;
 			this.keyHeld_Reverse = false;
 			this.keyHeld_TurnLeft = false;
 			this.keyHeld_TurnRight = false;
 			this.keyHeld_Nos = false;
+			this.keyHeld_Shooting = false;
 		}
 		if(this.keyHeld_Shooting) {
 			if (this.semiAutoLock == false) {
@@ -237,6 +238,12 @@ function carClass() {
 	}
 
 	this.withinDistOfCollision = function(dist, testX, testY) {
+		var centerDx = Math.abs(this.x - testX);
+		var centerDy = Math.abs(this.y - testY);
+		var approxDistToCar = centerDx + centerDy;
+		if (approxDistToCar > this.myCarPic.width) {
+			return;  // nowhere near close enough to bother checking individual points
+		}
 		for(var i = 0; i<this.CollisionPoints.length; i++){
 			var xd = Math.abs(this.CollisionPoints[i].x - testX);
 			var yd = Math.abs(this.CollisionPoints[i].y - testY);
