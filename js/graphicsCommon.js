@@ -23,6 +23,14 @@ function colorText(showWords, textX,textY, fillColor) {
 	canvasContext.fillText(showWords, textX, textY);
 }
 
+function colorLine(x1, y1, x2, y2, color) {
+	canvasContext.strokeStyle = color;
+	canvasContext.beginPath();
+	canvasContext.moveTo(x1, y1);
+	canvasContext.lineTo(x2, y2);
+	canvasContext.stroke();
+}
+
 // takes an image and colors and fades it as required
 // returns a new canvas we can use as a sprite
 // reuses the same temp buffer over and over for performance reasons

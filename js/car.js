@@ -149,7 +149,11 @@ function carClass() {
 		if (this.isAI) {
 			this.keyHeld_Gas = true;
 			this.keyHeld_TurnRight = true;
-			this.keyHeld_Shooting = Math.random() < 0.05;
+			if (anyWallsBetweenTwoPoints(this.x, this.y, playerCar.x, playerCar.y) == false) {
+				this.keyHeld_Shooting = Math.random() < 0.3;
+			} else {
+				this.keyHeld_Shooting = false;
+			}
 		}
 		if (this.isDead) {  // shutting off all controls for AI/player since car is dead.
 			this.keyHeld_Gas = false;

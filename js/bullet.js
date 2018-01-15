@@ -49,18 +49,13 @@ class Bullet{
 	}
 
 	brickHandling(){
-      	var bulletTrackCol = Math.floor(this.x / TRACK_W);
-		var bulletTrackRow = Math.floor(this.y / TRACK_H);
-        if(bulletTrackCol >= 0 && bulletTrackCol < TRACK_COLS && bulletTrackRow >= 0 && bulletTrackRow < TRACK_ROWS) {
-            let tileHere =returnTileTypeAtColRow(bulletTrackCol, bulletTrackRow);
-            if( tileHere != TRACK_ROAD ) {
-			   this.remove = true;
-			   bulletHitWallEffect(this.x,this.y);	
-            }
+		let tileHere = returnTileTypeAtPixelXY(this.x, this.y);
+		if( tileHere != TRACK_ROAD ) {
+			this.remove = true;
+			bulletHitWallEffect(this.x,this.y);	
 		}
-	}
-}
-
+	} // en brickHandling
+} // end Bullet class
 
 function drawBullets(){
 	//drawing
@@ -73,4 +68,4 @@ function drawBullets(){
 			bullets.splice(i,1);
 		}
 	}
-}
+} // end drawBullets

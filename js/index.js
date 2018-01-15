@@ -48,6 +48,7 @@ function drawAll() {
 	particles.draw();
 	playerCar.draw();
 	enemyCar.draw();
-	drawBullets();	
+	drawBullets();
+	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 }

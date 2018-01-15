@@ -69,6 +69,12 @@ function returnTileTypeAtColRow(col, row) {
 	}
 }
 
+function returnTileTypeAtPixelXY(pixelX, pixelY) {
+	var trackCol = Math.floor(pixelX / TRACK_W);
+	var trackRow = Math.floor(pixelY / TRACK_H);
+	return returnTileTypeAtColRow(trackCol, trackRow);
+}
+
 function carTrackHandling(whichCar) {
 	 updateCollisionPoints(whichCar);
 
@@ -172,6 +178,28 @@ function drawTracks() {
 	} // end of for each row
 } // end of drawTracks func
 
+function anyWallsBetweenTwoPoints(x1, y1, x2, y2) {
+	var isBlocked = false;
+	var testX = x1, testY = y1;
+	var stepsNeeded = (distance(x1, y1, x2, y2) / TRACK_W) * 2;
+	var stepX = (x2 - x1) / stepsNeeded;
+	var stepY = (y2 - y1) / stepsNeeded;
+	for (var i = 0; i < stepsNeeded; i++) {
+		testX += stepX;
+		testY += stepY;
+		if (debug) {
+			colorCircle(testX, testY, 4, 'yellow');
+		}
+		if (returnTileTypeAtPixelXY(testX, testY) != TRACK_ROAD) {
+			isBlocked = true;
+			break;
+		}
+	}
+	if (debug) {
+		colorLine(x1, y1, x2, y2, isBlocked ? 'red' : 'lime');
+	}
+	return isBlocked;
+}
 
 function updateCollisionPoints(whichCar){
 	//Center Point
