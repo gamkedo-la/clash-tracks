@@ -140,6 +140,7 @@ function carClass() {
 		if (this.health <= 0) {
 			console.log("You got me this time! (car dead)");
 			this.isDead = true;
+			this.myCarPic = wreckedCarPic;
 		}
 	}
 
