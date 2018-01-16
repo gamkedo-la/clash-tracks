@@ -1,8 +1,12 @@
+const framesPerSecond = 30;
+// const TIME_TO_FINISH_LVL_1 = 2 * 60 * framesPerSecond; // 2 minutes
+const TIME_TO_FINISH_LVL_1 = 1 * 50 * framesPerSecond;
 var canvas, canvasContext;
 var debug = false;
 var playerCar = new carClass();
 var enemyCar = new carClass();
 var carList = [playerCar, enemyCar];
+var timeToFinishLevel;
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -13,10 +17,10 @@ window.onload = function() {
 }
 
 function imageLoadingDoneSoStartGame() {
-	var framesPerSecond = 30;
 	setInterval(updateAll, 1000/framesPerSecond);
 	setupInput();
 	loadLevel(levelOne);
+	timeToFinishLevel = TIME_TO_FINISH_LVL_1;
 }
 
 function loadLevel(whichLevel) {
@@ -25,7 +29,21 @@ function loadLevel(whichLevel) {
 	enemyCar.reset(enemyCarPic, "Enemy");
 }
 
+function resetLevel() {
+    timeToFinishLevel = TIME_TO_FINISH_LVL_1;
+    loadLevel(levelOne);
+}
+
+function updateLevelCounter() {
+    timeToFinishLevel--;
+}
+
 function updateAll() {
+    if (timeToFinishLevel > 0) {
+        updateLevelCounter();
+	} else {
+    	resetLevel();
+	}
 	moveAll();
 	drawAll();
 	particles.update();
@@ -35,7 +53,7 @@ function moveAll() {
 	playerCar.move();
 	enemyCar.move();
 	// playerCar.checkOtherCarCollision(enemyCar);
-	cameraFollow();	
+	cameraFollow();
 }
 
 function drawAll() {
@@ -51,4 +69,6 @@ function drawAll() {
 	drawBullets();
 	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
+	colorText("TIME: " + Math.ceil(timeToFinishLevel / framesPerSecond), 30, 30, 'white');
+    colorText("HP: " + playerCar.health, canvas.width - 30, 30, 'white', 'right');
 }

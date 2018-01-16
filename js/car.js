@@ -7,6 +7,7 @@ const TURN_RATE = 0.08;
 const DRIFT_TURN_RATE = 0.18;
 const MIN_SPEED_TO_TURN = 1;
 const DRIFT_MIN_SPEED = 2;
+const INITIAL_HEALTH = 3;
 
 
 function carClass() {
@@ -16,7 +17,7 @@ function carClass() {
 	this.prevY = 0;
 	this.ang = 0;
 	this.speed = 0;
-	this.health = 3;
+	this.health = INITIAL_HEALTH;
 	this.myCarPic; // which picture to use
 	this.name = "Untitled Car";
 	this.isAI = false;
@@ -85,7 +86,7 @@ function carClass() {
 		{
 			x: 75, y: 75
 		}
-		
+
 
 
 	];
@@ -98,6 +99,8 @@ function carClass() {
 	}
 
 	this.reset = function(whichImage, carName) {
+		this.isDead = false;
+		this.health = INITIAL_HEALTH;
 		this.name = carName;
 		this.myCarPic = whichImage;
 		this.speed = 0;
@@ -141,6 +144,10 @@ function carClass() {
 			console.log("You got me this time! (car dead)");
 			this.isDead = true;
 			this.myCarPic = wreckedCarPic;
+
+			if (this.name === "Player") {
+                resetLevel();
+			}
 		}
 	}
 

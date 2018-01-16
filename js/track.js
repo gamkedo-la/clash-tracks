@@ -38,7 +38,7 @@ var levelOne = [ 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5,
 				 1,	6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 
 				 1,	5, 5, 5, 5, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 
 				 1,	5, 5, 5, 5, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 
-				 1,	5, 5, 5, 5, 6, 6, 1, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 
+				 1,	5, 5, 5, 5, 6, 6, 1, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				 1,	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
 				 ];
 
@@ -92,7 +92,7 @@ function carTrackHandling(whichCar) {
 
 			if(tileHere == TRACK_GOAL) {
 				console.log(whichCar.name + " WINS!");
-				loadLevel(levelOne);
+				resetLevel();
 			} else if(tileHere != TRACK_ROAD) {
 				// next two lines added to fix a bug, mentioned in video 9.6
 				// undoes the car movement which got it onto the wall
