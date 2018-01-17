@@ -41,7 +41,7 @@ function loadImages() {
 		{trackType: TRACK_DISK, theFile: "track_disk.png"},
 		{trackType: TRACK_CITIES, theFile: "aliencities.png"},
 		{trackType: TRACK_BRICKS, theFile: "alienBricks.png"}
-		];
+	];
 
 	picsToLoad = imageList.length;
 	for(var i=0;i<imageList.length;i++) {

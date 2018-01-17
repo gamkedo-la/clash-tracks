@@ -1,61 +1,59 @@
-
 let bullets = [];
 
-class Bullet{
-	constructor(x, y, angle,origin){
-		this.x = x;
-		this.y = y;
-		this.speed = 7
-		this.velocityX  = Math.cos(angle)*this.speed;
-		this.velocityY = Math.sin(angle)*this.speed;
-		this.height = 5;
-		this.width = 5;
-		this.damage = 1;
-		this.remove = false;
-		this.angle = angle;
-		this.origin = origin;
-	}
+function bulletClass(x, y, angle,origin) {
+	this.pos = vector.create();
+	this.pos.x = x;
+	this.pos.y = y;
+	this.speed = 7
+	this.velocity = vector.create();
+	this.velocity.x = Math.cos(angle)*this.speed;
+	this.velocity.y =Math.sin(angle)*this.speed;	
+	this.width = 5;
+	this.damage = 1;
+	this.remove = false;
+	this.angle = angle;
+	this.origin = origin;
 
-	move(){
-		if(this.y < 0 && this.y > canvas.height && this.x > canvas.height && this.x < 0){
+	this.move = function(){
+		if(this.pos.y < 0 && this.pos.y > canvas.height && this.pos.x > canvas.height && this.pos.x < 0){
 			this.remove = true;			
 		}
 		if(this.origin != null){
-			this.x += this.velocityX + Math.cos(this.angle)*this.origin.speed;
-			this.y += this.velocityY + Math.sin(this.angle)*this.origin.speed;
+			this.pos.x += this.velocity.x + Math.cos(this.angle)*Math.abs(this.origin.speed);
+			this.pos.y += this.velocity.y + Math.sin(this.angle)*Math.abs(this.origin.speed);
 		}
 		else{
-			this.x += this.velocityX;
-			this.y += this.velocityY;
+			this.pos.x += this.velocity.x;
+			this.pos.y += this.velocity.y;
 		}
 	}
 
-	draw(){
+	this.draw = function(){
 		this.move();
 		this.brickHandling();
 		this.carHandling();
-		drawBitmapCenteredWithRotation(playerBulletPic, this.x,this.y, this.angle - Math.PI/2)
-		// colorRect(this.x, this.y, this.width, this.height, 'red');
+		drawBitmapCenteredWithRotation(playerBulletPic, this.pos.x,this.pos.y, this.angle - Math.PI/2)
 	}
 
-	carHandling() {
+	this.carHandling = function() {
 		for(var i = 0; i < carList.length; i++) {
-			if (carList[i] != this.origin && carList[i].withinDistOfCollision(this.speed * 0.7, this.x, this.y)) {
+			if (carList[i] != this.origin && carList[i].withinDistOfCollision(this.speed * 0.7, this.pos.x, this.pos.y)) {
 				this.remove = true;
-				bulletHitWallEffect(this.x,this.y);
+				bulletHitWallEffect(this.pos.x,this.pos.y);
 				carList[i].gotHurt(this.damage);
 			}
 		}
 	}
 
-	brickHandling(){
-		let tileHere = returnTileTypeAtPixelXY(this.x, this.y);
+	this.brickHandling = function(){
+		let tileHere = returnTileTypeAtPixelXY(this.pos.x, this.pos.y);
 		if( tileHere != TRACK_ROAD ) {
 			this.remove = true;
-			bulletHitWallEffect(this.x,this.y);	
+			bulletHitWallEffect(this.pos.x,this.pos.y);	
 		}
 	} // en brickHandling
-} // end Bullet class
+
+}
 
 function drawBullets(){
 	//drawing

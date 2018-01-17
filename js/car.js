@@ -8,13 +8,15 @@ const DRIFT_TURN_RATE = 0.18;
 const MIN_SPEED_TO_TURN = 1;
 const DRIFT_MIN_SPEED = 2;
 const INITIAL_HEALTH = 3;
-
+const CAR_COLLISION_POINTS = 13;
 
 function carClass() {
-	this.x = 75;
-	this.y = 75;
-	this.prevX = 0;
-	this.prevY = 0;
+	this.pos = vector.create(75,75);
+	this.prevPos = vector.create(0,0);
+	// this.pos.x = 75;
+	// this.pos.y = 75;
+	// this.prevPos.x = 0;
+	// this.prevPos.y = 0;
 	this.ang = 0;
 	this.speed = 0;
 	this.health = INITIAL_HEALTH;
@@ -22,7 +24,6 @@ function carClass() {
 	this.name = "Untitled Car";
 	this.isAI = false;
 	this.isDead = false;
-
 	this.keyHeld_Nos = false;
 	this.keyHeld_Gas = false;
 	this.keyHeld_Reverse = false;
@@ -30,72 +31,14 @@ function carClass() {
 	this.keyHeld_TurnRight = false;
 	this.keyHeld_Shooting = false;
 	this.semiAutoLock = false;
-
 	this.height = this.width = 44;
-	this.CollisionPoints = [
-		//center
-		{
-			x: 75, y: 75
-		},
-		//top
-		{
-			x: 75, y: 75
-		},
-		//bottom
-		{
-			x: 75, y: 75
-		},
-		//left
-		{
-			x: 75, y: 75
-		},
-		//right
-		{
-			x: 75, y: 75
-		},
-		//corner right top
-		{
-			x: 75, y: 75
-		},
-		//corner left top
-		{
-			x: 75, y: 75
-		},
-		// //corner left bottom
-		{
-			x: 75, y: 75
-		},
-		// //corner right bottom
-		{
-			x: 75, y: 75
-		},
-		//30 degree corners for removing collision bugs, Between middle and corner points
-		//top right
-		{
-			x: 75, y: 75
-		},
-		//corner left top
-		{
-			x: 75, y: 75
-		},
-		// //corner left bottom
-		{
-			x: 75, y: 75
-		},
-		// // //corner right bottom
-		{
-			x: 75, y: 75
-		}
-
-
-
-	];
+	this.CollisionPoints = initializeCollisionPoints();
 
 	// Clear tracks when creating a new car
 	if (window.tireTracks) tireTracks.reset();
 
-	this.shoot = function(){		
-		bullets.push(new Bullet(this.x,this.y, this.ang, this));
+	this.shoot = function(){
+		bullets.push(new bulletClass(this.pos.x,this.pos.y, this.ang, this));
 	}
 
 	this.reset = function(whichImage, carName) {
@@ -125,8 +68,8 @@ function carClass() {
 					if(trackGrid[arrayIndex] == trackValueToCheck) {
 						trackGrid[arrayIndex] = TRACK_ROAD;
 						this.ang = -Math.PI/2;
-						this.x = eachCol * TRACK_W + TRACK_W/2;
-						this.y = eachRow * TRACK_H + TRACK_H/2;
+						this.pos.x = eachCol * TRACK_W + TRACK_W/2;
+						this.pos.y = eachRow * TRACK_H + TRACK_H/2;
 						return;
 				} // end of player start if
 			} // end of col for
@@ -152,14 +95,15 @@ function carClass() {
 	}
 
 	this.move = function() {
-		this.prevX = this.x;
-		this.prevY = this.y;
+		this.prevPos.x = this.pos.x;
+		this.prevPos.y = this.pos.y;
 		if (this.isAI) {
 			this.keyHeld_Gas = true;
 			this.keyHeld_TurnRight = true;
-			if (anyWallsBetweenTwoPoints(this.x, this.y, playerCar.x, playerCar.y) == false) {
+			if (anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.x, playerCar.y) == false) {
 				this.keyHeld_Shooting = Math.random() < 0.3;
-			} else {
+			} 
+			else {
 				this.keyHeld_Shooting = false;
 			}
 		}
@@ -176,17 +120,17 @@ function carClass() {
 				this.shoot();
 			}
 			this.semiAutoLock = true;  // semi-automatic
-		} else {
+		} 
+		else {
 			this.semiAutoLock = false;
 		}
-
 		if(this.keyHeld_Nos){
 			this.speed *= GROUNDSPEED_DECAY_MULT_NOS;
-		}else{
+		}
+		else{
 			this.speed *= GROUNDSPEED_DECAY_MULT;
 		}
-
-		if(this.keyHeld_Gas) {
+		if(this.keyHeld_Gas){
 			this.speed += DRIVE_POWER;
 		}
 		if(this.keyHeld_Reverse) {
@@ -212,46 +156,43 @@ function carClass() {
 				
 			}
 		}	
-		this.x += Math.cos(this.ang) * this.speed;
-		this.y += Math.sin(this.ang) * this.speed;
+		this.pos.x += Math.cos(this.ang) * this.speed;
+		this.pos.y += Math.sin(this.ang) * this.speed;
 		carTrackHandling(this);
 		carCarHandling(this);
 		
 		// white trail
-		// particles.add(this.x+Math.random()*20-10,this.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
+		// particles.add(this.pos.x+Math.random()*20-10,this.pos.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
 		
-		if (window.tireTracks) tireTracks.add(this.x, this.y, this.ang, 0.5);
+		if (window.tireTracks) tireTracks.add(this.pos.x, this.pos.y, this.ang, 0.5);
 
 		if(this.name == 'Player'){
 			if(this.keyHeld_Nos){
-				particles.add(this.x,this.y,particlePic,500,64,"rgb(46,148,200)",0,this.ang-Math.PI);
+				particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(46,148,200)",0,this.ang-Math.PI);
 			}
 			else{
-				particles.add(this.x,this.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
-				particles.add(this.x,this.y,particlePic,500,64,"rgb(46,148,193)",0,this.ang-Math.PI);
-
-			}
-		    
+				particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
+				particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(46,148,193)",0,this.ang-Math.PI);
+			} 
 		}
 		else{
-			particles.add(this.x,this.y,particlePic,1500,32,"rgb(173,216,230)",0,this.ang-Math.PI);
-
+			particles.add(this.pos.x,this.pos.y,particlePic,1500,32,"rgb(173,216,230)",0,this.ang-Math.PI);
 		}
 	}
 
 	this.draw = function() {
-		drawBitmapCenteredWithRotation(this.myCarPic, this.x ,this.y, this.ang);
+		drawBitmapCenteredWithRotation(this.myCarPic, this.pos.x ,this.pos.y, this.ang);
 		if(debug){
-			colorCircle(this.x,this.y ,5,"lime");
+			colorCircle(this.pos.x,this.pos.y ,5,"lime");
 			for(var i = 0; i<this.CollisionPoints.length; i++){
-				colorCircle(this.CollisionPoints[i].x,this.CollisionPoints[i].y ,5,"lime");
+				colorCircle(this.CollisionPoints[i].x,this.CollisionPoints[i].y ,1,"lime");
 			}
 		}
 	}
 
 	this.withinDistOfCollision = function(dist, testX, testY) {
-		var centerDx = Math.abs(this.x - testX);
-		var centerDy = Math.abs(this.y - testY);
+		var centerDx = Math.abs(this.pos.x - testX);
+		var centerDy = Math.abs(this.pos.y - testY);
 		var approxDistToCar = centerDx + centerDy;
 		if (approxDistToCar > this.myCarPic.width) {
 			return;  // nowhere near close enough to bother checking individual points
@@ -293,3 +234,13 @@ function carCarHandling(whichCar){
 		// }		
 	}
 }
+
+function initializeCollisionPoints(){
+	var arr = [];
+	for(var i = 0; i < CAR_COLLISION_POINTS; i++){
+		arr.push({x:'',y:''});
+	}
+	return arr;
+
+}
+

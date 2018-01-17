@@ -47,6 +47,7 @@ function updateAll() {
 	moveAll();
 	drawAll();
 	particles.update();
+	console.log(bullets);
 }
 
 function moveAll() {

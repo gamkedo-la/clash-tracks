@@ -3,7 +3,7 @@ const TRACK_H = 70;
 const TRACK_GAP = 2;
 const TRACK_COLS = 20;
 const TRACK_ROWS = 36;
-const CAM_SCROLL_SPEED = 6
+
 var levelOne = [ 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5,
 				 5, 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				 5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -36,9 +36,9 @@ var levelOne = [ 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5,
 				 1,	1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 				 1,	6, 6, 6, 6, 6, 6, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 
 				 1,	6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 
-				 1,	5, 5, 5, 5, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 
-				 1,	5, 5, 5, 5, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 
-				 1,	5, 5, 5, 5, 6, 6, 1, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+				 1,	0, 0, 0, 0, 3, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 
+				 1,	0, 5, 5, 5, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 
+				 1,	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 				 1,	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
 				 ];
 
@@ -52,55 +52,63 @@ const TRACK_CITIES = 5;
 const TRACK_BRICKS = 6;
 const TRACK_ENEMYSTART = 7;
 
-// var carCornerPoints = [{},{},{},{}];
+const CAM_SCROLL_SPEED = 6
 var carLeftBottomPointX,carLeftBottomPointY;
 var camPanX = 0.0;
 var camPanY = 0.0;
+
 const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X = 60;
 const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_Y = 60;
 
 function returnTileTypeAtColRow(col, row) {
+
 	if(col >= 0 && col < TRACK_COLS &&
 		row >= 0 && row < TRACK_ROWS) {
 		 var trackIndexUnderCoord = rowColToArrayIndex(col, row);
 		 return trackGrid[trackIndexUnderCoord];
-	} else {
+	}
+	else {
 		return TRACK_WALL;
 	}
+
 }
 
 function returnTileTypeAtPixelXY(pixelX, pixelY) {
+
 	var trackCol = Math.floor(pixelX / TRACK_W);
 	var trackRow = Math.floor(pixelY / TRACK_H);
 	return returnTileTypeAtColRow(trackCol, trackRow);
+
 }
 
 function carTrackHandling(whichCar) {
+
 	 updateCollisionPoints(whichCar);
 
 	 for(var i = 0; i < whichCar.CollisionPoints.length; i++){
-
 	 	// console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
-	 
 	 	var carTrackCol = Math.floor((whichCar.CollisionPoints[i].x) / TRACK_W);
 		var carTrackRow = Math.floor((whichCar.CollisionPoints[i].y) / TRACK_H);
 		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
 
 		if(carTrackCol >= 0 && carTrackCol < TRACK_COLS &&
 			carTrackRow >= 0 && carTrackRow < TRACK_ROWS) {
+
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 
 			if(tileHere == TRACK_GOAL) {
 				console.log(whichCar.name + " WINS!");
 				resetLevel();
-			} else if(tileHere != TRACK_ROAD) {
+			} 
+			else if(tileHere != TRACK_ROAD) {
+
 				// next two lines added to fix a bug, mentioned in video 9.6
 				// undoes the car movement which got it onto the wall
 
 				wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
 
-				whichCar.x -= Math.cos(whichCar.ang ) * whichCar.speed;
-				whichCar.y -= Math.sin(whichCar.ang ) * whichCar.speed ;
+				whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
+				whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed ;
 				// whichCar.ang += 0.05;
 				whichCar.speed *= -0.5;
 				break;
@@ -116,11 +124,11 @@ function rowColToArrayIndex(col, row) {
 
 //scroll cam
 function cameraFollow() {
+
     var cameraFocusCenterX = camPanX + canvas.width/2;
     var cameraFocusCenterY = camPanY + canvas.height/2;
-
-    var playerDistFromCameraFocusX = Math.abs(playerCar.x - cameraFocusCenterX);
-    var playerDistFromCameraFocusY = Math.abs(playerCar.y -cameraFocusCenterY);
+    var playerDistFromCameraFocusX = Math.abs(playerCar.pos.x - cameraFocusCenterX);
+    var playerDistFromCameraFocusY = Math.abs(playerCar.pos.y -cameraFocusCenterY);
 
     /*if(playerDistFromCameraFocusX > PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X) {
       if(cameraFocusCenterX < playerCar.x)  {
@@ -136,8 +144,9 @@ function cameraFollow() {
         camPanY -= CAM_SCROLL_SPEED;
       }
     }*/
-    camPanX += 0.13*(playerCar.x - cameraFocusCenterX);
-    camPanY += 0.13*(playerCar.y - cameraFocusCenterY);
+
+    camPanX += 0.13*(playerCar.pos.x - cameraFocusCenterX);
+    camPanY += 0.13*(playerCar.pos.y - cameraFocusCenterY);
     // instantCamFollow();
     // this next code blocks the game from showing out of bounds
     // (this isn't required, if you don't mind seeing beyond edges)
@@ -155,13 +164,13 @@ function cameraFollow() {
     if(camPanY > maxPanTop) {
       camPanY = maxPanTop;
     }
-  }
-
+}
 
 function drawTracks() {
 	var arrayIndex = 0;
 	var drawTileX = 0;
 	var drawTileY = 0;
+
 	for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
 		for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
 
@@ -176,25 +185,29 @@ function drawTracks() {
 		drawTileY += TRACK_H;
 		drawTileX = 0;
 	} // end of for each row
+
 } // end of drawTracks func
 
 function anyWallsBetweenTwoPoints(x1, y1, x2, y2) {
+
 	var isBlocked = false;
 	var testX = x1, testY = y1;
 	var stepsNeeded = (distance(x1, y1, x2, y2) / TRACK_W) * 2;
 	var stepX = (x2 - x1) / stepsNeeded;
 	var stepY = (y2 - y1) / stepsNeeded;
+
 	for (var i = 0; i < stepsNeeded; i++) {
 		testX += stepX;
 		testY += stepY;
 		if (debug) {
-			colorCircle(testX, testY, 4, 'yellow');
+			colorCircle(testX, testY, 10, 'yellow');
 		}
 		if (returnTileTypeAtPixelXY(testX, testY) != TRACK_ROAD) {
 			isBlocked = true;
 			break;
 		}
 	}
+
 	if (debug) {
 		colorLine(x1, y1, x2, y2, isBlocked ? 'red' : 'lime');
 	}
@@ -203,56 +216,56 @@ function anyWallsBetweenTwoPoints(x1, y1, x2, y2) {
 
 function updateCollisionPoints(whichCar){
 	//Center Point
-	 whichCar.CollisionPoints[0].x = whichCar.x;
-	 whichCar.CollisionPoints[0].y = whichCar.y;
+	 whichCar.CollisionPoints[0].x = whichCar.pos.x;
+	 whichCar.CollisionPoints[0].y = whichCar.pos.y;
 
 	 //top Collision
-	 whichCar.CollisionPoints[1].x = whichCar.x +  Math.cos(whichCar.ang )* whichCar.width/2; 
-	 whichCar.CollisionPoints[1].y = whichCar.y + Math.sin(whichCar.ang )* whichCar.width/2;;
+	 whichCar.CollisionPoints[1].x = whichCar.pos.x +  Math.cos(whichCar.ang)* whichCar.width/2; 
+	 whichCar.CollisionPoints[1].y = whichCar.pos.y + Math.sin(whichCar.ang)* whichCar.width/2;;
 
 	 //bottom collision
-	 whichCar.CollisionPoints[2].x = whichCar.x - Math.cos(whichCar.ang )*whichCar.width/2;
-	 whichCar.CollisionPoints[2].y = whichCar.y - Math.sin(whichCar.ang )* whichCar.width/2;;
+	 whichCar.CollisionPoints[2].x = whichCar.pos.x - Math.cos(whichCar.ang)*whichCar.width/2;
+	 whichCar.CollisionPoints[2].y = whichCar.pos.y - Math.sin(whichCar.ang)* whichCar.width/2;;
 
 	 //left collision 
-	 whichCar.CollisionPoints[3].x = whichCar.x  + Math.sin(whichCar.ang )*whichCar.height/2; ;
-	 whichCar.CollisionPoints[3].y = whichCar.y - Math.cos(whichCar.ang )*whichCar.height/2;
+	 whichCar.CollisionPoints[3].x = whichCar.pos.x  + Math.sin(whichCar.ang)*whichCar.height/2; ;
+	 whichCar.CollisionPoints[3].y = whichCar.pos.y - Math.cos(whichCar.ang)*whichCar.height/2;
 
 	 //right collision
-	 whichCar.CollisionPoints[4].x = whichCar.x  - Math.sin(whichCar.ang )*whichCar.height/2;
-	 whichCar.CollisionPoints[4].y = whichCar.y + Math.cos(whichCar.ang )*whichCar.height/2;
+	 whichCar.CollisionPoints[4].x = whichCar.pos.x  - Math.sin(whichCar.ang)*whichCar.height/2;
+	 whichCar.CollisionPoints[4].y = whichCar.pos.y + Math.cos(whichCar.ang)*whichCar.height/2;
 
 	 //top right corner collision body
-	 whichCar.CollisionPoints[5].x = whichCar.x +  Math.cos(whichCar.ang )* whichCar.width/4 -  Math.sin(whichCar.ang )* whichCar.width/4; 
-	 whichCar.CollisionPoints[5].y = whichCar.y + Math.cos(whichCar.ang )* whichCar.width/4 +  Math.sin(whichCar.ang )* whichCar.width/4; ;
+	 whichCar.CollisionPoints[5].x = whichCar.pos.x +  Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4; 
+	 whichCar.CollisionPoints[5].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4; ;
 
 	 //top left corner collision body
-	 whichCar.CollisionPoints[6].x = whichCar.x + Math.cos(whichCar.ang )* whichCar.width/4 +  Math.sin(whichCar.ang )* whichCar.width/4;
-	 whichCar.CollisionPoints[6].y = whichCar.y - Math.cos(whichCar.ang )* whichCar.width/4 +  Math.sin(whichCar.ang )* whichCar.width/4;
+	 whichCar.CollisionPoints[6].x = whichCar.pos.x + Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
+	 whichCar.CollisionPoints[6].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
 
 	 //bottom left corner collision body
-	 whichCar.CollisionPoints[7].x = whichCar.x -  Math.cos(whichCar.ang )* whichCar.width/4 +  Math.sin(whichCar.ang )* whichCar.width/4; 
-	 whichCar.CollisionPoints[7].y = whichCar.y - Math.cos(whichCar.ang )* whichCar.width/4 -  Math.sin(whichCar.ang )* whichCar.width/4; ;
+	 whichCar.CollisionPoints[7].x = whichCar.pos.x -  Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4; 
+	 whichCar.CollisionPoints[7].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4; ;
 
 	 //bottom right corner collision body
-	 whichCar.CollisionPoints[8].x = whichCar.x - Math.cos(whichCar.ang )* whichCar.width/4 -  Math.sin(whichCar.ang )* whichCar.width/4;
-	 whichCar.CollisionPoints[8].y = whichCar.y + Math.cos(whichCar.ang )* whichCar.width/4 -  Math.sin(whichCar.ang )* whichCar.width/4;
+	 whichCar.CollisionPoints[8].x = whichCar.pos.x - Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
+	 whichCar.CollisionPoints[8].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
 
 	 //Collision points between middle and corner.
 	 //top right corner collision body
-	 whichCar.CollisionPoints[9].x = whichCar.x +  Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; 
-	 whichCar.CollisionPoints[9].y = whichCar.y + Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; ;
+	 whichCar.CollisionPoints[9].x = whichCar.pos.x +  Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; 
+	 whichCar.CollisionPoints[9].y = whichCar.pos.y + Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; ;
 
 	 // top left corner collision body
-	 whichCar.CollisionPoints[10].x = whichCar.x + Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
-	 whichCar.CollisionPoints[10].y = whichCar.y - Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
+	 whichCar.CollisionPoints[10].x = whichCar.pos.x + Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
+	 whichCar.CollisionPoints[10].y = whichCar.pos.y - Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
 
 	 //bottom left corner collision body
-	 whichCar.CollisionPoints[11].x = whichCar.x -  Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; 
-	 whichCar.CollisionPoints[11].y = whichCar.y - Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; ;
+	 whichCar.CollisionPoints[11].x = whichCar.pos.x -  Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; 
+	 whichCar.CollisionPoints[11].y = whichCar.pos.y - Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; ;
 
 	 //bottom right corner collision body
-	 whichCar.CollisionPoints[12].x = whichCar.x - Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
-	 whichCar.CollisionPoints[12].y = whichCar.y + Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
+	 whichCar.CollisionPoints[12].x = whichCar.pos.x - Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
+	 whichCar.CollisionPoints[12].y = whichCar.pos.y + Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
 }
 
