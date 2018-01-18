@@ -3,7 +3,7 @@ const GROUNDSPEED_DECAY_MULT_NOS = 0.97;
 
 const DRIVE_POWER = 0.6;
 const REVERSE_POWER = 0.2;
-const TURN_RATE = 0.08;
+const TURN_RATE = 0.04;
 const DRIFT_TURN_RATE = 0.18;
 const MIN_SPEED_TO_TURN = 1;
 const DRIFT_MIN_SPEED = 2;
@@ -13,10 +13,6 @@ const CAR_COLLISION_POINTS = 13;
 function carClass() {
 	this.pos = vector.create(75,75);
 	this.prevPos = vector.create(0,0);
-	// this.pos.x = 75;
-	// this.pos.y = 75;
-	// this.prevPos.x = 0;
-	// this.prevPos.y = 0;
 	this.ang = 0;
 	this.speed = 0;
 	this.health = INITIAL_HEALTH;
@@ -62,8 +58,8 @@ function carClass() {
 			this.isAI = true;
 			console.log("Enemy AI is set to " + this.isAI);
 		}	
-		for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
-			for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
+		for(var eachRow=0;eachRow<track_rows;eachRow++) {
+			for(var eachCol=0;eachCol<track_cols;eachCol++) {
 				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 					if(trackGrid[arrayIndex] == trackValueToCheck) {
 						trackGrid[arrayIndex] = TRACK_ROAD;
@@ -165,7 +161,7 @@ function carClass() {
 		// particles.add(this.pos.x+Math.random()*20-10,this.pos.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
 		
 		if (window.tireTracks) tireTracks.add(this.pos.x, this.pos.y, this.ang, 0.5);
-
+		//trail particles for player
 		if(this.name == 'Player'){
 			if(this.keyHeld_Nos){
 				particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(46,148,200)",0,this.ang-Math.PI);
@@ -175,15 +171,17 @@ function carClass() {
 				particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(46,148,193)",0,this.ang-Math.PI);
 			} 
 		}
+		//trail particles for enemy
 		else{
-			particles.add(this.pos.x,this.pos.y,particlePic,1500,32,"rgb(173,216,230)",0,this.ang-Math.PI);
+			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(241,180,241)",0,this.ang-Math.PI);
+			particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(148,20,211)",0,this.ang-Math.PI);
 		}
 	}
 
 	this.draw = function() {
 		drawBitmapCenteredWithRotation(this.myCarPic, this.pos.x ,this.pos.y, this.ang);
 		if(debug){
-			colorCircle(this.pos.x,this.pos.y ,5,"lime");
+			colorCircle(this.pos.x,this.pos.y ,1,"lime");
 			for(var i = 0; i<this.CollisionPoints.length; i++){
 				colorCircle(this.CollisionPoints[i].x,this.CollisionPoints[i].y ,1,"lime");
 			}
@@ -241,6 +239,5 @@ function initializeCollisionPoints(){
 		arr.push({x:'',y:''});
 	}
 	return arr;
-
 }
 

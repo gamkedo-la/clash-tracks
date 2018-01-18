@@ -5,33 +5,40 @@ var canvas, canvasContext;
 var debug = false;
 var playerCar = new carClass();
 var enemyCar = new carClass();
-var carList = [playerCar, enemyCar];
+var enemyCar2 = new carClass();
+var carList = [playerCar, enemyCar, enemyCar2];
 var timeToFinishLevel;
+var level =0;
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
+	level = 0;
 	loadImages();
 }
 
 function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/framesPerSecond);
 	setupInput();
-	loadLevel(levelOne);
+	loadLevel(level);
 	timeToFinishLevel = TIME_TO_FINISH_LVL_1;
 }
 
 function loadLevel(whichLevel) {
-	trackGrid = whichLevel.slice();
+	levelData = levels[whichLevel];
+	trackGrid = levelData.trackLayout.slice();
+	track_cols = levelData.cols;
+	track_rows = levelData.rows;
 	playerCar.reset(playerCarPic, "Player");
 	enemyCar.reset(enemyCarPic, "Enemy");
+	enemyCar2.reset(enemyCarPic,"Enemy")
 }
 
 function resetLevel() {
     timeToFinishLevel = TIME_TO_FINISH_LVL_1;
-    loadLevel(levelOne);
+    loadLevel(level);
 }
 
 function updateLevelCounter() {
@@ -47,12 +54,12 @@ function updateAll() {
 	moveAll();
 	drawAll();
 	particles.update();
-	console.log(bullets);
 }
 
 function moveAll() {
 	playerCar.move();
 	enemyCar.move();
+	enemyCar2.move();
 	// playerCar.checkOtherCarCollision(enemyCar);
 	cameraFollow();
 }
@@ -67,6 +74,8 @@ function drawAll() {
 	particles.draw();
 	playerCar.draw();
 	enemyCar.draw();
+	enemyCar2.draw();
+
 	drawBullets();
 	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll

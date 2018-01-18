@@ -34,7 +34,7 @@ function setupInput() {
 // }
 
 function keyPressed(evt) {
-	console.log(evt.keyCode);
+	// console.log(evt.keyCode);
 	switch(evt.keyCode){
 		case KEY_UP_ARROW:
 		case KEY_W:
