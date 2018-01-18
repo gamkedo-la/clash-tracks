@@ -9,6 +9,7 @@ const MIN_SPEED_TO_TURN = 1;
 const DRIFT_MIN_SPEED = 2;
 const INITIAL_HEALTH = 3;
 const CAR_COLLISION_POINTS = 13;
+var enemyCars = [];
 
 function carClass() {
 	this.pos = vector.create(75,75);
@@ -155,7 +156,7 @@ function carClass() {
 		this.pos.x += Math.cos(this.ang) * this.speed;
 		this.pos.y += Math.sin(this.ang) * this.speed;
 		carTrackHandling(this);
-		carCarHandling(this);
+		this.carCarHandling(this);
 		
 		// white trail
 		// particles.add(this.pos.x+Math.random()*20-10,this.pos.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
@@ -205,33 +206,47 @@ function carClass() {
 		}
 		return false;
 	}
-}// car class 
 
+	this.carCarHandling =function(){
+		for(var i = 0; i < carList.length; i++) {
+			
+				if(carList[i].pos.x != this.pos.x && carList[i].pos.y != this.pos.y){
 
-//car collision handling
-function carCarHandling(whichCar){
-	// console.log(whichCar);
-	if(whichCar.name == "Player"){
-		var xDistance ,yDistance;
-		// for(var i = 0; i < whichCar.CollisionPoints.length; i++){
-			for(var j = 0; j < enemyCar.CollisionPoints.length; j++){					
-				xDistance = Math.pow((whichCar.CollisionPoints[0].x - enemyCar.CollisionPoints[j].x),2);
-				yDistance = Math.pow((whichCar.CollisionPoints[0].y - enemyCar.CollisionPoints[j].y),2);
-				// console.log(Math.sqrt(xDistance + yDistance));
-				if(Math.sqrt(xDistance + yDistance) <= 18){
-					whichCar.x -= Math.cos(whichCar.ang) * whichCar.speed ;
-					whichCar.y -= Math.sin(whichCar.ang) * whichCar.speed ;
-					var random = Math.random()*2;
-					var sign = random == 1 ? -1 : 1;
-					whichCar.ang += sign * 0.05;
-					whichCar.speed *= -0.5;	
-					carCollisionEffect(whichCar.CollisionPoints[0].x,whichCar.CollisionPoints[0].y);
-					break;
+					var xDistance = Math.pow((this.pos.x - carList[i].pos.x),2);
+					var yDistance = Math.pow((this.pos.y - carList[i].pos.y),2);
+					//safe distance to check collision points
+
+					if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width/1.5){
+							this.pos.x -= Math.cos(this.ang) * this.speed ;
+							this.pos.y -= Math.sin(this.ang) * this.speed ;
+							this.ang +=  0.05;
+							this.speed *= -0.5;	
+							carCollisionEffect(this.pos.x, this.pos.y);
+							break;
+						}
+
+					//code for making collision more precise - don't remove
+
+					// if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width){	
+					// 	for(j = 1; j < carList[i].CollisionPoints.length; j++){
+					// 		var xCollisionDistance = Math.pow((this.pos.x - carList[i].CollisionPoints[j].x),2);
+					// 		var yCollisionDistance = Math.pow((this.pos.y - carList[i].CollisionPoints[j].y),2);
+					// 		if(Math.sqrt(xCollisionDistance + yCollisionDistance) <= 18){
+					// 			this.pos.x -= Math.cos(this.ang) * this.speed ;
+					// 			this.pos.y -= Math.sin(this.ang) * this.speed ;
+					// 			this.ang += 0.05;
+					// 			this.speed *= -0.5;	
+					// 			carCollisionEffect(this.pos.x, this.pos.y);
+					// 			break;
+					// 		}
+					// 	}				
+					// }
 				}
-			}
-		// }		
+			
+		}
 	}
-}
+}// end car class 
+
 
 function initializeCollisionPoints(){
 	var arr = [];

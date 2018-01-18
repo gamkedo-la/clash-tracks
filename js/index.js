@@ -1,14 +1,16 @@
+
 const framesPerSecond = 30;
 // const TIME_TO_FINISH_LVL_1 = 2 * 60 * framesPerSecond; // 2 minutes
 const TIME_TO_FINISH_LVL_1 = 1 * 50 * framesPerSecond;
+
 var canvas, canvasContext;
 var debug = false;
 var playerCar = new carClass();
-var enemyCar = new carClass();
-var enemyCar2 = new carClass();
-var carList = [playerCar, enemyCar, enemyCar2];
+//Used for testing bullet Collisions. Includes all cars.
+var carList = [playerCar];
 var timeToFinishLevel;
-var level =0;
+var level;
+var numOfEnemiesCars = 0;
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -23,17 +25,32 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/framesPerSecond);
 	setupInput();
 	loadLevel(level);
-	timeToFinishLevel = TIME_TO_FINISH_LVL_1;
 }
 
 function loadLevel(whichLevel) {
+
+	//clearing previously saved objects and data
+	enemyCars = [];
+	while(carList.length > 1){
+		carList.pop();
+	}
+	bullets = [];
+	particles.clear();
+
+	//loading level data to current level
 	levelData = levels[whichLevel];
 	trackGrid = levelData.trackLayout.slice();
 	track_cols = levelData.cols;
 	track_rows = levelData.rows;
+	timeToFinishLevel = levelData.timeLimit;
+	numOfEnemiesCars = levelData.enemyCars;
 	playerCar.reset(playerCarPic, "Player");
-	enemyCar.reset(enemyCarPic, "Enemy");
-	enemyCar2.reset(enemyCarPic,"Enemy")
+	for(var i = 0; i < numOfEnemiesCars; i++){
+		var enemyCar = new carClass();
+		enemyCar.reset(enemyCarPic, "Enemy");
+		enemyCars.push(enemyCar);
+		carList.push(enemyCar);
+	}
 }
 
 function resetLevel() {
@@ -58,9 +75,11 @@ function updateAll() {
 
 function moveAll() {
 	playerCar.move();
-	enemyCar.move();
-	enemyCar2.move();
-	// playerCar.checkOtherCarCollision(enemyCar);
+	// enemyCar.move();
+	// enemyCar2.move();
+	for(var i = 0; i < numOfEnemiesCars; i++){
+		enemyCars[i].move();
+	}
 	cameraFollow();
 }
 
@@ -73,9 +92,9 @@ function drawAll() {
 	drawTracks();
 	particles.draw();
 	playerCar.draw();
-	enemyCar.draw();
-	enemyCar2.draw();
-
+	for(var i = 0; i < numOfEnemiesCars; i++){
+		enemyCars[i].draw();
+	}
 	drawBullets();
 	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll

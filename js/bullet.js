@@ -37,7 +37,7 @@ function bulletClass(x, y, angle,origin) {
 
 	this.carHandling = function() {
 		for(var i = 0; i < carList.length; i++) {
-			if (carList[i] != this.origin && carList[i].withinDistOfCollision(this.speed * 0.7, this.pos.x, this.pos.y)) {
+			if (carList[i] != this.origin && carList[i].withinDistOfCollision(this.speed *0.9, this.pos.x, this.pos.y)) {
 				this.remove = true;
 				bulletHitWallEffect(this.pos.x,this.pos.y);
 				carList[i].gotHurt(this.damage);

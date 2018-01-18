@@ -111,6 +111,10 @@ function particleSystem() {
             }
         );
         //console.log('drew'+drew);
+    }
+
+    this.clear = function(){
+        particle = [];
     }    
 };
 
