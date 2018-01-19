@@ -13,6 +13,7 @@ const TRACK_DISK = 4;
 const TRACK_CITIES = 5;
 const TRACK_BRICKS = 6;
 const TRACK_ENEMYSTART = 7;
+const ENEMY_PATH = 50;
 const TRACK_2_BUILDINGS_1 = 21;
 const TRACK_3_BUILDINGS_1 = 22;
 const TRACK_3_BUILDINGS_2 = 23;
@@ -57,42 +58,17 @@ function carTrackHandling(whichCar) {
 
 	 for(var i = 0; i < whichCar.CollisionPoints.length; i++){
 	 	// console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
-	 	var carTrackCol = Math.floor((whichCar.CollisionPoints[i].x) / TRACK_W);
-		var carTrackRow = Math.floor((whichCar.CollisionPoints[i].y) / TRACK_H);
-		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
+	 	if(trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, goalCheck =true)){
 
-		if(carTrackCol >= 0 && carTrackCol < track_cols &&
-			carTrackRow >= 0 && carTrackRow < track_rows) {
-
-			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
-
-			if(tileHere == TRACK_GOAL) {
-				level++;
-				if(level < levels.length){
-					resetLevel();
-				}
-				else{
-					console.log('You saved Humanity')
-					level = 0;
-					resetLevel();
-				}
-			} 
-
-			else if(tileHere != TRACK_ROAD) {
-
-				// next two lines added to fix a bug, mentioned in video 9.6
-				// undoes the car movement which got it onto the wall
-
-				wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
-
+	 			wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
 				whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
 				whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed ;
-				whichCar.ang += 0.05;
+				// whichCar.ang += 0.05;
 				whichCar.speed *= -0.5;
 				break;
 
-			} // end of track found
-		} // end of valid col and row
+	 	}
+		
 	 }//end of collision for loop
 } // end of carTrackHandling func
 
@@ -154,8 +130,15 @@ function drawTracks() {
 
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = trackGrid[arrayIndex];
-			var useImg = trackPics[tileKindHere];
-
+			var useImg;
+			if(tileKindHere == ENEMY_PATH){
+				useImg = trackPics[TRACK_ROAD];
+			}
+			else{
+				useImg = trackPics[tileKindHere];
+			}
+			 
+			
 			canvasContext.drawImage(useImg,drawTileX,drawTileY);
 			drawTileX += TRACK_W;
 			arrayIndex++;
@@ -214,20 +197,20 @@ function updateCollisionPoints(whichCar){
 	 whichCar.CollisionPoints[4].y = whichCar.pos.y + Math.cos(whichCar.ang)*whichCar.height/2;
 
 	 //top right corner collision body
-	 whichCar.CollisionPoints[5].x = whichCar.pos.x +  Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4; 
-	 whichCar.CollisionPoints[5].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4; ;
+	 whichCar.CollisionPoints[5].x = whichCar.pos.x +  Math.cos(whichCar.ang)* whichCar.width/3 -  Math.sin(whichCar.ang)* whichCar.width/3; 
+	 whichCar.CollisionPoints[5].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/3 +  Math.sin(whichCar.ang)* whichCar.width/3;
 
 	 //top left corner collision body
-	 whichCar.CollisionPoints[6].x = whichCar.pos.x + Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
-	 whichCar.CollisionPoints[6].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
+	 whichCar.CollisionPoints[6].x = whichCar.pos.x + Math.cos(whichCar.ang)* whichCar.width/3 +  Math.sin(whichCar.ang)* whichCar.width/3;
+	 whichCar.CollisionPoints[6].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/3 +  Math.sin(whichCar.ang)* whichCar.width/3;
 
 	 //bottom left corner collision body
-	 whichCar.CollisionPoints[7].x = whichCar.pos.x -  Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4; 
-	 whichCar.CollisionPoints[7].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4; ;
+	 whichCar.CollisionPoints[7].x = whichCar.pos.x -  Math.cos(whichCar.ang)* whichCar.width/3.5 +  Math.sin(whichCar.ang)* whichCar.width/3.5; 
+	 whichCar.CollisionPoints[7].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/3.5 -  Math.sin(whichCar.ang)* whichCar.width/3.5;
 
 	 //bottom right corner collision body
-	 whichCar.CollisionPoints[8].x = whichCar.pos.x - Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
-	 whichCar.CollisionPoints[8].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
+	 whichCar.CollisionPoints[8].x = whichCar.pos.x - Math.cos(whichCar.ang)* whichCar.width/3.5 -  Math.sin(whichCar.ang)* whichCar.width/3.5;
+	 whichCar.CollisionPoints[8].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/3.5 -  Math.sin(whichCar.ang)* whichCar.width/3.5;
 
 	 //Collision points between middle and corner.
 	 //top right corner collision body
@@ -247,3 +230,39 @@ function updateCollisionPoints(whichCar){
 	 whichCar.CollisionPoints[12].y = whichCar.pos.y + Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
 }
 
+function trackCollisionCheck(x,y,goalCheck){
+	 	var carTrackCol = Math.floor(x / TRACK_W);
+		var carTrackRow = Math.floor(y / TRACK_H);
+		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
+
+		if(carTrackCol >= 0 && carTrackCol < track_cols &&
+			carTrackRow >= 0 && carTrackRow < track_rows) {
+
+			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
+		
+			if(tileHere == ENEMY_PATH){
+				tileHere = TRACK_ROAD;
+			}
+
+			if(goalCheck){
+				if(tileHere == TRACK_GOAL) {
+					level++;
+					if(level < levels.length){
+						resetLevel();
+					}
+					else{
+						console.log('You saved Humanity')
+						level = 0;
+						resetLevel();
+					}
+				} 
+			}
+
+			if(tileHere != TRACK_ROAD) {
+				return true;
+			} // end of track found
+
+			return false;
+		} // end of valid col and row
+
+}
