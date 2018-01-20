@@ -89,7 +89,7 @@ function carClass() {
 			this.myCarPic = wreckedCarPic;
 
 			if (this.name === "Player") {
-                resetLevel();
+				setTimeout(function(){resetLevel();}, 1500);                
 			}
 		}
 	}
@@ -101,8 +101,22 @@ function carClass() {
 			// this.keyHeld_TurnRight = true;
 			distancePlayerEnemy = distance(playerCar.pos.x,playerCar.pos.y,this.pos.x, this.pos.y)
 
+			//need to change AI angle to match angle of player car
+			
+			// if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
+			// 	this.ang += 0.5;
+			// }
+
+			// if(trackCollisionCheck(leftPos.x, leftPos.y, goalCheck = false)){
+			// 	this.ang += 0.15;
+			// }
+			// if(trackCollisionCheck(rightPos.x, rightPos.y, goalCheck = false)){
+			// 	this.ang -= 0.15;
+			// }
+	
+
 			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y) 
-				&& !debug && !this.isDead) {
+				&& !debug && !this.isDead && !playerCar.isDead) {
 
 				if(distancePlayerEnemy < ai_distance){
 				
@@ -135,19 +149,7 @@ function carClass() {
 
 
  
-			//need to change AI angle to match angle of player car
-			
-			// if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
-			// 	this.ang += 0.5;
-			// }
-
-			// if(trackCollisionCheck(leftPos.x, leftPos.y, goalCheck = false)){
-			// 	this.ang += 0.15;
-			// }
-			// if(trackCollisionCheck(rightPos.x, rightPos.y, goalCheck = false)){
-			// 	this.ang -= 0.15;
-			// }
-	
+		
 		}
 		
 		if (this.isDead) {  // shutting off all controls for AI/player since car is dead.
