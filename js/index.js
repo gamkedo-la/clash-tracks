@@ -36,6 +36,7 @@ function loadLevel(whichLevel) {
 	}
 	bullets = [];
 	particles.clear();
+	ai_distance = 250;
 
 	//loading level data to current level
 	levelData = levels[whichLevel];

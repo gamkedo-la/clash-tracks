@@ -10,6 +10,7 @@ const DRIFT_MIN_SPEED = 2;
 const INITIAL_HEALTH = 3;
 const CAR_COLLISION_POINTS = 13;
 var enemyCars = [];
+var ai_distance = 250
 
 function carClass() {
 	this.pos = vector.create(75,75);
@@ -76,9 +77,11 @@ function carClass() {
 
 	this.gotHurt = function (damageDealt) {
 		if (this.isDead) {
+			ai_distance = 250;
 			return;
 		}
 		this.health -= damageDealt;
+		ai_distance = 400; // To show ai knows it has been hit and follows player.
 		console.log("New health is " + this.health + " due to damage " + damageDealt);
 		if (this.health <= 0) {
 			console.log("You got me this time! (car dead)");
@@ -98,9 +101,10 @@ function carClass() {
 			// this.keyHeld_TurnRight = true;
 			distancePlayerEnemy = distance(playerCar.pos.x,playerCar.pos.y,this.pos.x, this.pos.y)
 
-			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y)) {
+			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y) 
+				&& !debug && !this.isDead) {
 
-				if(distancePlayerEnemy < 250){
+				if(distancePlayerEnemy < ai_distance){
 				
 					this.keyHeld_Gas = true;
 					var dx = playerCar.pos.x - this.pos.x;
