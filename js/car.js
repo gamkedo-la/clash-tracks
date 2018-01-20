@@ -23,7 +23,6 @@ function carClass() {
 	this.isAI = false;
 	this.isDead = false;
 	this.keyHeld_Nos = false;
-	this.keyHeld_Drift = false;
 	this.keyHeld_Gas = false;
 	this.keyHeld_Reverse = false;
 	this.keyHeld_TurnLeft = false;
