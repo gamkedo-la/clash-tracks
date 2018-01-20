@@ -9,6 +9,8 @@ const KEY_D = 68;
 const SPACE_BAR = 32;
 const KEY_O = 79;
 const KEY_SHIFT = 16;
+const KEY_CTRL = 17;
+
 
 var mouseX = 0;
 var mouseY = 0;
@@ -57,8 +59,12 @@ function keyPressed(evt) {
 			break;
 		case KEY_O:
 			debug = !debug;
+			break;
 		case KEY_SHIFT:
 			playerCar.keyHeld_Nos = true;
+			break;
+		case KEY_CTRL:
+			playerCar.keyHeld_Drift = true;
 			break;
 	}
 	evt.preventDefault();
@@ -88,5 +94,9 @@ function keyReleased(evt) {
 		case KEY_SHIFT:
 			playerCar.keyHeld_Nos = false;
 			break;	
-	}	
+		case KEY_CTRL:
+			playerCar.keyHeld_Drift = false;
+			break;
+	}
+	evt.preventDefault();	
 }

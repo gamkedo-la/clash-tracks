@@ -23,6 +23,7 @@ function carClass() {
 	this.isAI = false;
 	this.isDead = false;
 	this.keyHeld_Nos = false;
+	this.keyHeld_Drift = false;
 	this.keyHeld_Gas = false;
 	this.keyHeld_Reverse = false;
 	this.keyHeld_TurnLeft = false;
@@ -102,53 +103,45 @@ function carClass() {
 			distancePlayerEnemy = distance(playerCar.pos.x,playerCar.pos.y,this.pos.x, this.pos.y)
 
 			//need to change AI angle to match angle of player car
-			
-			// if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
-			// 	this.ang += 0.5;
-			// }
+			//check what is 45 degree to the right and left of it.
+			this.keyHeld_Gas = true;
+			var leftPos = rightPos = frontPos = vector.create();
+			// Navigation for AI cars to see bricks are nearby
+			frontPos.x = this.pos.x +  Math.cos(this.ang)* this.width; 
+	 		frontPos.y = this.pos.y + Math.sin(this.ang)* this.width;;
+			leftPos.x =  this.pos.x +  Math.cos(this.ang - Math.PI/7)* this.width -  Math.sin(this.ang - Math.PI/7)* this.width; 
+			leftPos.y =  this.pos.y +  Math.cos(this.ang - Math.PI/7)* this.width +  Math.sin(this.ang - Math.PI/7)* this.width; 
+			rightPos.x = this.pos.x +  Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
+			rightPos.y = this.pos.y -  Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
 
-			// if(trackCollisionCheck(leftPos.x, leftPos.y, goalCheck = false)){
-			// 	this.ang += 0.15;
-			// }
-			// if(trackCollisionCheck(rightPos.x, rightPos.y, goalCheck = false)){
-			// 	this.ang -= 0.15;
-			// }
-	
+			if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
+				this.ang += 0.5;
+			}
+
+			if(trackCollisionCheck(leftPos.x, leftPos.y, goalCheck = false)){
+				this.ang += 0.15;
+			}
+			if(trackCollisionCheck(rightPos.x, rightPos.y, goalCheck = false)){
+				this.ang -= 0.15;
+			}
 
 			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y) 
 				&& !debug && !this.isDead && !playerCar.isDead) {
 
 				if(distancePlayerEnemy < ai_distance){
-				
+
 					this.keyHeld_Gas = true;
 					var dx = playerCar.pos.x - this.pos.x;
 					var dy = playerCar.pos.y - this.pos.y;
 					var angle = Math.atan2(dy, dx);
 					this.ang = angle ;
 					this.keyHeld_Shooting = Math.random() < 0.3;
-
-				}
-				
+				}	
 			} 
 			else{
 					this.keyHeld_Gas = false;
-					this.keyHeld_Shooting = false;
-						
-				}
-
-			
-
-			//check what is 45 degree to the right and left of it.
-			// var leftPos = rightPos = frontPos = vector.create();
-			// frontPos.x = this.pos.x +  Math.cos(this.ang)* this.width; 
-	 		// 	frontPos.y = this.pos.y + Math.sin(this.ang)* this.width;;
-			// leftPos.x =  this.pos.x +  Math.cos(this.ang - Math.PI/7)* this.width -  Math.sin(this.ang - Math.PI/7)* this.width; 
-			// leftPos.y =  this.pos.y +  Math.cos(this.ang - Math.PI/7)* this.width +  Math.sin(this.ang - Math.PI/7)* this.width; 
-			// rightPos.x = this.pos.x +  Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
-			// rightPos.y = this.pos.y -  Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
-
-
- 
+					this.keyHeld_Shooting = false;	
+			} 
 		
 		}
 		
