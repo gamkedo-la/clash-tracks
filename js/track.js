@@ -14,9 +14,16 @@ const TRACK_CITIES = 5;
 const TRACK_BRICKS = 6;
 const TRACK_ENEMYSTART = 7;
 const ENEMY_PATH = 50;
-const TRACK_2_BUILDINGS_1 = 21;
-const TRACK_3_BUILDINGS_1 = 22;
-const TRACK_3_BUILDINGS_2 = 23;
+const TRACK_2_BUILDINGS_1 = 20; //border brick 1
+const TRACK_2_BUILDINGS_2 = 21; //2 building (smaller)l->r
+const TRACK_2_BUILDINGS_3 = 22; //2 buildings (smaller) r-> l
+const TRACK_2_BUILDINGS_4 = 23; //border brick engraved
+
+const TRACK_3_BUILDINGS_1 = 24; // border brick 2
+const TRACK_3_BUILDINGS_2 = 25; // 3 building descending 
+const TRACK_3_BUILDINGS_3 = 26;	// 3 building ascending
+const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
+const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
 
 const CAM_SCROLL_SPEED = 6
 
@@ -131,11 +138,19 @@ function drawTracks() {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = trackGrid[arrayIndex];
 			var useImg;
-			if(tileKindHere == ENEMY_PATH){
-				useImg = trackPics[TRACK_ROAD];
-			}
-			else{
-				useImg = trackPics[tileKindHere];
+			// if(tileKindHere == ENEMY_PATH){
+			// 	useImg = trackPics[TRACK_ROAD];
+			// }
+			// else{
+			// }
+
+			useImg = trackPics[tileKindHere];
+
+
+
+			if(tileKindHere >= 20 && tileKindHere < 30 || tileKindHere == TRACK_DISK){
+				// console.log(tileKindHere);
+				canvasContext.drawImage(trackPics[TRACK_ROAD],drawTileX,drawTileY);
 			}
 			 
 			
