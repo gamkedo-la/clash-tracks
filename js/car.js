@@ -257,13 +257,65 @@ function carClass() {
 					//safe distance to check collision points
 
 					if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width/1.5){
-							this.pos.x -= Math.cos(this.ang) * this.speed ;
-							this.pos.y -= Math.sin(this.ang) * this.speed ;
-							this.ang +=  0.05;
-							this.speed *= -0.5;	
-							carCollisionEffect(this.pos.x, this.pos.y);
-							break;
-						}
+						
+						console.log("car to car collision!");
+
+						// collision response: bounce off each other
+						// both cars are affected
+
+						// back up a bit so we no longer collide
+						this.pos.x -= Math.cos(this.ang) * this.speed ;
+						this.pos.y -= Math.sin(this.ang) * this.speed ;
+
+						var car1mass = 1;
+						var car2mass = 1;
+						var car1velX = Math.cos(this.ang) * this.speed;
+						var car1velY = Math.sin(this.ang) * this.speed;
+						var car2velX = Math.cos(carList[i].ang) * carList[i].speed;
+						var car2velY = Math.sin(carList[i].ang) * carList[i].speed;
+
+						// transfer velocities using classic "elastic collision" formula (like pool balls)
+						var newVelX1 = (car1velX * (car1mass - car2mass) + (2 * car2mass * car2velX)) / (car1mass + car2mass);
+						var newVelY1 = (car1velY * (car1mass - car2mass) + (2 * car2mass * car2velY)) / (car1mass + car2mass);
+						var newVelX2 = (car2velX * (car2mass - car1mass) + (2 * car1mass * car1velX)) / (car1mass + car2mass);
+						var newVelY2 = (car2velY * (car2mass - car1mass) + (2 * car1mass * car1velY)) / (car1mass + car2mass);
+
+						// set new velocity
+						this.speed = Math.sqrt(newVelX1*newVelX1+newVelY1*newVelY1); // pythagoras
+						this.ang = Math.atan2(newVelY1,newVelX1);
+
+						// also bounce the other car
+						carList[i].speed = Math.sqrt(newVelX2*newVelX2+newVelY2*newVelY2); // pythagoras
+						carList[i].ang = Math.atan2(newVelY2,newVelX2);
+
+						// FIXME: we need to force cars to face velocity. 
+						// so they always face to be angled in whatever direction they
+						// are moving, even if hit from the side... hmmmm what to do...
+
+						// what angle did we collide at? unused but handy to find perpendicular angle TODO
+						//var dx = this.pos.x - carList[i].pos.x;
+						//var dy = this.pos.y - carList[i].pos.y;
+						//var collisionAngle = Math.atan2(dy, dx);
+						// rotate like we bounced off a wall? (Math.PI = 180 deg)
+						//this.ang = collisionAngle + Math.PI/2; 
+						//carList[i].ang = collisionAngle - Math.PI/2; 
+
+						// slow down?
+						this.speed *= 0.75;	// FIXME: consider using a proper restitution % (bouncines)
+						carList[i].speed *= 0.75;
+
+						/*
+						// old version "works":
+						this.pos.x -= Math.cos(this.ang) * this.speed ;
+						this.pos.y -= Math.sin(this.ang) * this.speed ;
+						this.ang +=  0.05;
+						this.speed *= -0.5;	
+						*/
+
+						carCollisionEffect(this.pos.x, this.pos.y);
+
+						break;
+				}
 					//code for making collision more precise - don't remove
 
 					// if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width){	
