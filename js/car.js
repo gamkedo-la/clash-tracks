@@ -13,6 +13,7 @@ var enemyCars = [];
 var ai_distance = 250
 
 function carClass() {
+	//position
 	this.pos = vector.create(75,75);
 	this.prevPos = vector.create(0,0);
 	this.ang = 0;

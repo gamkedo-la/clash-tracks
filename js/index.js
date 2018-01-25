@@ -40,7 +40,7 @@ function loadLevel(whichLevel) {
 
 	//loading level data to current level
 	levelData = levels[whichLevel];
-	trackGrid = levelData.trackLayout.slice();
+	trackGrid = levelData.trackLayout;
 	track_cols = levelData.cols;
 	track_rows = levelData.rows;
 	timeToFinishLevel = levelData.timeLimit;

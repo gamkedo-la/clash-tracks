@@ -13,6 +13,7 @@ const TRACK_DISK = 4;
 const TRACK_CITIES = 5;
 const TRACK_BRICKS = 6;
 const TRACK_ENEMYSTART = 7;
+const TRACK_CHECKPOINT  =  8;
 const ENEMY_PATH = 50;
 const TRACK_2_BUILDINGS_1 = 20; //border brick 1
 const TRACK_2_BUILDINGS_2 = 21; //2 building (smaller)l->r
@@ -138,15 +139,14 @@ function drawTracks() {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = trackGrid[arrayIndex];
 			var useImg;
-			// if(tileKindHere == ENEMY_PATH){
-			// 	useImg = trackPics[TRACK_ROAD];
-			// }
-			// else{
-			// }
 
-			useImg = trackPics[tileKindHere];
+			if(tileKindHere == TRACK_CHECKPOINT || tileKindHere == TRACK_PLAYERSTART){
+				useImg = trackPics[TRACK_ROAD];
+			}
+			else{
+				useImg = trackPics[tileKindHere];
 
-
+			}
 
 			if(tileKindHere >= 20 && tileKindHere < 30 || tileKindHere == TRACK_DISK){
 				// console.log(tileKindHere);
@@ -245,6 +245,7 @@ function updateCollisionPoints(whichCar){
 	 whichCar.CollisionPoints[12].y = whichCar.pos.y + Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
 }
 
+//goal Check is used to check goal collision is checked only for player car.
 function trackCollisionCheck(x,y,goalCheck){
 	 	var carTrackCol = Math.floor(x / TRACK_W);
 		var carTrackRow = Math.floor(y / TRACK_H);
@@ -255,7 +256,8 @@ function trackCollisionCheck(x,y,goalCheck){
 
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 		
-			if(tileHere == ENEMY_PATH){
+			if(tileHere == TRACK_CHECKPOINT){
+				// trackGrid[trackIndexUnderCar] = TRACK_PLAYERSTART;
 				tileHere = TRACK_ROAD;
 			}
 
