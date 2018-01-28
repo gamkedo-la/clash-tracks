@@ -29,10 +29,17 @@ function bulletClass(x, y, angle,origin) {
 	}
 
 	this.draw = function(){
-		this.move();
-		this.brickHandling();
-		this.carHandling();
 		drawBitmapCenteredWithRotation(playerBulletPic, this.pos.x,this.pos.y, this.angle - Math.PI/2)
+	}
+	
+	this.update = function(){
+		this.move();
+		this.collisionHandling();
+	}
+	
+	this.collisionHandling = function() {
+		this.carHandling();
+		this.brickHandling();
 	}
 
 	this.carHandling = function() {
@@ -52,18 +59,26 @@ function bulletClass(x, y, angle,origin) {
 			bulletHitWallEffect(this.pos.x,this.pos.y);	
 		}
 	} // en brickHandling
-
+	
 }
 
 function drawBullets(){
-	//drawing
 	for(var i = 0; i < bullets.length; i++){
 		bullets[i].draw();
-	}
-	//removing
+	}  // each bullet
+} // end drawBullets
+
+function removeBullets(){
 	for(var i = 0; i < bullets.length; i++){
 		if(bullets[i].remove){
 			bullets.splice(i,1);
-		}
-	}
-} // end drawBullets
+		} // bullet to be removed
+	} // each bullet
+} // end removeBullets
+
+function updateBullets(){
+	for(var i = 0; i < bullets.length; i++) {
+		bullets[i].update();
+	} // each bullet
+	removeBullets();
+} // end updateBullets

@@ -81,6 +81,7 @@ function moveAll() {
 	for(var i = 0; i < numOfEnemiesCars; i++){
 		enemyCars[i].move();
 	}
+	updateBullets();
 	cameraFollow();
 }
 
