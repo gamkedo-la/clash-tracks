@@ -32,12 +32,13 @@ function carClass() {
 	this.semiAutoLock = false;
 	this.height = this.width = 44;
 	this.CollisionPoints = initializeCollisionPoints();
+	this.bulletImg = "";
 
 	// Clear tracks when creating a new car
 	if (window.tireTracks) tireTracks.reset();
 
 	this.shoot = function(){
-		bullets.push(new bulletClass(this.pos.x,this.pos.y, this.ang, this));
+		bullets.push(new bulletClass(this));
 	}
 
 	this.reset = function(whichImage, carName) {
@@ -53,13 +54,16 @@ function carClass() {
 			trackValueToCheck = TRACK_PLAYERSTART;
 			this.height = 25;
 			this.weight = 44;
+			this.bulletImg = playerBulletPic;
 		}
 		else{
 			trackValueToCheck = TRACK_ENEMYSTART;
 			this.height = 18;
 			this.weight = 44;
 			this.isAI = true;
-			console.log("Enemy AI is set to " + this.isAI);
+			this.bulletImg = enemyBulletPic;
+
+			// console.log("Enemy AI is set to " + this.isAI);
 		}	
 		for(var eachRow=0;eachRow<track_rows;eachRow++) {
 			for(var eachCol=0;eachCol<track_cols;eachCol++) {

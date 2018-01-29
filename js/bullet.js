@@ -1,18 +1,19 @@
 let bullets = [];
 
-function bulletClass(x, y, angle,origin) {
+function bulletClass(origin) {
 	this.pos = vector.create();
-	this.pos.x = x;
-	this.pos.y = y;
+	this.pos.x = origin.pos.x;
+	this.pos.y = origin.pos.y;
 	this.speed = 7
 	this.velocity = vector.create();
-	this.velocity.x = Math.cos(angle)*this.speed;
-	this.velocity.y =Math.sin(angle)*this.speed;	
+	this.velocity.x = Math.cos(origin.ang)*this.speed;
+	this.velocity.y =Math.sin(origin.ang)*this.speed;	
 	this.width = 5;
 	this.damage = 1;
 	this.remove = false;
-	this.angle = angle;
+	this.angle = origin.ang;
 	this.origin = origin;
+	this.bulletPic = origin.bulletImg;
 
 	this.move = function(){
 		if(this.pos.y < 0 && this.pos.y > canvas.height && this.pos.x > canvas.height && this.pos.x < 0){
@@ -29,7 +30,7 @@ function bulletClass(x, y, angle,origin) {
 	}
 
 	this.draw = function(){
-		drawBitmapCenteredWithRotation(playerBulletPic, this.pos.x,this.pos.y, this.angle - Math.PI/2)
+		drawBitmapCenteredWithRotation(this.bulletPic, this.pos.x,this.pos.y, this.angle - Math.PI/2)
 	}
 	
 	this.update = function(){

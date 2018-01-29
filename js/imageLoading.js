@@ -3,6 +3,7 @@ var enemyCarPic = document.createElement("img");
 var wreckedCarPic = document.createElement("img");
 var particlePic = document.createElement("img");
 var playerBulletPic = document.createElement("img");
+var enemyBulletPic = document.createElement("img");
 var tireTrackPic = document.createElement("img");
 var trackPics = [];
 
@@ -33,6 +34,7 @@ function loadImages() {
 		{varName: wreckedCarPic, theFile: "wreckedcar.png"},
 		{varName: particlePic, theFile: "particle.png"},
 		{varName: playerBulletPic, theFile: "playerBullet.png"},
+		{varName: enemyBulletPic, theFile: "enemyBullet.png"},
 		{varName: tireTrackPic, theFile: "lightTrail.png"},
 
 		// {trackType: TRACK_ROAD, theFile: "track_road.png"},
