@@ -92,9 +92,16 @@ function carClass() {
 			console.log("You got me this time! (car dead)");
 			this.isDead = true;
 			this.myCarPic = wreckedCarPic;
-
 			if (this.name === "Player") {
-				setTimeout(function(){resetLevel();}, 1500);                
+				setTimeout(function(){
+								if(playerLives > 1){
+									playerLives--;
+									resetCheckPoint();
+								}
+								else{
+									resetLevel();
+								}
+							}, 1500);                
 			}
 		}
 	}
@@ -180,6 +187,7 @@ function carClass() {
 		}
 		// if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
 		// }
+
 		if(Math.abs(this.speed) > DRIFT_MIN_SPEED){
 			if(this.keyHeld_TurnLeft) {
 				this.ang -= DRIFT_TURN_RATE;

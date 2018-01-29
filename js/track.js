@@ -5,6 +5,8 @@ const TRACK_COLS = 20;
 const TRACK_ROWS = 36;
 
 var trackGrid = [];
+var trackGridCopy = []; //checkpoint
+
 const TRACK_ROAD = 0;
 const TRACK_WALL = 1;
 const TRACK_PLAYERSTART = 2;
@@ -66,7 +68,7 @@ function carTrackHandling(whichCar) {
 
 	 for(var i = 0; i < whichCar.CollisionPoints.length; i++){
 	 	// console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
-	 	if(trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, goalCheck =true)){
+	 	if(trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, whichCar.name)){
 
 	 			wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
 				whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
@@ -74,7 +76,6 @@ function carTrackHandling(whichCar) {
 				// whichCar.ang += 0.05;
 				whichCar.speed *= -0.5;
 				break;
-
 	 	}
 		
 	 }//end of collision for loop
@@ -139,21 +140,16 @@ function drawTracks() {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = trackGrid[arrayIndex];
 			var useImg;
-
-			if(tileKindHere == TRACK_CHECKPOINT || tileKindHere == TRACK_PLAYERSTART){
+			if(tileKindHere == TRACK_CHECKPOINT || tileKindHere == TRACK_PLAYERSTART){ //Removes checkpoint bug
 				useImg = trackPics[TRACK_ROAD];
 			}
 			else{
 				useImg = trackPics[tileKindHere];
-
 			}
-
 			if(tileKindHere >= 20 && tileKindHere < 30 || tileKindHere == TRACK_DISK){
 				// console.log(tileKindHere);
 				canvasContext.drawImage(trackPics[TRACK_ROAD],drawTileX,drawTileY);
 			}
-			 
-			
 			canvasContext.drawImage(useImg,drawTileX,drawTileY);
 			drawTileX += TRACK_W;
 			arrayIndex++;
@@ -191,7 +187,7 @@ function anyWallsBetweenTwoPoints(x1, y1, x2, y2) {
 }
 
 function updateCollisionPoints(whichCar){
-	//Center Point
+{	//Center Point
 	 whichCar.CollisionPoints[0].x = whichCar.pos.x;
 	 whichCar.CollisionPoints[0].y = whichCar.pos.y;
 
@@ -244,7 +240,7 @@ function updateCollisionPoints(whichCar){
 	 whichCar.CollisionPoints[12].x = whichCar.pos.x - Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
 	 whichCar.CollisionPoints[12].y = whichCar.pos.y + Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
 }
-
+}
 //goal Check is used to check goal collision is checked only for player car.
 function trackCollisionCheck(x,y,goalCheck){
 	 	var carTrackCol = Math.floor(x / TRACK_W);
@@ -256,9 +252,16 @@ function trackCollisionCheck(x,y,goalCheck){
 
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 		
-			if(tileHere == TRACK_CHECKPOINT){
-				// trackGrid[trackIndexUnderCar] = TRACK_PLAYERSTART;
+			if(tileHere == TRACK_CHECKPOINT || tileHere == TRACK_PLAYERSTART){
 				tileHere = TRACK_ROAD;
+				for(var i = 0; i < trackGridCopy.length; i++){
+					if(trackGridCopy[i] == 2){ // if playerstart is found //remove it 
+						trackGridCopy[i] = 0; 
+					}
+				}
+				trackGridCopy[trackIndexUnderCar] = TRACK_PLAYERSTART;
+
+				// return false;
 			}
 
 			if(goalCheck){

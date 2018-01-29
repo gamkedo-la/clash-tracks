@@ -10,7 +10,8 @@ var playerCar = new carClass();
 var carList = [playerCar];
 var timeToFinishLevel;
 var level;
-var numOfEnemiesCars = 0;
+var playerLives = 3;
+// var numOfEnemiesCars = 0;
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -18,6 +19,7 @@ window.onload = function() {
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	level = 0;
+	playerLives = 3;
 	loadImages();
 }
 
@@ -30,6 +32,28 @@ function imageLoadingDoneSoStartGame() {
 function loadLevel(whichLevel) {
 
 	//clearing previously saved objects and data
+	levelDataReset();
+	playerLives = 3;
+
+	//loading level data to current level
+	levelData = levels[whichLevel];
+	trackGrid = levelData.trackLayout.slice();
+	trackGridCopy = trackGrid.slice();
+
+	track_cols = levelData.cols;
+	track_rows = levelData.rows;
+	timeToFinishLevel = levelData.timeLimit;
+	numOfEnemiesCars = levelData.enemyCars;
+	carsReset();
+	
+}
+
+function resetLevel() {
+    timeToFinishLevel = TIME_TO_FINISH_LVL_1;
+    loadLevel(level);
+}
+
+function levelDataReset(){
 	enemyCars = [];
 	while(carList.length > 1){
 		carList.pop();
@@ -38,13 +62,22 @@ function loadLevel(whichLevel) {
 	particles.clear();
 	ai_distance = 250;
 
-	//loading level data to current level
-	levelData = levels[whichLevel];
-	trackGrid = levelData.trackLayout.slice();
+}
+
+function resetCheckPoint() {
+	levelDataReset();
+	levelData = levels[level];
+	trackGrid = trackGridCopy.slice();
+	// trackGridCopy = trackGrid.slice();
+
 	track_cols = levelData.cols;
 	track_rows = levelData.rows;
-	timeToFinishLevel = levelData.timeLimit;
+
 	numOfEnemiesCars = levelData.enemyCars;
+	carsReset();
+}
+
+function carsReset(){
 	playerCar.reset(playerCarPic, "Player");
 	for(var i = 0; i < numOfEnemiesCars; i++){
 		var enemyCar = new carClass();
@@ -54,10 +87,6 @@ function loadLevel(whichLevel) {
 	}
 }
 
-function resetLevel() {
-    timeToFinishLevel = TIME_TO_FINISH_LVL_1;
-    loadLevel(level);
-}
 
 function updateLevelCounter() {
     timeToFinishLevel--;
@@ -101,5 +130,7 @@ function drawAll() {
 	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 	colorText("TIME: " + Math.ceil(timeToFinishLevel / framesPerSecond), 30, 30, 'white');
-    colorText("HP: " + playerCar.health, canvas.width - 30, 30, 'white', 'right');
+    colorText("HP: " + playerCar.health, canvas.width - 30, 60, 'white', 'right');
+    colorText("Player Lives: " + playerLives, canvas.width - 30, 30, 'white', 'right');
+
 }

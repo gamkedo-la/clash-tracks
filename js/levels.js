@@ -21,16 +21,6 @@ var  levels = [
 
               },
 
-              // const TRACK_2_BUILDINGS_1 = 20; //border brick 1
-              // const TRACK_2_BUILDINGS_2 = 21; //2 building (smaller)l->r
-              // const TRACK_2_BUILDINGS_3 = 22; //2 buildings (smaller) r-> l
-              // const TRACK_2_BUILDINGS_4 = 23; //border brick engraved
-
-              // const TRACK_3_BUILDINGS_1 = 24; // border brick 2
-              // const TRACK_3_BUILDINGS_2 = 25; // 3 building descending 
-              // const TRACK_3_BUILDINGS_3 = 26; // 3 building ascending
-              // const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
-              // const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
               //Level One
               { trackLayout: [  20, 24, 22, 21, 26, 25, 25, 27, 22, 21, 25, 26, 25, 21, 22, 25, 26, 20, 23, 23,
                                 24, 23, 28,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 28, 23,
@@ -51,7 +41,7 @@ var  levels = [
                                 23,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  8,  0, 21,  6,  6,  5,
                                 20,  0,  0,  0, 20, 20, 20, 23, 20, 24, 20, 20,  0, 28,  8,  0,  0, 20,  6,  6,
                                 24, 20, 24, 20, 20, 23, 20, 20, 24, 20, 24, 20,  0,  0,  8,  0,  0,  0, 21,  6,
-                                20, 20, 20, 20, 27, 20, 20, 20, 27, 20, 20, 27, 20, 20, 4,  0,  0,  0, 20, 23,
+                                20, 20, 20, 20, 27, 20, 20, 20, 27, 20, 20, 27, 20, 20,  4,  0,  0,  0, 20, 23,
                                 23,  0,  0,  0,  0,  0,  0,  0, 20,  0,  0,  0,  0,  0, 23,  0,  0,  0, 23, 20,
                                 20,  0,  0,  0,  0,  0,  0,  0, 24,  0,  0,  0,  0,  0, 20, 20,  0,  0, 27, 24,
                                 24,  0,  0,  0,  0,  0,  0,  0, 23,  0,  0,  0,  0,  0, 24, 23,  0,  0, 24, 20,
