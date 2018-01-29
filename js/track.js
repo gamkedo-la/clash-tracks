@@ -16,18 +16,21 @@ const TRACK_CITIES = 5;
 const TRACK_BRICKS = 6;
 const TRACK_ENEMYSTART = 7;
 const TRACK_CHECKPOINT  =  8;
-const ENEMY_PATH = 50;
+const TRACK_JUMP_TILE = 9;
+const TRACK_SMOOTH = 10;
+const TRACK_ROAD_BROKEN = 11;
+
+
+
 const TRACK_2_BUILDINGS_1 = 20; //border brick 1
 const TRACK_2_BUILDINGS_2 = 21; //2 building (smaller)l->r
 const TRACK_2_BUILDINGS_3 = 22; //2 buildings (smaller) r-> l
 const TRACK_2_BUILDINGS_4 = 23; //border brick engraved
-
 const TRACK_3_BUILDINGS_1 = 24; // border brick 2
 const TRACK_3_BUILDINGS_2 = 25; // 3 building descending 
 const TRACK_3_BUILDINGS_3 = 26;	// 3 building ascending
 const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
 const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
-
 const CAM_SCROLL_SPEED = 6
 
 var track_cols = 20;
@@ -208,20 +211,20 @@ function updateCollisionPoints(whichCar){
 	 whichCar.CollisionPoints[4].y = whichCar.pos.y + Math.cos(whichCar.ang)*whichCar.height/2;
 
 	 //top right corner collision body
-	 whichCar.CollisionPoints[5].x = whichCar.pos.x +  Math.cos(whichCar.ang)* whichCar.width/3 -  Math.sin(whichCar.ang)* whichCar.width/3; 
-	 whichCar.CollisionPoints[5].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/3 +  Math.sin(whichCar.ang)* whichCar.width/3;
+	 whichCar.CollisionPoints[5].x = whichCar.pos.x +  Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4; 
+	 whichCar.CollisionPoints[5].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
 
 	 //top left corner collision body
-	 whichCar.CollisionPoints[6].x = whichCar.pos.x + Math.cos(whichCar.ang)* whichCar.width/3 +  Math.sin(whichCar.ang)* whichCar.width/3;
-	 whichCar.CollisionPoints[6].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/3 +  Math.sin(whichCar.ang)* whichCar.width/3;
+	 whichCar.CollisionPoints[6].x = whichCar.pos.x + Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
+	 whichCar.CollisionPoints[6].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
 
 	 //bottom left corner collision body
-	 whichCar.CollisionPoints[7].x = whichCar.pos.x -  Math.cos(whichCar.ang)* whichCar.width/3.5 +  Math.sin(whichCar.ang)* whichCar.width/3.5; 
-	 whichCar.CollisionPoints[7].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/3.5 -  Math.sin(whichCar.ang)* whichCar.width/3.5;
+	 whichCar.CollisionPoints[7].x = whichCar.pos.x -  Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4; 
+	 whichCar.CollisionPoints[7].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
 
 	 //bottom right corner collision body
-	 whichCar.CollisionPoints[8].x = whichCar.pos.x - Math.cos(whichCar.ang)* whichCar.width/3.5 -  Math.sin(whichCar.ang)* whichCar.width/3.5;
-	 whichCar.CollisionPoints[8].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/3.5 -  Math.sin(whichCar.ang)* whichCar.width/3.5;
+	 whichCar.CollisionPoints[8].x = whichCar.pos.x - Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
+	 whichCar.CollisionPoints[8].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
 
 	 //Collision points between middle and corner.
 	 //top right corner collision body
@@ -251,9 +254,10 @@ function trackCollisionCheck(x,y,goalCheck){
 			carTrackRow >= 0 && carTrackRow < track_rows) {
 
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
-		
+			
+			//check for checkpoint
 			if(tileHere == TRACK_CHECKPOINT || tileHere == TRACK_PLAYERSTART){
-				tileHere = TRACK_ROAD;
+				// tileHere = TRACK_ROAD;
 				for(var i = 0; i < trackGridCopy.length; i++){
 					if(trackGridCopy[i] == 2){ // if playerstart is found //remove it 
 						trackGridCopy[i] = 0; 
@@ -261,7 +265,7 @@ function trackCollisionCheck(x,y,goalCheck){
 				}
 				trackGridCopy[trackIndexUnderCar] = TRACK_PLAYERSTART;
 
-				// return false;
+				return false;
 			}
 
 			if(goalCheck){
@@ -278,7 +282,15 @@ function trackCollisionCheck(x,y,goalCheck){
 				} 
 			}
 
-			if(tileHere != TRACK_ROAD) {
+			if(tileHere == TRACK_SMOOTH || 
+				tileHere == TRACK_JUMP_TILE || 
+				tileHere == TRACK_ROAD_BROKEN){
+				return false;
+			}
+
+
+
+			if(tileHere != TRACK_ROAD ) {
 				return true;
 			} // end of track found
 

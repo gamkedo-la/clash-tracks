@@ -36,18 +36,12 @@ function loadImages() {
 		{varName: playerBulletPic, theFile: "playerBullet.png"},
 		{varName: enemyBulletPic, theFile: "enemyBullet.png"},
 		{varName: tireTrackPic, theFile: "lightTrail.png"},
-
-		// {trackType: TRACK_ROAD, theFile: "track_road.png"},
         {trackType: TRACK_ROAD, theFile: "violet_track_road.png"},
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},
 		{trackType: TRACK_GOAL, theFile: "track_goal.png"},
 		{trackType: TRACK_DISK, theFile: "track_disk.png"},
 		{trackType: TRACK_CITIES, theFile: "aliencities.png"},
-		// {trackType: TRACK_BRICKS, theFile: "alienBricks.png"}
         {trackType: TRACK_BRICKS, theFile: "alienBricks_violet.png"},
-
-
-        
         {trackType: TRACK_2_BUILDINGS_1, theFile: "violet_perspective_building_1.png"},
         {trackType: TRACK_2_BUILDINGS_2, theFile: "violet_two_buildings_1.png"},
         {trackType: TRACK_2_BUILDINGS_3, theFile: "violet_two_buildings_2.png"},
@@ -57,9 +51,9 @@ function loadImages() {
         {trackType: TRACK_3_BUILDINGS_3, theFile: "violet_three_buildings_2.png"},
         {trackType: TRACK_3_BUILDINGS_4, theFile: "violet_perspective_building_3.png"},
         {trackType: TRACK_4_BUILDINGS_1, theFile: "bad_skyscrapper_violet.png"},
-   
-
-
+        {trackType: TRACK_JUMP_TILE, theFile: "jumpTile.png"},
+        {trackType: TRACK_SMOOTH, theFile: "sliperyRoad.png"},
+        {trackType: TRACK_ROAD_BROKEN, theFile: "track_road_broken.png"},
         
 	];
 

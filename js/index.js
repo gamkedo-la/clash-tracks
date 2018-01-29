@@ -30,11 +30,9 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function loadLevel(whichLevel) {
-
 	//clearing previously saved objects and data
 	levelDataReset();
 	playerLives = 3;
-
 	//loading level data to current level
 	levelData = levels[whichLevel];
 	trackGrid = levelData.trackLayout.slice();
@@ -45,7 +43,6 @@ function loadLevel(whichLevel) {
 	timeToFinishLevel = levelData.timeLimit;
 	numOfEnemiesCars = levelData.enemyCars;
 	carsReset();
-	
 }
 
 function resetLevel() {
