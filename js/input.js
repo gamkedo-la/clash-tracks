@@ -33,62 +33,46 @@ function setupInput() {
 // 	carSpeedY = -4;*/
 // }
 
-function keyPressed(evt) {
-	// console.log(evt.keyCode);
+function keySet(evt, setTo)
+{
 	switch(evt.keyCode){
 		case KEY_UP_ARROW:
 		case KEY_W:
-			playerCar.keyHeld_Gas = true;
+			playerCar.keyHeld_Gas = setTo;
 			break;
 		case KEY_DOWN_ARROW:
 		case KEY_S:
-			playerCar.keyHeld_Reverse = true;
+			playerCar.keyHeld_Reverse = setTo;
 			break;
 		case KEY_LEFT_ARROW:
 		case KEY_A:
-			playerCar.keyHeld_TurnLeft = true;
+			playerCar.keyHeld_TurnLeft = setTo;
 			break;
 		case KEY_RIGHT_ARROW:
 		case KEY_D:
-			playerCar.keyHeld_TurnRight = true;
+			playerCar.keyHeld_TurnRight = setTo;
 			break;
 		case SPACE_BAR:
-			playerCar.keyHeld_Shooting = true;
-			break;
-		case KEY_O:
-			debug = !debug;
+			playerCar.keyHeld_Shooting = setTo;
 			break;
 		case KEY_SHIFT:
-			playerCar.keyHeld_Nos = true;
+			playerCar.keyHeld_Nos = setTo;
+			break;	
+	}
+}
+
+function keyPressed(evt) {
+	// console.log(evt.keyCode);
+	keySet(evt, true);
+	switch(evt.keyCode){
+		case KEY_O:
+			debug = !debug;
 			break;
 	}
 	evt.preventDefault();
 }
 
 function keyReleased(evt) {
-	switch(evt.keyCode){
-		case KEY_UP_ARROW:
-		case KEY_W:
-			playerCar.keyHeld_Gas = false;
-			break;
-		case KEY_DOWN_ARROW:
-		case KEY_S:
-			playerCar.keyHeld_Reverse = false;
-			break;
-		case KEY_LEFT_ARROW:
-		case KEY_A:
-			playerCar.keyHeld_TurnLeft = false;
-			break;
-		case KEY_RIGHT_ARROW:
-		case KEY_D:
-			playerCar.keyHeld_TurnRight = false;
-			break;
-		case SPACE_BAR:
-			playerCar.keyHeld_Shooting = false;
-			break;
-		case KEY_SHIFT:
-			playerCar.keyHeld_Nos = false;
-			break;	
-	}
+	keySet(evt, false);
 	evt.preventDefault();	
 }
