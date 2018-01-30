@@ -145,49 +145,8 @@ function carClass() {
 		} // end if AI
 		
 		stopControlsForDeadCar(this);
+		this.handleControls();
 		
-		if(this.keyHeld_Shooting) {
-			if (this.semiAutoLock == false) {
-				this.shoot();
-			}
-			this.semiAutoLock = true;  // semi-automatic
-		} 
-		else {
-			this.semiAutoLock = false;
-		}
-		if(this.keyHeld_Nos){
-			this.speed *= GROUNDSPEED_DECAY_MULT_NOS;
-		}
-		else{
-			this.speed *= GROUNDSPEED_DECAY_MULT;
-		}
-		if(this.keyHeld_Gas){
-			this.speed += DRIVE_POWER;
-		}
-		if(this.keyHeld_Reverse) {
-			this.speed -= REVERSE_POWER;
-		}
-		// if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
-		// }
-
-		if(Math.abs(this.speed) > DRIFT_MIN_SPEED){
-			if(this.keyHeld_TurnLeft) {
-				this.ang -= DRIFT_TURN_RATE;
-			}
-			if(this.keyHeld_TurnRight) {
-				this.ang += DRIFT_TURN_RATE;
-			}
-		}
-		else{
-			if(this.keyHeld_TurnLeft) {
-				this.ang -= TURN_RATE;
-				
-			}
-			if(this.keyHeld_TurnRight) {
-				this.ang += TURN_RATE;
-				
-			}
-		}	
 		this.pos.x += Math.cos(this.ang) * this.speed;
 		this.pos.y += Math.sin(this.ang) * this.speed;
 		carTrackHandling(this);
@@ -241,6 +200,51 @@ function carClass() {
 		}
 		return false;
 	}
+	
+	this.handleControls = function() {
+		if(this.keyHeld_Shooting) {
+			if (this.semiAutoLock == false) {
+				this.shoot();
+			}
+			this.semiAutoLock = true;  // semi-automatic
+		} 
+		else {
+			this.semiAutoLock = false;
+		}
+		if(this.keyHeld_Nos){
+			this.speed *= GROUNDSPEED_DECAY_MULT_NOS;
+		}
+		else{
+			this.speed *= GROUNDSPEED_DECAY_MULT;
+		}
+		if(this.keyHeld_Gas){
+			this.speed += DRIVE_POWER;
+		}
+		if(this.keyHeld_Reverse) {
+			this.speed -= REVERSE_POWER;
+		}
+		// if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
+		// }
+
+		if(Math.abs(this.speed) > DRIFT_MIN_SPEED){
+			if(this.keyHeld_TurnLeft) {
+				this.ang -= DRIFT_TURN_RATE;
+			}
+			if(this.keyHeld_TurnRight) {
+				this.ang += DRIFT_TURN_RATE;
+			}
+		}
+		else{
+			if(this.keyHeld_TurnLeft) {
+				this.ang -= TURN_RATE;
+				
+			}
+			if(this.keyHeld_TurnRight) {
+				this.ang += TURN_RATE;
+				
+			}
+		} // end car is below DRIFT_MIN_SPEED	
+	} // end handleControls
 
 	this.carCarHandling =function(){
 		for(var i = 0; i < carList.length; i++) {
@@ -310,7 +314,7 @@ function carClass() {
 						carCollisionEffect(this.pos.x, this.pos.y);
 
 						break;
-				}
+					}
 					//code for making collision more precise - don't remove
 
 					// if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width){	
@@ -328,8 +332,8 @@ function carClass() {
 					// 	}				
 					// }
 				}
-		}
-	}
+		} // end for each car
+	} // end carCarHandling
 }// end car class 
 
 
