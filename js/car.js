@@ -142,16 +142,10 @@ function carClass() {
 					this.keyHeld_Shooting = false;	
 			} 
 		
-		}
+		} // end if AI
 		
-		if (this.isDead) {  // shutting off all controls for AI/player since car is dead.
-			this.keyHeld_Gas = false;
-			this.keyHeld_Reverse = false;
-			this.keyHeld_TurnLeft = false;
-			this.keyHeld_TurnRight = false;
-			this.keyHeld_Nos = false;
-			this.keyHeld_Shooting = false;
-		}
+		stopControlsForDeadCar(this);
+		
 		if(this.keyHeld_Shooting) {
 			if (this.semiAutoLock == false) {
 				this.shoot();
@@ -218,7 +212,7 @@ function carClass() {
 			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(241,180,241)",0,this.ang-Math.PI);
 			particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(148,20,211)",0,this.ang-Math.PI);
 		}
-	}
+	} // end move function
 
 	this.draw = function() {
 		drawBitmapCenteredWithRotation(this.myCarPic, this.pos.x ,this.pos.y, this.ang);
@@ -345,6 +339,17 @@ function initializeCollisionPoints(){
 		arr.push({x:'',y:''});
 	}
 	return arr;
+}
+
+function stopControlsForDeadCar(whichCar) {
+	if (whichCar.isDead) {  // shutting off all controls since car is dead.
+		whichCar.keyHeld_Gas = false;
+		whichCar.keyHeld_Reverse = false;
+		whichCar.keyHeld_TurnLeft = false;
+		whichCar.keyHeld_TurnRight = false;
+		whichCar.keyHeld_Nos = false;
+		whichCar.keyHeld_Shooting = false;
+	}
 }
 
 function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
