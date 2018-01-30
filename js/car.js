@@ -1,5 +1,8 @@
 const GROUNDSPEED_DECAY_MULT = 0.94;
 const GROUNDSPEED_DECAY_MULT_NOS = 0.97;
+const BROKEN_TILE_FRICTION = 0.90;
+
+var friction = GROUNDSPEED_DECAY_MULT;
 
 const DRIVE_POWER = 0.6;
 const REVERSE_POWER = 0.2;
@@ -33,6 +36,7 @@ function carClass() {
 	this.height = this.width = 44;
 	this.CollisionPoints = initializeCollisionPoints();
 	this.bulletImg = "";
+	this.inTileBroken = false;
 
 	// Clear tracks when creating a new car
 	if (window.tireTracks) tireTracks.reset();
@@ -43,6 +47,7 @@ function carClass() {
 
 	this.reset = function(whichImage, carName) {
 		this.isDead = false;
+		this.inTileBroken = false;
 		this.health = INITIAL_HEALTH;
 		this.name = carName;
 		this.myCarPic = whichImage;

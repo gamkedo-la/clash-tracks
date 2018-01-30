@@ -67,6 +67,40 @@ function returnTileTypeAtPixelXY(pixelX, pixelY) {
 function carTrackHandling(whichCar) {
 
 	 updateCollisionPoints(whichCar);
+	
+	//checking if the center point is in broken tile
+	
+	 	var carTrackCol = Math.floor(whichCar.CollisionPoints[0].x / TRACK_W);
+		var carTrackRow = Math.floor(whichCar.CollisionPoints[0].y / TRACK_H);
+		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
+
+		if(carTrackCol >= 0 && carTrackCol < track_cols &&
+			carTrackRow >= 0 && carTrackRow < track_rows) {
+			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
+			if(tileHere == TRACK_ROAD_BROKEN){
+				whichCar.ang += 0.25;
+				if(!whichCar.inTileBroken){
+					this.health = 0;
+					whichCar.inTileBroken = true;
+					// this.speed = 0;
+					if(whichCar.name == 'Player'){
+							playerLives--;
+					}
+					setTimeout(function(){
+						if(playerLives > 1){
+							resetCheckPoint();
+						}
+						else{
+							resetLevel();
+						}
+					}, 1000)
+
+				}
+				
+			}
+
+		}
+	
 
 	 for(var i = 0; i < whichCar.CollisionPoints.length; i++){
 	 	// console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
@@ -151,10 +185,7 @@ function drawTracks() {
 			if(tileKindHere == TURRET){
 				canvasContext.drawImage(trackPics[TURRET_BACKGROUND],drawTileX,drawTileY);
 			}
-			// if(tileKindHere >= 20 && tileKindHere < 30 || tileKindHere == TRACK_DISK){
-			// 	// console.log(tileKindHere);
-			// 	canvasContext.drawImage(trackPics[TRACK_ROAD],drawTileX,drawTileY);
-			// }
+			
 			canvasContext.drawImage(useImg,drawTileX,drawTileY);
 			drawTileX += TRACK_W;
 			arrayIndex++;
@@ -261,11 +292,11 @@ function trackCollisionCheck(x,y,goalCheck){
 			if(tileHere == TRACK_CHECKPOINT || tileHere == TRACK_PLAYERSTART){
 				// tileHere = TRACK_ROAD;
 				for(var i = 0; i < trackGridCopy.length; i++){
-					if(trackGridCopy[i] == 2){ // if playerstart is found //remove it 
+					if(trackGridCopy[i] == 2){ // if playerstart is found, remove it 
 						trackGridCopy[i] = 0; 
 					}
 				}
-				trackGridCopy[trackIndexUnderCar] = TRACK_PLAYERSTART;
+				trackGridCopy[trackIndexUnderCar] = TRACK_PLAYERSTART; //add new player start
 
 				return false;
 			}
@@ -289,7 +320,6 @@ function trackCollisionCheck(x,y,goalCheck){
 				tileHere == TRACK_ROAD_BROKEN){
 				return false;
 			}
-
 
 
 			if(tileHere != TRACK_ROAD ) {
