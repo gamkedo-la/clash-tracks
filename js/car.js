@@ -65,19 +65,7 @@ function carClass() {
 
 			// console.log("Enemy AI is set to " + this.isAI);
 		}	
-		for(var eachRow=0;eachRow<track_rows;eachRow++) {
-			for(var eachCol=0;eachCol<track_cols;eachCol++) {
-				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-					if(trackGrid[arrayIndex] == trackValueToCheck) {
-						trackGrid[arrayIndex] = TRACK_ROAD;
-						this.ang = -Math.PI/2;
-						this.pos.x = eachCol * TRACK_W + TRACK_W/2;
-						this.pos.y = eachRow * TRACK_H + TRACK_H/2;
-						return;
-				} // end of player start if
-			} // end of col for
-		} // end of row for
-		console.log("NO PLAYER START FOUND!");		
+		placeCarOnTrackTileType(this, trackValueToCheck);	
 	} // end of carReset func
 
 	this.gotHurt = function (damageDealt) {
@@ -357,5 +345,21 @@ function initializeCollisionPoints(){
 		arr.push({x:'',y:''});
 	}
 	return arr;
+}
+
+function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
+	for(var eachRow=0;eachRow<track_rows;eachRow++) {
+			for(var eachCol=0;eachCol<track_cols;eachCol++) {
+				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+					if(trackGrid[arrayIndex] == tileTypeToCheck) {
+						trackGrid[arrayIndex] = TRACK_ROAD;
+						whichCar.ang = -Math.PI/2;
+						whichCar.pos.x = eachCol * TRACK_W + TRACK_W/2;
+						whichCar.pos.y = eachRow * TRACK_H + TRACK_H/2;
+						return;
+				} // end of player start if
+			} // end of col for
+		} // end of row for
+		console.log("NO CAR START FOUND, type: (" + tileTypeToCheck + ")");	
 }
 
