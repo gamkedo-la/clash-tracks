@@ -41,6 +41,8 @@ function loadImages() {
 		{trackType: TRACK_GOAL, theFile: "track_goal.png"},
 		{trackType: TRACK_DISK, theFile: "track_disk.png"},
 		{trackType: TRACK_CITIES, theFile: "aliencities.png"},
+		{trackType: TURRET_BACKGROUND, theFile: "turretBackground.png"},
+		{trackType: TURRET, theFile: "turret.png"},
         {trackType: TRACK_BRICKS, theFile: "alienBricks_violet.png"},
         {trackType: TRACK_2_BUILDINGS_1, theFile: "violet_perspective_building_1.png"},
         {trackType: TRACK_2_BUILDINGS_2, theFile: "violet_two_buildings_1.png"},

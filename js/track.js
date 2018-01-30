@@ -19,9 +19,8 @@ const TRACK_CHECKPOINT  =  8;
 const TRACK_JUMP_TILE = 9;
 const TRACK_SMOOTH = 10;
 const TRACK_ROAD_BROKEN = 11;
-
-
-
+const TURRET = 18;
+const TURRET_BACKGROUND = 19;
 const TRACK_2_BUILDINGS_1 = 20; //border brick 1
 const TRACK_2_BUILDINGS_2 = 21; //2 building (smaller)l->r
 const TRACK_2_BUILDINGS_3 = 22; //2 buildings (smaller) r-> l
@@ -149,10 +148,13 @@ function drawTracks() {
 			else{
 				useImg = trackPics[tileKindHere];
 			}
-			if(tileKindHere >= 20 && tileKindHere < 30 || tileKindHere == TRACK_DISK){
-				// console.log(tileKindHere);
-				canvasContext.drawImage(trackPics[TRACK_ROAD],drawTileX,drawTileY);
+			if(tileKindHere == TURRET){
+				canvasContext.drawImage(trackPics[TURRET_BACKGROUND],drawTileX,drawTileY);
 			}
+			// if(tileKindHere >= 20 && tileKindHere < 30 || tileKindHere == TRACK_DISK){
+			// 	// console.log(tileKindHere);
+			// 	canvasContext.drawImage(trackPics[TRACK_ROAD],drawTileX,drawTileY);
+			// }
 			canvasContext.drawImage(useImg,drawTileX,drawTileY);
 			drawTileX += TRACK_W;
 			arrayIndex++;
