@@ -21,6 +21,10 @@ function carClass() {
 	this.prevPos = vector.create(0,0);
 	this.ang = 0;
 	this.speed = 0;
+	this.skidSpeed = 0; 		// force of skid
+	this.skidAngle = 0;			// direction of skid
+	this.skidDampening = 0.75; 	// how much less skidding per frame
+	this.skidScale = 2.0; 		// 1.0 = transfer energy perfectly like pool balls
 	this.health = INITIAL_HEALTH;
 	this.myCarPic; // which picture to use
 	this.name = "Untitled Car";
@@ -52,6 +56,8 @@ function carClass() {
 		this.name = carName;
 		this.myCarPic = whichImage;
 		this.speed = 0;
+		this.skidSpeed = 0; 
+		this.skidAngle = 0;
 		this.keyHeld_Nos = false;
 		var trackValueToCheck =0;
 		// console.log(carName);
@@ -113,12 +119,12 @@ function carClass() {
 
 			var leftPos = rightPos = frontPos = vector.create();
 			// Navigation for AI cars to see bricks are nearby
-			frontPos.x = this.pos.x +  Math.cos(this.ang)* this.width;
+			frontPos.x = this.pos.x + Math.cos(this.ang)* this.width;
 	 		frontPos.y = this.pos.y + Math.sin(this.ang)* this.width;;
-			leftPos.x =  this.pos.x +  Math.cos(this.ang - Math.PI/7)* this.width -  Math.sin(this.ang - Math.PI/7)* this.width;
-			leftPos.y =  this.pos.y +  Math.cos(this.ang - Math.PI/7)* this.width +  Math.sin(this.ang - Math.PI/7)* this.width;
-			rightPos.x = this.pos.x +  Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
-			rightPos.y = this.pos.y -  Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
+			leftPos.x =  this.pos.x + Math.cos(this.ang - Math.PI/7)* this.width -  Math.sin(this.ang - Math.PI/7)* this.width;
+			leftPos.y =  this.pos.y + Math.cos(this.ang - Math.PI/7)* this.width +  Math.sin(this.ang - Math.PI/7)* this.width;
+			rightPos.x = this.pos.x + Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
+			rightPos.y = this.pos.y - Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
 
 			if(this.inTileBroken){
 				this.isDead = true;
@@ -161,6 +167,15 @@ function carClass() {
 
 		this.pos.x += Math.cos(this.ang) * this.speed;
 		this.pos.y += Math.sin(this.ang) * this.speed;
+
+		// skidding due to collisions: a sideways force
+		if (this.skidSpeed!=0)
+		{
+			this.pos.x += Math.cos(this.skidAngle) * this.skidSpeed * this.skidScale;
+			this.pos.y += Math.sin(this.skidAngle) * this.skidSpeed * this.skidScale;
+			this.skidSpeed *= this.skidDampening;
+		}
+
 		carTrackHandling(this);
 		this.carCarHandling(this);
 
@@ -288,13 +303,20 @@ function carClass() {
 						var newVelX2 = (car2velX * (car2mass - car1mass) + (2 * car1mass * car1velX)) / (car1mass + car2mass);
 						var newVelY2 = (car2velY * (car2mass - car1mass) + (2 * car1mass * car1velY)) / (car1mass + car2mass);
 
-						// set new velocity
-						this.speed = Math.sqrt(newVelX1*newVelX1+newVelY1*newVelY1); // pythagoras
-						this.ang = Math.atan2(newVelY1,newVelX1);
+						// set new velocity? no, this will cause cars to "steer" to the new angle
+						//this.speed = Math.sqrt(newVelX1*newVelX1+newVelY1*newVelY1); // pythagoras
+						//this.ang = Math.atan2(newVelY1,newVelX1);
+						// normal speed and ang are already fine
+
+						// allow sliding sideways by storing some additional momentum for use during car update
+						this.skidSpeed = Math.sqrt(newVelX1*newVelX1+newVelY1*newVelY1); // pythagoras
+						this.skidAngle = Math.atan2(newVelY1,newVelX1);
 
 						// also bounce the other car
-						carList[i].speed = Math.sqrt(newVelX2*newVelX2+newVelY2*newVelY2); // pythagoras
-						carList[i].ang = Math.atan2(newVelY2,newVelX2);
+						//carList[i].speed = Math.sqrt(newVelX2*newVelX2+newVelY2*newVelY2); // pythagoras
+						//carList[i].ang = Math.atan2(newVelY2,newVelX2);
+						carList[i].skidSpeed = Math.sqrt(newVelX2*newVelX2+newVelY2*newVelY2); // pythagoras
+						carList[i].skidAngle = Math.atan2(newVelY2,newVelX2);
 
 						// FIXME: we need to force cars to face velocity.
 						// so they always face to be angled in whatever direction they
