@@ -8,6 +8,7 @@ const KEY_S = 83;
 const KEY_D = 68;
 const SPACE_BAR = 32;
 const KEY_O = 79;
+const KEY_R = 82;
 const KEY_SHIFT = 16;
 
 var mouseX = 0;
@@ -17,7 +18,7 @@ function setupInput() {
 	// canvas.addEventListener('mousemove', updateMousePos);
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
-} 
+}
 
 // function updateMousePos(evt) {
 // 	var rect = canvas.getBoundingClientRect();
@@ -57,7 +58,7 @@ function keySet(evt, setTo)
 			break;
 		case KEY_SHIFT:
 			playerCar.keyHeld_Nos = setTo;
-			break;	
+			break;
 	}
 }
 
@@ -68,11 +69,14 @@ function keyPressed(evt) {
 		case KEY_O:
 			debug = !debug;
 			break;
+		case KEY_R:
+			resetCheckPoint();
+			break;
 	}
 	evt.preventDefault();
 }
 
 function keyReleased(evt) {
 	keySet(evt, false);
-	evt.preventDefault();	
+	evt.preventDefault();
 }

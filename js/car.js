@@ -103,7 +103,7 @@ function carClass() {
 		this.prevPos.x = this.pos.x;
 		this.prevPos.y = this.pos.y;
 		// don't move ai cars in broken tiles. Make them rotate and dissapear.
-		if (this.isAI ) {
+		if (this.isAI) {
 			// this.keyHeld_TurnRight = true;
 			distancePlayerEnemy = distance(playerCar.pos.x,playerCar.pos.y,this.pos.x, this.pos.y)
 
@@ -125,6 +125,7 @@ function carClass() {
 				this.myCarPic = wreckedCarPic;
 				return;
 			}
+
 			if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
 				this.ang += 0.5;
 			}

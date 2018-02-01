@@ -66,10 +66,13 @@ function carTrackHandling(whichCar) {
 
 	 updateCollisionPoints(whichCar);
 
+
    //checking if the center point is in broken tile
 	 //TODO if center point is a bit more inside the broken tile
-	 	var carTrackCol = Math.floor((whichCar.pos.x + TRACK_W/2)/(TRACK_W ));
-		var carTrackRow = Math.floor((whichCar.pos.y + TRACK_H/2)/(TRACK_H ));
+
+
+	 	var carTrackCol = Math.floor((whichCar.pos.x) /TRACK_W);
+		var carTrackRow = Math.floor((whichCar.pos.y)/TRACK_H);
 		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
 
 		if(carTrackCol >= 0 && carTrackCol < track_cols &&
