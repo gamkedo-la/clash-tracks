@@ -146,15 +146,13 @@ function carClass() {
 					var dy = playerCar.pos.y - this.pos.y;
 					var angle = Math.atan2(dy, dx);
 					this.ang = angle ;
-					this.keyHeld_Shooting = Math.random() < 0.2;
+					this.keyHeld_Shooting = Math.random() < 0.1;
 				}
 			}
 			else{
 					this.keyHeld_Gas = false;
 					this.keyHeld_Shooting = false;
 			}
-
-
 		} // end if AI
 
 		stopControlsForDeadCar(this);
