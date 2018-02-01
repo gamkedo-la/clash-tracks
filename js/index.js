@@ -57,19 +57,15 @@ function levelDataReset(){
 	}
 	bullets = [];
 	particles.clear();
-	ai_distance = 250;
-
+	ai_distance = 400;
 }
 
 function resetCheckPoint() {
 	levelDataReset();
 	levelData = levels[level];
 	trackGrid = trackGridCopy.slice();
-	// trackGridCopy = trackGrid.slice();
-
 	track_cols = levelData.cols;
 	track_rows = levelData.rows;
-
 	numOfEnemiesCars = levelData.enemyCars;
 	carsReset();
 }
@@ -116,7 +112,7 @@ function drawAll() {
     // this next line is like subtracting camPanX and camPanY from every
     // canvasContext draw operation up until we call canvasContext.restore
     // this way we can just draw them at their "actual" position coordinates
-  	canvasContext.translate(-camPanX,-camPanY);
+  canvasContext.translate(-camPanX,-camPanY);
 	drawTracks();
 	particles.draw();
 	playerCar.draw();

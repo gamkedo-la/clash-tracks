@@ -69,8 +69,8 @@ function carClass() {
 			this.bulletImg = enemyBulletPic;
 
 			// console.log("Enemy AI is set to " + this.isAI);
-		}	
-		placeCarOnTrackTileType(this, trackValueToCheck);	
+		}
+		placeCarOnTrackTileType(this, trackValueToCheck);
 	} // end of carReset func
 
 	this.gotHurt = function (damageDealt) {
@@ -94,7 +94,7 @@ function carClass() {
 								else{
 									resetLevel();
 								}
-							}, 1500);                
+							}, 1500);
 			}
 		}
 	}
@@ -102,22 +102,29 @@ function carClass() {
 	this.move = function() {
 		this.prevPos.x = this.pos.x;
 		this.prevPos.y = this.pos.y;
-		if (this.isAI) {
+		// don't move ai cars in broken tiles. Make them rotate and dissapear.
+		if (this.isAI ) {
 			// this.keyHeld_TurnRight = true;
 			distancePlayerEnemy = distance(playerCar.pos.x,playerCar.pos.y,this.pos.x, this.pos.y)
 
 			//need to change AI angle to match angle of player car
 			//check what is 45 degree to the right and left of it.
 			this.keyHeld_Gas = true;
+
 			var leftPos = rightPos = frontPos = vector.create();
 			// Navigation for AI cars to see bricks are nearby
-			frontPos.x = this.pos.x +  Math.cos(this.ang)* this.width; 
+			frontPos.x = this.pos.x +  Math.cos(this.ang)* this.width;
 	 		frontPos.y = this.pos.y + Math.sin(this.ang)* this.width;;
-			leftPos.x =  this.pos.x +  Math.cos(this.ang - Math.PI/7)* this.width -  Math.sin(this.ang - Math.PI/7)* this.width; 
-			leftPos.y =  this.pos.y +  Math.cos(this.ang - Math.PI/7)* this.width +  Math.sin(this.ang - Math.PI/7)* this.width; 
+			leftPos.x =  this.pos.x +  Math.cos(this.ang - Math.PI/7)* this.width -  Math.sin(this.ang - Math.PI/7)* this.width;
+			leftPos.y =  this.pos.y +  Math.cos(this.ang - Math.PI/7)* this.width +  Math.sin(this.ang - Math.PI/7)* this.width;
 			rightPos.x = this.pos.x +  Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
 			rightPos.y = this.pos.y -  Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
 
+			if(this.inTileBroken){
+				this.isDead = true;
+				this.myCarPic = wreckedCarPic;
+				return;
+			}
 			if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
 				this.ang += 0.5;
 			}
@@ -129,7 +136,7 @@ function carClass() {
 				this.ang -= 0.15;
 			}
 
-			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y) 
+			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y)
 				&& !debug && !this.isDead && !playerCar.isDead) {
 
 				if(distancePlayerEnemy < ai_distance){
@@ -139,27 +146,28 @@ function carClass() {
 					var dy = playerCar.pos.y - this.pos.y;
 					var angle = Math.atan2(dy, dx);
 					this.ang = angle ;
-					this.keyHeld_Shooting = Math.random() < 0.3;
-				}	
-			} 
+					this.keyHeld_Shooting = Math.random() < 0.2;
+				}
+			}
 			else{
 					this.keyHeld_Gas = false;
-					this.keyHeld_Shooting = false;	
-			} 
-		
+					this.keyHeld_Shooting = false;
+			}
+
+
 		} // end if AI
-		
+
 		stopControlsForDeadCar(this);
 		this.handleControls();
-		
+
 		this.pos.x += Math.cos(this.ang) * this.speed;
 		this.pos.y += Math.sin(this.ang) * this.speed;
 		carTrackHandling(this);
 		this.carCarHandling(this);
-		
+
 		// white trail
 		// particles.add(this.pos.x+Math.random()*20-10,this.pos.y+Math.random()*20-10,particlePic,1500,32,"rgb(32,32,32)");
-		
+
 		if (window.tireTracks) tireTracks.add(this.pos.x, this.pos.y, this.ang, 0.5);
 		//trail particles for player
 		if(this.name == 'Player'){
@@ -169,7 +177,7 @@ function carClass() {
 			else{
 				particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
 				particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(46,148,193)",0,this.ang-Math.PI);
-			} 
+			}
 		}
 		//trail particles for enemy
 		else{
@@ -205,14 +213,14 @@ function carClass() {
 		}
 		return false;
 	}
-	
+
 	this.handleControls = function() {
 		if(this.keyHeld_Shooting) {
 			if (this.semiAutoLock == false) {
 				this.shoot();
 			}
 			this.semiAutoLock = true;  // semi-automatic
-		} 
+		}
 		else {
 			this.semiAutoLock = false;
 		}
@@ -222,15 +230,14 @@ function carClass() {
 		else{
 			this.speed *= GROUNDSPEED_DECAY_MULT;
 		}
-		if(this.keyHeld_Gas){
+		if(this.keyHeld_Gas &&  !this.inTileBroken){
 			this.speed += DRIVE_POWER;
 		}
-		if(this.keyHeld_Reverse) {
+		if(this.keyHeld_Reverse &&  !this.inTileBroken) {
 			this.speed -= REVERSE_POWER;
 		}
 		// if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
 		// }
-
 		if(Math.abs(this.speed) > DRIFT_MIN_SPEED){
 			if(this.keyHeld_TurnLeft) {
 				this.ang -= DRIFT_TURN_RATE;
@@ -242,18 +249,16 @@ function carClass() {
 		else{
 			if(this.keyHeld_TurnLeft) {
 				this.ang -= TURN_RATE;
-				
 			}
 			if(this.keyHeld_TurnRight) {
 				this.ang += TURN_RATE;
-				
 			}
-		} // end car is below DRIFT_MIN_SPEED	
+		} // end car is below DRIFT_MIN_SPEED
 	} // end handleControls
 
 	this.carCarHandling =function(){
 		for(var i = 0; i < carList.length; i++) {
-			
+
 				if(carList[i].pos.x != this.pos.x && carList[i].pos.y != this.pos.y){
 
 					var xDistance = Math.pow((this.pos.x - carList[i].pos.x),2);
@@ -261,7 +266,7 @@ function carClass() {
 					//safe distance to check collision points
 
 					if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width/1.5){
-						
+
 						console.log("car to car collision!");
 
 						// collision response: bounce off each other
@@ -292,7 +297,7 @@ function carClass() {
 						carList[i].speed = Math.sqrt(newVelX2*newVelX2+newVelY2*newVelY2); // pythagoras
 						carList[i].ang = Math.atan2(newVelY2,newVelX2);
 
-						// FIXME: we need to force cars to face velocity. 
+						// FIXME: we need to force cars to face velocity.
 						// so they always face to be angled in whatever direction they
 						// are moving, even if hit from the side... hmmmm what to do...
 
@@ -301,8 +306,8 @@ function carClass() {
 						//var dy = this.pos.y - carList[i].pos.y;
 						//var collisionAngle = Math.atan2(dy, dx);
 						// rotate like we bounced off a wall? (Math.PI = 180 deg)
-						//this.ang = collisionAngle + Math.PI/2; 
-						//carList[i].ang = collisionAngle - Math.PI/2; 
+						//this.ang = collisionAngle + Math.PI/2;
+						//carList[i].ang = collisionAngle - Math.PI/2;
 
 						// slow down?
 						this.speed *= 0.75;	// FIXME: consider using a proper restitution % (bouncines)
@@ -313,7 +318,7 @@ function carClass() {
 						this.pos.x -= Math.cos(this.ang) * this.speed ;
 						this.pos.y -= Math.sin(this.ang) * this.speed ;
 						this.ang +=  0.05;
-						this.speed *= -0.5;	
+						this.speed *= -0.5;
 						*/
 
 						carCollisionEffect(this.pos.x, this.pos.y);
@@ -322,7 +327,7 @@ function carClass() {
 					}
 					//code for making collision more precise - don't remove
 
-					// if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width){	
+					// if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width){
 					// 	for(j = 1; j < carList[i].CollisionPoints.length; j++){
 					// 		var xCollisionDistance = Math.pow((this.pos.x - carList[i].CollisionPoints[j].x),2);
 					// 		var yCollisionDistance = Math.pow((this.pos.y - carList[i].CollisionPoints[j].y),2);
@@ -330,16 +335,16 @@ function carClass() {
 					// 			this.pos.x -= Math.cos(this.ang) * this.speed ;
 					// 			this.pos.y -= Math.sin(this.ang) * this.speed ;
 					// 			this.ang += 0.05;
-					// 			this.speed *= -0.5;	
+					// 			this.speed *= -0.5;
 					// 			carCollisionEffect(this.pos.x, this.pos.y);
 					// 			break;
 					// 		}
-					// 	}				
+					// 	}
 					// }
 				}
 		} // end for each car
 	} // end carCarHandling
-}// end car class 
+}// end car class
 
 
 function initializeCollisionPoints(){
@@ -374,6 +379,5 @@ function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
 				} // end of player start if
 			} // end of col for
 		} // end of row for
-		console.log("NO CAR START FOUND, type: (" + tileTypeToCheck + ")");	
+		console.log("NO CAR START FOUND, type: (" + tileTypeToCheck + ")");
 }
-
