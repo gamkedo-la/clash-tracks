@@ -13,14 +13,13 @@ const DRIFT_MIN_SPEED = 2;
 const INITIAL_HEALTH = 3;
 const CAR_COLLISION_POINTS = 13;
 var enemyCars = [];
-var ai_distance = 250
+var ai_distance = 250;
 
 
-//TODO Lock key to shoot bullets at regular interval
-//TODO Ability to shoot with NOS
-//TODO DRift
+//TODO Drift
+//TODO AI Distance bug
 //TODO Update Friction Code and Add Slippery Road Functionality.
-//TODO Functionality Jumping Tile
+//TODO Building stuck jitter.
 
 function carClass() {
 	//position
@@ -51,7 +50,8 @@ function carClass() {
 	this.jumping = false;
 	this.inJumpTile  = false;
 	this.autoShoot = false; // only used for player.
-	this.shadowColor = "cyan"
+	this.shadowColor = "cyan";
+	this.stuckOnWall = false;
 
 
 	// Clear tracks when creating a new car
@@ -102,7 +102,7 @@ function carClass() {
 		this.health -= damageDealt;
 		ai_distance = 400; // To show ai knows it has been hit and follows player.
 		console.log("New health is " + this.health + " due to damage " + damageDealt);
-		if (this.health <= 0) {
+		if (this.health <= 0 && !this.isDead) {
 			console.log("You got me this time! (car dead)");
 			this.isDead = true;
 			this.myCarPic = wreckedCarPic;
@@ -115,8 +115,9 @@ function carClass() {
 	this.move = function() {
 		this.prevPos.x = this.pos.x;
 		this.prevPos.y = this.pos.y;
-		//TODO don't move ai cars in broken tiles. Make them rotate and dissapear.
+		//TODO  Make ai cars rotate and dissapear on broken tiles
 		//TODO Make Ai cars avoid broken tile slightly
+
 
 		if (this.isAI) {
 			// this.keyHeld_TurnRight = true;
@@ -225,7 +226,7 @@ function carClass() {
 				colorCircle(this.CollisionPoints[i].x,this.CollisionPoints[i].y ,1,"lime");
 			}
 		}
-		
+
 	}
 
 	this.drawShadow = function(shadowColor){

@@ -68,7 +68,6 @@ function carTrackHandling(whichCar) {
 
 	 updateCollisionPoints(whichCar);
 
-
    //checking if the center point is in broken tile
 	 //TODO if center point is a bit more inside the broken tile
 
@@ -79,18 +78,22 @@ function carTrackHandling(whichCar) {
 		// specific interval
 		//TODO If car collision body turns out to be true simulataneously. Reset the car to the Last Position.
 		//TODO Reset car to nearest point and not last checkpoint on wall stuck
+
 		if(carTrackCol >= 0 && carTrackCol < track_cols &&
 			carTrackRow >= 0 && carTrackRow < track_rows) {
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 			if(tileHere != TRACK_ROAD
 				&& tileHere != TRACK_JUMP_TILE
-				&& tileHere!== TRACK_ROAD_BROKEN){
+				&& tileHere!== TRACK_ROAD_BROKEN
+			  && !whichCar.stuckOnWall && !whichCar.isDead){
 
 				if(whichCar.name == "Player"){
-					playerLives--;
 					this.myCarPic = wreckedCarPic;
+					whichCar.isDead = true;
 					playerResetCondition();
-				}
+					whichCar.stuckOnWall = true;
+
+				}// playerLives--;
 				else{
 					whichCar.myCarPic = wreckedCarPic;
 					whichCar.isDead = true;
@@ -103,12 +106,11 @@ function carTrackHandling(whichCar) {
 				whichCar.ang += 0.25;
 				whichCar.speed = 0;
 				//check if center of car is in tile broken
-				if(!whichCar.inTileBroken){
+				if(!whichCar.inTileBroken && !whichCar.isDead){
 					this.health = 0;
 					whichCar.inTileBroken = true;
 					// this.speed = 0;
 					if(whichCar.name == 'Player'){
-							playerLives--;
 						  playerResetCondition();
 					}
 					else{
@@ -116,7 +118,6 @@ function carTrackHandling(whichCar) {
 					}
 				}
 			}
-
 			if(tileHere == TRACK_JUMP_TILE){
 				if(!whichCar.inJumpTile){
 					whichCar.speed *= 2;
@@ -124,10 +125,7 @@ function carTrackHandling(whichCar) {
 					setTimeout(function(){whichCar.jumping = false; whichCar.inJumpTile = false;}, 500);
 					whichCar.inJumpTile = true;
 				}
-
-
 			}
-
 		}
 
 	 for(var i = 0; i < whichCar.CollisionPoints.length; i++){
