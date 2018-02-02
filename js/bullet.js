@@ -2,6 +2,15 @@ let bullets = [];
 
 //TODO Bullet does not collide with Jump Tile,Broken TIle.
 
+function spawnBulletWithoutOriginObject(fromX,fromY,withAng,startGap) {
+	var tempObj = {pos:{x:fromX+Math.cos(withAng)*startGap,
+						y:fromY+Math.sin(withAng)*startGap},
+					ang: withAng,
+					speed: 0,
+					bulletImg: enemyBulletPic};
+	bullets.push(new bulletClass(tempObj));
+}
+
 function bulletClass(origin) {
 	this.pos = vector.create();
 	this.pos.x = origin.pos.x;

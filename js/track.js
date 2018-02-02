@@ -30,6 +30,7 @@ const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
 const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
 
 const TRACK_MINE = 50;
+const TRACK_LASER_TOWER = 51;
 
 const CAM_SCROLL_SPEED = 6
 
@@ -225,6 +226,16 @@ function drawTracks() {
 				canvasContext.drawImage(trackPics[TURRET_BACKGROUND],drawTileX,drawTileY);
 			}
 
+			if(tileKindHere == TRACK_LASER_TOWER) {
+				var turretTick = Math.floor(animTileOscillatorFrame*0.1)%13;
+				if(turretTick < 4) {
+					spawnBulletWithoutOriginObject(drawTileX+TRACK_W/2,
+													drawTileY+TRACK_H/2,
+													(Math.PI*0.5)*turretTick,
+													TRACK_W/2);
+				}
+			}
+
 			if(tileKindHere == TRACK_MINE) {
 				canvasContext.drawImage(useImg,
 					(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
@@ -235,8 +246,8 @@ function drawTracks() {
 			drawTileX += TRACK_W;
 			arrayIndex++;
 		} // end of for each col
-		drawTileY += TRACK_H;
 		drawTileX = 0;
+		drawTileY += TRACK_H;
 	} // end of for each row
 
 } // end of drawTracks func
