@@ -94,6 +94,7 @@ function updateAll() {
 	moveAll();
 	drawAll();
 	particles.update();
+	updateScreenshake();
 }
 
 function moveAll() {

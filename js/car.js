@@ -100,6 +100,7 @@ function carClass() {
 			ai_distance = 250;
 			return;
 		}
+		if (this.name === "Player")	screenshake(10);
 		this.health -= damageDealt;
 		ai_distance = 400; // To show ai knows it has been hit and follows player.
 		console.log("New health is " + this.health + " due to damage " + damageDealt);
@@ -313,7 +314,8 @@ function carClass() {
 					if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width/1.5){
 
 						console.log("car to car collision!");
-
+						screenshake(10);
+						
 						// collision response: bounce off each other
 						// both cars are affected
 
