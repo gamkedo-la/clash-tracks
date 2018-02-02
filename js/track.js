@@ -98,10 +98,10 @@ function carTrackHandling(whichCar) {
 
 			}
 
+			//code for handling car and broken tile collision
 			if(tileHere == TRACK_ROAD_BROKEN){
 				whichCar.ang += 0.25;
 				whichCar.speed = 0;
-
 				//check if center of car is in tile broken
 				if(!whichCar.inTileBroken){
 					this.health = 0;
@@ -114,9 +114,18 @@ function carTrackHandling(whichCar) {
 					else{
 						whichCar.isDead = true;
 					}
-
 				}
-				//make the car stop moving. // velocity 0 and acceleration 0
+			}
+
+			if(tileHere == TRACK_JUMP_TILE){
+				if(!whichCar.inJumpTile){
+					whichCar.speed *= 2;
+					whichCar.jumping = true;
+					setTimeout(function(){whichCar.jumping = false; whichCar.inJumpTile = false;}, 500);
+					whichCar.inJumpTile = true;
+				}
+
+
 			}
 
 		}
@@ -230,7 +239,7 @@ function anyWallsBetweenTwoPoints(x1, y1, x2, y2) {
 			colorCircle(testX, testY, 10, 'yellow');
 		}
 		var trackKind = returnTileTypeAtPixelXY(testX, testY) ;
-		if (trackKind != TRACK_ROAD && trackKind != TRACK_ROAD_BROKEN) {
+		if (trackKind != TRACK_ROAD && trackKind != TRACK_ROAD_BROKEN && trackKind != TRACK_JUMP_TILE) {
 			isBlocked = true;
 			break;
 		}

@@ -114,6 +114,11 @@ function drawAll() {
     // this way we can just draw them at their "actual" position coordinates
   canvasContext.translate(-camPanX,-camPanY);
 	drawTracks();
+	playerCar.drawShadow(playerCar.shadowColor);
+	//To draw shadow underneath particles
+	for(var i = 0; i < numOfEnemiesCars; i++){
+		enemyCars[i].drawShadow(enemyCars[i].shadowColor)
+	}
 	particles.draw();
 	playerCar.draw();
 	for(var i = 0; i < numOfEnemiesCars; i++){
@@ -123,7 +128,7 @@ function drawAll() {
 	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 	colorText("TIME: " + Math.ceil(timeToFinishLevel / framesPerSecond), 30, 30, 'white');
-    colorText("HP: " + playerCar.health, canvas.width - 30, 60, 'white', 'right');
-    colorText("Player Lives: " + playerLives, canvas.width - 30, 30, 'white', 'right');
+  colorText("HP: " + playerCar.health, canvas.width - 30, 60, 'white', 'right');
+  colorText("Player Lives: " + playerLives, canvas.width - 30, 30, 'white', 'right');
 
 }

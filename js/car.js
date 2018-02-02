@@ -2,7 +2,7 @@ const GROUNDSPEED_DECAY_MULT = 0.94;
 const GROUNDSPEED_DECAY_MULT_NOS = 0.97;
 const BROKEN_TILE_FRICTION = 0.90;
 
-var friction = GROUNDSPEED_DECAY_MULT;
+var friction = GROUNDSPEED_DECAY_MULT; //USE THIS TO REFACTOR
 
 const DRIVE_POWER = 0.6;
 const REVERSE_POWER = 0.2;
@@ -48,8 +48,10 @@ function carClass() {
 	this.CollisionPoints = initializeCollisionPoints();
 	this.bulletImg = "";
 	this.inTileBroken = false;
-	this.inJumpTile = false;
+	this.jumping = false;
+	this.inJumpTile  = false;
 	this.autoShoot = false; // only used for player.
+	this.shadowColor = "cyan"
 
 
 	// Clear tracks when creating a new car
@@ -77,6 +79,7 @@ function carClass() {
 			this.height = 25;
 			this.weight = 44;
 			this.bulletImg = playerBulletPic;
+			this.shadowColor = "darkcyan";
 		}
 		else{
 			trackValueToCheck = TRACK_ENEMYSTART;
@@ -84,6 +87,7 @@ function carClass() {
 			this.weight = 44;
 			this.isAI = true;
 			this.bulletImg = enemyBulletPic;
+			this.shadowColor = "purple";
 
 			// console.log("Enemy AI is set to " + this.isAI);
 		}
@@ -113,11 +117,6 @@ function carClass() {
 		this.prevPos.y = this.pos.y;
 		//TODO don't move ai cars in broken tiles. Make them rotate and dissapear.
 		//TODO Make Ai cars avoid broken tile slightly
-
-		if(playerCar.autoShoot && Math.random() < 0.1){
-
-			playerCar.shoot()
-		}
 
 		if (this.isAI) {
 			// this.keyHeld_TurnRight = true;
@@ -172,9 +171,15 @@ function carClass() {
 			}
 		} // end if AI
 
+		//only for player car.
+		else{
+				if(playerCar.autoShoot && Math.random() < 0.1){
+						playerCar.shoot()
+				}
+		}
+
 		stopControlsForDeadCar(this);
 		this.handleControls();
-
 		this.pos.x += Math.cos(this.ang) * this.speed;
 		this.pos.y += Math.sin(this.ang) * this.speed;
 
@@ -205,18 +210,30 @@ function carClass() {
 		}
 		//trail particles for enemy
 		else{
-			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(241,180,241)",0,this.ang-Math.PI);
-			particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(148,20,211)",0,this.ang-Math.PI);
+			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
+			particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(201, 102, 249)",0,this.ang-Math.PI);
 		}
+
 	} // end move function
 
 	this.draw = function() {
 		drawBitmapCenteredWithRotation(this.myCarPic, this.pos.x ,this.pos.y, this.ang);
+		// this.drawShadow(this.shadowColor);
 		if(debug){
 			colorCircle(this.pos.x,this.pos.y ,1,"lime");
 			for(var i = 0; i<this.CollisionPoints.length; i++){
 				colorCircle(this.CollisionPoints[i].x,this.CollisionPoints[i].y ,1,"lime");
 			}
+		}
+		
+	}
+
+	this.drawShadow = function(shadowColor){
+		if(this.jumping){
+			var shadowPosX = this.prevPos.x - Math.cos(this.ang) * this.speed* 1.1;
+			var shadowPosY = this.prevPos.y - Math.sin(this.ang) * this.speed * 1.1;
+			var radius = map(this.speed, 0, 40, 0, 20)
+			colorCircle(shadowPosX ,shadowPosY , radius ,shadowColor);
 		}
 	}
 
