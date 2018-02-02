@@ -154,3 +154,13 @@ function bulletHitWallEffect(x,y)
     }
     sparksEffect(x,y);
 }
+
+function mineDetonatesEffect(x,y)
+{
+    for (var i=0; i<15; i++) { // scattered bullet hit walls
+        var randAng = Math.random() * Math.PI * 2.0;
+        var randDist = Math.random() * 50.0;
+        carCollisionEffect(x + Math.cos(randAng)*randDist,
+                            y + Math.sin(randAng)*randDist);
+    }
+}

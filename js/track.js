@@ -28,7 +28,12 @@ const TRACK_3_BUILDINGS_2 = 25; // 3 building descending
 const TRACK_3_BUILDINGS_3 = 26;	// 3 building ascending
 const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
 const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
+
+const TRACK_MINE = 50;
+
 const CAM_SCROLL_SPEED = 6
+
+var animTileOscillatorFrame = 0;
 
 //TODO Make Wall Code Numbers Occur in Sequence and Update Track Data
 
@@ -96,6 +101,12 @@ function carTrackHandling(whichCar) {
 
 				}
 
+			}
+
+			if(tileHere == TRACK_MINE) {
+				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // remove mine
+				mineDetonatesEffect(carTrackCol*TRACK_W+TRACK_W/2,
+									carTrackRow*TRACK_H+TRACK_H/2);
 			}
 
 			//code for handling car and broken tile collision
@@ -196,6 +207,8 @@ function drawTracks() {
 	var drawTileX = 0;
 	var drawTileY = 0;
 
+	animTileOscillatorFrame++; // used to cycle frames for animated types
+
 	for(var eachRow=0;eachRow<track_rows;eachRow++) {
 		for(var eachCol=0;eachCol<track_cols;eachCol++) {
 
@@ -212,7 +225,13 @@ function drawTracks() {
 				canvasContext.drawImage(trackPics[TURRET_BACKGROUND],drawTileX,drawTileY);
 			}
 
-			canvasContext.drawImage(useImg,drawTileX,drawTileY);
+			if(tileKindHere == TRACK_MINE) {
+				canvasContext.drawImage(useImg,
+					(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
+					drawTileX,drawTileY,TRACK_W,TRACK_H);
+			} else {
+				canvasContext.drawImage(useImg,drawTileX,drawTileY);
+			}
 			drawTileX += TRACK_W;
 			arrayIndex++;
 		} // end of for each col
@@ -348,7 +367,7 @@ function trackCollisionCheck(x,y,goalCheck){
 				return false;
 			}
 
-			if(tileHere != TRACK_ROAD ) {
+			if(tileHere != TRACK_ROAD && tileHere != TRACK_MINE ) {
 				return true;
 			} // end of track found
 

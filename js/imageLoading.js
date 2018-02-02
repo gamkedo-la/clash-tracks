@@ -56,7 +56,8 @@ function loadImages() {
         {trackType: TRACK_JUMP_TILE, theFile: "jumpTile.png"},
         {trackType: TRACK_SMOOTH, theFile: "sliperyRoad.png"},
         {trackType: TRACK_ROAD_BROKEN, theFile: "track_road_broken.png"},
-        
+        {trackType: TRACK_MINE, theFile: "track_mine_sheet.png"},
+
 	];
 
 	picsToLoad = imageList.length;
