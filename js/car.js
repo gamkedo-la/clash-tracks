@@ -50,7 +50,7 @@ function carClass() {
 	this.jumping = false;
 	this.inJumpTile  = false;
 	this.autoShoot = false; // only used for player.
-	this.shadowColor = "cyan";
+	this.shadowColor = "darkgray";
 	this.stuckOnWall = false;
 
 
@@ -80,7 +80,7 @@ function carClass() {
 			this.height = 25;
 			this.weight = 44;
 			this.bulletImg = playerBulletPic;
-			this.shadowColor = "darkcyan";
+
 		}
 		else{
 			trackValueToCheck = TRACK_ENEMYSTART;
@@ -88,7 +88,7 @@ function carClass() {
 			this.weight = 44;
 			this.isAI = true;
 			this.bulletImg = enemyBulletPic;
-			this.shadowColor = "purple";
+
 
 			// console.log("Enemy AI is set to " + this.isAI);
 		}
@@ -216,7 +216,7 @@ function carClass() {
 			particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(201, 102, 249)",0,this.ang-Math.PI);
 		}
 
-	
+
 
 	} // end move function
 
@@ -234,9 +234,9 @@ function carClass() {
 
 	this.drawShadow = function(shadowColor){
 		if(this.jumping){
-			var shadowPosX = this.prevPos.x - Math.cos(this.ang) * this.speed* 1.1;
-			var shadowPosY = this.prevPos.y - Math.sin(this.ang) * this.speed * 1.1;
-			var radius = map(this.speed, 0, 40, 0, 20)
+			var shadowPosX = this.prevPos.x - Math.cos(this.ang + 0.2) * this.speed* 1.1;
+			var shadowPosY = this.prevPos.y - Math.sin(this.ang + 0.2) * this.speed * 1.1;
+			var radius = map(this.speed, 0, 40, 15, 2)
 			colorCircle(shadowPosX ,shadowPosY , radius ,shadowColor);
 		}
 	}

@@ -90,7 +90,6 @@ function carTrackHandling(whichCar) {
 				setTimeout(function(){
 					whichCar.myCarPic = wreckedCarPic;
 					whichCar.isDead = true;}, 500);
-					
 				whichCar.stuckOnWall = true;
 				if(whichCar.name == "Player"){
 					playerResetCondition();
@@ -348,7 +347,6 @@ function trackCollisionCheck(x,y,goalCheck){
 				tileHere == TRACK_ROAD_BROKEN){
 				return false;
 			}
-
 
 			if(tileHere != TRACK_ROAD ) {
 				return true;
