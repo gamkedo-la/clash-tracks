@@ -30,6 +30,8 @@ const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
 const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
 const CAM_SCROLL_SPEED = 6
 
+//TODO Make Wall Code Numbers Occur in Sequence and Update Track Data
+
 var track_cols = 20;
 var track_rows = 36;
 var trackGrid = [];
@@ -73,9 +75,12 @@ function carTrackHandling(whichCar) {
 	 	var carTrackCol = Math.floor((whichCar.pos.x) /TRACK_W);
 		var carTrackRow = Math.floor((whichCar.pos.y)/TRACK_H);
 		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
-
+		//TODO Stop showing particle effects if car is dead and stuck on wall after some
+		// specific interval
+		//TODO If car collision body turns out to be true simulataneously. Reset the car to the Last Position.
+		//TODO Reset car to nearest point and not last checkpoint on wall stuck
 		if(carTrackCol >= 0 && carTrackCol < track_cols &&
-			carTrackRow >= 0 && carTrackRow < track_rows && !whichCar.isDead) {
+			carTrackRow >= 0 && carTrackRow < track_rows) {
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 			if(tileHere != TRACK_ROAD
 				&& tileHere != TRACK_JUMP_TILE

@@ -9,6 +9,7 @@ const KEY_D = 68;
 const SPACE_BAR = 32;
 const KEY_O = 79;
 const KEY_R = 82;
+const KEY_L = 76;
 const KEY_SHIFT = 16;
 
 var mouseX = 0;
@@ -63,7 +64,7 @@ function keySet(evt, setTo)
 }
 
 function keyPressed(evt) {
-	// console.log(evt.keyCode);
+	console.log(evt.keyCode);
 	keySet(evt, true);
 	switch(evt.keyCode){
 		case KEY_O:
@@ -71,6 +72,10 @@ function keyPressed(evt) {
 			break;
 		case KEY_R:
 			resetCheckPoint();
+			break;
+		case KEY_L:
+			playerCar.autoShoot = !playerCar.autoShoot  ;
+			// playerCar.keyHeld_Shooting = Math.random() <  0.1;
 			break;
 	}
 	evt.preventDefault();

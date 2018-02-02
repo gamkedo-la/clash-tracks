@@ -20,6 +20,7 @@ var ai_distance = 250
 //TODO Ability to shoot with NOS
 //TODO DRift
 //TODO Update Friction Code and Add Slippery Road Functionality.
+//TODO Functionality Jumping Tile
 
 function carClass() {
 	//position
@@ -47,6 +48,9 @@ function carClass() {
 	this.CollisionPoints = initializeCollisionPoints();
 	this.bulletImg = "";
 	this.inTileBroken = false;
+	this.inJumpTile = false;
+	this.autoShoot = false; // only used for player.
+
 
 	// Clear tracks when creating a new car
 	if (window.tireTracks) tireTracks.reset();
@@ -57,6 +61,7 @@ function carClass() {
 
 	this.reset = function(whichImage, carName) {
 		this.isDead = false;
+		this.autoShoot = false;
 		this.inTileBroken = false;
 		this.health = INITIAL_HEALTH;
 		this.name = carName;
@@ -106,7 +111,14 @@ function carClass() {
 	this.move = function() {
 		this.prevPos.x = this.pos.x;
 		this.prevPos.y = this.pos.y;
-		// don't move ai cars in broken tiles. Make them rotate and dissapear.
+		//TODO don't move ai cars in broken tiles. Make them rotate and dissapear.
+		//TODO Make Ai cars avoid broken tile slightly
+
+		if(playerCar.autoShoot && Math.random() < 0.1){
+
+			playerCar.shoot()
+		}
+
 		if (this.isAI) {
 			// this.keyHeld_TurnRight = true;
 			distancePlayerEnemy = distance(playerCar.pos.x,playerCar.pos.y,this.pos.x, this.pos.y)

@@ -1,5 +1,7 @@
 let bullets = [];
 
+//TODO Bullet does not collide with Jump Tile,Broken TIle.
+
 function bulletClass(origin) {
 	this.pos = vector.create();
 	this.pos.x = origin.pos.x;
@@ -7,7 +9,7 @@ function bulletClass(origin) {
 	this.speed = 7
 	this.velocity = vector.create();
 	this.velocity.x = Math.cos(origin.ang)*this.speed;
-	this.velocity.y =Math.sin(origin.ang)*this.speed;	
+	this.velocity.y =Math.sin(origin.ang)*this.speed;
 	this.width = 5;
 	this.damage = 1;
 	this.remove = false;
@@ -17,7 +19,7 @@ function bulletClass(origin) {
 
 	this.move = function(){
 		if(this.pos.y < 0 && this.pos.y > canvas.height && this.pos.x > canvas.height && this.pos.x < 0){
-			this.remove = true;			
+			this.remove = true;
 		}
 		if(this.origin != null){
 			this.pos.x += this.velocity.x + Math.cos(this.angle)*Math.abs(this.origin.speed);
@@ -32,12 +34,12 @@ function bulletClass(origin) {
 	this.draw = function(){
 		drawBitmapCenteredWithRotation(this.bulletPic, this.pos.x,this.pos.y, this.angle - Math.PI/2)
 	}
-	
+
 	this.update = function(){
 		this.move();
 		this.collisionHandling();
 	}
-	
+
 	this.collisionHandling = function() {
 		this.carHandling();
 		this.brickHandling();
@@ -57,10 +59,10 @@ function bulletClass(origin) {
 		let tileHere = returnTileTypeAtPixelXY(this.pos.x, this.pos.y);
 		if( tileHere != TRACK_ROAD ) {
 			this.remove = true;
-			bulletHitWallEffect(this.pos.x,this.pos.y);	
+			bulletHitWallEffect(this.pos.x,this.pos.y);
 		}
 	} // en brickHandling
-	
+
 }
 
 function drawBullets(){
