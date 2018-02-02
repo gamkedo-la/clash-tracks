@@ -70,14 +70,29 @@ function carTrackHandling(whichCar) {
    //checking if the center point is in broken tile
 	 //TODO if center point is a bit more inside the broken tile
 
-
 	 	var carTrackCol = Math.floor((whichCar.pos.x) /TRACK_W);
 		var carTrackRow = Math.floor((whichCar.pos.y)/TRACK_H);
 		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
 
 		if(carTrackCol >= 0 && carTrackCol < track_cols &&
-			carTrackRow >= 0 && carTrackRow < track_rows) {
+			carTrackRow >= 0 && carTrackRow < track_rows && !whichCar.isDead) {
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
+			if(tileHere != TRACK_ROAD
+				&& tileHere != TRACK_JUMP_TILE
+				&& tileHere!== TRACK_ROAD_BROKEN){
+
+				if(whichCar.name == "Player"){
+					playerLives--;
+					this.myCarPic = wreckedCarPic;
+					playerResetCondition();
+				}
+				else{
+					whichCar.myCarPic = wreckedCarPic;
+					whichCar.isDead = true;
+				}
+
+			}
+
 			if(tileHere == TRACK_ROAD_BROKEN){
 				whichCar.ang += 0.25;
 				whichCar.speed = 0;
@@ -89,17 +104,10 @@ function carTrackHandling(whichCar) {
 					// this.speed = 0;
 					if(whichCar.name == 'Player'){
 							playerLives--;
-						  setTimeout(function(){
-								if(playerLives > 1){
-									resetCheckPoint();
-								}
-								else{
-									resetLevel();
-								}
-							}, 1000)
+						  playerResetCondition();
 					}
 					else{
-						whichCar.remove = true;
+						whichCar.isDead = true;
 					}
 
 				}

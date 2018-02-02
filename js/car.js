@@ -15,6 +15,12 @@ const CAR_COLLISION_POINTS = 13;
 var enemyCars = [];
 var ai_distance = 250
 
+
+//TODO Lock key to shoot bullets at regular interval
+//TODO Ability to shoot with NOS
+//TODO DRift
+//TODO Update Friction Code and Add Slippery Road Functionality.
+
 function carClass() {
 	//position
 	this.pos = vector.create(75,75);
@@ -56,7 +62,7 @@ function carClass() {
 		this.name = carName;
 		this.myCarPic = whichImage;
 		this.speed = 0;
-		this.skidSpeed = 0; 
+		this.skidSpeed = 0;
 		this.skidAngle = 0;
 		this.keyHeld_Nos = false;
 		var trackValueToCheck =0;
@@ -92,15 +98,7 @@ function carClass() {
 			this.isDead = true;
 			this.myCarPic = wreckedCarPic;
 			if (this.name === "Player") {
-				setTimeout(function(){
-								if(playerLives > 1){
-									playerLives--;
-									resetCheckPoint();
-								}
-								else{
-									resetLevel();
-								}
-							}, 1500);
+				playerResetCondition();
 			}
 		}
 	}
@@ -401,4 +399,16 @@ function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
 			} // end of col for
 		} // end of row for
 		console.log("NO CAR START FOUND, type: (" + tileTypeToCheck + ")");
+}
+
+function playerResetCondition(){
+	setTimeout(function(){
+					if(playerLives > 1){
+						playerLives--;
+						resetCheckPoint();
+					}
+					else{
+						resetLevel();
+					}
+				}, 1000);
 }
