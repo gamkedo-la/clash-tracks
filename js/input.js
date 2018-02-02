@@ -64,7 +64,7 @@ function keySet(evt, setTo)
 }
 
 function keyPressed(evt) {
-	console.log(evt.keyCode);
+	// console.log(evt.keyCode);
 	keySet(evt, true);
 	switch(evt.keyCode){
 		case KEY_O:

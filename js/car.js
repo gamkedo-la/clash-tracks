@@ -64,6 +64,7 @@ function carClass() {
 	this.reset = function(whichImage, carName) {
 		this.isDead = false;
 		this.autoShoot = false;
+		this.stuckOnWall = false;
 		this.inTileBroken = false;
 		this.health = INITIAL_HEALTH;
 		this.name = carName;
@@ -214,6 +215,8 @@ function carClass() {
 			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
 			particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(201, 102, 249)",0,this.ang-Math.PI);
 		}
+
+	
 
 	} // end move function
 
@@ -434,6 +437,7 @@ function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
 function playerResetCondition(){
 	setTimeout(function(){
 					if(playerLives > 1){
+
 						playerLives--;
 						resetCheckPoint();
 					}

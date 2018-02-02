@@ -85,18 +85,16 @@ function carTrackHandling(whichCar) {
 			if(tileHere != TRACK_ROAD
 				&& tileHere != TRACK_JUMP_TILE
 				&& tileHere!== TRACK_ROAD_BROKEN
-			  && !whichCar.stuckOnWall && !whichCar.isDead){
+			  && !whichCar.stuckOnWall){
 
-				if(whichCar.name == "Player"){
-					this.myCarPic = wreckedCarPic;
-					whichCar.isDead = true;
-					playerResetCondition();
-					whichCar.stuckOnWall = true;
-
-				}// playerLives--;
-				else{
+				setTimeout(function(){
 					whichCar.myCarPic = wreckedCarPic;
-					whichCar.isDead = true;
+					whichCar.isDead = true;}, 500);
+					
+				whichCar.stuckOnWall = true;
+				if(whichCar.name == "Player"){
+					playerResetCondition();
+
 				}
 
 			}
@@ -109,15 +107,16 @@ function carTrackHandling(whichCar) {
 				if(!whichCar.inTileBroken && !whichCar.isDead){
 					this.health = 0;
 					whichCar.inTileBroken = true;
-					// this.speed = 0;
+					setTimeout(function(){
+						whichCar.myCarPic = wreckedCarPic;
+						whichCar.isDead = true;}, 500);
+
 					if(whichCar.name == 'Player'){
 						  playerResetCondition();
 					}
-					else{
-						whichCar.isDead = true;
-					}
 				}
 			}
+
 			if(tileHere == TRACK_JUMP_TILE){
 				if(!whichCar.inJumpTile){
 					whichCar.speed *= 2;
@@ -128,19 +127,21 @@ function carTrackHandling(whichCar) {
 			}
 		}
 
-	 for(var i = 0; i < whichCar.CollisionPoints.length; i++){
-	 	// console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
-	 	if(trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, whichCar.name)){
+		if(!whichCar.stuckOnWall){
+			for(var i = 0; i < whichCar.CollisionPoints.length; i++){
+			 // console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
+			 if( trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, whichCar.name)){
 
-	 			wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
-				whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
-				whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed ;
-				// whichCar.ang += 0.05;
-				whichCar.speed *= -0.5;
-				break;
-	 	}
+					 wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
+					 whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
+					 whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed ;
+					 // whichCar.ang += 0.05;
+					 whichCar.speed *= -0.5;
+					 break;
+			 }
 
-	 }//end of collision for loop
+			}//end of collision for loop
+		}
 } // end of carTrackHandling func
 
 function rowColToArrayIndex(col, row) {
@@ -311,7 +312,7 @@ function trackCollisionCheck(x,y,goalCheck){
 		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
 
 		if(carTrackCol >= 0 && carTrackCol < track_cols &&
-			carTrackRow >= 0 && carTrackRow < track_rows) {
+			carTrackRow >= 0 && carTrackRow < track_rows ) {
 
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 
