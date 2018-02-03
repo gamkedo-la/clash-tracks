@@ -37,6 +37,7 @@ const CAM_SCROLL_SPEED = 6
 var animTileOscillatorFrame = 0;
 
 //TODO Make Wall Code Numbers Occur in Sequence and Update Track Data
+//TODO Slippery Track Road Bug
 
 var track_cols = 20;
 var track_rows = 36;
@@ -143,7 +144,7 @@ function carTrackHandling(whichCar) {
 			 // console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
 			 if( trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, whichCar.name)){
 
-				screenshake(10);	 
+				screenshake(10);
 				wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
 				whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
 				whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed ;
@@ -167,7 +168,6 @@ function cameraFollow() {
     var cameraFocusCenterY = camPanY + canvas.height/2;
     var playerDistFromCameraFocusX = Math.abs(playerCar.pos.x - cameraFocusCenterX);
     var playerDistFromCameraFocusY = Math.abs(playerCar.pos.y -cameraFocusCenterY);
-
     /*if(playerDistFromCameraFocusX > PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X) {
       if(cameraFocusCenterX < playerCar.x)  {
         camPanX += CAM_SCROLL_SPEED;
@@ -182,7 +182,6 @@ function cameraFollow() {
         camPanY -= CAM_SCROLL_SPEED;
       }
     }*/
-
     camPanX += 0.13*(playerCar.pos.x - cameraFocusCenterX);
     camPanY += 0.13*(playerCar.pos.y - cameraFocusCenterY);
     // instantCamFollow();

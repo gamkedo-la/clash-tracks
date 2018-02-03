@@ -66,11 +66,14 @@ function bulletClass(origin) {
 
 	this.brickHandling = function(){
 		let tileHere = returnTileTypeAtPixelXY(this.pos.x, this.pos.y);
-		if( tileHere != TRACK_ROAD ) {
+		if( tileHere != TRACK_ROAD &&
+				tileHere != TRACK_JUMP_TILE &&
+				tileHere != TRACK_GOAL &&
+				tileHere != TRACK_ROAD_BROKEN) {
 			this.remove = true;
 			bulletHitWallEffect(this.pos.x,this.pos.y);
 		}
-	} // en brickHandling
+  	} // en brickHandling
 
 }
 
