@@ -17,7 +17,6 @@ var ai_distance = 250;
 
 
 //TODO Drift
-//TODO AI Distance bug
 //TODO Update Friction Code and Add Slippery Road Functionality.
 //TODO Building stuck jitter.
 
@@ -115,6 +114,7 @@ function carClass() {
 	}
 
 	this.move = function() {
+
 		this.prevPos.x = this.pos.x;
 		this.prevPos.y = this.pos.y;
 		//TODO  Make ai cars rotate and dissapear on broken tiles
@@ -138,12 +138,6 @@ function carClass() {
 			rightPos.x = this.pos.x + Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
 			rightPos.y = this.pos.y - Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
 
-			if(this.inTileBroken){
-				this.isDead = true;
-				this.myCarPic = wreckedCarPic;
-				return;
-			}
-
 			if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
 				this.ang += 0.5;
 			}
@@ -151,22 +145,27 @@ function carClass() {
 			if(trackCollisionCheck(leftPos.x, leftPos.y, goalCheck = false)){
 				this.ang += 0.15;
 			}
+			
 			if(trackCollisionCheck(rightPos.x, rightPos.y, goalCheck = false)){
 				this.ang -= 0.15;
 			}
 
 			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y)
-				&& !debug && !this.isDead && !playerCar.isDead) {
+					&& !debug && !this.isDead
+					&& !playerCar.isDead
+					&& !this.inTileBroken) {
 
-				if(distancePlayerEnemy < ai_distance){
+					if(distancePlayerEnemy < ai_distance ){
 
-					this.keyHeld_Gas = true;
-					var dx = playerCar.pos.x - this.pos.x;
-					var dy = playerCar.pos.y - this.pos.y;
-					var angle = Math.atan2(dy, dx);
-					this.ang = angle ;
-					this.keyHeld_Shooting = Math.random() < 0.1;
-				}
+							this.keyHeld_Gas = true;
+							var dx = playerCar.pos.x - this.pos.x;
+							var dy = playerCar.pos.y - this.pos.y;
+
+							var angle = Math.atan2(dy, dx);
+							this.ang = angle ;
+							this.keyHeld_Shooting = Math.random() < 0.1;
+
+					}
 			}
 			else{
 					this.keyHeld_Gas = false;

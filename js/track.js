@@ -91,8 +91,8 @@ function carTrackHandling(whichCar) {
 			if(tileHere != TRACK_ROAD
 				&& tileHere != TRACK_JUMP_TILE
 				&& tileHere != TRACK_ROAD_BROKEN
-			  && !whichCar.stuckOnWall
 				&& tileHere != TRACK_CHECKPOINT
+			  && !whichCar.stuckOnWall
 			){
 
 				setTimeout(function(){
