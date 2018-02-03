@@ -74,7 +74,7 @@ function bulletClass(origin) {
 			) {
 			this.remove = true;
 			bulletHitWallEffect(this.pos.x,this.pos.y);
-		}
+			}
   	} // en brickHandling
 
 }

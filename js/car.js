@@ -51,6 +51,8 @@ function carClass() {
 	this.autoShoot = false; // only used for player.
 	this.shadowColor = "gray";
 	this.stuckOnWall = false;
+	this.remove = false;
+	this.trailColor = "rgb(46,148,193)"
 
 
 	// Clear tracks when creating a new car
@@ -79,6 +81,7 @@ function carClass() {
 			this.height = 25;
 			this.weight = 44;
 			this.bulletImg = playerBulletPic;
+			this.trailColor = "rgb(46,148,193)"
 
 		}
 		else{
@@ -87,8 +90,7 @@ function carClass() {
 			this.weight = 44;
 			this.isAI = true;
 			this.bulletImg = enemyBulletPic;
-
-
+			this.trailColor = "rgb(201, 102, 249)"
 			// console.log("Enemy AI is set to " + this.isAI);
 		}
 		placeCarOnTrackTileType(this, trackValueToCheck);
@@ -114,12 +116,10 @@ function carClass() {
 	}
 
 	this.move = function() {
-
 		this.prevPos.x = this.pos.x;
 		this.prevPos.y = this.pos.y;
 		//TODO  Make ai cars rotate and dissapear on broken tiles
 		//TODO Make Ai cars avoid broken tile slightly
-
 
 		if (this.isAI) {
 			// this.keyHeld_TurnRight = true;
@@ -145,7 +145,7 @@ function carClass() {
 			if(trackCollisionCheck(leftPos.x, leftPos.y, goalCheck = false)){
 				this.ang += 0.15;
 			}
-			
+
 			if(trackCollisionCheck(rightPos.x, rightPos.y, goalCheck = false)){
 				this.ang -= 0.15;
 			}
@@ -201,21 +201,15 @@ function carClass() {
 
 		if (window.tireTracks) tireTracks.add(this.pos.x, this.pos.y, this.ang, 0.5);
 		//trail particles for player
-		if(this.name == 'Player'){
-			if(this.keyHeld_Nos){
-				particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(46,148,200)",0,this.ang-Math.PI);
-			}
-			else{
-				particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
-				particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(46,148,193)",0,this.ang-Math.PI);
-			}
-		}
-		//trail particles for enemy
-		else{
-			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
-			particles.add(this.pos.x,this.pos.y,particlePic,500,64,"rgb(201, 102, 249)",0,this.ang-Math.PI);
-		}
 
+		// if(this.isDead){
+		//
+		// }
+
+		if(!this.keyHeld_Nos){
+			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
+		}
+		particles.add(this.pos.x,this.pos.y,particlePic,500,64,this.trailColor,0,this.ang-Math.PI);
 
 
 	} // end move function

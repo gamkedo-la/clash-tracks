@@ -3,8 +3,6 @@ const TRACK_H = 70;
 const TRACK_GAP = 2;
 const TRACK_COLS = 20;
 const TRACK_ROWS = 36;
-var trackGrid = [];
-var trackGridCopy = []; //checkpoint
 const TRACK_ROAD = 0;
 const TRACK_WALL = 1;
 const TRACK_PLAYERSTART = 2;
@@ -28,10 +26,12 @@ const TRACK_3_BUILDINGS_2 = 25; // 3 building descending
 const TRACK_3_BUILDINGS_3 = 26;	// 3 building ascending
 const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
 const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
-
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
 const CAM_SCROLL_SPEED = 6
+
+var trackGrid = [];
+var trackGridCopy = []; //checkpoint
 
 var animTileOscillatorFrame = 0;
 

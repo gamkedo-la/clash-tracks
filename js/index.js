@@ -37,7 +37,6 @@ function loadLevel(whichLevel) {
 	levelData = levels[whichLevel];
 	trackGrid = levelData.trackLayout.slice();
 	trackGridCopy = trackGrid.slice();
-
 	track_cols = levelData.cols;
 	track_rows = levelData.rows;
 	timeToFinishLevel = levelData.timeLimit;
@@ -101,9 +100,10 @@ function moveAll() {
 	playerCar.move();
 	// enemyCar.move();
 	// enemyCar2.move();
-	for(var i = 0; i < numOfEnemiesCars; i++){
+	for(var i = 0; i < enemyCars.length; i++){
 		enemyCars[i].move();
 	}
+
 	updateBullets();
 	cameraFollow();
 }
@@ -117,14 +117,23 @@ function drawAll() {
 	drawTracks();
 	playerCar.drawShadow(playerCar.shadowColor);
 	//To draw shadow underneath particles
-	for(var i = 0; i < numOfEnemiesCars; i++){
+	for(var i = 0; i < enemyCars.length; i++){
 		enemyCars[i].drawShadow(enemyCars[i].shadowColor)
 	}
 	particles.draw();
+
 	playerCar.draw();
-	for(var i = 0; i < numOfEnemiesCars; i++){
-		enemyCars[i].draw();
+	for(var i = 0; i < enemyCars.length; i++){
+		if(!enemyCars[i].remove){
+			enemyCars[i].draw();
+		}
 	}
+	// for(var i = 0; i < enemyCars.length; i++){
+	// 	if(enemyCars[i].remove){
+	// 		enemyCars.slice(i,1);
+	// 	}
+	// }
+
 	drawBullets();
 	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
