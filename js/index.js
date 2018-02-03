@@ -57,7 +57,7 @@ function levelDataReset(){
 	}
 	bullets = [];
 	particles.clear();
-	ai_distance = 400;
+	ai_distance = 250;
 }
 
 function resetCheckPoint() {

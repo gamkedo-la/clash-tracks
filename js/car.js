@@ -50,7 +50,7 @@ function carClass() {
 	this.jumping = false;
 	this.inJumpTile  = false;
 	this.autoShoot = false; // only used for player.
-	this.shadowColor = "darkgray";
+	this.shadowColor = "gray";
 	this.stuckOnWall = false;
 
 
@@ -102,9 +102,9 @@ function carClass() {
 		}
 		if (this.name === "Player")	screenshake(10);
 		this.health -= damageDealt;
-		ai_distance = 400; // To show ai knows it has been hit and follows player.
+		ai_distance = 150; // To show ai knows it has been hit and follows player.
 		console.log("New health is " + this.health + " due to damage " + damageDealt);
-		if (this.health <= 0 && !this.isDead) {
+		if (this.health <= 0 && !this.isDead && !this.stuckOnWall) {
 			console.log("You got me this time! (car dead)");
 			this.isDead = true;
 			this.myCarPic = wreckedCarPic;
@@ -315,7 +315,7 @@ function carClass() {
 
 						console.log("car to car collision!");
 						screenshake(10);
-						
+
 						// collision response: bounce off each other
 						// both cars are affected
 

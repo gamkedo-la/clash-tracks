@@ -31,7 +31,6 @@ const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
 
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
-
 const CAM_SCROLL_SPEED = 6
 
 var animTileOscillatorFrame = 0;
@@ -91,17 +90,19 @@ function carTrackHandling(whichCar) {
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 			if(tileHere != TRACK_ROAD
 				&& tileHere != TRACK_JUMP_TILE
-				&& tileHere!== TRACK_ROAD_BROKEN
-			  && !whichCar.stuckOnWall){
+				&& tileHere != TRACK_ROAD_BROKEN
+			  && !whichCar.stuckOnWall
+				&& tileHere != TRACK_CHECKPOINT
+			){
 
 				setTimeout(function(){
 					whichCar.myCarPic = wreckedCarPic;
 					whichCar.isDead = true;}, 500);
-				whichCar.stuckOnWall = true;
-				if(whichCar.name == "Player"){
-					playerResetCondition();
+					whichCar.stuckOnWall = true;
+					if(whichCar.name == "Player"){
+						playerResetCondition();
 
-				}
+					}
 
 			}
 
