@@ -145,7 +145,9 @@ function carTrackHandling(whichCar) {
 			 // console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
 			 if( trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, whichCar.name)){
 
-				screenshake(10);
+				if(!whichCar.isAI) {
+					screenshake(10);
+				}
 				wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
 				whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
 				whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed ;
