@@ -270,7 +270,7 @@ function anyWallsBetweenTwoPoints(x1, y1, x2, y2) {
 			colorCircle(testX, testY, 10, 'yellow');
 		}
 		var trackKind = returnTileTypeAtPixelXY(testX, testY) ;
-		if (trackKind != TRACK_ROAD && trackKind != TRACK_ROAD_BROKEN && trackKind != TRACK_JUMP_TILE) {
+		if (!trackTypeIsPassable(trackKind)) {
 			isBlocked = true;
 			break;
 		}
@@ -280,6 +280,21 @@ function anyWallsBetweenTwoPoints(x1, y1, x2, y2) {
 		colorLine(x1, y1, x2, y2, isBlocked ? 'red' : 'lime');
 	}
 	return isBlocked;
+}
+
+function trackTypeIsPassable(checkTrackType)
+{
+	switch (checkTrackType)
+	{
+		case TRACK_ROAD:
+		case TRACK_ROAD_BROKEN:
+		case TRACK_JUMP_TILE:
+		case TRACK_PLAYERSTART:
+		case TRACK_CHECKPOINT:
+		case TRACK_SMOOTH:
+			return true;		
+	}
+	return false;
 }
 
 function updateCollisionPoints(whichCar){
