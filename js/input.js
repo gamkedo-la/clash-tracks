@@ -12,6 +12,7 @@ const KEY_R = 82;
 const KEY_L = 76;
 const KEY_U = 85;
 const KEY_SHIFT = 16;
+const KEY_ENTER = 13;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -80,6 +81,9 @@ function keyPressed(evt) {
 			break;
 		case KEY_U:
 			toggleScreenShake();
+			break;
+		case KEY_ENTER:
+			loadNextLevel();
 			break;
 	}
 	evt.preventDefault();

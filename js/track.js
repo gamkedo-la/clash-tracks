@@ -363,15 +363,7 @@ function trackCollisionCheck(x,y,goalCheck){
 
 			if(goalCheck){
 				if(tileHere == TRACK_GOAL) {
-					level++;
-					if(level < levels.length){
-						resetLevel();
-					}
-					else{
-						console.log('You saved Humanity')
-						level = 0;
-						resetLevel();
-					}
+					loadNextLevel();
 				}
 			}
 
@@ -388,4 +380,16 @@ function trackCollisionCheck(x,y,goalCheck){
 			return false;
 		} // end of valid col and row
 
+}
+
+function loadNextLevel() {
+	level++;
+	if(level < levels.length){
+		resetLevel();
+	}
+	else{
+		console.log('You saved Humanity')
+		level = 0;
+		resetLevel();
+	}
 }
