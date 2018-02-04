@@ -292,9 +292,11 @@ function trackTypeIsPassable(checkTrackType)
 		case TRACK_PLAYERSTART:
 		case TRACK_CHECKPOINT:
 		case TRACK_SMOOTH:
-			return true;		
+		case TRACK_MINE:
+			return true;
+		default:
+			return false;
 	}
-	return false;
 }
 
 function updateCollisionPoints(whichCar){
@@ -354,48 +356,36 @@ function updateCollisionPoints(whichCar){
 }
 //goal Check is used to check goal collision is checked only for player car.
 function trackCollisionCheck(x,y,goalCheck){
-	 	var carTrackCol = Math.floor(x / TRACK_W);
-		var carTrackRow = Math.floor(y / TRACK_H);
-		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
+	var carTrackCol = Math.floor(x / TRACK_W);
+	var carTrackRow = Math.floor(y / TRACK_H);
+	var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
 
-		if(carTrackCol >= 0 && carTrackCol < track_cols &&
-			carTrackRow >= 0 && carTrackRow < track_rows ) {
+	if(carTrackCol >= 0 && carTrackCol < track_cols &&
+		carTrackRow >= 0 && carTrackRow < track_rows ) {
 
-			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
+		var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 
-			//check for checkpoint
-			if(tileHere == TRACK_CHECKPOINT || tileHere == TRACK_PLAYERSTART){
-				// tileHere = TRACK_ROAD;
-				for(var i = 0; i < trackGridCopy.length; i++){
-					if(trackGridCopy[i] == TRACK_PLAYERSTART){ // if playerstart is found, remove it
-						trackGridCopy[i] = TRACK_ROAD;
-					}
-				}
-				trackGridCopy[trackIndexUnderCar] = TRACK_PLAYERSTART; //add new player start
-
-				return false;
-			}
-
-			if(goalCheck){
-				if(tileHere == TRACK_GOAL) {
-					loadNextLevel();
+		//check for checkpoint
+		if(tileHere == TRACK_CHECKPOINT || tileHere == TRACK_PLAYERSTART){
+			// tileHere = TRACK_ROAD;
+			for(var i = 0; i < trackGridCopy.length; i++){
+				if(trackGridCopy[i] == TRACK_PLAYERSTART){ // if playerstart is found, remove it
+					trackGridCopy[i] = TRACK_ROAD;
 				}
 			}
+			trackGridCopy[trackIndexUnderCar] = TRACK_PLAYERSTART; //add new player start
+		}
 
-			if(tileHere == TRACK_SMOOTH ||
-				tileHere == TRACK_JUMP_TILE ||
-				tileHere == TRACK_ROAD_BROKEN){
-				return false;
+		if(goalCheck){
+			if(tileHere == TRACK_GOAL) {
+				loadNextLevel();
 			}
+		}
 
-			if(tileHere != TRACK_ROAD && tileHere != TRACK_MINE ) {
-				return true;
-			} // end of track found
-
-			return false;
-		} // end of valid col and row
-
-}
+		return !trackTypeIsPassable(tileHere);
+	} // end of valid col and row
+	return true; // Disallow car to drive offscreen
+} // end trackCollisionCheck
 
 function loadNextLevel() {
 	level++;
