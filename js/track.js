@@ -352,8 +352,8 @@ function trackCollisionCheck(x,y,goalCheck){
 			if(tileHere == TRACK_CHECKPOINT || tileHere == TRACK_PLAYERSTART){
 				// tileHere = TRACK_ROAD;
 				for(var i = 0; i < trackGridCopy.length; i++){
-					if(trackGridCopy[i] == 2){ // if playerstart is found, remove it
-						trackGridCopy[i] = 0;
+					if(trackGridCopy[i] == TRACK_PLAYERSTART){ // if playerstart is found, remove it
+						trackGridCopy[i] = TRACK_ROAD;
 					}
 				}
 				trackGridCopy[trackIndexUnderCar] = TRACK_PLAYERSTART; //add new player start
