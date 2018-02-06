@@ -104,7 +104,7 @@ function carTrackHandling(whichCar) {
 				whichCar.speed = 0;
 				//check if center of car is in tile broken
 				if(!whichCar.inTileBroken && !whichCar.isDead){
-					this.health = 0;
+					whichCar.health = 0;
 					whichCar.inTileBroken = true;
 					setTimeout(function(){
 						whichCar.myCarPic = wreckedCarPic;
