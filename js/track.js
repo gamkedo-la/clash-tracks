@@ -80,22 +80,16 @@ function carTrackHandling(whichCar) {
 		if(carTrackCol >= 0 && carTrackCol < track_cols &&
 			carTrackRow >= 0 && carTrackRow < track_rows) {
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
-			if(tileHere != TRACK_ROAD
-				&& tileHere != TRACK_JUMP_TILE
-				&& tileHere != TRACK_ROAD_BROKEN
-				&& tileHere != TRACK_CHECKPOINT
-			  && !whichCar.stuckOnWall
-			){
-
+			
+			if(!trackTypeIsPassable(tileHere) && !whichCar.stuckOnWall){
 				setTimeout(function(){
 					whichCar.myCarPic = wreckedCarPic;
-					whichCar.isDead = true;}, 500);
-					whichCar.stuckOnWall = true;
-					if(whichCar.name == "Player"){
-						playerResetCondition();
-
-					}
-
+					whichCar.isDead = true;
+				}, 500);
+				whichCar.stuckOnWall = true;
+				if(whichCar.name == "Player"){
+					playerResetCondition();
+				}
 			}
 
 			if(tileHere == TRACK_MINE) {
@@ -155,6 +149,7 @@ function carTrackHandling(whichCar) {
 					whichCar.pos.x = whichCar.prevPos.x;
 					whichCar.pos.y = whichCar.prevPos.y;
 				}
+				
 				// whichCar.ang += 0.05;
 				whichCar.speed *= -0.5;
 				break;
