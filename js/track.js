@@ -141,8 +141,20 @@ function carTrackHandling(whichCar) {
 					screenshake(10);
 				}
 				wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
-				whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
-				whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed ;
+				
+				// @todo see if this way of setting cars back to a previous postion fixes the enemy cars pushing player past walls
+				var test_place_car_back = true;				
+				if(!test_place_car_back) {
+					// old way
+					whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
+					whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed;
+				}
+				else
+				{
+					// proposed new way
+					whichCar.pos.x = whichCar.prevPos.x;
+					whichCar.pos.y = whichCar.prevPos.y;
+				}
 				// whichCar.ang += 0.05;
 				whichCar.speed *= -0.5;
 				break;
