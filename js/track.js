@@ -154,7 +154,7 @@ function carTrackHandling(whichCar) {
 					whichCar.pos.y = whichCar.prevPos.y;
 				}
 				
-				// whichCar.ang += 0.05;
+				whichCar.ang = whichCar.prevAng;
 				whichCar.speed *= -0.5;
 				break;
 			 }

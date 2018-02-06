@@ -118,6 +118,7 @@ function carClass() {
 	this.move = function() {
 		this.prevPos.x = this.pos.x;
 		this.prevPos.y = this.pos.y;
+		this.prevAng = this.ang;
 		//TODO  Make ai cars rotate and dissapear on broken tiles
 		//TODO Make Ai cars avoid broken tile slightly
 
