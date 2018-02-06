@@ -1,5 +1,12 @@
 
 const CAM_SCROLL_SPEED = 6;
+const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X = 60;
+const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_Y = 60;
+
+var carLeftBottomPointX,carLeftBottomPointY;
+var camPanX = 0.0;
+var camPanY = 0.0;
+
 
 //scroll cam
 function cameraFollow() {

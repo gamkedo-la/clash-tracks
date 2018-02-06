@@ -41,13 +41,6 @@ var track_cols = 20;
 var track_rows = 36;
 var trackGrid = [];
 
-var carLeftBottomPointX,carLeftBottomPointY;
-var camPanX = 0.0;
-var camPanY = 0.0;
-
-const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_X = 60;
-const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_Y = 60;
-
 function returnTileTypeAtColRow(col, row) {
 
 	if(col >= 0 && col < track_cols &&
