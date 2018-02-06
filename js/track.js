@@ -29,6 +29,8 @@ const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
 
+const MINE_DAMAGE = 2;
+
 var trackGrid = [];
 var trackGridCopy = []; //checkpoint
 
@@ -96,6 +98,8 @@ function carTrackHandling(whichCar) {
 				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // remove mine
 				mineDetonatesEffect(carTrackCol*TRACK_W+TRACK_W/2,
 									carTrackRow*TRACK_H+TRACK_H/2);
+				// deal some damage or destroy the collising car
+				whichCar.gotHurt(MINE_DAMAGE);
 			}
 
 			//code for handling car and broken tile collision
