@@ -172,14 +172,15 @@ function carTrackHandling(whichCar) {
 
 function findCenterPositionOfTileType(tileTypeToCheck) {
 	var tileCenterPosition = vector.create(0,0);
+	var arrayIndex = 0;
 	for(var eachRow=0;eachRow<track_rows;eachRow++) {
 			for(var eachCol=0;eachCol<track_cols;eachCol++) {
-				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-					if(trackGrid[arrayIndex] == tileTypeToCheck) {
-						tileCenterPosition.x = eachCol * TRACK_W + TRACK_W/2;
-						tileCenterPosition.y = eachRow * TRACK_H + TRACK_H/2;
-						return tileCenterPosition;
+				if(trackGrid[arrayIndex] == tileTypeToCheck) {
+					tileCenterPosition.x = eachCol * TRACK_W + TRACK_W/2;
+					tileCenterPosition.y = eachRow * TRACK_H + TRACK_H/2;
+					return tileCenterPosition;
 				} // end of player start if
+				arrayIndex++
 			} // end of col for
 		} // end of row for
 		console.log("NO TILE FOUND, type: (" + tileTypeToCheck + ")");
@@ -293,6 +294,7 @@ function trackTypeIsPassable(checkTrackType)
 	switch (checkTrackType)
 	{
 		case TRACK_ROAD:
+		case TRACK_GOAL:
 		case TRACK_ROAD_BROKEN:
 		case TRACK_JUMP_TILE:
 		case TRACK_PLAYERSTART:
