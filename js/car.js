@@ -67,6 +67,7 @@ function carClass() {
 		this.name = carName;
 		this.myCarPic = whichImage;
 		this.ang = -Math.PI/2;
+		this.prevAng = this.ang;
 		this.speed = 0;
 		this.skidSpeed = 0;
 		this.skidAngle = 0;
@@ -91,6 +92,8 @@ function carClass() {
 			// console.log("Enemy AI is set to " + this.isAI);
 		}
 		placeCarOnTrackTileType(this, trackValueToCheck);
+		this.prevPos.x = this.pos.x;
+		this.prevPos.y = this.pos.y;
 	} // end of carReset func
 
 	this.gotHurt = function (damageDealt) {
