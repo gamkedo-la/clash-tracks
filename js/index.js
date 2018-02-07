@@ -8,6 +8,7 @@ var debug = false;
 var playerCar = new carClass();
 //Used for testing bullet Collisions. Includes all cars.
 var carList = [playerCar];
+var enemyShip = new shipOverheadClass();
 var timeToFinishLevel;
 var level;
 var playerLives = 3;
@@ -77,6 +78,7 @@ function carsReset(){
 		enemyCars.push(enemyCar);
 		carList.push(enemyCar);
 	}
+	enemyShip.reset();
 }
 
 
@@ -98,6 +100,7 @@ function updateAll() {
 
 function moveAll() {
 	playerCar.move();
+	enemyShip.move();
 	// enemyCar.move();
 	// enemyCar2.move();
 	for(var i = 0; i < enemyCars.length; i++){
@@ -133,8 +136,9 @@ function drawAll() {
 	// 		enemyCars.slice(i,1);
 	// 	}
 	// }
-
 	drawBullets();
+
+	enemyShip.draw();
 	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 	colorText("TIME: " + Math.ceil(timeToFinishLevel / framesPerSecond), 30, 30, 'white');
