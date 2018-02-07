@@ -1,11 +1,7 @@
-const GROUNDSPEED_DECAY_MULT = 0.94;
-const GROUNDSPEED_DECAY_MULT_NOS = 0.97;
-const BROKEN_TILE_FRICTION = 0.90;
-
-var friction = GROUNDSPEED_DECAY_MULT; //USE THIS TO REFACTOR
 
 const DRIVE_POWER = 0.6;
 const REVERSE_POWER = 0.2;
+const NOS_BOOST_MULT = 1.5;
 const TURN_RATE = 0.04;
 const DRIFT_TURN_RATE = 0.18;
 const MIN_SPEED_TO_TURN = 1;
@@ -17,7 +13,6 @@ var ai_distance = 250;
 
 
 //TODO Drift
-//TODO Update Friction Code and Add Slippery Road Functionality.
 //TODO Building stuck jitter.
 
 function carClass() {
@@ -26,6 +21,7 @@ function carClass() {
 	this.prevPos = vector.create(0,0);
 	this.ang = 0;
 	this.speed = 0;
+	this.friction = 1.0;
 	this.skidSpeed = 0; 		// force of skid
 	this.skidAngle = 0;			// direction of skid
 	this.skidDampening = 0.75; 	// how much less skidding per frame
@@ -255,6 +251,7 @@ function carClass() {
 	}
 
 	this.handleControls = function() {
+		// Shooting
 		if(this.keyHeld_Shooting) {
 			if (this.semiAutoLock == false) {
 				this.shoot();
@@ -264,20 +261,27 @@ function carClass() {
 		else {
 			this.semiAutoLock = false;
 		}
+		
+		// Friction
+		this.speed *= this.friction;
+		
+		// Boosts
+		var boostMult = 1.0;
 		if(this.keyHeld_Nos){
-			this.speed *= GROUNDSPEED_DECAY_MULT_NOS;
+			boostMult *= NOS_BOOST_MULT;
 		}
-		else{
-			this.speed *= GROUNDSPEED_DECAY_MULT;
-		}
+		
+		// Acceleration
 		if(this.keyHeld_Gas &&  !this.inTileBroken){
-			this.speed += DRIVE_POWER;
+			this.speed += DRIVE_POWER * boostMult;
 		}
 		if(this.keyHeld_Reverse &&  !this.inTileBroken) {
-			this.speed -= REVERSE_POWER;
+			this.speed -= REVERSE_POWER * boostMult;
 		}
+		
 		// if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
 		// }
+		// Turning
 		if(Math.abs(this.speed) > DRIFT_MIN_SPEED){
 			if(this.keyHeld_TurnLeft) {
 				this.ang -= DRIFT_TURN_RATE;

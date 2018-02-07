@@ -29,6 +29,9 @@ const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
 
+const TRACK_FRICTION_SMOOTH = 0.80;
+const TRACK_FRICTION_NORMAL = 0.94;
+
 const MINE_DAMAGE = 2;
 
 var trackGrid = [];
@@ -93,6 +96,8 @@ function carTrackHandling(whichCar) {
 					playerResetCondition();
 				}
 			}
+			
+			whichCar.friction = getFrictionForTileType(tileHere);
 
 			if(tileHere == TRACK_MINE) {
 				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // remove mine
@@ -162,6 +167,15 @@ function carTrackHandling(whichCar) {
 			}//end of collision for loop
 		}
 } // end of carTrackHandling func
+
+function getFrictionForTileType(tileKindHere) {
+	switch(tileKindHere) {
+		case TRACK_SMOOTH:
+			return TRACK_FRICTION_SMOOTH;
+		default:
+			return TRACK_FRICTION_NORMAL;
+	}
+}
 
 function rowColToArrayIndex(col, row) {
 	return col + track_cols * row;
