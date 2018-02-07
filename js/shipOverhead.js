@@ -92,9 +92,6 @@ function chooseNewWaypoint(whichShip) {
 	whichShip.nextWayPoint.x = Math.random() * track_cols * TRACK_W;
 	whichShip.nextWayPoint.y = Math.random() * track_rows * TRACK_H;
 	
-	console.log(whichShip.nextWayPoint);
-	console.log(track_cols*TRACK_W +", "+track_rows*TRACK_H);
-	
 	var dx = whichShip.nextWayPoint.x - whichShip.pos.x;
 	var dy = whichShip.nextWayPoint.y - whichShip.pos.y;
 	whichShip.ang = Math.atan2(dy, dx);
