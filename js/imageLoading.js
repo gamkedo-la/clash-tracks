@@ -5,6 +5,8 @@ var particlePic = document.createElement("img");
 var playerBulletPic = document.createElement("img");
 var enemyBulletPic = document.createElement("img");
 var tireTrackPic = document.createElement("img");
+var shipOverheadPic = document.createElement("img");
+var dropBombPic = document.createElement("img");
 var trackPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -36,6 +38,8 @@ function loadImages() {
 		{varName: playerBulletPic, theFile: "playerBullet.png"},
 		{varName: enemyBulletPic, theFile: "enemyBullet.png"},
 		{varName: tireTrackPic, theFile: "lightTrail.png"},
+		{varName: shipOverheadPic, theFile: "shipOverhead.png"},
+		{varName: dropBombPic, theFile: "dropBomb.png"},
         {trackType: TRACK_ROAD, theFile: "violet_track_road.png"},
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},
 		{trackType: TRACK_GOAL, theFile: "track_goal.png"},
