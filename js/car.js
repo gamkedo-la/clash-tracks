@@ -66,6 +66,7 @@ function carClass() {
 		this.health = INITIAL_HEALTH;
 		this.name = carName;
 		this.myCarPic = whichImage;
+		this.ang = -Math.PI/2;
 		this.speed = 0;
 		this.skidSpeed = 0;
 		this.skidAngle = 0;
@@ -419,19 +420,8 @@ function stopControlsForDeadCar(whichCar) {
 }
 
 function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
-	for(var eachRow=0;eachRow<track_rows;eachRow++) {
-			for(var eachCol=0;eachCol<track_cols;eachCol++) {
-				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-					if(trackGrid[arrayIndex] == tileTypeToCheck) {
-						trackGrid[arrayIndex] = TRACK_ROAD;
-						whichCar.ang = -Math.PI/2;
-						whichCar.pos.x = eachCol * TRACK_W + TRACK_W/2;
-						whichCar.pos.y = eachRow * TRACK_H + TRACK_H/2;
-						return;
-				} // end of player start if
-			} // end of col for
-		} // end of row for
-		console.log("NO CAR START FOUND, type: (" + tileTypeToCheck + ")");
+	whichCar.pos = findCenterPositionOfTileType(tileTypeToCheck);
+	setTileAtPositonToType(whichCar.pos, TRACK_ROAD);
 }
 
 function playerResetCondition(){
