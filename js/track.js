@@ -29,6 +29,8 @@ const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
 
+const TRACK_SHIP_OVERHEAD_START = 90;
+
 const TRACK_FRICTION_SMOOTH = 0.80;
 const TRACK_FRICTION_NORMAL = 0.94;
 
@@ -168,6 +170,29 @@ function carTrackHandling(whichCar) {
 		}
 } // end of carTrackHandling func
 
+function findCenterPositionOfTileType(tileTypeToCheck) {
+	var tileCenterPosition = vector.create(0,0);
+	for(var eachRow=0;eachRow<track_rows;eachRow++) {
+			for(var eachCol=0;eachCol<track_cols;eachCol++) {
+				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+					if(trackGrid[arrayIndex] == tileTypeToCheck) {
+						tileCenterPosition.x = eachCol * TRACK_W + TRACK_W/2;
+						tileCenterPosition.y = eachRow * TRACK_H + TRACK_H/2;
+						return tileCenterPosition;
+				} // end of player start if
+			} // end of col for
+		} // end of row for
+		console.log("NO TILE FOUND, type: (" + tileTypeToCheck + ")");
+}
+
+function setTileAtPositonToType(position, newType)
+{
+	// assumes valid position
+	var arrayIndex = positionToIndex(position);
+	trackGrid[arrayIndex] = newType;
+}
+
+
 function getFrictionForTileType(tileKindHere) {
 	switch(tileKindHere) {
 		case TRACK_SMOOTH:
@@ -179,6 +204,12 @@ function getFrictionForTileType(tileKindHere) {
 
 function rowColToArrayIndex(col, row) {
 	return col + track_cols * row;
+}
+
+function positionToIndex(position) {
+	var col = Math.floor(position.x/TRACK_W);
+	var row = Math.floor(position.y/TRACK_H);
+	return rowColToArrayIndex(col,row);
 }
 
 function drawTracks() {
