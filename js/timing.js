@@ -1,0 +1,2 @@
+const framesPerSecond = 30;
+

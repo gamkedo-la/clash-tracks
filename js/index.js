@@ -1,5 +1,5 @@
 
-const framesPerSecond = 30;
+
 // const TIME_TO_FINISH_LVL_1 = 2 * 60 * framesPerSecond; // 2 minutes
 const TIME_TO_FINISH_LVL_1 = 1 * 50 * framesPerSecond;
 
