@@ -36,7 +36,7 @@ const TRACK_FRICTION_SMOOTH = 0.80;
 const TRACK_FRICTION_NORMAL = 0.94;
 
 const MINE_DAMAGE = 2;
-const TIMER_INCREASE_AMT = 10 * 30; // Change first number to desired number of seconds
+const TIMER_INCREASE_AMT = 10 * framesPerSecond; // Change digit to number of seconds a powerup adds
 
 var trackGrid = [];
 var trackGridCopy = []; //checkpoint
