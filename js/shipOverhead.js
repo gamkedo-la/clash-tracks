@@ -4,6 +4,7 @@ const SHIP_OVERHEAD_AGGRO_BUFFER = 7;
 const SHIP_OVERHEAD_AGRRO_SPEED = 8;
 const SHIP_OVERHEAD_IDLE_SPEED = 3;
 const SHIP_OVERHEAD_MIN_SPEED = 2;
+const SHIP_OVERHEAD_ATTACK_RATE = 2 * framesPerSecond;
 
 function shipOverheadClass() {
 	this.pos = vector.create();
@@ -12,6 +13,7 @@ function shipOverheadClass() {
 	this.nextWayPoint = vector.create();
 	this.followingTarget = false;
 	this.movingToWaypoint = false;
+	this.attackTimer = SHIP_OVERHEAD_ATTACK_RATE;
 	
 	this.reset = function() {
 		placeShipOnTrack(this, TRACK_SHIP_OVERHEAD_START);
@@ -69,9 +71,15 @@ function shipOverheadClass() {
 	
 	this.attackTarget = function() {
 		if(!this.followingTarget) {
+			this.attackTimer = SHIP_OVERHEAD_ATTACK_RATE;
 			return;
 		}
 		// Add attack code here.
+		this.attackTimer--;
+		if(this.attackTimer == 0) {
+			this.attackTimer = SHIP_OVERHEAD_ATTACK_RATE;
+			bullets.push(new dropBombClass(this));
+		}
 	} // end attackTarget
 	
 	this.move = function() {
