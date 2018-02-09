@@ -50,6 +50,17 @@ var track_cols = 20;
 var track_rows = 36;
 var trackGrid = [];
 
+const passableTiles =	[TRACK_ROAD,
+						TRACK_GOAL,
+						TRACK_ROAD_BROKEN,
+						TRACK_JUMP_TILE,
+						TRACK_PLAYERSTART,
+						TRACK_CHECKPOINT,
+						TRACK_SMOOTH,
+						TRACK_MINE,
+						TRACK_TIMER_POWERUP
+						];
+
 function returnTileTypeAtColRow(col, row) {
 
 	if(col >= 0 && col < track_cols &&
@@ -298,22 +309,13 @@ function anyWallsBetweenTwoPoints(x1, y1, x2, y2) {
 
 function trackTypeIsPassable(checkTrackType)
 {
-	switch (checkTrackType)
-	{
-		case TRACK_ROAD:
-		case TRACK_GOAL:
-		case TRACK_ROAD_BROKEN:
-		case TRACK_JUMP_TILE:
-		case TRACK_PLAYERSTART:
-		case TRACK_CHECKPOINT:
-		case TRACK_SMOOTH:
-		case TRACK_MINE:
-		case TRACK_TIMER_POWERUP:
+	for (var i = 0; i < passableTiles.length; i++) {
+		if(checkTrackType == passableTiles[i]) {
 			return true;
-		default:
-			return false;
-	}
-}
+		}
+	} // check each passable tile
+	return false;
+} // end trackTypeIsPassable
 
 function updateCollisionPoints(whichCar){
 {	//Center Point
