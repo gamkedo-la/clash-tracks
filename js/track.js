@@ -15,6 +15,7 @@ const TRACK_CHECKPOINT  =  8;
 const TRACK_JUMP_TILE = 9;
 const TRACK_SMOOTH = 10;
 const TRACK_ROAD_BROKEN = 11;
+const TRACK_TIMER_POWERUP = 12;
 const TURRET = 18;
 const TURRET_BACKGROUND = 19;
 const TRACK_2_BUILDINGS_1 = 20; //border brick 1
@@ -35,6 +36,7 @@ const TRACK_FRICTION_SMOOTH = 0.80;
 const TRACK_FRICTION_NORMAL = 0.94;
 
 const MINE_DAMAGE = 2;
+const TIMER_INCREASE_AMT = 10 * 30; // Change first number to desired number of seconds
 
 var trackGrid = [];
 var trackGridCopy = []; //checkpoint
@@ -107,6 +109,11 @@ function carTrackHandling(whichCar) {
 									carTrackRow*TRACK_H+TRACK_H/2);
 				// deal some damage or destroy the collising car
 				whichCar.gotHurt(MINE_DAMAGE);
+			}
+
+			if(tileHere == TRACK_TIMER_POWERUP) {
+				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
+				timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
 			}
 
 			//code for handling car and broken tile collision
@@ -301,6 +308,7 @@ function trackTypeIsPassable(checkTrackType)
 		case TRACK_CHECKPOINT:
 		case TRACK_SMOOTH:
 		case TRACK_MINE:
+		case TRACK_TIMER_POWERUP:
 			return true;
 		default:
 			return false;

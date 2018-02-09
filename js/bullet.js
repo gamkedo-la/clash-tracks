@@ -70,7 +70,8 @@ function bulletClass(origin) {
 				tileHere != TRACK_JUMP_TILE &&
 				tileHere != TRACK_GOAL &&
 				tileHere != TRACK_ROAD_BROKEN &&
-				tileHere != TRACK_SMOOTH
+				tileHere != TRACK_SMOOTH &&
+				tileHere != TRACK_TIMER_POWERUP
 			) {
 			this.remove = true;
 			bulletHitWallEffect(this.pos.x,this.pos.y);

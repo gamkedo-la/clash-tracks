@@ -61,6 +61,7 @@ function loadImages() {
         {trackType: TRACK_SMOOTH, theFile: "sliperyRoad.png"},
         {trackType: TRACK_ROAD_BROKEN, theFile: "track_road_broken.png"},
         {trackType: TRACK_MINE, theFile: "track_mine_sheet.png"},
+        {trackType: TRACK_TIMER_POWERUP, theFile: "timer_increase_powerup.png"},
         {trackType: TRACK_LASER_TOWER, theFile: "track_laser_tower.png"},
 
 	];
