@@ -45,7 +45,7 @@ var animTileOscillatorFrame = 0;
 
 //TODO Make Wall Code Numbers Occur in Sequence and Update Track Data
 //TODO Slippery Track Road Bug
-
+//TODO Make Enemy car Not stuck on turret
 var track_cols = 20;
 var track_rows = 36;
 var trackGrid = [];
@@ -266,17 +266,16 @@ function drawTracks() {
 
 			if(tileKindHere == TRACK_LASER_TOWER) {
 				var turretTick = Math.floor(animTileOscillatorFrame*0.1)%13;
+				var laserTick = Math.floor(animTileOscillatorFrame*0.1)%7;
+				if(laserTick < 4){
+					laserSound.play();
+				}
 
 				if(turretTick < 4) {
-					// for(var i = 0; i < 3; i++){
-					// 	enemyShootSound.play();
-					// }
-
 					spawnBulletWithoutOriginObject(drawTileX+TRACK_W/2,
 													drawTileY+TRACK_H/2,
 													(Math.PI*0.5)*turretTick,
 													TRACK_W/2);
-					enemyShootSound.play();
 				}
 			}
 
