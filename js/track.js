@@ -100,7 +100,7 @@ function carTrackHandling(whichCar) {
 		if(carTrackCol >= 0 && carTrackCol < track_cols &&
 			carTrackRow >= 0 && carTrackRow < track_rows) {
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
-			
+
 			if(!trackTypeIsPassable(tileHere) && !whichCar.stuckOnWall){
 				setTimeout(function(){
 					whichCar.myCarPic = wreckedCarPic;
@@ -111,7 +111,7 @@ function carTrackHandling(whichCar) {
 					playerResetCondition();
 				}
 			}
-			
+
 			whichCar.friction = getFrictionForTileType(tileHere);
 
 			if(tileHere == TRACK_MINE) {
@@ -120,6 +120,8 @@ function carTrackHandling(whichCar) {
 									carTrackRow*TRACK_H+TRACK_H/2);
 				// deal some damage or destroy the collising car
 				whichCar.gotHurt(MINE_DAMAGE);
+				carHitSound.play();
+				boomSound.play();
 			}
 
 			if(tileHere == TRACK_TIMER_POWERUP) {
@@ -131,13 +133,20 @@ function carTrackHandling(whichCar) {
 			if(tileHere == TRACK_ROAD_BROKEN){
 				whichCar.ang += 0.25;
 				whichCar.speed = 0;
+				// carHitSound.play();
+
 				//check if center of car is in tile broken
 				if(!whichCar.inTileBroken && !whichCar.isDead){
 					whichCar.health = 0;
 					whichCar.inTileBroken = true;
+					carSuckedSound.play();
+
 					setTimeout(function(){
 						whichCar.myCarPic = wreckedCarPic;
-						whichCar.isDead = true;}, 500);
+						whichCar.isDead = true;
+
+
+					}, 500);
 
 					if(whichCar.name == 'Player'){
 						  playerResetCondition();
@@ -148,6 +157,7 @@ function carTrackHandling(whichCar) {
 			if(tileHere == TRACK_JUMP_TILE){
 				if(!whichCar.inJumpTile){
 					whichCar.speed *= 2;
+					carJumpSound.play();
 					whichCar.jumping = true;
 					setTimeout(function(){whichCar.jumping = false; whichCar.inJumpTile = false;}, 500);
 					whichCar.inJumpTile = true;
@@ -159,14 +169,14 @@ function carTrackHandling(whichCar) {
 			for(var i = 0; i < whichCar.CollisionPoints.length; i++){
 			 // console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
 			 if( trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, whichCar.name)){
-
+				carCollisionSound.play();
 				if(!whichCar.isAI) {
-					screenshake(10);
+					screenshake(20);
 				}
 				wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
-				
+
 				// @todo see if this way of setting cars back to a previous postion fixes the enemy cars pushing player past walls
-				var test_place_car_back = true;				
+				var test_place_car_back = true;
 				if(!test_place_car_back) {
 					// old way
 					whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
@@ -178,7 +188,7 @@ function carTrackHandling(whichCar) {
 					whichCar.pos.x = whichCar.prevPos.x;
 					whichCar.pos.y = whichCar.prevPos.y;
 				}
-				
+
 				whichCar.ang = whichCar.prevAng;
 				whichCar.speed *= -0.5;
 				break;
@@ -250,17 +260,23 @@ function drawTracks() {
 			else{
 				useImg = trackPics[tileKindHere];
 			}
-			if(tileKindHere == TURRET){
-				canvasContext.drawImage(trackPics[TURRET_BACKGROUND],drawTileX,drawTileY);
-			}
+			// if(tileKindHere == TURRET){
+			// 	canvasContext.drawImage(trackPics[TURRET_BACKGROUND],drawTileX,drawTileY);
+			// }
 
 			if(tileKindHere == TRACK_LASER_TOWER) {
 				var turretTick = Math.floor(animTileOscillatorFrame*0.1)%13;
+
 				if(turretTick < 4) {
+					// for(var i = 0; i < 3; i++){
+					// 	enemyShootSound.play();
+					// }
+
 					spawnBulletWithoutOriginObject(drawTileX+TRACK_W/2,
 													drawTileY+TRACK_H/2,
 													(Math.PI*0.5)*turretTick,
 													TRACK_W/2);
+					enemyShootSound.play();
 				}
 			}
 

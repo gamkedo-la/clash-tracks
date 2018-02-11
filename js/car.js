@@ -56,6 +56,11 @@ function carClass() {
 
 	this.shoot = function(){
 		bullets.push(new bulletClass(this));
+		if(this.name == 'Player'){
+			shootSound.play();
+		}else{
+			enemyShootSound.play();
+		}
 	}
 
 	this.reset = function(whichImage, carName) {
@@ -97,6 +102,7 @@ function carClass() {
 	} // end of carReset func
 
 	this.gotHurt = function (damageDealt) {
+		carHitSound.play();
 		if (this.isDead) {
 			ai_distance = 250;
 			return;
@@ -106,7 +112,8 @@ function carClass() {
 		ai_distance = 150; // To show ai knows it has been hit and follows player.
 		console.log("New health is " + this.health + " due to damage " + damageDealt);
 		if (this.health <= 0 && !this.isDead && !this.stuckOnWall) {
-			console.log("You got me this time! (car dead)");
+			// console.log("You got me this time! (car dead)");
+			carSuckedSound.play();
 			this.isDead = true;
 			this.myCarPic = wreckedCarPic;
 			if (this.name === "Player") {
@@ -165,7 +172,6 @@ function carClass() {
 							var angle = Math.atan2(dy, dx);
 							this.ang = angle ;
 							this.keyHeld_Shooting = Math.random() < 0.1;
-
 					}
 			}
 			else{
@@ -265,16 +271,16 @@ function carClass() {
 		else {
 			this.semiAutoLock = false;
 		}
-		
+
 		// Friction
 		this.speed *= this.friction;
-		
+
 		// Boosts
 		var boostMult = 1.0;
 		if(this.keyHeld_Nos){
 			boostMult *= NOS_BOOST_MULT;
 		}
-		
+
 		// Acceleration
 		if(this.keyHeld_Gas &&  !this.inTileBroken){
 			this.speed += DRIVE_POWER * boostMult;
@@ -282,7 +288,7 @@ function carClass() {
 		if(this.keyHeld_Reverse &&  !this.inTileBroken) {
 			this.speed -= REVERSE_POWER * boostMult;
 		}
-		
+
 		// if(Math.abs(this.speed) > MIN_SPEED_TO_TURN) {
 		// }
 		// Turning
@@ -316,7 +322,8 @@ function carClass() {
 					if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width/1.5){
 
 						console.log("car to car collision!");
-						screenshake(10);
+						screenshake(14);
+						carCollisionSound.play();
 
 						// collision response: bounce off each other
 						// both cars are affected

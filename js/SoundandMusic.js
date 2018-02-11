@@ -1,11 +1,17 @@
 var audioFormat;
 
-var smallExplosionSound = new SoundOverlapsClass("./audio/boom");
+var boomSound = new SoundOverlapsClass("./audio/boom");
 var carHitSound = new SoundOverlapsClass("./audio/carHit");
-var shieldPowerUpSound = new SoundOverlapsClass("./audio/explode");
-var laserSound = new SoundOverlapsClass("./audio/laser2");
-var sensorSound = new SoundOverlapsClass("./audio/sensor");
+var bulletHitSound = new SoundOverlapsClass("./audio/bulletHit");
+var laserSound = new SoundOverlapsClass("./audio/laser");
+var enemyShootSound = new SoundOverlapsClass("./audio/shootEnemy");
 var shootSound = new SoundOverlapsClass("./audio/shoot");
+var powerupSound = new SoundOverlapsClass("./audio/powerup");
+var carJumpSound = new SoundOverlapsClass("./audio/carJump");
+var carSuckedSound = new SoundOverlapsClass("./audio/carSucked");
+var carCollisionSound = new SoundOverlapsClass("./audio/carCollision");
+
+
 
 var menuMusic = new backgroundMusicClass("./audio/menu");
 

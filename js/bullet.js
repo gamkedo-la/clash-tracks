@@ -8,6 +8,7 @@ function spawnBulletWithoutOriginObject(fromX,fromY,withAng,startGap) {
 					ang: withAng,
 					speed: 0,
 					bulletImg: enemyBulletPic};
+	// enemyShootSound.play();
 	bullets.push(new bulletClass(tempObj));
 }
 
@@ -75,6 +76,8 @@ function bulletClass(origin) {
 			) {
 			this.remove = true;
 			bulletHitWallEffect(this.pos.x,this.pos.y);
+			bulletHitSound.play();
+			screenshake(2);
 			}
   	} // en brickHandling
 
