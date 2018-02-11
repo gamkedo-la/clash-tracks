@@ -13,7 +13,9 @@ var carCollisionSound = new SoundOverlapsClass("./audio/carCollision");
 
 
 
-var menuMusic = new backgroundMusicClass("./audio/menu");
+var trancyMusic = new backgroundMusicClass("./audio/Trancy");
+var menuMusic = new backgroundMusicClass("./audio/Funky Menu");
+
 
 var currentBackgroundMusic;
 

@@ -22,6 +22,7 @@ window.onload = function() {
 	level = 0;
 	playerLives = 3;
 	loadImages();
+	trancyMusic.loopSong();
 }
 
 function imageLoadingDoneSoStartGame() {
