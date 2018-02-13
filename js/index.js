@@ -146,4 +146,5 @@ function drawAll() {
   colorText("HP: " + playerCar.health, canvas.width - 30, 60, 'white', 'right');
   colorText("Player Lives: " + playerLives, canvas.width - 30, 30, 'white', 'right');
 
+  //showIntro(); // UNCOMMENT showIntro(); TO TEST CHANGES TO INTRO.JS
 }
