@@ -107,5 +107,5 @@ function chooseNewWaypoint(whichShip) {
 
 function placeShipOnTrack(whichShip, tileTypeToCheck) {
 	whichShip.pos = findCenterPositionOfTileType(tileTypeToCheck);
-	setTileAtPositonToType(whichShip.pos, TRACK_ROAD);
+	setTileAtPositionToType(whichShip.pos, TRACK_ROAD);
 }

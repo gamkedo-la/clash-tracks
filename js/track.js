@@ -217,7 +217,7 @@ function findCenterPositionOfTileType(tileTypeToCheck) {
 		console.log("NO TILE FOUND, type: (" + tileTypeToCheck + ")");
 }
 
-function setTileAtPositonToType(position, newType)
+function setTileAtPositionToType(position, newType)
 {
 	// assumes valid position
 	var arrayIndex = positionToIndex(position);

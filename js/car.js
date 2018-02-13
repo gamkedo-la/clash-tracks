@@ -431,7 +431,7 @@ function stopControlsForDeadCar(whichCar) {
 
 function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
 	whichCar.pos = findCenterPositionOfTileType(tileTypeToCheck);
-	setTileAtPositonToType(whichCar.pos, TRACK_ROAD);
+	setTileAtPositionToType(whichCar.pos, TRACK_ROAD);
 }
 
 function playerResetCondition(){
