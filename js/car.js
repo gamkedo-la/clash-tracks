@@ -196,6 +196,12 @@ function carClass() {
 
 					}
 			}
+			else if (!debug || !this.isDead
+			|| !playerCar.isDead
+			|| !this.inTileBroken){
+				this.keyHeld_Shooting = false;
+				this.keyHeld_Gas = false;
+			}
 
 		} // end if AI
 
