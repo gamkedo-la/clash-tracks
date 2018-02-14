@@ -19,7 +19,7 @@ function colorCircle(centerX,centerY, radius, fillColor) {
 }
 
 function colorText(showWords, textX,textY, fillColor, textAlign) {
-    canvasContext.font = '20px Tahoma';
+	canvasContext.font = "20px '04b30'";
 	canvasContext.fillStyle = fillColor;
 	canvasContext.textBaseline = 'top';
 	canvasContext.textAlign = textAlign || "left";
@@ -49,7 +49,7 @@ function tintImage (image, color) {
 	_tintImageCTX.drawImage(image, 0, 0);
 	return _tintImageCanvas;
 }
-  
+
 // creates a brand new sprite in a new color
 function createTintedSprite (image, color) {
 var newCanvas = document.createElement('canvas');
