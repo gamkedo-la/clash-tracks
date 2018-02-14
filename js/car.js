@@ -128,7 +128,6 @@ function carClass() {
 		this.prevAng = this.ang;
 		//TODO  Make ai cars rotate and dissapear on broken tiles
 		//TODO Make Ai cars avoid broken tile slightly
-
 		if (this.isAI) {
 			// this.keyHeld_TurnRight = true;
 			distancePlayerEnemy = distance(playerCar.pos.x,playerCar.pos.y,this.pos.x, this.pos.y)
@@ -141,10 +140,10 @@ function carClass() {
 			// Navigation for AI cars to see bricks are nearby
 			frontPos.x = this.pos.x + Math.cos(this.ang)* this.width;
 	 		frontPos.y = this.pos.y + Math.sin(this.ang)* this.width;;
-			leftPos.x =  this.pos.x + Math.cos(this.ang - Math.PI/7)* this.width -  Math.sin(this.ang - Math.PI/7)* this.width;
-			leftPos.y =  this.pos.y + Math.cos(this.ang - Math.PI/7)* this.width +  Math.sin(this.ang - Math.PI/7)* this.width;
-			rightPos.x = this.pos.x + Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
-			rightPos.y = this.pos.y - Math.cos(this.ang + Math.PI/7)* this.width + Math.sin(this.ang + Math.PI/7)* this.width;
+			leftPos.x =  this.pos.x + Math.cos(this.ang - Math.PI/6)* this.width -  Math.sin(this.ang - Math.PI/6)* this.width;
+			leftPos.y =  this.pos.y + Math.cos(this.ang - Math.PI/6)* this.width +  Math.sin(this.ang - Math.PI/6)* this.width;
+			rightPos.x = this.pos.x + Math.cos(this.ang + Math.PI/6)* this.width + Math.sin(this.ang + Math.PI/6)* this.width;
+			rightPos.y = this.pos.y - Math.cos(this.ang + Math.PI/6)* this.width + Math.sin(this.ang + Math.PI/6)* this.width;
 
 			if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
 				this.ang += 0.5;
@@ -158,26 +157,46 @@ function carClass() {
 				this.ang -= 0.15;
 			}
 
+			else{
+					// this.keyHeld_Gas = false;
+					// this.keyHeld_Shooting = false;
+			}
+
 			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y)
 					&& !debug && !this.isDead
 					&& !playerCar.isDead
 					&& !this.inTileBroken) {
 
-					if(distancePlayerEnemy < ai_distance ){
+					if(distancePlayerEnemy < ai_distance  ){
 
-							this.keyHeld_Gas = true;
+							// this.keyHeld_Gas = true;
 							var dx = playerCar.pos.x - this.pos.x;
 							var dy = playerCar.pos.y - this.pos.y;
 
 							var angle = Math.atan2(dy, dx);
-							this.ang = angle ;
-							this.keyHeld_Shooting = Math.random() < 0.1;
+
+							this.keyHeld_Shooting = Math.random() < 0.2;
+
+							if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
+								this.ang += 0.5;
+							}
+
+							if(trackCollisionCheck(leftPos.x, leftPos.y, goalCheck = false)){
+								this.ang += 0.15;
+							}
+
+							if(trackCollisionCheck(rightPos.x, rightPos.y, goalCheck = false)){
+								this.ang -= 0.15;
+							}
+
+							else{
+								this.ang = angle;
+							}
+
+
 					}
 			}
-			else{
-					this.keyHeld_Gas = false;
-					this.keyHeld_Shooting = false;
-			}
+
 		} // end if AI
 
 		//only for player car.
