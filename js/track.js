@@ -61,7 +61,8 @@ const passableTiles =	[TRACK_ROAD,
 						TRACK_CHECKPOINT,
 						TRACK_SMOOTH,
 						TRACK_MINE,
-						TRACK_TIMER_POWERUP
+						TRACK_TIMER_POWERUP,
+						TRACK_POWERUP
 						];
 
 function returnTileTypeAtColRow(col, row) {
@@ -292,7 +293,16 @@ function drawTracks() {
 				canvasContext.drawImage(useImg,
 					(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
 					drawTileX,drawTileY,TRACK_W,TRACK_H);
-			} else {
+			}
+
+			if(tileKindHere == TRACK_POWERUP) {
+				canvasContext.drawImage(useImg,
+					(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
+					drawTileX,drawTileY,TRACK_W,TRACK_H);
+			}
+
+
+			 else {
 				canvasContext.drawImage(useImg,drawTileX,drawTileY);
 			}
 			drawTileX += TRACK_W;
