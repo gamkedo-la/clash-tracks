@@ -101,7 +101,7 @@ function carTrackHandling(whichCar) {
 		//TODO Reset car to nearest point and not last checkpoint on wall stuck
 
 		if(carTrackCol >= 0 && carTrackCol < track_cols &&
-			carTrackRow >= 0 && carTrackRow < track_rows) {
+			carTrackRow >= 0 && carTrackRow < track_rows && !whichCar.jumping) {
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 
 			if(!trackTypeIsPassable(tileHere) && !whichCar.stuckOnWall){
@@ -117,13 +117,14 @@ function carTrackHandling(whichCar) {
 
 			whichCar.friction = getFrictionForTileType(tileHere);
 
-			if(tileHere == TRACK_MINE) {
+			if(tileHere == TRACK_MINE &&  !whichCar.jumping) {
 				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // remove mine
 				mineDetonatesEffect(carTrackCol*TRACK_W+TRACK_W/2,
 									carTrackRow*TRACK_H+TRACK_H/2);
 				// deal some damage or destroy the collising car
 				whichCar.gotHurt(MINE_DAMAGE);
 				carHitSound.play();
+				boomSound.volume = 0.8;
 				boomSound.play();
 			}
 
@@ -133,13 +134,13 @@ function carTrackHandling(whichCar) {
 			}
 
 			//code for handling car and broken tile collision
-			if(tileHere == TRACK_ROAD_BROKEN){
+			if(tileHere == TRACK_ROAD_BROKEN ){
 				whichCar.ang += 0.25;
 				whichCar.speed = 0;
 				// carHitSound.play();
 
 				//check if center of car is in tile broken
-				if(!whichCar.inTileBroken && !whichCar.isDead){
+				if(!whichCar.inTileBroken && !whichCar.isDead && !whichCar.jumping){
 					whichCar.health = 0;
 					whichCar.inTileBroken = true;
 					carSuckedSound.play();
@@ -158,7 +159,7 @@ function carTrackHandling(whichCar) {
 			}
 
 			if(tileHere == TRACK_JUMP_TILE){
-				if(!whichCar.inJumpTile){
+				if(!whichCar.inJumpTile && !whichCar.jumping){
 					whichCar.speed *= 2;
 					carJumpSound.play();
 					whichCar.jumping = true;

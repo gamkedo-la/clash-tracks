@@ -293,10 +293,10 @@ function carClass() {
 		// }
 		// Turning
 		if(Math.abs(this.speed) > DRIFT_MIN_SPEED){
-			if(this.keyHeld_TurnLeft) {
+			if(this.keyHeld_TurnLeft  && !this.jumping) {
 				this.ang -= DRIFT_TURN_RATE;
 			}
-			if(this.keyHeld_TurnRight) {
+			if(this.keyHeld_TurnRight  && !this.jumping) {
 				this.ang += DRIFT_TURN_RATE;
 			}
 		}
@@ -319,7 +319,7 @@ function carClass() {
 					var yDistance = Math.pow((this.pos.y - carList[i].pos.y),2);
 					//safe distance to check collision points
 
-					if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width/1.5){
+					if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width/1.5 && !this.jumping){
 
 						console.log("car to car collision!");
 						screenshake(14);
