@@ -41,8 +41,8 @@ function loadImages() {
 		{varName: tireTrackPic, theFile: "lightTrail.png"},
 		{varName: shipOverheadPic, theFile: "shipOverhead.png"},
 		{varName: dropBombPic, theFile: "dropBomb.png"},
-    // {trackType: TRACK_ROAD, theFile: "track_road.png"},
-		{trackType: TRACK_ROAD, theFile: "violet_track_road.png"},
+    {trackType: TRACK_ROAD, theFile: "track_road.png"},
+		// {trackType: TRACK_ROAD, theFile: "violet_track_road.png"},
 
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},
 		{trackType: TRACK_GOAL, theFile: "track_goal.png"},
@@ -68,6 +68,8 @@ function loadImages() {
     {trackType: TRACK_MINE, theFile: "track_mine_sheet.png"},
     {trackType: TRACK_TIMER_POWERUP, theFile: "timer_increase_powerup.png"},
     {trackType: TRACK_LASER_TOWER, theFile: "track_laser_tower.png"},
+		{trackType: TRACK_POWERUP, theFile: "powerup.png"},
+
 
 	];
 

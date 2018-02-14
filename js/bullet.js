@@ -1,7 +1,5 @@
 let bullets = [];
 
-//TODO Bullet does not collide with Jump Tile,Broken TIle.
-
 function spawnBulletWithoutOriginObject(fromX,fromY,withAng,startGap) {
 	var tempObj = {pos:{x:fromX+Math.cos(withAng)*startGap,
 						y:fromY+Math.sin(withAng)*startGap},
@@ -10,6 +8,7 @@ function spawnBulletWithoutOriginObject(fromX,fromY,withAng,startGap) {
 					bulletImg: enemyBulletPic};
 	// laserSound.play();
 	bullets.push(new bulletClass(tempObj));
+
 }
 
 function bulletClass(origin) {
@@ -75,9 +74,12 @@ function bulletClass(origin) {
 				tileHere != TRACK_TIMER_POWERUP
 			) {
 			this.remove = true;
-			bulletHitWallEffect(this.pos.x,this.pos.y);
-			bulletHitSound.play();
-			screenshake(2);
+
+			if(distance(playerCar.pos.x, playerCar.pos.y, this.pos.x, this.pos.y ) < 500){
+				bulletHitWallEffect(this.pos.x,this.pos.y);
+				bulletHitSound.play();
+				screenshake(5);
+				}
 			}
   	} // en brickHandling
 

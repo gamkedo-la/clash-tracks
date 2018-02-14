@@ -30,6 +30,7 @@ const TRACK_3_BUILDINGS_2 = 25; // 3 building descending
 const TRACK_3_BUILDINGS_3 = 26;	// 3 building ascending
 const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
 const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
+const TRACK_POWERUP = 29
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
 
@@ -47,7 +48,6 @@ var trackGridCopy = []; //checkpoint
 var animTileOscillatorFrame = 0;
 
 //TODO Make Wall Code Numbers Occur in Sequence and Update Track Data
-//TODO Slippery Track Road Bug
 //TODO Make Enemy car Not stuck on turret
 var track_cols = 20;
 var track_rows = 36;
@@ -270,11 +270,16 @@ function drawTracks() {
 			if(tileKindHere == TRACK_LASER_TOWER) {
 				var turretTick = Math.floor(animTileOscillatorFrame*0.1)%13;
 				var laserTick = Math.floor(animTileOscillatorFrame*0.1)%7;
-				if(laserTick < 4){
-					laserSound.play();
-				}
+
 
 				if(turretTick < 4) {
+					// console.log();
+					if(laserTick < 10){
+						if(distance(playerCar.pos.x, playerCar.pos.y, drawTileX, drawTileY ) < 500){
+							laserSound.play();
+						}
+					}
+
 					spawnBulletWithoutOriginObject(drawTileX+TRACK_W/2,
 													drawTileY+TRACK_H/2,
 													(Math.PI*0.5)*turretTick,

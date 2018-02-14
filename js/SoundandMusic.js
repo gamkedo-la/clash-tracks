@@ -40,6 +40,7 @@ function backgroundMusicClass(filenameWithPath) {
             musicSound = null;
         }
         musicSound = new Audio(filenameWithPath + audioFormat);
+        musicSound.volume = 0.8
         musicSound.loop = true;
         musicSound.play();
     }
@@ -80,8 +81,8 @@ function SoundOverlapsClass(filenameWithPath) {
 }
 
 function getRandomVolume(){
-	var min = 0.5;
-	var max = 1;
+	var min = 0.3;
+	var max = 0.6;
 	var randomVolume = Math.random() * (max - min) + min;
 	return randomVolume.toFixed(2);
 }
