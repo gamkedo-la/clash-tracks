@@ -153,20 +153,22 @@ function carTrackHandling(whichCar) {
 				// carHitSound.play();
 
 				//check if center of car is in tile broken
-				if(!whichCar.inTileBroken && !whichCar.isDead && !whichCar.jumping){
-					whichCar.health = 0;
-					whichCar.inTileBroken = true;
-					carSuckedSound.play();
+				if (!whichCar.isInvincible) {
+					if(!whichCar.inTileBroken && !whichCar.isDead && !whichCar.jumping){
+						whichCar.health = 0;
+						whichCar.inTileBroken = true;
+						carSuckedSound.play();
 
-					setTimeout(function(){
-						whichCar.myCarPic = wreckedCarPic;
-						whichCar.isDead = true;
+						setTimeout(function(){
+							whichCar.myCarPic = wreckedCarPic;
+							whichCar.isDead = true;
 
 
-					}, 500);
+						}, 500);
 
-					if(whichCar.name == 'Player'){
-						  playerResetCondition();
+						if(whichCar.name == 'Player'){
+							  playerResetCondition();
+						}
 					}
 				}
 			}
