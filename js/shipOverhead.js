@@ -31,6 +31,7 @@ function shipOverheadClass() {
 		}
 		this.followingTarget = false;
 		var distToTarget = distance(this.target.pos.x,this.target.pos.y, this.pos.x,this.pos.y);
+
 		if(distToTarget <= SHIP_OVERHEAD_AGGRO_RANGE) {
 			var dx = this.target.pos.x - this.pos.x;
 			var dy = this.target.pos.y - this.pos.y;
@@ -42,9 +43,19 @@ function shipOverheadClass() {
 				var shipSpeed = SHIP_OVERHEAD_AGRRO_SPEED * distanceRatio;
 				shipSpeed = (shipSpeed < SHIP_OVERHEAD_MIN_SPEED) ? SHIP_OVERHEAD_MIN_SPEED : shipSpeed;
 				
+				// may be affected by a smokeScreen
+				if ((distToTarget < SMOKESCREEN_RANGE) && (playerCar.smokeScreenFramesRemaining > 0))
+				{
+					console.log('Ship is close to smokescreen');
+					this.ang += Math.random()*SMOKESCREEN_STEERING_DRIFT*2-SMOKESCREEN_STEERING_DRIFT;
+					shipSpeed *= SMOKESCREEN_SLOWDOWN_SCALE;
+					smokeScreenEffect(this.pos.x,this.pos.y);
+				}
+
 				this.pos.x += Math.cos(this.ang) * shipSpeed;
 				this.pos.y += Math.sin(this.ang) * shipSpeed;
 			}
+
 		} // end ship is close enough to follow target
 	} // end followTarget
 	

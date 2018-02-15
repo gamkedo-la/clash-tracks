@@ -11,6 +11,10 @@ const CAR_COLLISION_POINTS = 13;
 var enemyCars = [];
 var ai_distance = 250;
 
+const SMOKESCREEN_RANGE = 128; // distance to a player car with smokescreen to be affected if you're an AI
+const SMOKESCREEN_STEERING_DRIFT = 0.25; // +- this range in radians if an enemy hits smoke it makes steering mistakes
+const SMOKESCREEN_SLOWDOWN_SCALE = 0.25; // ai speed is multiplied by this when distracted by smoke
+
 //TODO Drift
 //TODO Building stuck jitter.
 
@@ -134,6 +138,15 @@ function carClass() {
 			// this.keyHeld_TurnRight = true;
 			distancePlayerEnemy = distance(playerCar.pos.x,playerCar.pos.y,this.pos.x, this.pos.y)
 
+			// may be affected by a smokeScreen
+			if ((distancePlayerEnemy < SMOKESCREEN_RANGE) && (playerCar.smokeScreenFramesRemaining > 0))
+			{
+				console.log('Enemy is close to smokescreen');
+				this.ang += Math.random()*SMOKESCREEN_STEERING_DRIFT*2-SMOKESCREEN_STEERING_DRIFT;
+				this.speed *= SMOKESCREEN_SLOWDOWN_SCALE;
+				smokeScreenEffect(this.pos.x,this.pos.y);
+			}
+
 			//need to change AI angle to match angle of player car
 			//check what is 45 degree to the right and left of it.
 			this.keyHeld_Gas = true;
@@ -244,8 +257,8 @@ function carClass() {
 			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
 		}
 
+		// regular trail behind the vehicle
 		particles.add(this.pos.x,this.pos.y,particlePic,500,64,this.trailColor,0,this.ang-Math.PI);
-
 
 		// smoke screen powerup
 		if (this.smokeScreenFramesRemaining>0)

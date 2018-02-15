@@ -33,7 +33,8 @@ const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
 const TRACK_POWERUP = 29
 
 const TRACK_POWERUP_SMOKESCREEN = 30;
-const SMOKESCREEN_TIMESPAN = 400; // in FRAMES
+
+const SMOKESCREEN_TIMESPAN = 300; // in FRAMES
 
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
