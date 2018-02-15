@@ -33,6 +33,7 @@ function carClass() {
 	this.myCarPic; // which picture to use
 	this.name = "Untitled Car";
 	this.isAI = false;
+	this.isInvincible = false;
 	this.isDead = false;
 	this.keyHeld_Nos = false;
 	this.keyHeld_Gas = false;
@@ -69,6 +70,7 @@ function carClass() {
 
 	this.reset = function(whichImage, carName) {
 		this.isDead = false;
+		this.isInvincible = false;
 		this.autoShoot = false;
 		this.stuckOnWall = false;
 		this.inTileBroken = false;
@@ -113,17 +115,19 @@ function carClass() {
 			ai_distance = 250;
 			return;
 		}
-		if (this.name === "Player")	screenshake(10);
-		this.health -= damageDealt;
-		ai_distance = 150; // To show ai knows it has been hit and follows player.
-		console.log("New health is " + this.health + " due to damage " + damageDealt);
-		if (this.health <= 0 && !this.isDead && !this.stuckOnWall) {
-			// console.log("You got me this time! (car dead)");
-			carSuckedSound.play();
-			this.isDead = true;
-			this.myCarPic = wreckedCarPic;
-			if (this.name === "Player") {
-				playerResetCondition();
+		if (!this.isInvincible) {
+			if (this.name === "Player")	screenshake(10);
+			this.health -= damageDealt;
+			ai_distance = 150; // To show ai knows it has been hit and follows player.
+			console.log("New health is " + this.health + " due to damage " + damageDealt);
+			if (this.health <= 0 && !this.isDead && !this.stuckOnWall) {
+				// console.log("You got me this time! (car dead)");
+				carSuckedSound.play();
+				this.isDead = true;
+				this.myCarPic = wreckedCarPic;
+				if (this.name === "Player") {
+					playerResetCondition();
+				}
 			}
 		}
 	}
