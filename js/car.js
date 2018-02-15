@@ -11,6 +11,12 @@ const CAR_COLLISION_POINTS = 13;
 var enemyCars = [];
 var ai_distance = 250;
 
+// smokeScreen Powerup Particles
+const SMOKE_LIFESPAN = 3000; // ms
+const SMOKE_SIZE = 100; // px - unimplemented
+const SMOKE_RGBA = 'rgba(40,40,40,1)';
+const SMOKE_ROT_RANGE = 3; // +- random range of radians per frame
+const SMOKE_VEL_RANGE = 3; // +- random range of px per frame draft
 
 //TODO Drift
 //TODO Building stuck jitter.
@@ -48,7 +54,8 @@ function carClass() {
 	this.shadowColor = "gray";
 	this.stuckOnWall = false;
 	this.remove = false;
-	this.trailColor = "rgb(46,148,193)"
+	this.trailColor = "rgb(46,148,193)";
+	this.smokeScreenFramesRemaining = 0;
 
 
 	// Clear tracks when creating a new car
@@ -77,7 +84,9 @@ function carClass() {
 		this.skidSpeed = 0;
 		this.skidAngle = 0;
 		this.keyHeld_Nos = false;
-		var trackValueToCheck =0;
+		this.smokeScreenFramesRemaining = 0;
+
+		var trackValueToCheck = 0;
 		// console.log(carName);
 		if(carName == "Player"){
 			trackValueToCheck = TRACK_PLAYERSTART;
@@ -241,7 +250,27 @@ function carClass() {
 		if(!this.keyHeld_Nos){
 			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
 		}
+
 		particles.add(this.pos.x,this.pos.y,particlePic,500,64,this.trailColor,0,this.ang-Math.PI);
+
+
+		// smoke screen powerup
+		if (this.smokeScreenFramesRemaining>0)
+		{
+			//console.log("smoking! " + this.smokeScreenFramesRemaining);
+			
+			this.smokeScreenFramesRemaining -= 1;
+
+			//x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY
+			particles.add(this.pos.x,this.pos.y,particlePic,
+				SMOKE_LIFESPAN,SMOKE_SIZE,SMOKE_RGBA,
+				Math.random()*SMOKE_ROT_RANGE*2-SMOKE_ROT_RANGE,
+				null,
+				Math.random()*SMOKE_VEL_RANGE*2-SMOKE_VEL_RANGE,
+				Math.random()*SMOKE_VEL_RANGE*2-SMOKE_VEL_RANGE);
+		}
+
+
 
 
 	} // end move function

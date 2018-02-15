@@ -1,24 +1,24 @@
-function drawBitmapCenteredWithRotation(useBitmap, atX,atY, withAng) {
+function drawBitmapCenteredWithRotation(useBitmap, atX, atY, withAng) {
 	canvasContext.save();
 	canvasContext.translate(atX, atY);
 	canvasContext.rotate(withAng);
-	canvasContext.drawImage(useBitmap, -useBitmap.width/2, -useBitmap.height/2);
+	canvasContext.drawImage(useBitmap, -useBitmap.width / 2, -useBitmap.height / 2);
 	canvasContext.restore();
 }
 
-function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor) {
+function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
 	canvasContext.fillStyle = fillColor;
-	canvasContext.fillRect(topLeftX,topLeftY, boxWidth,boxHeight);
+	canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
 }
 
-function colorCircle(centerX,centerY, radius, fillColor) {
+function colorCircle(centerX, centerY, radius, fillColor) {
 	canvasContext.fillStyle = fillColor;
 	canvasContext.beginPath();
-	canvasContext.arc(centerX,centerY, radius, 0,Math.PI*2, true);
+	canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
 	canvasContext.fill();
 }
 
-function colorText(showWords, textX,textY, fillColor, textAlign) {
+function colorText(showWords, textX, textY, fillColor, textAlign) {
 	canvasContext.font = "20px '04b30'";
 	canvasContext.fillStyle = fillColor;
 	canvasContext.textBaseline = 'top';
@@ -39,7 +39,7 @@ function colorLine(x1, y1, x2, y2, color) {
 // reuses the same temp buffer over and over for performance reasons
 var _tintImageCanvas = document.createElement('canvas');
 var _tintImageCTX = _tintImageCanvas.getContext('2d');
-function tintImage (image, color) {
+function tintImage(image, color) {
 	_tintImageCanvas.width = image.width;
 	_tintImageCanvas.height = image.height;
 	_tintImageCTX.fillStyle = color;
@@ -51,38 +51,38 @@ function tintImage (image, color) {
 }
 
 // creates a brand new sprite in a new color
-function createTintedSprite (image, color) {
-var newCanvas = document.createElement('canvas');
-var newContext = newCanvas.getContext('2d');
-newCanvas.width = image.width;
-newCanvas.height = image.height;
-newContext.fillStyle = color;
-newContext.fillRect(0, 0, newCanvas.width, newCanvas.height);
-newContext.globalCompositeOperation = 'destination-atop';
-newContext.globalAlpha = 1;
-newContext.drawImage(image, 0, 0);
-return newCanvas;
+function createTintedSprite(image, color) {
+	var newCanvas = document.createElement('canvas');
+	var newContext = newCanvas.getContext('2d');
+	newCanvas.width = image.width;
+	newCanvas.height = image.height;
+	newContext.fillStyle = color;
+	newContext.fillRect(0, 0, newCanvas.width, newCanvas.height);
+	newContext.globalCompositeOperation = 'destination-atop';
+	newContext.globalAlpha = 1;
+	newContext.drawImage(image, 0, 0);
+	return newCanvas;
 }
 
 // draw a rotated colored alpha faded sprite! (warning: costly, use sparingly)
 function drawImageTinted(canvasContext, image, x, y, angle, color, opacity) {
-canvasContext.save();
-canvasContext.translate(x, y);
-if (angle !== undefined) {
-  canvasContext.rotate(angle);
-}
-if (opacity != null) canvasContext.globalAlpha = opacity;
-canvasContext.drawImage(tintImage(image,color), -image.width / 2, -image.height / 2);
-canvasContext.restore();
+	canvasContext.save();
+	canvasContext.translate(x, y);
+	if (angle !== undefined) {
+		canvasContext.rotate(angle);
+	}
+	if (opacity != null) canvasContext.globalAlpha = opacity;
+	canvasContext.drawImage(tintImage(image, color), -image.width / 2, -image.height / 2);
+	canvasContext.restore();
 }
 
 function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
-canvasContext.save();
-canvasContext.translate(x, y);
-if (angle !== undefined) {
-  canvasContext.rotate(angle);
-}
-if (opacity != null) canvasContext.globalAlpha = opacity;
-canvasContext.drawImage(image, -image.width / 2, -image.height / 2);
-canvasContext.restore();
+	canvasContext.save();
+	canvasContext.translate(x, y);
+	if (angle !== undefined) {
+		canvasContext.rotate(angle);
+	}
+	if (opacity != null) canvasContext.globalAlpha = opacity;
+	canvasContext.drawImage(image, -image.width / 2, -image.height / 2);
+	canvasContext.restore();
 }
