@@ -164,3 +164,22 @@ function mineDetonatesEffect(x,y)
                             y + Math.sin(randAng)*randDist);
     }
 }
+
+// smokeScreen Powerup Particles
+const SMOKE_LIFESPAN = 3000; // ms
+const SMOKE_SIZE = 100; // px - unimplemented
+const SMOKE_RGBA = 'rgba(40,40,40,1)';
+const SMOKE_ROT_RANGE = 3; // +- random range of radians per frame
+const SMOKE_VEL_RANGE = 2; // +- random range of px per frame draft
+
+function smokeScreenEffect(x,y)
+{
+    //x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY
+    particles.add(x,y,particlePic,
+        SMOKE_LIFESPAN,SMOKE_SIZE,SMOKE_RGBA,
+        Math.random()*SMOKE_ROT_RANGE*2-SMOKE_ROT_RANGE,
+        null,
+        Math.random()*SMOKE_VEL_RANGE*2-SMOKE_VEL_RANGE,
+        Math.random()*SMOKE_VEL_RANGE*2-SMOKE_VEL_RANGE);
+    
+}

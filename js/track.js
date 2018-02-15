@@ -31,6 +31,10 @@ const TRACK_3_BUILDINGS_3 = 26;	// 3 building ascending
 const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
 const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
 const TRACK_POWERUP = 29
+
+const TRACK_POWERUP_SMOKESCREEN = 30;
+const SMOKESCREEN_TIMESPAN = 400; // in FRAMES
+
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
 
@@ -62,7 +66,8 @@ const passableTiles =	[TRACK_ROAD,
 						TRACK_SMOOTH,
 						TRACK_MINE,
 						TRACK_TIMER_POWERUP,
-						TRACK_POWERUP
+						TRACK_POWERUP,
+						TRACK_POWERUP_SMOKESCREEN
 						];
 
 function returnTileTypeAtColRow(col, row) {
@@ -132,6 +137,12 @@ function carTrackHandling(whichCar) {
 			if(tileHere == TRACK_TIMER_POWERUP) {
 				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
 				timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
+			}
+
+			if(tileHere == TRACK_POWERUP_SMOKESCREEN) {
+				console.log('Touched a smokescreen powerup!');
+				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
+				whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
 			}
 
 			//code for handling car and broken tile collision
@@ -301,6 +312,13 @@ function drawTracks() {
 					drawTileX,drawTileY,TRACK_W,TRACK_H);
 			}
 
+			if(tileKindHere == TRACK_POWERUP_SMOKESCREEN) {
+				canvasContext.drawImage(trackPics[TRACK_ROAD],drawTileX,drawTileY);
+				//canvasContext.drawImage(useImg,
+				//	(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
+				//	drawTileX,drawTileY,TRACK_W,TRACK_H);
+				smokeScreenEffect(drawTileX+TRACK_W/2,drawTileY+TRACK_H/2);
+			}
 
 			 else {
 				canvasContext.drawImage(useImg,drawTileX,drawTileY);

@@ -9,7 +9,7 @@ var screen_shake_enabled = true;
 
 function screenshake(howmany)
 {
-	console.log('screenshake ' + howmany);
+	//console.log('screenshake ' + howmany);
 	if (!screen_shake_me)
 	{
 		console.log('ERROR: screenshake does not know which element to shake!')
@@ -34,7 +34,7 @@ function updateScreenshake()
 	if (screen_shakes>0)
 	{
 		var shakesize = screen_shakes / 2;
-		if (shakesize > 8) shakesize = 8;
+		if (shakesize > 3) shakesize = 3;
 
 		// shake around a pivot point using CSS margin: NOTE: may have no effect depending on other custom css
 		screen_shake_me.style.margin = "" + (screen_shake_pivot_x + Math.round((Math.random() * shakesize) - shakesize / 2)) + 
