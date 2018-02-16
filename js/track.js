@@ -10,7 +10,6 @@ const TRACK_GOAL = 3;
 const TRACK_DISK = 4;
 // const TRACK_CITIES = 5;
 const TRACK_BRICKS_BLUE = 5;
-
 const TRACK_BRICKS_VIOLET = 6;
 const TRACK_ENEMYSTART = 7;
 const TRACK_CHECKPOINT  =  8;
@@ -19,7 +18,6 @@ const TRACK_SMOOTH = 10;
 const TRACK_ROAD_BROKEN = 11;
 const TRACK_TIMER_POWERUP = 12;
 const TURRET = 18;
-
 const TURRET_BACKGROUND = 19;
 const TRACK_2_BUILDINGS_1 = 20; //border brick 1
 const TRACK_2_BUILDINGS_2 = 21; //2 building (smaller)l->r

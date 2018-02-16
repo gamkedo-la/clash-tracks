@@ -42,8 +42,6 @@ function loadImages() {
 		{varName: shipOverheadPic, theFile: "shipOverhead.png"},
 		{varName: dropBombPic, theFile: "dropBomb.png"},
     {trackType: TRACK_ROAD, theFile: "track_road.png"},
-		// {trackType: TRACK_ROAD, theFile: "violet_track_road.png"},
-
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},
 		{trackType: TRACK_GOAL, theFile: "track_goal.png"},
 		{trackType: TRACK_DISK, theFile: "track_disk.png"},
