@@ -143,8 +143,11 @@ function drawAll() {
 	enemyShip.draw();
 	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
-	colorText("TIME: " + Math.ceil(timeToFinishLevel / framesPerSecond), 30, 30, 'white');
-  colorText("HP: " + playerCar.health, canvas.width - 30, 60, 'white', 'right');
-  colorText("Player Lives: " + playerLives, canvas.width - 30, 30, 'white', 'right');
+	colorText("TIME: " , 30, 30, 'white');
+	colorText(Math.ceil(timeToFinishLevel / framesPerSecond), canvasContext.measureText("TIME: ").width + 20, 30, 'cyan');
+	colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
+	colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
+  colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
+	colorText( playerLives,canvas.width - 30,30,'cyan','right' )
 
 }

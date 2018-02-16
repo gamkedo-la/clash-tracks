@@ -268,7 +268,7 @@ function carClass() {
 		if (this.smokeScreenFramesRemaining>0)
 		{
 			//console.log("smoking! " + this.smokeScreenFramesRemaining);
-			
+
 			this.smokeScreenFramesRemaining -= 1;
 
 			smokeScreenEffect(this.pos.x,this.pos.y);

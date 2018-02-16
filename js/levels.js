@@ -1,6 +1,4 @@
 var  levels = [
-
-
                //Demo Level
               { trackLayout: [  5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5,
                                 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -151,9 +149,5 @@ var  levels = [
                 enemyCars: 1,
                 timeLimit: 1 * 50 * framesPerSecond
               },
-
-
-
-
 
             ]
