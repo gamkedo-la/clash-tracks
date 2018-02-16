@@ -8,6 +8,7 @@ var tireTrackPic = document.createElement("img");
 var shipOverheadPic = document.createElement("img");
 var dropBombPic = document.createElement("img");
 var turretPic = document.createElement("img");
+var lightBallPic = document.createElement("img");
 
 var trackPics = [];
 
@@ -44,6 +45,7 @@ function loadImages() {
 		{varName: shipOverheadPic, theFile: "shipOverhead.png"},
 		{varName: dropBombPic, theFile: "dropBomb.png"},
 		{varName: turretPic, theFile: "turret.png"},
+		{varName: lightBallPic, theFile: "lightBall.png"},
 
     {trackType: TRACK_ROAD, theFile: "track_road.png"},
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},
@@ -62,8 +64,6 @@ function loadImages() {
     {trackType: TRACK_TIMER_POWERUP, theFile: "timer_increase_powerup.png"},
     {trackType: TRACK_LASER_TOWER, theFile: "track_laser_tower.png"},
 		{trackType: TRACK_POWERUP, theFile: "powerup.png"},
-
-
 	];
 
 	picsToLoad = imageList.length;
