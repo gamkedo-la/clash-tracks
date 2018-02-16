@@ -55,6 +55,9 @@ function carClass() {
 	this.trailColor = "rgb(46,148,193)";
 	this.smokeScreenFramesRemaining = 0;
 
+	this.invinciblePic;
+	this.invincibleAngle = 0;
+
 
 	// Clear tracks when creating a new car
 	if (window.tireTracks) tireTracks.reset();
@@ -84,6 +87,10 @@ function carClass() {
 		this.skidAngle = 0;
 		this.keyHeld_Nos = false;
 		this.smokeScreenFramesRemaining = 0;
+		this.invincibleAngle = 0;
+		if (!this.invinciblePic) {
+      this.invinciblePic = createTintedSprite(lightBallPic, '#9871b5');
+		}
 
 		var trackValueToCheck = 0;
 		// console.log(carName);
@@ -275,6 +282,12 @@ function carClass() {
 		}
 
 
+		if (this.isInvincible) {
+      this.invincibleAngle -= .13;
+      if (this.invincibleAngle < 0) {
+      	this.invincibleAngle = Math.PI * 2;
+			}
+		}
 
 
 	} // end move function
@@ -282,6 +295,10 @@ function carClass() {
 	this.draw = function() {
 		drawBitmapCenteredWithRotation(this.myCarPic, this.pos.x ,this.pos.y, this.ang);
 		// this.drawShadow(this.shadowColor);
+		if (this.isInvincible) {
+			drawBitmapCenteredWithRotation(this.invinciblePic, this.pos.x, this.pos.y, this.invincibleAngle);
+    }
+
 		if(debug){
 			colorCircle(this.pos.x,this.pos.y ,1,"lime");
 			for(var i = 0; i<this.CollisionPoints.length; i++){
