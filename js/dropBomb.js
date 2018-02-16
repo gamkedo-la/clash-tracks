@@ -1,5 +1,5 @@
-const DROPBOMB_EXPLOSION_RADIUS = 250;
-const DROPBOMB_SPEED = 7;
+const DROPBOMB_EXPLOSION_RADIUS = 150;
+const DROPBOMB_SPEED = 9;
 const DROPBOMB_LIFETIME = 1 * framesPerSecond;
 const DROPBOMB_SPIN_SPEED = Math.PI/15;
 const DROPBOMB_DAMAGE = 1;
@@ -15,14 +15,14 @@ function dropBombClass(origin) {
 	this.remove = false;
 	this.lifetime = DROPBOMB_LIFETIME;
 	this.ticking = false;
-	
+
 	this.move = function() {
 		var dx = this.target.x - this.pos.x;
 		var dy = this.target.y - this.pos.y;
 		var moveAng = Math.atan2(dy, dx);
-		
+
 		var dist = distance(this.target.x, this.target.y, this.pos.x, this.pos.y);
-		
+
 		if(dist > DROPBOMB_SPEED) {
 			this.pos.x += Math.cos(moveAng) * DROPBOMB_SPEED;
 			this.pos.y += Math.sin(moveAng) * DROPBOMB_SPEED;
@@ -31,17 +31,17 @@ function dropBombClass(origin) {
 			this.pos = this.target;
 			this.ticking = true;
 		}
-		
+
 		this.ang += DROPBOMB_SPIN_SPEED;
 	}
-	
+
 	this.countdownTick = function() {
 		this.lifetime--;
 		if(this.lifetime == 0) {
 			detonateDropBomb(this);
 		}
 	}
-	
+
 	this.carHandling = function() {
 		for(var i = 0; i < carList.length; i++) {
 			var distToCar = distance(this.pos.x, this.pos.y, carList[i].pos.x,carList[i].pos.y);
@@ -53,7 +53,7 @@ function dropBombClass(origin) {
 			}
 		}
 	}
-	
+
 	this.update = function() {
 		if(this.ticking) {
 			this.countdownTick();
@@ -65,7 +65,7 @@ function dropBombClass(origin) {
 	this.draw = function()
 	{
 		drawBitmapCenteredWithRotation(dropBombPic, this.pos.x,this.pos.y, this.ang);
-		
+
 		if(debug) {
 			colorCircle(this.pos.x,this.pos.y, DROPBOMB_EXPLOSION_RADIUS, 'rgba(255,255,0,0.2)');
 		}
@@ -77,5 +77,3 @@ function detonateDropBomb(whichBomb) {
 	whichBomb.remove = true;
 	sparksEffect(whichBomb.pos.x,whichBomb.pos.y);
 }
-
-

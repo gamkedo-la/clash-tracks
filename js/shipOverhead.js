@@ -1,10 +1,10 @@
 
 const SHIP_OVERHEAD_AGGRO_RANGE = 300;
 const SHIP_OVERHEAD_AGGRO_BUFFER = 7;
-const SHIP_OVERHEAD_AGRRO_SPEED = 8;
+const SHIP_OVERHEAD_AGRRO_SPEED = 12;
 const SHIP_OVERHEAD_IDLE_SPEED = 3;
 const SHIP_OVERHEAD_MIN_SPEED = 2;
-const SHIP_OVERHEAD_ATTACK_RATE = 2 * framesPerSecond;
+const SHIP_OVERHEAD_ATTACK_RATE = 1.1 * framesPerSecond;
 
 function shipOverheadClass() {
 	this.pos = vector.create();
@@ -14,16 +14,16 @@ function shipOverheadClass() {
 	this.followingTarget = false;
 	this.movingToWaypoint = false;
 	this.attackTimer = SHIP_OVERHEAD_ATTACK_RATE;
-	
+
 	this.reset = function() {
 		placeShipOnTrack(this, TRACK_SHIP_OVERHEAD_START);
 		this.setTarget(playerCar);
 	}
-	
+
 	this.setTarget = function(newTarget) {
 		this.target = newTarget;
 	}
-	
+
 	this.followTarget = function() {
 		if(this.target == null) {
 			console.log("ERROR: no target found");
@@ -37,12 +37,12 @@ function shipOverheadClass() {
 			var dy = this.target.pos.y - this.pos.y;
 			this.ang = Math.atan2(dy, dx);
 			this.followingTarget = true;
-			
+
 			if(distToTarget > SHIP_OVERHEAD_AGGRO_BUFFER) {
 				var distanceRatio = 1 - (distToTarget / SHIP_OVERHEAD_AGGRO_RANGE);
 				var shipSpeed = SHIP_OVERHEAD_AGRRO_SPEED * distanceRatio;
 				shipSpeed = (shipSpeed < SHIP_OVERHEAD_MIN_SPEED) ? SHIP_OVERHEAD_MIN_SPEED : shipSpeed;
-				
+
 				// may be affected by a smokeScreen
 				if ((distToTarget < SMOKESCREEN_RANGE) && (playerCar.smokeScreenFramesRemaining > 0))
 				{
@@ -58,13 +58,13 @@ function shipOverheadClass() {
 
 		} // end ship is close enough to follow target
 	} // end followTarget
-	
+
 	this.moveToWayPoint = function() {
 		if(this.followingTarget) {
 			this.movingToWaypoint = false;
 			return;
 		}
-		
+
 		if(this.movingToWaypoint) {
 			var distToTarget = distance(this.nextWayPoint.x,this.nextWayPoint.y, this.pos.x,this.pos.y);
 			if(distToTarget > SHIP_OVERHEAD_IDLE_SPEED) {
@@ -75,11 +75,11 @@ function shipOverheadClass() {
 				this.movingToWaypoint = false;
 			}
 		} // end move towards waypoint
-		else {			
+		else {
 			chooseNewWaypoint(this);
 		} // end choose new waypoint
 	} // end moveToWayPoint
-	
+
 	this.attackTarget = function() {
 		if(!this.followingTarget) {
 			this.attackTimer = SHIP_OVERHEAD_ATTACK_RATE;
@@ -92,14 +92,14 @@ function shipOverheadClass() {
 			bullets.push(new dropBombClass(this));
 		}
 	} // end attackTarget
-	
+
 	this.move = function() {
 		this.followTarget();
 		this.moveToWayPoint();
 
 		this.attackTarget();
 	}
-	
+
 	this.draw = function() {
 		drawBitmapCenteredWithRotation(shipOverheadPic, this.pos.x,this.pos.y, this.ang);
 	}
@@ -107,10 +107,10 @@ function shipOverheadClass() {
 
 function chooseNewWaypoint(whichShip) {
 	whichShip.movingToWaypoint = true;
-			
+
 	whichShip.nextWayPoint.x = Math.random() * track_cols * TRACK_W;
 	whichShip.nextWayPoint.y = Math.random() * track_rows * TRACK_H;
-	
+
 	var dx = whichShip.nextWayPoint.x - whichShip.pos.x;
 	var dy = whichShip.nextWayPoint.y - whichShip.pos.y;
 	whichShip.ang = Math.atan2(dy, dx);
