@@ -7,8 +7,8 @@ const TRACK_ROAD = 0;
 const TRACK_WALL = 1;
 const TRACK_PLAYERSTART = 2;
 const TRACK_GOAL = 3;
-const TRACK_DISK = 4;
-// const TRACK_CITIES = 5;
+const TRACK_CHECKPOINT_FLAG = 4;
+
 const TRACK_BRICKS_BLUE = 5;
 const TRACK_BRICKS_VIOLET = 6;
 const TRACK_ENEMYSTART = 7;
@@ -17,31 +17,20 @@ const TRACK_JUMP_TILE = 9;
 const TRACK_SMOOTH = 10;
 const TRACK_ROAD_BROKEN = 11;
 const TRACK_TIMER_POWERUP = 12;
-const TURRET = 18;
 const TURRET_BACKGROUND = 19;
-const TRACK_2_BUILDINGS_1 = 20; //border brick 1
-const TRACK_2_BUILDINGS_2 = 21; //2 building (smaller)l->r
-const TRACK_2_BUILDINGS_3 = 22; //2 buildings (smaller) r-> l
-const TRACK_2_BUILDINGS_4 = 23; //border brick engraved
-const TRACK_3_BUILDINGS_1 = 24; // border brick 2
-const TRACK_3_BUILDINGS_2 = 25; // 3 building descending
-const TRACK_3_BUILDINGS_3 = 26;	// 3 building ascending
-const TRACK_3_BUILDINGS_4 = 27; //complete top down //hut bright top
-const TRACK_4_BUILDINGS_1 = 28; //skyscraper inclined right
+const TRACK_BUILDING_RED = 20;
+const TRACK_BUILDING_BLUE = 23;
+const TRACK_BUILDING_VIOLET = 27;
+const SKYSCRAPER_VIOLET = 28;
 const TRACK_POWERUP = 29
-
-const TRACK_POWERUP_SMOKESCREEN = 30;
-
+const TRACK_POWERUP_SMOKESCREEN = 30
+;
 const SMOKESCREEN_TIMESPAN = 300; // in FRAMES
-
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
-
 const TRACK_SHIP_OVERHEAD_START = 90;
-
 const TRACK_FRICTION_SMOOTH = 0.80;
 const TRACK_FRICTION_NORMAL = 0.94;
-
 const MINE_DAMAGE = 2;
 const TIMER_INCREASE_AMT = 10 * framesPerSecond; // Change digit to number of seconds a powerup adds
 

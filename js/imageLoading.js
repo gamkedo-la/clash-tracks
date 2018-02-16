@@ -7,6 +7,8 @@ var enemyBulletPic = document.createElement("img");
 var tireTrackPic = document.createElement("img");
 var shipOverheadPic = document.createElement("img");
 var dropBombPic = document.createElement("img");
+var turretPic = document.createElement("img");
+
 var trackPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -41,25 +43,18 @@ function loadImages() {
 		{varName: tireTrackPic, theFile: "lightTrail.png"},
 		{varName: shipOverheadPic, theFile: "shipOverhead.png"},
 		{varName: dropBombPic, theFile: "dropBomb.png"},
+		{varName: turretPic, theFile: "turret.png"},
+
     {trackType: TRACK_ROAD, theFile: "track_road.png"},
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},
 		{trackType: TRACK_GOAL, theFile: "track_goal.png"},
-		{trackType: TRACK_DISK, theFile: "track_disk.png"},
-		// {trackType: TRACK_CITIES, theFile: "aliencities.png"},
-		{trackType: TURRET_BACKGROUND, theFile: "turretBackground.png"},
-		{trackType: TURRET, theFile: "turret.png"},
+		{trackType: TRACK_CHECKPOINT_FLAG, theFile: "track_disk.png"},
     {trackType: TRACK_BRICKS_VIOLET, theFile: "alienBricks_violet.png"},
-		{trackType: TRACK_BRICKS_BLUE, theFile: "alienBricks.png"},
-
-    {trackType: TRACK_2_BUILDINGS_1, theFile: "violet_perspective_building_1.png"}, //level 3
-    {trackType: TRACK_2_BUILDINGS_2, theFile: "violet_two_buildings_1.png"},
-    {trackType: TRACK_2_BUILDINGS_3, theFile: "violet_two_buildings_2.png"},
-    {trackType: TRACK_2_BUILDINGS_4, theFile: "violet_perspective_building_1_1.png"}, //level 2
-    {trackType: TRACK_3_BUILDINGS_2, theFile: "violet_three_buildings_1.png"},
-    {trackType: TRACK_3_BUILDINGS_1, theFile: "violet_perspective_building_2.png"},
-    {trackType: TRACK_3_BUILDINGS_3, theFile: "violet_three_buildings_2.png"},
-    {trackType: TRACK_3_BUILDINGS_4, theFile: "violet_perspective_building_3.png"},
-    {trackType: TRACK_4_BUILDINGS_1, theFile: "bad_skyscrapper_violet.png"},
+		{trackType: TRACK_BRICKS_BLUE, theFile: "alienBricks_blue.png"},
+    {trackType: TRACK_BUILDING_RED, theFile: "red_building.png"}, //level 3
+    {trackType: TRACK_BUILDING_BLUE, theFile: "blue_building.png"}, //level 2
+    {trackType: TRACK_BUILDING_VIOLET, theFile: "violet_building.png"},
+    {trackType: SKYSCRAPER_VIOLET, theFile: "skyscrapper_violet.png"},
     {trackType: TRACK_JUMP_TILE, theFile: "jumpTile.png"},
     {trackType: TRACK_SMOOTH, theFile: "sliperyRoad.png"},
     {trackType: TRACK_ROAD_BROKEN, theFile: "track_road_broken.png"},
