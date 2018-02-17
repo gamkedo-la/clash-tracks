@@ -66,21 +66,16 @@ function bulletClass(origin) {
 
 	this.brickHandling = function(){
 		let tileHere = returnTileTypeAtPixelXY(this.pos.x, this.pos.y);
-		if( tileHere != TRACK_ROAD &&
-				tileHere != TRACK_JUMP_TILE &&
-				tileHere != TRACK_GOAL &&
-				tileHere != TRACK_ROAD_BROKEN &&
-				tileHere != TRACK_SMOOTH &&
-				tileHere != TRACK_TIMER_POWERUP
-			) {
+		if( trackTypeIsPassable(tileHere) == false ) {
 			this.remove = true;
-
+			
+			//VFX and SFX only if player car is close by (Offscreen laser hits don't cause sound etc.)
 			if(distance(playerCar.pos.x, playerCar.pos.y, this.pos.x, this.pos.y ) < 500){
 				bulletHitWallEffect(this.pos.x,this.pos.y);
 				bulletHitSound.play();
 				screenshake(5);
-				}
 			}
+		}
   	} // en brickHandling
 
 }
