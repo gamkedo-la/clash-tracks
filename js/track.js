@@ -134,29 +134,27 @@ function carTrackHandling(whichCar) {
 			}
 
 			//code for handling car and broken tile collision
-			if(tileHere == TRACK_ROAD_BROKEN ){
-				whichCar.ang += 0.25;
-				whichCar.speed = 0;
-				// carHitSound.play();
-
-				//check if center of car is in tile broken
+			if(tileHere == TRACK_ROAD_BROKEN){
 				if (!whichCar.isInvincible) {
-					if(!whichCar.inTileBroken && !whichCar.isDead && !whichCar.jumping){
-						whichCar.health = 0;
-						whichCar.inTileBroken = true;
-						carSuckedSound.play();
+						whichCar.ang += 0.25;
+						whichCar.speed = 0;
+						// carHitSound.play();
+						//check if center of car is in tile broken
+						if(!whichCar.inTileBroken && !whichCar.isDead && !whichCar.jumping ){
+							whichCar.health = 0;
+							whichCar.inTileBroken = true;
+							carSuckedSound.play();
 
-						setTimeout(function(){
-							whichCar.myCarPic = wreckedCarPic;
-							whichCar.isDead = true;
+							setTimeout(function(){
+								whichCar.myCarPic = wreckedCarPic;
+								whichCar.isDead = true;
+							}, 500);
 
-
-						}, 500);
-
-						if(whichCar.name == 'Player'){
-							  playerResetCondition();
+							if(whichCar.name == 'Player'){
+								  playerResetCondition();
+							}
 						}
-					}
+						
 				}
 			}
 

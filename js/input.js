@@ -11,6 +11,7 @@ const KEY_O = 79;
 const KEY_R = 82;
 const KEY_L = 76;
 const KEY_U = 85;
+const KEY_I = 73
 const KEY_SHIFT = 16;
 const KEY_ENTER = 13;
 
@@ -77,7 +78,9 @@ function keyPressed(evt) {
 			break;
 		case KEY_L:
 			playerCar.autoShoot = !playerCar.autoShoot  ;
-			// playerCar.keyHeld_Shooting = Math.random() <  0.1;
+			break;
+		case KEY_I:
+			playerCar.isInvincible = !playerCar.isInvincible;
 			break;
 		case KEY_U:
 			toggleScreenShake();
