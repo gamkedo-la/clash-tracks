@@ -22,6 +22,7 @@ window.onload = function() {
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	level = 0;
 	playerLives = 3;
+	fadeInStory();
 	loadImages();
 	trancyMusic.loopSong();
 }
