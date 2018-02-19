@@ -25,11 +25,11 @@ window.onload = function() {
 	fadeInStory();
 	loadImages();
 	trancyMusic.loopSong();
+  setupInput();
 }
 
 function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/framesPerSecond);
-	setupInput();
 	loadLevel(level);
 }
 

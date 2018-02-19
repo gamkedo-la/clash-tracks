@@ -11,7 +11,7 @@ const KEY_O = 79;
 const KEY_R = 82;
 const KEY_L = 76;
 const KEY_U = 85;
-const KEY_I = 73
+const KEY_I = 73;
 const KEY_SHIFT = 16;
 const KEY_ENTER = 13;
 
@@ -77,16 +77,23 @@ function keyPressed(evt) {
 			resetCheckPoint();
 			break;
 		case KEY_L:
-			playerCar.autoShoot = !playerCar.autoShoot  ;
+			playerCar.autoShoot = !playerCar.autoShoot;
 			break;
 		case KEY_I:
-			playerCar.isInvincible = !playerCar.isInvincible;
+			if (debug) {
+				playerCar.isInvincible = !playerCar.isInvincible;
+      }
 			break;
 		case KEY_U:
 			toggleScreenShake();
 			break;
 		case KEY_ENTER:
 			loadNextLevel();
+			break;
+		case SPACE_BAR:
+			if (startTimeout) {
+        skipStory();
+			}
 			break;
 	}
 	evt.preventDefault();

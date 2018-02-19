@@ -22,9 +22,9 @@ const TRACK_BUILDING_RED = 20;
 const TRACK_BUILDING_BLUE = 23;
 const TRACK_BUILDING_VIOLET = 27;
 const SKYSCRAPER_VIOLET = 28;
-const TRACK_POWERUP = 29
-const TRACK_POWERUP_SMOKESCREEN = 30
-;
+const TRACK_POWERUP = 29;
+const TRACK_POWERUP_SMOKESCREEN = 30;
+
 const SMOKESCREEN_TIMESPAN = 300; // in FRAMES
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
@@ -43,20 +43,20 @@ var animTileOscillatorFrame = 0;
 //TODO Make Enemy car Not stuck on turret
 var track_cols = 20;
 var track_rows = 36;
-var trackGrid = [];
 
-const passableTiles =	[TRACK_ROAD,
-						TRACK_GOAL,
-						TRACK_ROAD_BROKEN,
-						TRACK_JUMP_TILE,
-						TRACK_PLAYERSTART,
-						TRACK_CHECKPOINT,
-						TRACK_SMOOTH,
-						TRACK_MINE,
-						TRACK_TIMER_POWERUP,
-						TRACK_POWERUP,
-						TRACK_POWERUP_SMOKESCREEN
-						];
+const passableTiles =	[
+	TRACK_ROAD,
+	TRACK_GOAL,
+	TRACK_ROAD_BROKEN,
+	TRACK_JUMP_TILE,
+	TRACK_PLAYERSTART,
+	TRACK_CHECKPOINT,
+	TRACK_SMOOTH,
+	TRACK_MINE,
+	TRACK_TIMER_POWERUP,
+	TRACK_POWERUP,
+	TRACK_POWERUP_SMOKESCREEN
+];
 
 function returnTileTypeAtColRow(col, row) {
 

@@ -14,10 +14,11 @@ var opacity = 0.0;
 var storyPart = 0; // index for story array
 var masterTick = 0;
 var blurRate = 180;
+var introInterval, fadeInterval, startTimeout;
 
 function showIntro() {
-	fadeInStory()
-	setInterval(function() {
+	fadeInStory();
+  introInterval = setInterval(function() {
 		// masterTick++;
 		opacity += 0.05;
 		if (opacity < 1) {
@@ -39,20 +40,20 @@ function drawStory(storyLine) { // Draws each StoryArray array element as a new 
 		var yTracking = canvas.height/2 - (fontSize * storyLine.length);
 		for (var i = 0; i < storyLine.length; i++) {
 			// console.log(storyArray[storyPart][i]);
-			colorText(storyLine[i], canvas.width/2,yTracking,"white","center", );
+			colorText(storyLine[i], canvas.width/2,yTracking,"white","center");
 			yTracking += (fontSize + leadingBuffer);
 		}
 }
 
 function fadeInIntroThenStartGame() {
 	showIntro();
-	setInterval(function(){
+  fadeInterval = setInterval(function(){
 		if(storyPart < StoryArray.length - 1 ){
 				storyPart++;
 				opacity = 0.0;
 		}
 	}, durationForEachPart);
-	window.setTimeout(imageLoadingDoneSoStartGame, introDuration);
+  startTimeout = setTimeout(imageLoadingDoneSoStartGame, introDuration);
 }
 
 function fadeInStory() {
@@ -60,4 +61,23 @@ function fadeInStory() {
 		colorRect(0,0, canvas.width,canvas.height, '#0e0015');
 		canvasContext.globalAlpha = opacity;
 		drawStory(StoryArray[storyPart]);
+		canvasContext.globalAlpha = 1;
+
+  colorText("[press spacebar to skip story]", canvas.width/2, canvas.height - fontSize, "white", "center", "16px '04b30'");
+}
+
+function skipStory() {
+	if (introInterval) {
+		clearInterval(introInterval);
+		introInterval = null;
+	}
+	if (fadeInterval) {
+		clearInterval(fadeInterval);
+    fadeInterval = null;
+	}
+	if (startTimeout) {
+		clearTimeout(startTimeout);
+    startTimeout = null;
+	}
+	imageLoadingDoneSoStartGame();
 }
