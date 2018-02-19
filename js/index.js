@@ -5,6 +5,7 @@ const TIME_TO_FINISH_LVL_1 = 1 * 50 * framesPerSecond;
 
 var canvas, canvasContext;
 var debug = false;
+var isPlaying = false;
 var playerCar = new carClass();
 //Used for testing bullet Collisions. Includes all cars.
 var carList = [playerCar];
@@ -26,9 +27,10 @@ window.onload = function() {
 	loadImages();
 	trancyMusic.loopSong();
   setupInput();
-}
+};
 
 function imageLoadingDoneSoStartGame() {
+  isPlaying = true;
 	setInterval(updateAll, 1000/framesPerSecond);
 	loadLevel(level);
 }

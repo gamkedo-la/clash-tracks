@@ -44,62 +44,83 @@ function keySet(evt, setTo)
 		case KEY_UP_ARROW:
 		case KEY_W:
 			playerCar.keyHeld_Gas = setTo;
+      evt.preventDefault();
 			break;
 		case KEY_DOWN_ARROW:
 		case KEY_S:
 			playerCar.keyHeld_Reverse = setTo;
+			evt.preventDefault();
 			break;
 		case KEY_LEFT_ARROW:
 		case KEY_A:
 			playerCar.keyHeld_TurnLeft = setTo;
+      evt.preventDefault();
 			break;
 		case KEY_RIGHT_ARROW:
 		case KEY_D:
 			playerCar.keyHeld_TurnRight = setTo;
+      evt.preventDefault();
 			break;
 		case SPACE_BAR:
 			playerCar.keyHeld_Shooting = setTo;
+      evt.preventDefault();
 			break;
 		case KEY_SHIFT:
 			playerCar.keyHeld_Nos = setTo;
+      evt.preventDefault();
 			break;
 	}
 }
 
 function keyPressed(evt) {
 	// console.log(evt.keyCode);
-	keySet(evt, true);
+	if (isPlaying) {
+		keySet(evt, true);
+  }
 	switch(evt.keyCode){
 		case KEY_O:
 			debug = !debug;
+      evt.preventDefault();
 			break;
 		case KEY_R:
-			resetCheckPoint();
-			break;
+			if (isPlaying) {
+				resetCheckPoint();
+      }
+      evt.preventDefault();
+      break;
 		case KEY_L:
-			playerCar.autoShoot = !playerCar.autoShoot;
+			if (isPlaying) {
+				playerCar.autoShoot = !playerCar.autoShoot;
+      }
+      evt.preventDefault();
 			break;
 		case KEY_I:
-			if (debug) {
+			if (debug && isPlaying) {
 				playerCar.isInvincible = !playerCar.isInvincible;
+        evt.preventDefault();
       }
 			break;
 		case KEY_U:
 			toggleScreenShake();
+      evt.preventDefault();
 			break;
 		case KEY_ENTER:
-			loadNextLevel();
+			if (isPlaying) {
+				loadNextLevel();
+      }
+      evt.preventDefault();
 			break;
 		case SPACE_BAR:
 			if (startTimeout) {
         skipStory();
 			}
+      evt.preventDefault();
 			break;
 	}
-	evt.preventDefault();
 }
 
 function keyReleased(evt) {
-	keySet(evt, false);
-	evt.preventDefault();
+	if (isPlaying) {
+		keySet(evt, false);
+  }
 }
