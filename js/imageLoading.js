@@ -18,8 +18,7 @@ function countLoadedImagesAndLaunchIfReady() {
 	picsToLoad--;
 	// console.log(picsToLoad);
 	if(picsToLoad == 0) {
-		fadeInIntroThenStartGame(); //Uncomment this line and comment imageLoadingDoneSoStartGame to see intro before game loads
-		// imageLoadingDoneSoStartGame();
+		fadeInIntroThenStartGame();
 	}
 }
 
