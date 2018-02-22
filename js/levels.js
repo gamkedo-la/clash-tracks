@@ -1,5 +1,14 @@
 var  levels = [
-               //Demo Level
+               
+              // random level generator, just for fun! =)
+              { 
+                trackLayout: generateRandomTrack(40,40),
+                rows: 40,
+                cols: 40,
+                enemyCars: 1,
+                timeLimit: 1 * 128 * framesPerSecond
+              },
+              //Demo Level
               { trackLayout: [  5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5,
                                 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
                                 5, 10, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -150,4 +159,4 @@ var  levels = [
                 timeLimit: 1 * 50 * framesPerSecond
               },
 
-            ]
+            ];
