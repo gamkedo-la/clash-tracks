@@ -68,12 +68,12 @@ function bulletClass(origin) {
 		let tileHere = returnTileTypeAtPixelXY(this.pos.x, this.pos.y);
 		if( trackTypeIsPassable(tileHere) == false ) {
 			this.remove = true;
-			
+
 			//VFX and SFX only if player car is close by (Offscreen laser hits don't cause sound etc.)
 			if(distance(playerCar.pos.x, playerCar.pos.y, this.pos.x, this.pos.y ) < 500){
 				bulletHitWallEffect(this.pos.x,this.pos.y);
 				bulletHitSound.play();
-				screenshake(5);
+				// screenshake(5);
 			}
 		}
   	} // en brickHandling

@@ -233,7 +233,7 @@ function carClass() {
 
 		//only for player car.
 		else{
-				if(playerCar.autoShoot && Math.random() < 0.1){
+				if(playerCar.autoShoot && Math.random() < 0.2){
 						playerCar.shoot()
 				}
 		}

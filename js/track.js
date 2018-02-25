@@ -122,16 +122,52 @@ function carTrackHandling(whichCar) {
 				boomSound.play();
 			}
 
-			if(tileHere == TRACK_TIMER_POWERUP) {
-				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
-				timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
+			// if(tileHere == TRACK_TIMER_POWERUP) {
+			// 	trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
+			// 	timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
+			// }
+
+			if(tileHere == TRACK_POWERUP){
+				var random = Math.floor(Math.random()*6);
+				switch(random){
+					//free life
+					case 1:
+						playerLives++;
+						playerCar.health = INITIAL_HEALTH;
+						console.log('Health increase');
+						break;
+
+					case 2:
+						console.log('Timer increase');
+						trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
+						timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
+						break;
+
+					case 3:
+						console.log('Touched a smokescreen powerup!');
+						trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
+						whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
+						break;
+
+					case 4:
+						console.log('Invinvibility Mode!');
+						playerCar.isInvincible = true;
+						setTimeout(function(){playerCar.isInvincible = false;},5000);
+						break;
+					case 5:
+						console.log('You shoot!');
+						playerCar.autoShoot = true;
+						setTimeout(function(){playerCar.autoShoot = false;},5000);
+
+				}
+
 			}
 
-			if(tileHere == TRACK_POWERUP_SMOKESCREEN) {
-				console.log('Touched a smokescreen powerup!');
-				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
-				whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
-			}
+			// if(tileHere == TRACK_POWERUP_SMOKESCREEN) {
+			// 	console.log('Touched a smokescreen powerup!');
+			// 	trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
+			// 	whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
+			// }
 
 			//code for handling car and broken tile collision
 			if(tileHere == TRACK_ROAD_BROKEN){
