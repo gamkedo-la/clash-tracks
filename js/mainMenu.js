@@ -7,7 +7,7 @@ var creditsDiv = document.getElementById('Credits');
 var optionsDiv = document.getElementById('Options');
 var levelDiv = document.getElementById('Levels');
 var playMenuDiv = document.getElementById('Play-Menu');
-var leaderBoardDiv = document.getElementById('leaderBoardDiv')
+// var leaderBoardDiv = document.getElementById('leaderBoardDiv')
 
 function mainMenu() {
     console.log('Main menu...');
