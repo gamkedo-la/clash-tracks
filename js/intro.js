@@ -53,7 +53,7 @@ function fadeInIntroThenStartGame() {
 				opacity = 0.0;
 		}
 	}, durationForEachPart);
-  startTimeout = setTimeout(imageLoadingDoneSoStartGame, introDuration);
+  startTimeout = setTimeout(imageLoadingDone, introDuration);
 }
 
 function fadeInStory() {
@@ -79,5 +79,5 @@ function skipStory() {
 		clearTimeout(startTimeout);
     startTimeout = null;
 	}
-	imageLoadingDoneSoStartGame();
+	imageLoadingDone();
 }

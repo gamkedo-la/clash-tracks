@@ -26,13 +26,19 @@ window.onload = function() {
 	fadeInStory();
 	loadImages();
 	trancyMusic.loopSong();
-  setupInput();
+	setupInput();
 };
 
-function imageLoadingDoneSoStartGame() {
-  isPlaying = true;
+// used to be called imageLoadingDoneSoStart but now we run the main menu first
+function startGame() {
+	isPlaying = true;
 	setInterval(updateAll, 1000/framesPerSecond);
 	loadLevel(level);
+}
+
+function imageLoadingDone() {
+	console.log('All images have loaded. Starting main menu...')
+	mainMenu();
 }
 
 function loadLevel(whichLevel) {

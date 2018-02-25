@@ -69,7 +69,7 @@ function generateRandomTrack(w,h) {
     // FIXME: create a "look for an empty tile" array random index function:
     // so that none of these random tiles can overlap (to avoid rare edge case bugs)
 
-    console.log('Finished generating random level of length: '+data.length);
+    //console.log('Finished generating random level of length: '+data.length);
 
     return data;
 }
