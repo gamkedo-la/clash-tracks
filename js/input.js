@@ -15,7 +15,7 @@ const KEY_I = 73;
 const KEY_P = 80;
 const KEY_H = 72;
 const KEY_C = 67;
-const KEY_BACKSPACE = 8;
+const KEY_M = 77;
 const KEY_SHIFT = 16;
 const KEY_ENTER = 13;
 const KEY_0 = 48;
@@ -68,7 +68,6 @@ function keySet(evt, setTo)
 					menuLevel(0);
 				}
 			}
-
 			break;
 		case KEY_LEFT_ARROW:
 		case KEY_A:
@@ -92,7 +91,7 @@ function keySet(evt, setTo)
 }
 
 function keyPressed(evt) {
-	console.log(evt.keyCode);
+	// console.log(evt.keyCode);
 	if (isPlaying) {
 		keySet(evt, true);
   }
@@ -242,7 +241,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
-		case KEY_BACKSPACE:
+		case KEY_M:
 			if(isPlaying){
 			}
 			else{
