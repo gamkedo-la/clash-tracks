@@ -40,3 +40,12 @@ a:hover {
   color:#e01a52;
 }
 
+canvas {
+  position:absolute;
+  top:32px;
+  left:50%;
+  width:700px;
+  height:525px;
+  margin-left:-350px;
+}
+
