@@ -19,3 +19,24 @@
   font-style: normal;
 
 } */
+
+
+h1 {
+  font-family: '04b30'; font-size:24px; text-align:center; line-height:32px; color:#e01a52; display:block;
+  padding-bottom:24px;
+}
+
+div { 
+  position:absolute; top:0px; left:0px; right:0px; bottom:0px; 
+  font-family: '04b30'; font-size:24px; color:#541a3d; background:white;
+  text-align:center; line-height:32px; padding-top:64px;
+}
+
+a {
+  text-decoration:none; display:block; color:#541a3d;
+}
+ 
+a:hover {
+  color:#e01a52;
+}
+

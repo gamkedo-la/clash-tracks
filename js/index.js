@@ -23,10 +23,11 @@ window.onload = function() {
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	level = 0;
 	playerLives = 3;
-	fadeInStory();
+	//fadeInStory(); // wait for main menu
 	loadImages();
 	trancyMusic.loopSong();
 	setupInput();
+	mainMenu();
 };
 
 // used to be called imageLoadingDoneSoStart but now we run the main menu first
@@ -36,9 +37,9 @@ function startGame() {
 	loadLevel(level);
 }
 
-function imageLoadingDone() {
-	console.log('All images have loaded. Starting main menu...')
-	mainMenu();
+function introDone() {
+	console.log('Intro complete. Starting game!')
+	startGame();
 }
 
 function loadLevel(whichLevel) {
