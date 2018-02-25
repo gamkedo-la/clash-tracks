@@ -20,6 +20,9 @@ var musicIndex = 0;
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
+	canvas.width = 700;
+	canvas.height = 525;
+	
 	canvasContext.font = "04b30";
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
@@ -30,6 +33,7 @@ window.onload = function() {
 	// trancyMusic.loopSong();/
 	setupInput();
 	mainMenu();
+	menuMusic.loopSong();
 	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic];
 };
 
@@ -47,6 +51,7 @@ function introDone() {
 
 function loadLevel(whichLevel) {
 	//clearing previously saved objects and data
+	menuMusic.pauseSound();
 	levelDataReset();
 	playerLives = 3;
 	//loading level data to current level

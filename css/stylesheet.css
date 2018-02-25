@@ -41,6 +41,12 @@ div {
   text-align:center; line-height:32px; padding-top:64px;
 }
 
+body #MainGame-Menu > div{background-color: #fcdbdb}
+
+#MainGame-Menu{
+  overflow-y: scroll;
+}
+
 a {
   text-decoration:none; display:block; color:#541a3d; padding: 5px;
 }

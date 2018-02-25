@@ -12,6 +12,8 @@ const KEY_R = 82;
 const KEY_L = 76;
 const KEY_U = 85;
 const KEY_I = 73;
+const KEY_P = 80;
+
 const KEY_SHIFT = 16;
 const KEY_ENTER = 13;
 
