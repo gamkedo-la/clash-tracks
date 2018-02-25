@@ -19,8 +19,6 @@
   padding:0;
 }
 
-
-
 h1 {
   font-size:24px; text-align:center; line-height:32px; color:#e01a52; display:block;
   padding-bottom:24px;
@@ -32,7 +30,9 @@ div {
   text-align:center; line-height:32px; padding-top:64px;
 }
 
-body #MainGame-Menu{background-color: #fcdbdb}
+body #MainGame-Menu, #MainGame-Menu div {background-color: #fcdbdb}
+
+
 
 #MainGame-Menu, #gameCanvas{
   margin-top: 0px;

@@ -9,6 +9,15 @@ var levelDiv = document.getElementById('Levels');
 var playMenuDiv = document.getElementById('Play-Menu');
 // var leaderBoardDiv = document.getElementById('leaderBoardDiv')
 
+var menuState = {
+  isMenuDiv : true,
+  isHelpDiv : false,
+  isCreditsDiv : false,
+  isOptionsDiv : false,
+  isLevelDiv : false,
+  isPlayMenuDiv : false
+};
+
 function mainMenu() {
     console.log('Main menu...');
     menuDiv.style.display = 'block';
@@ -17,6 +26,14 @@ function mainMenu() {
     optionsDiv.style.display = 'none';
     levelDiv.style.display = 'none';
     playMenuDiv.style.display = 'none';
+    menuState = {
+      isMenuDiv : true,
+      isHelpDiv : false,
+      isCreditsDiv : false,
+      isOptionsDiv : false,
+      isLevelDiv : false,
+      isPlayMenuDiv : false
+    };
 
 }
 
@@ -28,6 +45,14 @@ function menuPlay() {
     creditsDiv.style.display = 'none';
     optionsDiv.style.display = 'none';
     playMenuDiv.style.display = 'block'
+    menuState = {
+      isMenuDiv : false,
+      isHelpDiv : false,
+      isCreditsDiv : false,
+      isOptionsDiv : false,
+      isLevelDiv : false,
+      isPlayMenuDiv : true
+    };
 
 }
 
@@ -39,6 +64,14 @@ function highScoreModePlay() {
     helpDiv.style.display = 'none';
     creditsDiv.style.display = 'none';
     optionsDiv.style.display = 'none';
+    menuState = {
+      isMenuDiv : false,
+      isHelpDiv : false,
+      isCreditsDiv : false,
+      isOptionsDiv : false,
+      isLevelDiv : true,
+      isPlayMenuDiv : false
+    };
 }
 
 function menuLevel(num) {
@@ -49,6 +82,14 @@ function menuLevel(num) {
     creditsDiv.style.display = 'none';
     optionsDiv.style.display = 'none';
     playMenuDiv.style.display = 'none'
+    menuState = {
+      isMenuDiv : false,
+      isHelpDiv : false,
+      isCreditsDiv : false,
+      isOptionsDiv : false,
+      isLevelDiv : false,
+      isPlayMenuDiv : false
+    };
     window.level = num; // set the global
     fadeInIntroThenStartGame();
 }
@@ -59,8 +100,15 @@ function menuLeaderboard(){
   helpDiv.style.display = 'none';
   creditsDiv.style.display = 'none';
   optionsDiv.style.display = 'none';
-  playMenuDiv.style.display = 'none'
-  menu
+  playMenuDiv.style.display = 'none';
+  menuState = {
+    isMenuDiv : false,
+    isHelpDiv : false,
+    isCreditsDiv : false,
+    isOptionsDiv : false,
+    isLevelDiv : false,
+    isPlayMenuDiv : false
+  };
 }
 
 function menuHelp() {
@@ -70,6 +118,14 @@ function menuHelp() {
     helpDiv.style.display = 'block';
     creditsDiv.style.display = 'none';
     optionsDiv.style.display = 'none';
+    menuState = {
+      isMenuDiv : false,
+      isHelpDiv : true,
+      isCreditsDiv : false,
+      isOptionsDiv : false,
+      isLevelDiv : false,
+      isPlayMenuDiv : false
+    };
 }
 
 function menuCredits() {
@@ -79,6 +135,14 @@ function menuCredits() {
     helpDiv.style.display = 'none';
     creditsDiv.style.display = 'block';
     optionsDiv.style.display = 'none';
+    menuState = {
+      isMenuDiv : false,
+      isHelpDiv : false,
+      isCreditsDiv : true,
+      isOptionsDiv : false,
+      isLevelDiv : false,
+      isPlayMenuDiv : false
+    };
 }
 
 function menuOptions() {
@@ -88,4 +152,12 @@ function menuOptions() {
     helpDiv.style.display = 'none';
     creditsDiv.style.display = 'none';
     optionsDiv.style.display = 'block';
+    menuState = {
+      isMenuDiv : false,
+      isHelpDiv : false,
+      isCreditsDiv : false,
+      isOptionsDiv : true,
+      isLevelDiv : false,
+      isPlayMenuDiv : false
+    };
 }

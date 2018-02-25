@@ -13,9 +13,18 @@ const KEY_L = 76;
 const KEY_U = 85;
 const KEY_I = 73;
 const KEY_P = 80;
-
+const KEY_H = 72;
+const KEY_C = 67;
+const KEY_BACKSPACE = 8;
 const KEY_SHIFT = 16;
 const KEY_ENTER = 13;
+const KEY_0 = 48;
+const KEY_1 = 49;
+const KEY_2 = 50;
+const KEY_3 = 51;
+const KEY_4 = 52;
+const KEY_5 = 53;
+
 
 var mouseX = 0;
 var mouseY = 0;
@@ -50,8 +59,16 @@ function keySet(evt, setTo)
 			break;
 		case KEY_DOWN_ARROW:
 		case KEY_S:
-			playerCar.keyHeld_Reverse = setTo;
-			evt.preventDefault();
+			if(isPlaying){
+				playerCar.keyHeld_Reverse = setTo;
+				evt.preventDefault();
+			}
+			else{
+				if(menuState.isPlayMenuDiv){
+					menuLevel(0);
+				}
+			}
+
 			break;
 		case KEY_LEFT_ARROW:
 		case KEY_A:
@@ -75,15 +92,11 @@ function keySet(evt, setTo)
 }
 
 function keyPressed(evt) {
-	// console.log(evt.keyCode);
+	console.log(evt.keyCode);
 	if (isPlaying) {
 		keySet(evt, true);
   }
 	switch(evt.keyCode){
-		case KEY_O:
-			debug = !debug;
-      evt.preventDefault();
-			break;
 		case KEY_R:
 			if (isPlaying) {
 				resetCheckPoint();
@@ -94,6 +107,11 @@ function keyPressed(evt) {
 			if (isPlaying) {
 				playerCar.autoShoot = !playerCar.autoShoot;
       }
+			else{
+				if(menuState.isMenuDiv){
+					console.log('going to leaderboards');
+				}
+			}
       evt.preventDefault();
 			break;
 		case KEY_I:
@@ -117,6 +135,119 @@ function keyPressed(evt) {
         skipStory();
 			}
       evt.preventDefault();
+			break;
+		case KEY_P:
+			if(isPlaying){
+				//Puase screen function
+			}
+			else{
+				if(menuState.isMenuDiv){
+					menuPlay();
+				}
+			}
+			break;
+		case KEY_H:
+			if(isPlaying){
+				//Puase screen function
+			}
+			else{
+				if(menuState.isMenuDiv){
+					menuHelp();
+				}
+				if(menuState.isPlayMenuDiv){
+					highScoreModePlay();
+				}
+			}
+			break;
+		case KEY_O:
+			if(isPlaying){
+				debug = !debug;
+				evt.preventDefault();
+			}
+			else{
+				if(menuState.isMenuDiv){
+					menuOptions();
+				}
+			}
+			break;
+		case KEY_C:
+			if(isPlaying){
+			}
+			else{
+				if(menuState.isMenuDiv){
+					menuCredits();
+				}
+			}
+			break;
+		case KEY_S:
+			if(isPlaying){
+			}
+			else{
+				if(menuState.isPlayMenuDiv){
+					menuLevel(0)
+				}
+			}
+			break;
+		case KEY_0:
+			if(isPlaying){
+			}
+			else{
+				if(menuState.isLevelDiv){
+					menuLevel(0)
+				}
+			}
+			break;
+		case KEY_1:
+			if(isPlaying){
+			}
+			else{
+				if(menuState.isLevelDiv){
+					menuLevel(1)
+				}
+			}
+			break;
+		case KEY_2:
+			if(isPlaying){
+			}
+			else{
+				if(menuState.isLevelDiv){
+					menuLevel(2)
+				}
+			}
+			break;
+		case KEY_3:
+			if(isPlaying){
+			}
+			else{
+				if(menuState.isLevelDiv){
+					menuLevel(3)
+				}
+			}
+			break;
+		case KEY_4:
+			if(isPlaying){
+			}
+			else{
+				if(menuState.isLevelDiv){
+					menuLevel(4)
+				}
+			}
+			break;
+		case KEY_5:
+			if(isPlaying){
+			}
+			else{
+				if(menuState.isLevelDiv){
+					menuLevel(5)
+				}
+			}
+			break;
+		case KEY_BACKSPACE:
+			if(isPlaying){
+			}
+			else{
+					mainMenu();
+			}
 			break;
 	}
 }
