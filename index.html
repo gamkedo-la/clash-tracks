@@ -58,9 +58,19 @@
 
 		<div id='Options'>
 			<h1>OPTIONS</h1>
-			Sound Volume: 100%
+			<table>
+				<tr>
+					<td>Sound Volume: </td>
+					<td><input id = "soundVolume" type="range" min="0" max="1" step="0.01" value = "0.4" onchange="updateSoundMusicLevel()"></td>
+				</tr>
+				<tr>
+					<td>Music Volume: </td>
+					<td><input id = "musicVolume" type="range" min="0" max="1" step="0.01" value = "0.8" onchange="updateSoundMusicLevel()"></td>
+				</tr>
+			</table>
+
 			<br><br>
-			Music Volume: 100%
+
 			<br><br>
 			<a href='#' onclick='mainMenu()'>[M]ain Menu</a>
 		</div>

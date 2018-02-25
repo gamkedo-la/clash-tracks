@@ -18,6 +18,10 @@ var varyzeMusic = new backgroundMusicClass("./audio/Varyze");
 
 var currentBackgroundMusic;
 
+var soundVolume = document.getElementById('soundVolume').defaultValue;
+var musicVolume = document.getElementById('musicVolume').defaultValue;
+
+
 function setFormat() {
     var audio = new Audio();
     if (audio.canPlayType("audio/mp3")) {
@@ -39,7 +43,7 @@ function backgroundMusicClass(filenameWithPath) {
             musicSound = null;
         }
         musicSound = new Audio(filenameWithPath + audioFormat);
-        musicSound.volume = 0.8
+        musicSound.volume = musicVolume;
         musicSound.loop = true;
         musicSound.play();
     }
@@ -69,11 +73,11 @@ function SoundOverlapsClass(filenameWithPath) {
     this.play = function() {
         if (altSoundTurn) {
             altSound.currentTime = 0;
-            altSound.volume = getRandomVolume();
+            altSound.volume = soundVolume;
             altSound.play();
         } else {
             mainSound.currentTime = 0;
-            mainSound.volume = getRandomVolume();
+            mainSound.volume = soundVolume;
             mainSound.play();
         }
 
@@ -86,4 +90,11 @@ function getRandomVolume(){
 	var max = 0.6;
 	var randomVolume = Math.random() * (max - min) + min;
 	return randomVolume.toFixed(2);
+}
+
+function updateSoundMusicLevel(){
+  soundVolume = document.getElementById('soundVolume').value;
+  musicVolume = document.getElementById('musicVolume').value;
+  menuMusic.pauseSound();
+  menuMusic.loopSong();
 }

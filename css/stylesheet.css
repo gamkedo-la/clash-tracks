@@ -30,6 +30,19 @@ div {
   text-align:center; line-height:32px; padding-top:64px;
 }
 
+#Options table{
+  margin:auto;
+}
+
+#Options table td{
+  padding: 5px;
+}
+#soundVolume, #musicVolume{
+  user-select: none;
+  cursor: pointer;
+  background: #3071a9;
+}
+
 body #MainGame-Menu, #MainGame-Menu div {background-color: #fcdbdb}
 
 #MainGame-Menu, #gameCanvas{
