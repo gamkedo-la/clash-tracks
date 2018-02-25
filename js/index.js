@@ -13,7 +13,9 @@ var enemyShip = new shipOverheadClass();
 var timeToFinishLevel;
 var level;
 var playerLives = 3;
+var backgroundMusicArray;
 // var numOfEnemiesCars = 0;
+var musicIndex = 0;
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -25,9 +27,10 @@ window.onload = function() {
 	playerLives = 3;
 	//fadeInStory(); // wait for main menu
 	loadImages();
-	trancyMusic.loopSong();
+	// trancyMusic.loopSong();/
 	setupInput();
 	mainMenu();
+	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic];
 };
 
 // used to be called imageLoadingDoneSoStart but now we run the main menu first
@@ -55,6 +58,10 @@ function loadLevel(whichLevel) {
 	timeToFinishLevel = levelData.timeLimit;
 	numOfEnemiesCars = levelData.enemyCars;
 	carsReset();
+	backgroundMusicArray[musicIndex].pauseSound();
+	musicIndex = Math.floor(Math.random()*backgroundMusicArray.length);
+	backgroundMusicArray[musicIndex].loopSong();
+
 }
 
 function resetLevel() {

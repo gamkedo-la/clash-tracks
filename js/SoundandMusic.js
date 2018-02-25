@@ -11,11 +11,10 @@ var carJumpSound = new SoundOverlapsClass("./audio/carJump");
 var carSuckedSound = new SoundOverlapsClass("./audio/carSucked");
 var carCollisionSound = new SoundOverlapsClass("./audio/carCollision");
 
-
-
 var trancyMusic = new backgroundMusicClass("./audio/Trancy");
 var menuMusic = new backgroundMusicClass("./audio/Funky Menu");
-
+var draftMonkMusic = new backgroundMusicClass("./audio/draft monk - ambience");
+var varyzeMusic = new backgroundMusicClass("./audio/Varyze");
 
 var currentBackgroundMusic;
 
@@ -46,7 +45,9 @@ function backgroundMusicClass(filenameWithPath) {
     }
 
     this.pauseSound = function() {
-        musicSound.pause();
+        if (musicSound != null) {
+          musicSound.pause();
+        }
     }
 
     this.startOrStopMusic = function() {

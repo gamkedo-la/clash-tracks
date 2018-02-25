@@ -154,7 +154,7 @@ function carTrackHandling(whichCar) {
 								  playerResetCondition();
 							}
 						}
-						
+
 				}
 			}
 
@@ -448,7 +448,7 @@ function trackCollisionCheck(x,y,goalCheck){
 function loadNextLevel() {
 	level++;
 	if(level < levels.length){
-		resetLevel();
+		loadLevel();
 	}
 	else{
 		console.log('You saved Humanity')
