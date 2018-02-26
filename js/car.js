@@ -58,6 +58,7 @@ function carClass() {
 
 	this.invinciblePic;
 	this.invincibleAngle = 0;
+	this.splitShoot = false;
 
 
 	// Clear tracks when creating a new car
@@ -67,6 +68,10 @@ function carClass() {
 		bullets.push(new bulletClass(this));
 		if(this.name == 'Player'){
 			shootSound.play();
+			if(this.splitShoot){
+				bullets.push(new bulletClass(this, this.ang + 0.5));
+				bullets.push(new bulletClass(this, this.ang - 0.5));
+			}
 		}else{
 			enemyShootSound.play();
 		}

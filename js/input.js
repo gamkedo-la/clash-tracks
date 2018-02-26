@@ -198,6 +198,8 @@ function keyPressed(evt) {
 			break;
 		case KEY_1:
 			if(isPlaying){
+				playerCar.splitShoot = !playerCar.splitShoot;
+				playerCar.autoShoot = !playerCar.autoShoot;
 			}
 			else{
 				if(menuState.isLevelDiv){

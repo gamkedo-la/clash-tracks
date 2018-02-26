@@ -11,18 +11,18 @@ function spawnBulletWithoutOriginObject(fromX,fromY,withAng,startGap) {
 
 }
 
-function bulletClass(origin) {
+function bulletClass(origin,ang) {
 	this.pos = vector.create();
 	this.pos.x = origin.pos.x;
 	this.pos.y = origin.pos.y;
 	this.speed = 7
 	this.velocity = vector.create();
-	this.velocity.x = Math.cos(origin.ang)*this.speed;
-	this.velocity.y =Math.sin(origin.ang)*this.speed;
 	this.width = 5;
 	this.damage = 1;
 	this.remove = false;
-	this.angle = origin.ang;
+	this.angle = ang || origin.ang;
+	this.velocity.x = Math.cos(this.angle)*this.speed;
+	this.velocity.y =Math.sin(this.angle)*this.speed;
 	this.origin = origin;
 	this.bulletPic = origin.bulletImg;
 

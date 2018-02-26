@@ -128,7 +128,7 @@ function carTrackHandling(whichCar) {
 
 			if(whichCar.name == 'Player' && !playerCar.inTrackPowerup){
 				if(tileHere == TRACK_POWERUP){
-					var random = Math.floor(Math.random()*6);
+					var random = Math.ceil(Math.random()*6);
 					trackGrid[trackIndexUnderCar] = TRACK_ROAD;
 					playerCar.inTrackPowerup = true;
 					switch(random){
@@ -164,6 +164,14 @@ function carTrackHandling(whichCar) {
 							playerCar.autoShoot = true;
 							setTimeout(function(){playerCar.autoShoot = false;},5000);
 							powerupText = "Turret Activated";
+							break;
+
+						case 6:
+							console.log('You multi - shoot!');
+							playerCar.splitShoot = true;
+							this.autoShoot = true;
+							setTimeout(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
+							powerupText = "Split-Turret Activated";
 							break;
 					}
 					setTimeout(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
@@ -339,6 +347,7 @@ function drawTracks() {
 			}
 
 			if(tileKindHere == TRACK_POWERUP) {
+
 				canvasContext.drawImage(useImg,
 					(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
 					drawTileX,drawTileY,TRACK_W,TRACK_H);
