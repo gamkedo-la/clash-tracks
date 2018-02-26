@@ -167,7 +167,7 @@ function carTrackHandling(whichCar) {
 						case 6:
 							console.log('You multi - shoot!');
 							playerCar.splitShoot = true;
-							this.autoShoot = true;
+							playerCar.autoShoot = true;
 							setTimeout(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
 							powerupText = "Split-Turret Activated";
 							break;
