@@ -16,14 +16,14 @@ const TRACK_CHECKPOINT  =  8;
 const TRACK_JUMP_TILE = 9;
 const TRACK_SMOOTH = 10;
 const TRACK_ROAD_BROKEN = 11;
-const TRACK_TIMER_POWERUP = 12;
+// const TRACK_TIMER_POWERUP = 12;
 const TURRET_BACKGROUND = 19;
 const TRACK_BUILDING_RED = 20;
 const TRACK_BUILDING_BLUE = 23;
 const TRACK_BUILDING_VIOLET = 27;
 const SKYSCRAPER_VIOLET = 28;
 const TRACK_POWERUP = 29;
-const TRACK_POWERUP_SMOKESCREEN = 30;
+// const TRACK_POWERUP_SMOKESCREEN = 30;
 
 const SMOKESCREEN_TIMESPAN = 300; // in FRAMES
 const TRACK_MINE = 50;
@@ -53,9 +53,7 @@ const passableTiles =	[
 	TRACK_CHECKPOINT,
 	TRACK_SMOOTH,
 	TRACK_MINE,
-	TRACK_TIMER_POWERUP,
-	TRACK_POWERUP,
-	TRACK_POWERUP_SMOKESCREEN
+	TRACK_POWERUP
 ];
 
 function returnTileTypeAtColRow(col, row) {
@@ -339,6 +337,12 @@ function drawTracks() {
 													TRACK_W/2);
 				}
 			}
+			// if(tileKindHere == TRACK_POWERUP) {
+			//
+			// 	canvasContext.drawImage(useImg,
+			// 		(Math.floor(animTileOscillatorFrame*0.085)%4)*TRACK_W,0,TRACK_W,TRACK_H,
+			// 		drawTileX,drawTileY,TRACK_W,TRACK_H);
+			// }
 
 			if(tileKindHere == TRACK_MINE) {
 				canvasContext.drawImage(useImg,
@@ -346,20 +350,14 @@ function drawTracks() {
 					drawTileX,drawTileY,TRACK_W,TRACK_H);
 			}
 
-			if(tileKindHere == TRACK_POWERUP) {
 
-				canvasContext.drawImage(useImg,
-					(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
-					drawTileX,drawTileY,TRACK_W,TRACK_H);
-			}
-
-			if(tileKindHere == TRACK_POWERUP_SMOKESCREEN) {
-				canvasContext.drawImage(trackPics[TRACK_ROAD],drawTileX,drawTileY);
-				//canvasContext.drawImage(useImg,
-				//	(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
-				//	drawTileX,drawTileY,TRACK_W,TRACK_H);
-				smokeScreenEffect(drawTileX+TRACK_W/2,drawTileY+TRACK_H/2);
-			}
+			// if(tileKindHere == TRACK_POWERUP_SMOKESCREEN) {
+			// 	canvasContext.drawImage(trackPics[TRACK_ROAD],drawTileX,drawTileY);
+			// 	//canvasContext.drawImage(useImg,
+			// 	//	(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
+			// 	//	drawTileX,drawTileY,TRACK_W,TRACK_H);
+			// 	smokeScreenEffect(drawTileX+TRACK_W/2,drawTileY+TRACK_H/2);
+			// }
 
 			 else {
 				canvasContext.drawImage(useImg,drawTileX,drawTileY);
