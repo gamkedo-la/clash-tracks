@@ -118,7 +118,6 @@ function carTrackHandling(whichCar) {
 				// deal some damage or destroy the collising car
 				whichCar.gotHurt(MINE_DAMAGE);
 				carHitSound.play();
-				boomSound.volume = 0.8;
 				boomSound.play();
 			}
 
@@ -127,40 +126,49 @@ function carTrackHandling(whichCar) {
 			// 	timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
 			// }
 
-			if(tileHere == TRACK_POWERUP){
-				var random = Math.floor(Math.random()*6);
-				switch(random){
-					//free life
-					case 1:
-						playerLives++;
-						playerCar.health = INITIAL_HEALTH;
-						console.log('Health increase');
-						break;
+			if(whichCar.name == 'Player' && !playerCar.inTrackPowerup){
+				if(tileHere == TRACK_POWERUP){
+					var random = Math.floor(Math.random()*6);
+					trackGrid[trackIndexUnderCar] = TRACK_ROAD;
+					playerCar.inTrackPowerup = true;
+					switch(random){
+						//free life
+						case 1:
+							playerLives++;
+							playerCar.health = INITIAL_HEALTH;
+							console.log('Health increase');
+							powerupText = "Health Increase";
+							break;
 
-					case 2:
-						console.log('Timer increase');
-						trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
-						timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
-						break;
+						case 2:
+							console.log('Timer increase');
+							timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
+							powerupText = "Timer Increase";
+							break;
 
-					case 3:
-						console.log('Touched a smokescreen powerup!');
-						trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
-						whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
-						break;
+						case 3:
+							console.log('Touched a smokescreen powerup!');
+							whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
+							powerupText = "Smokescreen Activated";
+							break;
 
-					case 4:
-						console.log('Invinvibility Mode!');
-						playerCar.isInvincible = true;
-						setTimeout(function(){playerCar.isInvincible = false;},5000);
-						break;
-					case 5:
-						console.log('You shoot!');
-						playerCar.autoShoot = true;
-						setTimeout(function(){playerCar.autoShoot = false;},5000);
+						case 4:
+							console.log('Invinvibility Mode!');
+							playerCar.isInvincible = true;
+							setTimeout(function(){playerCar.isInvincible = false;},5000);
+							powerupText = "Shield Activated";
+							break;
+
+						case 5:
+							console.log('You shoot!');
+							playerCar.autoShoot = true;
+							setTimeout(function(){playerCar.autoShoot = false;},5000);
+							powerupText = "Turret Activated";
+							break;
+					}
+					setTimeout(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
 
 				}
-
 			}
 
 			// if(tileHere == TRACK_POWERUP_SMOKESCREEN) {

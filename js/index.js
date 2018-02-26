@@ -14,6 +14,7 @@ var timeToFinishLevel;
 var level;
 var playerLives = 3;
 var backgroundMusicArray;
+var powerupText = "";
 // var numOfEnemiesCars = 0;
 var musicIndex = 0;
 
@@ -22,7 +23,7 @@ window.onload = function() {
 	canvasContext = canvas.getContext('2d');
 	canvas.width = 700;
 	canvas.height = 525;
-	
+
 	canvasContext.font = "04b30";
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
@@ -167,6 +168,10 @@ function drawAll() {
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 	colorText("TIME: " , 30, 30, 'white');
 	colorText(Math.ceil(timeToFinishLevel / framesPerSecond), canvasContext.measureText("TIME: ").width + 20, 30, 'cyan');
+	if(powerupText != ""){
+		colorText(powerupText,30, 60, '#acacac');
+	}
+
 	colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
 	colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
   colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');

@@ -40,7 +40,7 @@ function carClass() {
 	this.keyHeld_Reverse = false;
 	this.keyHeld_TurnLeft = false;
 	this.keyHeld_TurnRight = false;
-	this.keyHeld_Shooting = false;
+	// this.keyHeld_Shooting = false;
 	this.semiAutoLock = false;
 	this.height = this.width = 44;
 	this.CollisionPoints = initializeCollisionPoints();
@@ -54,6 +54,7 @@ function carClass() {
 	this.remove = false;
 	this.trailColor = "rgb(46,148,193)";
 	this.smokeScreenFramesRemaining = 0;
+	this.inTrackPowerup = false;
 
 	this.invinciblePic;
 	this.invincibleAngle = 0;

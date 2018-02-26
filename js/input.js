@@ -79,9 +79,9 @@ function keySet(evt, setTo)
 			playerCar.keyHeld_TurnRight = setTo;
       evt.preventDefault();
 			break;
-		case SPACE_BAR:
-			playerCar.keyHeld_Shooting = setTo;
-      evt.preventDefault();
+		// case SPACE_BAR:
+		// 	playerCar.keyHeld_Shooting = setTo;
+    //   evt.preventDefault();
 			break;
 		case KEY_SHIFT:
 			playerCar.keyHeld_Nos = setTo;
