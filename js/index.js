@@ -23,7 +23,6 @@ window.onload = function() {
 	canvasContext = canvas.getContext('2d');
 	canvas.width = 700;
 	canvas.height = 525;
-
 	canvasContext.font = "04b30";
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
