@@ -41,9 +41,10 @@ window.onload = function() {
 
 // used to be called imageLoadingDoneSoStart but now we run the main menu first
 function startGame() {
-  gameHasStarted = true;
+  	gameHasStarted = true;
 	loadLevel(level);
-	continueGame();
+	isPlaying = true;
+    gameLoop = setInterval(updateAll, msPerFrame);
 }
 
 function pauseGame() {
@@ -53,6 +54,8 @@ function pauseGame() {
     clearInterval(gameLoop);
     gameLoop = false;
     colorText('Game paused!', canvas.width / 2, canvas.height / 2, 'white', 'center', "40px '04b30'");
+    currentBackgroundMusic.pauseSound();
+    menuMusic.loopSong();
   }
 }
 
@@ -82,6 +85,8 @@ function continueGame() {
     console.log('Continue game');
     isPlaying = true;
     gameLoop = setInterval(updateAll, msPerFrame);
+    menuMusic.pauseSound();
+    currentBackgroundMusic.startOrStopMusic();
   }
 }
 
@@ -101,7 +106,7 @@ function introDone() {
 
 function loadLevel(whichLevel) {
 	//clearing previously saved objects and data
-	menuMusic.pauseSound();
+	menuMusic.startOrStopMusic();
 	levelDataReset();
 	playerLives = 3;
 	//loading level data to current level
@@ -113,9 +118,14 @@ function loadLevel(whichLevel) {
 	timeToFinishLevel = levelData.timeLimit;
 	numOfEnemiesCars = levelData.enemyCars;
 	carsReset();
-	backgroundMusicArray[musicIndex].pauseSound();
+	console.log(gameHasStarted);
+	// console.log(currentBackgroundMusic);
+	// if(currentBackgroundMusic != undefined)
+	// 		currentBackgroundMusic.pauseSound();
+	// backgroundMusicArray[musicIndex].pauseSound();
 	musicIndex = Math.floor(Math.random()*backgroundMusicArray.length);
-	backgroundMusicArray[musicIndex].loopSong();
+	currentBackgroundMusic = backgroundMusicArray[musicIndex];
+	currentBackgroundMusic.loopSong();
 
 }
 
