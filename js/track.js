@@ -97,7 +97,7 @@ function carTrackHandling(whichCar) {
 			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
 
 			if(!trackTypeIsPassable(tileHere) && !whichCar.stuckOnWall){
-				setTimeout(function(){
+        addDelayedCall(function(){
 					whichCar.myCarPic = wreckedCarPic;
 					whichCar.isDead = true;
 				}, 500);
@@ -153,14 +153,14 @@ function carTrackHandling(whichCar) {
 						case 4:
 							console.log('Invinvibility Mode!');
 							playerCar.isInvincible = true;
-							setTimeout(function(){playerCar.isInvincible = false;},5000);
+              addDelayedCall(function(){playerCar.isInvincible = false;},5000);
 							powerupText = "Shield Activated";
 							break;
 
 						case 5:
 							console.log('You shoot!');
 							playerCar.autoShoot = true;
-							setTimeout(function(){playerCar.autoShoot = false;},5000);
+              addDelayedCall(function(){playerCar.autoShoot = false;},5000);
 							powerupText = "Turret Activated";
 							break;
 
@@ -168,11 +168,11 @@ function carTrackHandling(whichCar) {
 							console.log('You multi - shoot!');
 							playerCar.splitShoot = true;
 							playerCar.autoShoot = true;
-							setTimeout(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
+              addDelayedCall(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
 							powerupText = "Split-Turret Activated";
 							break;
 					}
-					setTimeout(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
+          addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
 
 				}
 			}
@@ -195,7 +195,7 @@ function carTrackHandling(whichCar) {
 							whichCar.inTileBroken = true;
 							carSuckedSound.play();
 
-							setTimeout(function(){
+              addDelayedCall(function(){
 								whichCar.myCarPic = wreckedCarPic;
 								whichCar.isDead = true;
 							}, 500);
@@ -216,7 +216,7 @@ function carTrackHandling(whichCar) {
 					whichCar.speed *= 2;
 					carJumpSound.play();
 					whichCar.jumping = true;
-					setTimeout(function(){whichCar.jumping = false; whichCar.inJumpTile = false;}, 500);
+          addDelayedCall(function(){whichCar.jumping = false; whichCar.inJumpTile = false;}, 500);
 					whichCar.inJumpTile = true;
 				}
 			}

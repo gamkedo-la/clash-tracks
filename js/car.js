@@ -516,7 +516,7 @@ function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
 }
 
 function playerResetCondition(){
-	setTimeout(function(){
+  addDelayedCall(function(){
 					if(playerLives > 1){
 
 						playerLives--;

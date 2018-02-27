@@ -6,6 +6,7 @@ const TIME_TO_FINISH_LVL_1 = 1 * 50 * framesPerSecond;
 var canvas, canvasContext;
 var debug = false;
 var isPlaying = false;
+var gameLoop = false;
 var playerCar = new carClass();
 //Used for testing bullet Collisions. Includes all cars.
 var carList = [playerCar];
@@ -35,17 +36,36 @@ window.onload = function() {
 	mainMenu();
 	menuMusic.loopSong();
 	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic];
+
+  window.addEventListener('blur', pauseGame);
+  window.addEventListener('focus', continueGame);
 };
 
 // used to be called imageLoadingDoneSoStart but now we run the main menu first
 function startGame() {
-	isPlaying = true;
-	setInterval(updateAll, 1000/framesPerSecond);
 	loadLevel(level);
+	continueGame();
+}
+
+function pauseGame() {
+	if (isPlaying && gameLoop) {
+    console.log('Pause game');
+    isPlaying = false;
+    clearInterval(gameLoop);
+    gameLoop = false;
+  }
+}
+
+function continueGame() {
+	if (!isPlaying && !gameLoop) {
+    console.log('Continue game');
+    isPlaying = true;
+    gameLoop = setInterval(updateAll, msPerFrame);
+  }
 }
 
 function introDone() {
-	console.log('Intro complete. Starting game!')
+	console.log('Intro complete. Starting game!');
 	startGame();
 }
 
@@ -110,6 +130,15 @@ function updateLevelCounter() {
     timeToFinishLevel--;
 }
 
+var delayedCallbacks = [];
+
+function addDelayedCall(callback, timeout) {
+	delayedCallbacks.push({
+		callback: callback,
+		timeout: timeout
+	});
+}
+
 function updateAll() {
     if (timeToFinishLevel > 0) {
         updateLevelCounter();
@@ -120,6 +149,16 @@ function updateAll() {
 	drawAll();
 	particles.update();
 	updateScreenshake();
+
+	for (var i = delayedCallbacks.length - 1; 0 <= i; i--) {
+		if (delayedCallbacks[i].timeout < 0) {
+      delayedCallbacks[i].callback();
+      delayedCallbacks.splice(i, 1);
+		}
+		else {
+      delayedCallbacks[i].timeout -= msPerFrame;
+		}
+	}
 }
 
 function moveAll() {
@@ -150,12 +189,12 @@ function drawAll() {
 	particles.draw();
 
 	playerCar.draw();
-	for(var i = 0; i < enemyCars.length; i++){
+	for(i = 0; i < enemyCars.length; i++){
 		if(!enemyCars[i].remove){
 			enemyCars[i].draw();
 		}
 	}
-	// for(var i = 0; i < enemyCars.length; i++){
+	// for(i = 0; i < enemyCars.length; i++){
 	// 	if(enemyCars[i].remove){
 	// 		enemyCars.slice(i,1);
 	// 	}
