@@ -287,6 +287,7 @@ function carClass() {
 			smokeScreenEffect(this.pos.x,this.pos.y);
 		}
 
+    this.nitroFramesRemaining -= 1;
 
 		if (this.isInvincible) {
       this.invincibleAngle -= .13;
@@ -358,7 +359,7 @@ function carClass() {
 
 		// Boosts
 		var boostMult = 1.0;
-		if(this.keyHeld_Nos){
+		if(this.keyHeld_Nos || (0 < this.nitroFramesRemaining)){
 			boostMult *= NOS_BOOST_MULT;
 		}
 

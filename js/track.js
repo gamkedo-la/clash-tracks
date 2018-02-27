@@ -26,6 +26,7 @@ const TRACK_POWERUP = 29;
 // const TRACK_POWERUP_SMOKESCREEN = 30;
 
 const SMOKESCREEN_TIMESPAN = 300; // in FRAMES
+const NITRO_TIMESPAN = 180; // in FRAMES
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
 const TRACK_SHIP_OVERHEAD_START = 90;
@@ -170,6 +171,12 @@ function carTrackHandling(whichCar) {
 							playerCar.autoShoot = true;
               addDelayedCall(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
 							powerupText = "Split-Turret Activated";
+							break;
+
+						case 7:
+							console.log('Nitros!');
+							whichCar.nitroFramesRemaining = NITRO_TIMESPAN;
+							powerupText = "Nitros Activated";
 							break;
 					}
           addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
