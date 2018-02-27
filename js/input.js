@@ -18,6 +18,7 @@ const KEY_C = 67;
 const KEY_M = 77;
 const KEY_SHIFT = 16;
 const KEY_ENTER = 13;
+const KEY_ESC = 27;
 const KEY_0 = 48;
 const KEY_1 = 49;
 const KEY_2 = 50;
@@ -135,19 +136,18 @@ function keyPressed(evt) {
 			}
       evt.preventDefault();
 			break;
+		case KEY_ESC:
 		case KEY_P:
-			if(isPlaying){
-				//Puase screen function
+			if(menuState.isMenuDiv){
+				menuPlay();
 			}
 			else{
-				if(menuState.isMenuDiv){
-					menuPlay();
-				}
+        togglePause();
 			}
 			break;
 		case KEY_H:
 			if(isPlaying){
-				//Puase screen function
+				//Pause screen function
 			}
 			else{
 				if(menuState.isMenuDiv){

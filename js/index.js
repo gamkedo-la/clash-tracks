@@ -5,6 +5,7 @@ const TIME_TO_FINISH_LVL_1 = 1 * 50 * framesPerSecond;
 
 var canvas, canvasContext;
 var debug = false;
+var gameHasStarted = false;
 var isPlaying = false;
 var gameLoop = false;
 var playerCar = new carClass();
@@ -43,6 +44,7 @@ window.onload = function() {
 
 // used to be called imageLoadingDoneSoStart but now we run the main menu first
 function startGame() {
+  gameHasStarted = true;
 	loadLevel(level);
 	continueGame();
 }
@@ -53,15 +55,26 @@ function pauseGame() {
     isPlaying = false;
     clearInterval(gameLoop);
     gameLoop = false;
+
+    colorText('Game paused!', canvas.width / 2, canvas.height / 2, 'white', 'center', "40px '04b30'");
   }
 }
 
 function continueGame() {
-	if (!isPlaying && !gameLoop) {
+	if (gameHasStarted && !gameLoop) {
     console.log('Continue game');
     isPlaying = true;
     gameLoop = setInterval(updateAll, msPerFrame);
   }
+}
+
+function togglePause() {
+	if (isPlaying) {
+		pauseGame();
+	}
+	else {
+		continueGame();
+	}
 }
 
 function introDone() {
