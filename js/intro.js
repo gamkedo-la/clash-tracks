@@ -1,10 +1,10 @@
 // Each array element gets drawn as a new line by drawStory()
 var StoryArray = [
-										["Its Year 3018 Aliens have conquered", "mankind and enslaved them."],
-										["The rebellion had occurred many times", "but all efforts have been thwarted", " by the superior minds."],
-										["According to a Legend the only way", "to defeat the superior minds ", "is by destroying their core and"],
-										[" there is only one person strong", "enough to complete this challenge","It's You"]
-								];
+					["Its Year 3018 Aliens have conquered", "mankind and enslaved them."],
+					["The rebellion had occurred many times", "but all efforts have been thwarted", " by the superior minds."],
+					["According to a Legend the only way", "to defeat the superior minds ", "is by destroying their core and"],
+					[" there is only one person strong", "enough to complete this challenge","It's You"]
+				];
 
 var fontSize = 20;
 var leadingBuffer = 10; // The vertical space between lines of text

@@ -129,17 +129,21 @@ function carClass() {
 			return;
 		}
 		if (!this.isInvincible) {
-			if (this.name === "Player")	screenshake(10);
+			if (this.name === "Player")	
+			screenshake(15);
 			this.health -= damageDealt;
 			ai_distance = 150; // To show ai knows it has been hit and follows player.
 			console.log("New health is " + this.health + " due to damage " + damageDealt);
 			if (this.health <= 0 && !this.isDead && !this.stuckOnWall) {
 				// console.log("You got me this time! (car dead)");
+				slowSpeedGame();
 				carSuckedSound.play();
 				this.isDead = true;
 				this.myCarPic = wreckedCarPic;
 				if (this.name === "Player") {
+
 					playerResetCondition();
+					// normalSpeedGame();
 				}
 			}
 		}
@@ -518,8 +522,8 @@ function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
 
 function playerResetCondition(){
   addDelayedCall(function(){
+  					normalSpeedGame();
 					if(playerLives > 1){
-
 						playerLives--;
 						resetCheckPoint();
 					}

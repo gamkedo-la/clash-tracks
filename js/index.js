@@ -1,7 +1,7 @@
 
 
 // const TIME_TO_FINISH_LVL_1 = 2 * 60 * framesPerSecond; // 2 minutes
-const TIME_TO_FINISH_LVL_1 = 1 * 50 * framesPerSecond;
+// const TIME_TO_FINISH_LVL_1 = 1 * 50 * framesPerSecond;
 
 var canvas, canvasContext;
 var debug = false;
@@ -30,16 +30,13 @@ window.onload = function() {
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	level = 0;
 	playerLives = 3;
-	//fadeInStory(); // wait for main menu
 	loadImages();
-	// trancyMusic.loopSong();/
 	setupInput();
 	mainMenu();
 	menuMusic.loopSong();
 	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic];
-
-  window.addEventListener('blur', pauseGame);
-  window.addEventListener('focus', continueGame);
+	window.addEventListener('blur', pauseGame);
+	window.addEventListener('focus', continueGame);
 };
 
 // used to be called imageLoadingDoneSoStart but now we run the main menu first
@@ -55,10 +52,30 @@ function pauseGame() {
     isPlaying = false;
     clearInterval(gameLoop);
     gameLoop = false;
-
     colorText('Game paused!', canvas.width / 2, canvas.height / 2, 'white', 'center', "40px '04b30'");
   }
 }
+
+function slowSpeedGame(){
+	if(isPlaying && gameLoop){
+		console.log('slowing game - game feel ;)');
+		clearInterval(gameLoop);
+		framesPerSecond = 15;
+		msPerFrame = 1000 / framesPerSecond;
+		gameLoop = setInterval(updateAll, msPerFrame);
+	}
+}
+
+function normalSpeedGame(){
+	if(isPlaying && gameLoop){
+		console.log('slowing game - game feel ;)');
+		clearInterval(gameLoop);
+		framesPerSecond = DEFAULT_FRAME_PER_SEC;
+		msPerFrame = 1000 / framesPerSecond;
+		gameLoop = setInterval(updateAll, msPerFrame);
+	}
+}
+
 
 function continueGame() {
 	if (gameHasStarted && !gameLoop) {
@@ -103,7 +120,6 @@ function loadLevel(whichLevel) {
 }
 
 function resetLevel() {
-    timeToFinishLevel = TIME_TO_FINISH_LVL_1;
     loadLevel(level);
 }
 
@@ -165,11 +181,11 @@ function updateAll() {
 
 	for (var i = delayedCallbacks.length - 1; 0 <= i; i--) {
 		if (delayedCallbacks[i].timeout < 0) {
-      delayedCallbacks[i].callback();
-      delayedCallbacks.splice(i, 1);
+	      delayedCallbacks[i].callback();
+	      delayedCallbacks.splice(i, 1);
 		}
 		else {
-      delayedCallbacks[i].timeout -= msPerFrame;
+      	  delayedCallbacks[i].timeout -= msPerFrame;
 		}
 	}
 }
@@ -222,10 +238,9 @@ function drawAll() {
 	if(powerupText != ""){
 		colorText(powerupText,30, 60, '#acacac');
 	}
-
 	colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
 	colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
-  colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
+  	colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
 	colorText( playerLives,canvas.width - 30,30,'cyan','right' )
 
 }
