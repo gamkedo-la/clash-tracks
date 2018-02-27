@@ -204,7 +204,10 @@ function carTrackHandling(whichCar) {
 								  playerResetCondition();
 							}
 						}
-
+				}
+				else {
+					// When invincible make the car turn randomly.
+          whichCar.ang += (Math.random() < 0.5) ? -.25 : .25;
 				}
 			}
 
