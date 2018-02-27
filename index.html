@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<link href="css/stylesheet.css" rel="stylesheet">
+	<link href="css/animate.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -12,36 +14,35 @@
 
 
 		<div id='Play-Menu'>
-			<h1>MODE SELECT:</h1>
+			<h1 class = "animated bounceInLeft">MODE SELECT:</h1>
 			<a href='#' onclick='menuLevel(level)'>[S]tory Mode</a>
 			<a href='#' onclick='highScoreModePlay()'>[H]ighScore Mode</a>
 			<br><br>
-			<a href='#' onclick='mainMenu()'>[M]ain Menu</a>
+			<a href='#' onclick='mainMenu()' class = "animated bounceInRight">[M]ain Menu</a>
 		</div>
 
 		<div id='Levels'>
-			<h1>LEVEL SELECT:</h1>
+			<h1 class = "animated bounceInLeft">LEVEL SELECT:</h1>
 			<a href='#' onclick='menuLevel(0)'>[0] Random</a>
 			<a href='#' onclick='menuLevel(1)'>[1] Small</a>
 			<a href='#' onclick='menuLevel(2)'>[2] Fast</a>
 			<a href='#' onclick='menuLevel(3)'>[3] Furious</a>
 			<a href='#' onclick='menuLevel(4)'>[4] Large</a>
 			<br><br>
-			<a href='#' onclick='mainMenu()'>[M]ain Menu</a>
+			<a href='#' onclick='mainMenu()' class = "animated bounceInRight">[M]ain Menu</a>
 		</div>
 
 		<div id='Help'>
-			<h1>HOW TO PLAY:</h1>
+			<h1 class = "animated bounceInLeft">HOW TO PLAY:</h1>
 			[W,A,S,D] to steer<br>
-			[SPACEBAR] fire<br>
-			[L] auto-fire
+			[P] Pause<br>
 
 			<br><br>
-			<a href='#' onclick='mainMenu()'>[M]ain Menu</a>
+			<a href='#' onclick='mainMenu()' class = "animated bounceInRight">[M]ain Menu</a>
 		</div>
 
 		<div id='Credits'>
-			<h1>CREDITS:</h1>
+			<h1 class = "animated bounceInLeft">CREDITS:</h1>
 			<strong>Vignesh Ramesh:</strong> lead developer<br>
 			<strong>Caspar Dunant:</strong> inputs, code<br>
 			<strong>Jenna Johnson:</strong> Splash Screen, powerups<br>
@@ -53,11 +54,11 @@
 			<strong>Chris DeLeon:</strong> obstacles, level design, logic<br>
 			<strong>Jeremy Kenyon:</strong> AI, weapons<br>
 			<br><br>
-			<a href='#' onclick='mainMenu()'>[M]ain Menu</a>
+			<a href='#' onclick='mainMenu()' class = "animated bounceInRight">[M]ain Menu</a>
 		</div>
 
 		<div id='Options'>
-			<h1>OPTIONS</h1>
+			<h1 class = "animated bounceInLeft">OPTIONS</h1>
 			<table>
 				<tr>
 					<td>Sound Volume: </td>
@@ -72,17 +73,17 @@
 			<br><br>
 
 			<br><br>
-			<a href='#' onclick='mainMenu()'>[M]ain Menu</a>
+			<a href='#' onclick='mainMenu()' class = "animated bounceInRight">[M]ain Menu</a>
 		</div>
 
 		<div id='Menu'>
-			<img src='images/clashTracksLogo3.png'>
+			<img src='images/clashTracksLogo3.png' class = "animated bounceInLeft">
 			<br><br>
-			<a href='#' onclick='menuPlay()'>[P]lay</a>
-			<a href='#' onclick='menuHelp()'>[H]elp</a>
-			<a href='#' onclick='menuOptions()'>[O]ptions</a>
-			<a href='#' onclick='mainMenu()'>[L]eaderboard</a>
-			<a href='#' onclick='menuCredits()'>[C]redits</a>
+			<a href='#' onclick='menuPlay()' class = "animated fadeIn">[P]lay</a>
+			<a href='#' onclick='menuHelp()' class = "animated fadeIn">[H]elp</a>
+			<a href='#' onclick='menuOptions()' class = "animated fadeIn">[O]ptions</a>
+			<a href='#' onclick='mainMenu()' class = "animated fadeIn">[L]eaderboard</a>
+			<a href='#' onclick='menuCredits()' class = "animated fadeIn">[C]redits</a>
 		</div>
 	</div>
 
