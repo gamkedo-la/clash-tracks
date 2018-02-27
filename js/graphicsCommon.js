@@ -12,10 +12,12 @@ function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
 }
 
 function colorCircle(centerX, centerY, radius, fillColor) {
+	canvasContext.save();
 	canvasContext.fillStyle = fillColor;
 	canvasContext.beginPath();
 	canvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
 	canvasContext.fill();
+	canvasContext.restore();
 }
 
 function colorText(showWords, textX, textY, fillColor, textAlign, font) {

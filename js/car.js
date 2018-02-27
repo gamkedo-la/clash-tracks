@@ -65,6 +65,7 @@ function carClass() {
 	if (window.tireTracks) tireTracks.reset();
 
 	this.shoot = function(){
+
 		bullets.push(new bulletClass(this));
 		if(this.name == 'Player'){
 			shootSound.play();
@@ -95,12 +96,12 @@ function carClass() {
 		this.smokeScreenFramesRemaining = 0;
 		this.invincibleAngle = 0;
 		if (!this.invinciblePic) {
-      this.invinciblePic = createTintedSprite(lightBallPic, '#9871b5');
+     		 this.invinciblePic = createTintedSprite(lightBallPic, '#9871b5');
 		}
 
 		var trackValueToCheck = 0;
 		// console.log(carName);
-		if(carName == "Player"){
+		if(this.name == "Player"){
 			trackValueToCheck = TRACK_PLAYERSTART;
 			this.height = 25;
 			this.weight = 44;
@@ -129,25 +130,31 @@ function carClass() {
 			return;
 		}
 		if (!this.isInvincible) {
-			if (this.name === "Player")	
-			screenshake(15);
+			if (this.name === "Player"){
+				screenshake(15);
+			}
+			carCollisionEffect(this.pos.x, this.pos.y);
 			this.health -= damageDealt;
 			ai_distance = 150; // To show ai knows it has been hit and follows player.
 			console.log("New health is " + this.health + " due to damage " + damageDealt);
-			if (this.health <= 0 && !this.isDead && !this.stuckOnWall) {
-				// console.log("You got me this time! (car dead)");
-				slowSpeedGame();
-				carSuckedSound.play();
-				this.isDead = true;
-				this.myCarPic = wreckedCarPic;
-				if (this.name === "Player") {
+			this.carHealthCheck(this);
+		}			
+	}
 
+	this.carHealthCheck = function(carInstance){
+		if (carInstance.health <= 0 && !carInstance.isDead && !carInstance.stuckOnWall) {
+				// console.log("You got me this time! (car dead)");
+				carInstance.isDead = true;
+				carInstance.myCarPic = wreckedCarPic;
+				if (carInstance.name === "Player") {
+					slowSpeedGame();
+					carSuckedSound.play();
 					playerResetCondition();
 					// normalSpeedGame();
 				}
 			}
-		}
 	}
+
 
 	this.move = function() {
 		this.prevPos.x = this.pos.x;
@@ -233,10 +240,10 @@ function carClass() {
 					}
 			}
 			else if (!debug || !this.isDead
-			|| !playerCar.isDead
-			|| !this.inTileBroken){
-				this.keyHeld_Shooting = false;
-				this.keyHeld_Gas = false;
+					|| !playerCar.isDead
+					|| !this.inTileBroken){
+							this.keyHeld_Shooting = false;
+							this.keyHeld_Gas = false;
 			}
 
 		} // end if AI
@@ -308,7 +315,7 @@ function carClass() {
 		// this.drawShadow(this.shadowColor);
 		if (this.isInvincible) {
 			drawBitmapCenteredWithRotation(this.invinciblePic, this.pos.x, this.pos.y, this.invincibleAngle);
-    }
+   		 }
 
 		if(debug){
 			colorCircle(this.pos.x,this.pos.y ,1,"lime");
@@ -410,6 +417,16 @@ function carClass() {
 						console.log("car to car collision!");
 						screenshake(14);
 						carCollisionSound.play();
+						console.log(this.health);
+						if(this.isInvincible ){
+							carList[i].health--;
+							this.carHealthCheck(carList[i]);
+						}
+						if(carList[i].isInvincible){
+							this.health--;
+							this.carHealthCheck(this);
+						}
+						
 
 						// collision response: bounce off each other
 						// both cars are affected

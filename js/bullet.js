@@ -11,6 +11,8 @@ function spawnBulletWithoutOriginObject(fromX,fromY,withAng,startGap) {
 
 }
 
+var muzzleTicker = 0;
+
 function bulletClass(origin,ang) {
 	this.pos = vector.create();
 	this.pos.x = origin.pos.x;
@@ -41,7 +43,7 @@ function bulletClass(origin,ang) {
 	}
 
 	this.draw = function(){
-		drawBitmapCenteredWithRotation(this.bulletPic, this.pos.x,this.pos.y, this.angle - Math.PI/2)
+		drawBitmapCenteredWithRotation(this.bulletPic, this.pos.x,this.pos.y, this.angle - Math.PI/2);
 	}
 
 	this.update = function(){

@@ -105,8 +105,8 @@ function keyPressed(evt) {
       break;
 		case KEY_L:
 			if (isPlaying) {
-				playerCar.autoShoot = !playerCar.autoShoot;
-      }
+				// playerCar.autoShoot = !playerCar.autoShoot;
+     		 }
 			else{
 				if(menuState.isMenuDiv){
 					console.log('going to leaderboards');
@@ -209,6 +209,7 @@ function keyPressed(evt) {
 			break;
 		case KEY_2:
 			if(isPlaying){
+				playerCar.isInvincible = !playerCar.isInvincible;
 			}
 			else{
 				if(menuState.isLevelDiv){
