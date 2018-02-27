@@ -33,7 +33,7 @@ const TRACK_SHIP_OVERHEAD_START = 90;
 const TRACK_FRICTION_SMOOTH = 0.80;
 const TRACK_FRICTION_NORMAL = 0.94;
 const MINE_DAMAGE = 2;
-const TIMER_INCREASE_AMT = 10 * framesPerSecond; // Change digit to number of seconds a powerup adds
+const TIMER_INCREASE_AMT = 20 * framesPerSecond; // Change digit to number of seconds a powerup adds
 
 var trackGrid = [];
 var trackGridCopy = []; //checkpoint
@@ -127,7 +127,7 @@ function carTrackHandling(whichCar) {
 
 			if(whichCar.name == 'Player' && !playerCar.inTrackPowerup){
 				if(tileHere == TRACK_POWERUP){
-					var random = Math.ceil(Math.random()*6);
+					var random = Math.ceil(Math.random()*7);
 					trackGrid[trackIndexUnderCar] = TRACK_ROAD;
 					playerCar.inTrackPowerup = true;
 					switch(random){
@@ -154,14 +154,14 @@ function carTrackHandling(whichCar) {
 						case 4:
 							console.log('Invinvibility Mode!');
 							playerCar.isInvincible = true;
-              addDelayedCall(function(){playerCar.isInvincible = false;},5000);
+             				 addDelayedCall(function(){playerCar.isInvincible = false;},5000);
 							powerupText = "Shield Activated";
 							break;
 
 						case 5:
 							console.log('You shoot!');
 							playerCar.autoShoot = true;
-              addDelayedCall(function(){playerCar.autoShoot = false;},5000);
+             				addDelayedCall(function(){playerCar.autoShoot = false;},5000);
 							powerupText = "Turret Activated";
 							break;
 
@@ -169,17 +169,17 @@ function carTrackHandling(whichCar) {
 							console.log('You multi - shoot!');
 							playerCar.splitShoot = true;
 							playerCar.autoShoot = true;
-              addDelayedCall(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
+              				addDelayedCall(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
 							powerupText = "Split-Turret Activated";
 							break;
-
+						//should be nitros replanish
 						case 7:
 							console.log('Nitros!');
 							whichCar.nitroFramesRemaining = NITRO_TIMESPAN;
 							powerupText = "Nitros Activated";
 							break;
 					}
-          addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
+         			addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
 
 				}
 			}
@@ -202,7 +202,7 @@ function carTrackHandling(whichCar) {
 							whichCar.inTileBroken = true;
 							carSuckedSound.play();
 
-              addDelayedCall(function(){
+              				addDelayedCall(function(){
 								whichCar.myCarPic = wreckedCarPic;
 								whichCar.isDead = true;
 							}, 500);
@@ -214,7 +214,7 @@ function carTrackHandling(whichCar) {
 				}
 				else {
 					// When invincible make the car turn randomly.
-          whichCar.ang += (Math.random() < 0.5) ? -.25 : .25;
+         			 whichCar.ang += (Math.random() < 0.5) ? -.25 : .25;
 				}
 			}
 
@@ -223,7 +223,7 @@ function carTrackHandling(whichCar) {
 					whichCar.speed *= 2;
 					carJumpSound.play();
 					whichCar.jumping = true;
-          addDelayedCall(function(){whichCar.jumping = false; whichCar.inJumpTile = false;}, 500);
+         			 addDelayedCall(function(){whichCar.jumping = false; whichCar.inJumpTile = false;}, 500);
 					whichCar.inJumpTile = true;
 				}
 			}

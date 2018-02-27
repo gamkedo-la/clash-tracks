@@ -5,7 +5,7 @@ function spawnBulletWithoutOriginObject(fromX,fromY,withAng,startGap) {
 						y:fromY+Math.sin(withAng)*startGap},
 					ang: withAng,
 					speed: 0,
-					bulletImg: enemyBulletPic};
+					bulletImg: turretPic};
 	// laserSound.play();
 	bullets.push(new bulletClass(tempObj));
 
