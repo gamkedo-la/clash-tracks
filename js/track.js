@@ -509,7 +509,7 @@ function trackCollisionCheck(x,y,goalCheck){
 function loadNextLevel() {
 	level++;
 	if(level < levels.length){
-		loadLevel();
+		loadLevel(level);
 	}
 	else{
 		console.log('You saved Humanity')

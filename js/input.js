@@ -50,14 +50,15 @@ function setupInput() {
 // 	carSpeedY = -4;*/
 // }
 
-function keySet(evt, setTo)
-{
+function keySet(evt, setTo){
+	
 	switch(evt.keyCode){
 		case KEY_UP_ARROW:
 		case KEY_W:
 			playerCar.keyHeld_Gas = setTo;
-      evt.preventDefault();
+      		evt.preventDefault();
 			break;
+
 		case KEY_DOWN_ARROW:
 		case KEY_S:
 			if(isPlaying){
@@ -70,19 +71,21 @@ function keySet(evt, setTo)
 				}
 			}
 			break;
+
 		case KEY_LEFT_ARROW:
 		case KEY_A:
 			playerCar.keyHeld_TurnLeft = setTo;
-      evt.preventDefault();
+      		evt.preventDefault();
 			break;
+
 		case KEY_RIGHT_ARROW:
 		case KEY_D:
 			playerCar.keyHeld_TurnRight = setTo;
-      evt.preventDefault();
+      		evt.preventDefault();
 			break;
 		// case SPACE_BAR:
 		// 	playerCar.keyHeld_Shooting = setTo;
-    //   evt.preventDefault();
+    	//   evt.preventDefault();
 		//	break;
 		// case KEY_SHIFT:
 		// 	playerCar.keyHeld_Nos = setTo;
@@ -95,56 +98,66 @@ function keyPressed(evt) {
 	// console.log(evt.keyCode);
 	if (isPlaying) {
 		keySet(evt, true);
-  }
+  	}
+
 	switch(evt.keyCode){
+
 		case KEY_R:
 			if (isPlaying) {
 				resetCheckPoint();
-      }
-      evt.preventDefault();
-      break;
+		    }
+		    evt.preventDefault();
+		    break;
+
 		case KEY_L:
 			if (isPlaying) {
 				// playerCar.autoShoot = !playerCar.autoShoot;
-     		 }
+     		}
 			else{
 				if(menuState.isMenuDiv){
 					console.log('going to leaderboards');
 				}
 			}
-      evt.preventDefault();
+      		evt.preventDefault();
 			break;
+
 		case KEY_I:
 			if (debug && isPlaying) {
 				playerCar.isInvincible = !playerCar.isInvincible;
-        evt.preventDefault();
-      }
+		        evt.preventDefault();
+		    }
 			break;
+
 		case KEY_U:
 			toggleScreenShake();
-      evt.preventDefault();
+    		evt.preventDefault();
 			break;
+
 		case KEY_ENTER:
 			if (isPlaying) {
+				console.log("Level Changing..");
 				loadNextLevel();
-      }
-      evt.preventDefault();
+	        }
+	        evt.preventDefault();
 			break;
+
 		case SPACE_BAR:
 			if (startTimeout) {
-        skipStory();
+        		skipStory();
 			}
-      evt.preventDefault();
+      		evt.preventDefault();
 			break;
+
 		case KEY_ESC:
 		case KEY_P:
 			if(menuState.isMenuDiv){
 				menuPlay();
 			}
 			else{
-        togglePause();
+        		togglePause();
 			}
 			break;
+
 		case KEY_H:
 			if(isPlaying){
 				//Pause screen function
@@ -158,6 +171,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+
 		case KEY_O:
 			if(isPlaying){
 				debug = !debug;
@@ -169,6 +183,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+
 		case KEY_C:
 			if(isPlaying){
 			}
@@ -178,6 +193,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+
 		case KEY_S:
 			if(isPlaying){
 			}
@@ -187,6 +203,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+
 		case KEY_0:
 			if(isPlaying){
 			}
@@ -196,6 +213,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+
 		case KEY_1:
 			if(isPlaying){
 				playerCar.splitShoot = !playerCar.splitShoot;
@@ -207,6 +225,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+
 		case KEY_2:
 			if(isPlaying){
 				playerCar.isInvincible = !playerCar.isInvincible;
@@ -217,6 +236,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+
 		case KEY_3:
 			if(isPlaying){
 			}
@@ -226,6 +246,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+
 		case KEY_4:
 			if(isPlaying){
 			}
@@ -235,6 +256,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+
 		case KEY_5:
 			if(isPlaying){
 			}
@@ -244,6 +266,7 @@ function keyPressed(evt) {
 				}
 			}
 			break;
+			
 		case KEY_M:
 			if(isPlaying){
 			}
