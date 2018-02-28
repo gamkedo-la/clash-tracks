@@ -34,7 +34,7 @@ window.onload = function() {
 	setupInput();
 	mainMenu();
 	menuMusic.loopSong();
-	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic];
+	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic, misfortuneMusic];
 	window.addEventListener('blur', pauseGame);
 	window.addEventListener('focus', continueGame);
 };
@@ -106,7 +106,7 @@ function introDone() {
 
 function loadLevel(whichLevel) {
 	//clearing previously saved objects and data
-	menuMusic.startOrStopMusic();
+	menuMusic.pauseSound();
 	levelDataReset();
 	playerLives = 3;
 	//loading level data to current level
@@ -118,11 +118,10 @@ function loadLevel(whichLevel) {
 	timeToFinishLevel = levelData.timeLimit;
 	numOfEnemiesCars = levelData.enemyCars;
 	carsReset();
-	console.log(gameHasStarted);
 	// console.log(currentBackgroundMusic);
-	// if(currentBackgroundMusic != undefined)
-	// 		currentBackgroundMusic.pauseSound();
-	// backgroundMusicArray[musicIndex].pauseSound();
+	if(currentBackgroundMusic != undefined)
+			currentBackgroundMusic.pauseSound();
+
 	musicIndex = Math.floor(Math.random()*backgroundMusicArray.length);
 	currentBackgroundMusic = backgroundMusicArray[musicIndex];
 	currentBackgroundMusic.loopSong();
