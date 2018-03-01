@@ -83,6 +83,10 @@ function carClass() {
 		this.autoShoot = false;
 		this.stuckOnWall = false;
 		this.inTileBroken = false;
+		this.isInvincible = false;
+		this.isPowered = false;
+		this.splitShoot = false;
+
 		this.health = INITIAL_HEALTH;
 		this.name = carName;
 		this.myCarPic = whichImage;
@@ -93,6 +97,7 @@ function carClass() {
 		this.skidAngle = 0;
 		this.keyHeld_Nos = false;
 		this.smokeScreenFramesRemaining = 0;
+		this.nitroFramesRemaining = 0;
 		this.invincibleAngle = 0;
 		if (!this.invinciblePic) {
      		 this.invinciblePic = createTintedSprite(lightBallPic, '#9871b5');
@@ -158,6 +163,7 @@ function carClass() {
 
 
 	this.move = function() {
+
 		this.prevPos.x = this.pos.x;
 		this.prevPos.y = this.pos.y;
 		this.prevAng = this.ang;
@@ -205,10 +211,6 @@ function carClass() {
 				this.ang -= 0.15;
 			}
 
-			else{
-					// this.keyHeld_Gas = false;
-					// this.keyHeld_Shooting = false;
-			}
 
 			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y)
 					&& !debug && !this.isDead
@@ -244,11 +246,9 @@ function carClass() {
 
 					}
 			}
-			else if (!debug || !this.isDead
-					|| !playerCar.isDead
-					|| !this.inTileBroken){
-							this.keyHeld_Shooting = false;
-							this.keyHeld_Gas = false;
+			else if (!debug || !this.isDead || !playerCar.isDead || !this.inTileBroken){
+					this.keyHeld_Shooting = false;
+					this.keyHeld_Gas = false;
 			}
 
 		} // end if AI
@@ -303,19 +303,21 @@ function carClass() {
 			smokeScreenEffect(this.pos.x,this.pos.y);
 		}
 
-    this.nitroFramesRemaining -= 1;
+    	this.nitroFramesRemaining -= 1;
 
 		if (this.isInvincible) {
-      this.invincibleAngle -= .13;
-      if (this.invincibleAngle < 0) {
-      	this.invincibleAngle = Math.PI * 2;
-			}
+	      this.invincibleAngle -= .13;
+	      if (this.invincibleAngle < 0) {
+	      	this.invincibleAngle = Math.PI * 2;
+				}
 		}
 
 
 	} // end move function
 
+
 	this.draw = function() {
+
 		drawBitmapCenteredWithRotation(this.myCarPic, this.pos.x ,this.pos.y, this.ang);
 		// this.drawShadow(this.shadowColor);
 		if (this.isInvincible) {
@@ -331,16 +333,21 @@ function carClass() {
 
 	}
 
+
 	this.drawShadow = function(shadowColor){
+
 		if(this.jumping){
 			var shadowPosX = this.prevPos.x - Math.cos(this.ang + 0.2) * this.speed* 1.1;
 			var shadowPosY = this.prevPos.y - Math.sin(this.ang + 0.2) * this.speed * 1.1;
 			var radius = map(this.speed, 0, 40, 15, 2)
 			colorCircle(shadowPosX ,shadowPosY , radius ,shadowColor);
 		}
+
 	}
 
+
 	this.withinDistOfCollision = function(dist, testX, testY) {
+
 		var centerDx = Math.abs(this.pos.x - testX);
 		var centerDy = Math.abs(this.pos.y - testY);
 		var approxDistToCar = centerDx + centerDy;
@@ -356,9 +363,12 @@ function carClass() {
 			}
 		}
 		return false;
+
 	}
 
+
 	this.handleControls = function() {
+
 		// Shooting
 		if(this.keyHeld_Shooting) {
 			if (this.semiAutoLock == false) {
@@ -406,9 +416,12 @@ function carClass() {
 				this.ang += TURN_RATE;
 			}
 		} // end car is below DRIFT_MIN_SPEED
+
 	} // end handleControls
 
+
 	this.carCarHandling =function(){
+
 		for(var i = 0; i < carList.length; i++) {
 
 				if(carList[i].pos.x != this.pos.x && carList[i].pos.y != this.pos.y){
@@ -519,6 +532,7 @@ function carClass() {
 
 
 function initializeCollisionPoints(){
+
 	var arr = [];
 	for(var i = 0; i < CAR_COLLISION_POINTS; i++){
 		arr.push({x:'',y:''});
@@ -527,6 +541,7 @@ function initializeCollisionPoints(){
 }
 
 function stopControlsForDeadCar(whichCar) {
+
 	if (whichCar.isDead) {  // shutting off all controls since car is dead.
 		whichCar.keyHeld_Gas = false;
 		whichCar.keyHeld_Reverse = false;
@@ -538,11 +553,13 @@ function stopControlsForDeadCar(whichCar) {
 }
 
 function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
+
 	whichCar.pos = findCenterPositionOfTileType(tileTypeToCheck);
 	setTileAtPositionToType(whichCar.pos, TRACK_ROAD);
 }
 
 function playerResetCondition(){
+	
   addDelayedCall(function(){
   					normalSpeedGame();
 					if(playerLives > 1){
