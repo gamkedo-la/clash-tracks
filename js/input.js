@@ -229,6 +229,7 @@ function keyPressed(evt) {
 		case KEY_2:
 			if(isPlaying){
 				playerCar.isInvincible = !playerCar.isInvincible;
+
 			}
 			else{
 				if(menuState.isLevelDiv){
@@ -239,6 +240,9 @@ function keyPressed(evt) {
 
 		case KEY_3:
 			if(isPlaying){
+				playerCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
+				powerupText = "Smokescreen Activated";
+				playerCar.isPowered = true;
 			}
 			else{
 				if(menuState.isLevelDiv){

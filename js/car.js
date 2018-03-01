@@ -54,7 +54,7 @@ function carClass() {
 	this.trailColor = "rgb(46,148,193)";
 	this.smokeScreenFramesRemaining = 0;
 	this.inTrackPowerup = false;
-
+	this.isPowered = false;
 	this.invinciblePic;
 	this.invincibleAngle = 0;
 	this.splitShoot = false;
@@ -163,6 +163,10 @@ function carClass() {
 		this.prevAng = this.ang;
 		//TODO  Make ai cars rotate and dissapear on broken tiles
 		//TODO Make Ai cars avoid broken tile slightly
+
+		if(playerCar.smokeScreenFramesRemaining <= 0){
+			playerCar.isPowered = false;
+		}
 		if (this.isAI) {
 			// this.keyHeld_TurnRight = true;
 			distancePlayerEnemy = distance(playerCar.pos.x,playerCar.pos.y,this.pos.x, this.pos.y)

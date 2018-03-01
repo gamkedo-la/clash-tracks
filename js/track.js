@@ -119,24 +119,27 @@ function carTrackHandling(whichCar) {
 		// 	timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
 		// }
 
-	if(whichCar.name == 'Player' && !playerCar.inTrackPowerup){
-		if(tileHere == TRACK_POWERUP){
+	if(whichCar.name == 'Player' && !whichCar.inTrackPowerup){
+		if(tileHere == TRACK_POWERUP && !whichCar.isPowered){
 			var random = Math.ceil(Math.random()*7);
 			trackGrid[trackIndexUnderCar] = TRACK_ROAD;
-			playerCar.inTrackPowerup = true;
+			whichCar.inTrackPowerup = true;
+			whichCar.isPowered = true;
 			switch(random){
 				//free life
 				case 1:
 					playerLives++;
-					playerCar.health = INITIAL_HEALTH;
+					whichCar.health = INITIAL_HEALTH;
 					console.log('Health increase');
 					powerupText = "Health Increase";
+					whichCar.isPowered = false;
 					break;
 
 				case 2:
 					console.log('Timer increase');
 					timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
 					powerupText = "Timer Increase";
+					whichCar.isPowered = false;
 					break;
 
 				case 3:
@@ -148,14 +151,14 @@ function carTrackHandling(whichCar) {
 				case 4:
 					console.log('Invinvibility Mode!');
 					playerCar.isInvincible = true;
-     				 addDelayedCall(function(){playerCar.isInvincible = false;},5000);
+     				addDelayedCall(function(){whichCar.isInvincible = false;whichCar.isPowered = false;},5000);
 					powerupText = "Shield Activated";
 					break;
 
 				case 5:
 					console.log('You shoot!');
 					playerCar.autoShoot = true;
-     				addDelayedCall(function(){playerCar.autoShoot = false;},5000);
+     				addDelayedCall(function(){whichCar.autoShoot = false;whichCar.isPowered = false;},5000);
 					powerupText = "Turret Activated";
 					break;
 
@@ -163,7 +166,7 @@ function carTrackHandling(whichCar) {
 					console.log('You multi - shoot!');
 					playerCar.splitShoot = true;
 					playerCar.autoShoot = true;
-      				addDelayedCall(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
+      				addDelayedCall(function(){whichCar.splitShoot = false;whichCar.autoShoot = false;whichCar.isPowered = false;},5000);
 					powerupText = "Split-Turret Activated";
 					break;
 				//should be nitros replanish
@@ -171,6 +174,7 @@ function carTrackHandling(whichCar) {
 					console.log('Nitros!');
 					whichCar.nitroFramesRemaining = NITRO_TIMESPAN;
 					powerupText = "Nitros Activated";
+      				addDelayedCall(function(){whichCar.isPowered = false;},5000);
 					break;
 			}
  			addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
