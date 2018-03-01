@@ -46,22 +46,20 @@ function loadImages() {
 		{varName: turretPic, theFile: "turret.png"},
 		{varName: lightBallPic, theFile: "lightBall.png"},
 
-    {trackType: TRACK_ROAD, theFile: "track_road.png"},
+    	{trackType: TRACK_ROAD, theFile: "track_road.png"},
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},
 		{trackType: TRACK_GOAL, theFile: "track_goal.png"},
 		{trackType: TRACK_CHECKPOINT_FLAG, theFile: "track_disk.png"},
-    {trackType: TRACK_BRICKS_VIOLET, theFile: "alienBricks_violet.png"},
+    	{trackType: TRACK_BRICKS_VIOLET, theFile: "alienBricks_violet.png"},
 		{trackType: TRACK_BRICKS_BLUE, theFile: "alienBricks_blue.png"},
-    {trackType: TRACK_BUILDING_RED, theFile: "red_building.png"}, //level 3
-    {trackType: TRACK_BUILDING_BLUE, theFile: "blue_building.png"}, //level 2
-    {trackType: TRACK_BUILDING_VIOLET, theFile: "violet_building.png"},
-    {trackType: SKYSCRAPER_VIOLET, theFile: "skyscrapper_violet.png"},
-    {trackType: TRACK_JUMP_TILE, theFile: "jumpTile.png"},
-    {trackType: TRACK_SMOOTH, theFile: "sliperyRoad.png"},
-    {trackType: TRACK_ROAD_BROKEN, theFile: "track_road_broken.png"},
-    {trackType: TRACK_MINE, theFile: "track_mine_sheet.png"},
-    // {trackType: TRACK_TIMER_POWERUP, theFile: "timer_increase_powerup.png"},
-    {trackType: TRACK_LASER_TOWER, theFile: "track_laser_tower.png"},
+	    {trackType: TRACK_BUILDING_RED, theFile: "red_building.png"}, 
+	    {trackType: TRACK_BUILDING_BLUE, theFile: "blue_building.png"}, 
+	    {trackType: TRACK_BUILDING_VIOLET, theFile: "violet_building.png"},
+	    {trackType: TRACK_JUMP_TILE, theFile: "jumpTile.png"},
+	    {trackType: TRACK_SMOOTH, theFile: "sliperyRoad.png"},
+	    {trackType: TRACK_ROAD_BROKEN, theFile: "track_road_broken.png"},
+	    {trackType: TRACK_MINE, theFile: "track_mine_sheet.png"},
+    	{trackType: TRACK_LASER_TOWER, theFile: "track_laser_tower.png"},
 		{trackType: TRACK_POWERUP, theFile: "powerup.png"},
 	];
 

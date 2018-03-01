@@ -1,8 +1,4 @@
 
-
-// const TIME_TO_FINISH_LVL_1 = 2 * 60 * framesPerSecond; // 2 minutes
-// const TIME_TO_FINISH_LVL_1 = 1 * 50 * framesPerSecond;
-
 var canvas, canvasContext;
 var debug = false;
 var gameHasStarted = false;
@@ -11,13 +7,16 @@ var gameLoop = false;
 var playerCar = new carClass();
 //Used for testing bullet Collisions. Includes all cars.
 var carList = [playerCar];
-var enemyShip = new shipOverheadClass();
+var numOfEnemiesCars = 0;
+var overheadShip = new shipOverheadClass();
+var numOfEnemiesShips = 0;
+
+var overheadSpaceshipList= [];
 var timeToFinishLevel;
 var level;
 var playerLives = 3;
 var backgroundMusicArray;
 var powerupText = "";
-// var numOfEnemiesCars = 0;
 var musicIndex = 0;
 
 window.onload = function() {
@@ -64,7 +63,7 @@ function slowSpeedGame(){
 	if(isPlaying && gameLoop){
 		console.log('slowing game - game feel ;)');
 		clearInterval(gameLoop);
-		framesPerSecond = 15;
+		framesPerSecond = 12;
 		msPerFrame = 1000 / framesPerSecond;
 		gameLoop = setInterval(updateAll, msPerFrame);
 	}
@@ -117,6 +116,7 @@ function loadLevel(whichLevel) {
 	track_rows = levelData.rows;
 	timeToFinishLevel = levelData.timeLimit;
 	numOfEnemiesCars = levelData.enemyCars;
+	numOfOverheadShips = levelData.overheadSpaceships;
 	carsReset();
 	// console.log(currentBackgroundMusic);
 	if(currentBackgroundMusic != undefined)
@@ -137,6 +137,7 @@ function levelDataReset(){
 	while(carList.length > 1){
 		carList.pop();
 	}
+	overheadSpaceshipList = []
 	bullets = [];
 	particles.clear();
 	ai_distance = 250;
@@ -149,6 +150,7 @@ function resetCheckPoint() {
 	track_cols = levelData.cols;
 	track_rows = levelData.rows;
 	numOfEnemiesCars = levelData.enemyCars;
+	numOfOverheadShips = levelData.overheadSpaceships;
 	carsReset();
 }
 
@@ -160,7 +162,12 @@ function carsReset(){
 		enemyCars.push(enemyCar);
 		carList.push(enemyCar);
 	}
-	enemyShip.reset();
+	for(var j = 0; j < numOfOverheadShips; j++){
+		var overheadShip = new shipOverheadClass();
+		overheadShip.reset();
+		overheadSpaceshipList.push(overheadShip);
+	}
+	
 }
 
 
@@ -201,11 +208,15 @@ function updateAll() {
 
 function moveAll() {
 	playerCar.move();
-	enemyShip.move();
+	// overheadShip.move();
 	// enemyCar.move();
 	// enemyCar2.move();
 	for(var i = 0; i < enemyCars.length; i++){
 		enemyCars[i].move();
+	}
+	for(var j = 0; j < numOfOverheadShips; j++){
+		
+		overheadSpaceshipList[j].move();
 	}
 
 	updateBullets();
@@ -217,7 +228,7 @@ function drawAll() {
     // this next line is like subtracting camPanX and camPanY from every
     // canvasContext draw operation up until we call canvasContext.restore
     // this way we can just draw them at their "actual" position coordinates
-  canvasContext.translate(-camPanX,-camPanY);
+   canvasContext.translate(-camPanX,-camPanY);
 	drawTracks();
 	playerCar.drawShadow(playerCar.shadowColor);
 	//To draw shadow underneath particles
@@ -239,7 +250,11 @@ function drawAll() {
 	// }
 	drawBullets();
 
-	enemyShip.draw();
+	for(var j = 0; j < numOfOverheadShips; j++){
+		
+		overheadSpaceshipList[j].draw();
+	}
+
 	// anyWallsBetweenTwoPoints(playerCar.x, playerCar.y, enemyCar.x, enemyCar.y);
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 	colorText("TIME: " , 30, 30, 'white');

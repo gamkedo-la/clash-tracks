@@ -16,15 +16,11 @@ const TRACK_CHECKPOINT  =  8;
 const TRACK_JUMP_TILE = 9;
 const TRACK_SMOOTH = 10;
 const TRACK_ROAD_BROKEN = 11;
-// const TRACK_TIMER_POWERUP = 12;
 const TURRET_BACKGROUND = 19;
 const TRACK_BUILDING_RED = 20;
 const TRACK_BUILDING_BLUE = 23;
 const TRACK_BUILDING_VIOLET = 27;
-const SKYSCRAPER_VIOLET = 28;
 const TRACK_POWERUP = 29;
-// const TRACK_POWERUP_SMOKESCREEN = 30;
-
 const SMOKESCREEN_TIMESPAN = 300; // in FRAMES
 const NITRO_TIMESPAN = 180; // in FRAMES
 const TRACK_MINE = 50;
@@ -80,25 +76,23 @@ function returnTileTypeAtPixelXY(pixelX, pixelY) {
 
 function carTrackHandling(whichCar) {
 
-	 updateCollisionPoints(whichCar);
+	updateCollisionPoints(whichCar);
 
-   //checking if the center point is in broken tile
-	 //TODO if center point is a bit more inside the broken tile
+    //checking if the center point is in broken tile
+	//TODO if center point is a bit more inside the broken tile
+ 	var carTrackCol = Math.floor((whichCar.pos.x) /TRACK_W);
+	var carTrackRow = Math.floor((whichCar.pos.y)/TRACK_H);
+	var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
+	//TODO Stop showing particle effects if car is dead and stuck on wall after some
+	// specific interval
+	//TODO If car collision body turns out to be true simulataneously. Reset the car to the Last Position.
+	//TODO Reset car to nearest point and not last checkpoint on wall stuck
 
-	 	var carTrackCol = Math.floor((whichCar.pos.x) /TRACK_W);
-		var carTrackRow = Math.floor((whichCar.pos.y)/TRACK_H);
-		var trackIndexUnderCar = rowColToArrayIndex(carTrackCol, carTrackRow);
-		//TODO Stop showing particle effects if car is dead and stuck on wall after some
-		// specific interval
-		//TODO If car collision body turns out to be true simulataneously. Reset the car to the Last Position.
-		//TODO Reset car to nearest point and not last checkpoint on wall stuck
-
-		if(carTrackCol >= 0 && carTrackCol < track_cols &&
-			carTrackRow >= 0 && carTrackRow < track_rows && !whichCar.jumping) {
-			var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
-
-			if(!trackTypeIsPassable(tileHere) && !whichCar.stuckOnWall){
-        addDelayedCall(function(){
+	if(carTrackCol >= 0 && carTrackCol < track_cols &&
+		carTrackRow >= 0 && carTrackRow < track_rows && !whichCar.jumping) {
+		var tileHere = returnTileTypeAtColRow( carTrackCol,carTrackRow );
+		if(!trackTypeIsPassable(tileHere) && !whichCar.stuckOnWall){
+	        addDelayedCall(function(){
 					whichCar.myCarPic = wreckedCarPic;
 					whichCar.isDead = true;
 				}, 500);
@@ -108,158 +102,153 @@ function carTrackHandling(whichCar) {
 				}
 			}
 
-			whichCar.friction = getFrictionForTileType(tileHere);
+		whichCar.friction = getFrictionForTileType(tileHere);
 
-			if(tileHere == TRACK_MINE &&  !whichCar.jumping) {
-				trackGrid[trackIndexUnderCar] = TRACK_ROAD; // remove mine
-				mineDetonatesEffect(carTrackCol*TRACK_W+TRACK_W/2,
-									carTrackRow*TRACK_H+TRACK_H/2);
-				// deal some damage or destroy the collising car
-				whichCar.gotHurt(MINE_DAMAGE);
-				carHitSound.play();
-				boomSound.play();
+		if(tileHere == TRACK_MINE &&  !whichCar.jumping) {
+			trackGrid[trackIndexUnderCar] = TRACK_ROAD; // remove mine
+			mineDetonatesEffect(carTrackCol*TRACK_W+TRACK_W/2,
+								carTrackRow*TRACK_H+TRACK_H/2);
+			// deal some damage or destroy the collising car
+			whichCar.gotHurt(MINE_DAMAGE);
+			carHitSound.play();
+			boomSound.play();
+		}
+
+		// if(tileHere == TRACK_TIMER_POWERUP) {
+		// 	trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
+		// 	timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
+		// }
+
+	if(whichCar.name == 'Player' && !playerCar.inTrackPowerup){
+		if(tileHere == TRACK_POWERUP){
+			var random = Math.ceil(Math.random()*7);
+			trackGrid[trackIndexUnderCar] = TRACK_ROAD;
+			playerCar.inTrackPowerup = true;
+			switch(random){
+				//free life
+				case 1:
+					playerLives++;
+					playerCar.health = INITIAL_HEALTH;
+					console.log('Health increase');
+					powerupText = "Health Increase";
+					break;
+
+				case 2:
+					console.log('Timer increase');
+					timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
+					powerupText = "Timer Increase";
+					break;
+
+				case 3:
+					console.log('Touched a smokescreen powerup!');
+					whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
+					powerupText = "Smokescreen Activated";
+					break;
+
+				case 4:
+					console.log('Invinvibility Mode!');
+					playerCar.isInvincible = true;
+     				 addDelayedCall(function(){playerCar.isInvincible = false;},5000);
+					powerupText = "Shield Activated";
+					break;
+
+				case 5:
+					console.log('You shoot!');
+					playerCar.autoShoot = true;
+     				addDelayedCall(function(){playerCar.autoShoot = false;},5000);
+					powerupText = "Turret Activated";
+					break;
+
+				case 6:
+					console.log('You multi - shoot!');
+					playerCar.splitShoot = true;
+					playerCar.autoShoot = true;
+      				addDelayedCall(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
+					powerupText = "Split-Turret Activated";
+					break;
+				//should be nitros replanish
+				case 7:
+					console.log('Nitros!');
+					whichCar.nitroFramesRemaining = NITRO_TIMESPAN;
+					powerupText = "Nitros Activated";
+					break;
 			}
+ 			addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
 
-			// if(tileHere == TRACK_TIMER_POWERUP) {
-			// 	trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
-			// 	timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
-			// }
+		}
+	}
 
-			if(whichCar.name == 'Player' && !playerCar.inTrackPowerup){
-				if(tileHere == TRACK_POWERUP){
-					var random = Math.ceil(Math.random()*7);
-					trackGrid[trackIndexUnderCar] = TRACK_ROAD;
-					playerCar.inTrackPowerup = true;
-					switch(random){
-						//free life
-						case 1:
-							playerLives++;
-							playerCar.health = INITIAL_HEALTH;
-							console.log('Health increase');
-							powerupText = "Health Increase";
-							break;
 
-						case 2:
-							console.log('Timer increase');
-							timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
-							powerupText = "Timer Increase";
-							break;
+		//code for handling car and broken tile collision
+		if(tileHere == TRACK_ROAD_BROKEN){
+			if (!whichCar.isInvincible) {
+					whichCar.ang += 0.25;
+					whichCar.speed = 0;
+					// carHitSound.play();
+					//check if center of car is in tile broken
+					if(!whichCar.inTileBroken && !whichCar.isDead && !whichCar.jumping ){
+						whichCar.health = 0;
+						whichCar.inTileBroken = true;
+						carSuckedSound.play();
 
-						case 3:
-							console.log('Touched a smokescreen powerup!');
-							whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
-							powerupText = "Smokescreen Activated";
-							break;
+          				addDelayedCall(function(){
+							whichCar.myCarPic = wreckedCarPic;
+							whichCar.isDead = true;
+						}, 500);
 
-						case 4:
-							console.log('Invinvibility Mode!');
-							playerCar.isInvincible = true;
-             				 addDelayedCall(function(){playerCar.isInvincible = false;},5000);
-							powerupText = "Shield Activated";
-							break;
-
-						case 5:
-							console.log('You shoot!');
-							playerCar.autoShoot = true;
-             				addDelayedCall(function(){playerCar.autoShoot = false;},5000);
-							powerupText = "Turret Activated";
-							break;
-
-						case 6:
-							console.log('You multi - shoot!');
-							playerCar.splitShoot = true;
-							playerCar.autoShoot = true;
-              				addDelayedCall(function(){playerCar.splitShoot = false;playerCar.autoShoot = false;},5000);
-							powerupText = "Split-Turret Activated";
-							break;
-						//should be nitros replanish
-						case 7:
-							console.log('Nitros!');
-							whichCar.nitroFramesRemaining = NITRO_TIMESPAN;
-							powerupText = "Nitros Activated";
-							break;
-					}
-         			addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
-
-				}
-			}
-
-			// if(tileHere == TRACK_POWERUP_SMOKESCREEN) {
-			// 	console.log('Touched a smokescreen powerup!');
-			// 	trackGrid[trackIndexUnderCar] = TRACK_ROAD; // removes powerup
-			// 	whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
-			// }
-
-			//code for handling car and broken tile collision
-			if(tileHere == TRACK_ROAD_BROKEN){
-				if (!whichCar.isInvincible) {
-						whichCar.ang += 0.25;
-						whichCar.speed = 0;
-						// carHitSound.play();
-						//check if center of car is in tile broken
-						if(!whichCar.inTileBroken && !whichCar.isDead && !whichCar.jumping ){
-							whichCar.health = 0;
-							whichCar.inTileBroken = true;
-							carSuckedSound.play();
-
-              				addDelayedCall(function(){
-								whichCar.myCarPic = wreckedCarPic;
-								whichCar.isDead = true;
-							}, 500);
-
-							if(whichCar.name == 'Player'){
-								  playerResetCondition();
-							}
+						if(whichCar.name == 'Player'){
+							  playerResetCondition();
 						}
-				}
-				else {
-					// When invincible make the car turn randomly.
-         			 whichCar.ang += (Math.random() < 0.5) ? -.25 : .25;
-				}
+					}
 			}
-
-			if(tileHere == TRACK_JUMP_TILE){
-				if(!whichCar.inJumpTile && !whichCar.jumping){
-					whichCar.speed *= 2;
-					carJumpSound.play();
-					whichCar.jumping = true;
-         			 addDelayedCall(function(){whichCar.jumping = false; whichCar.inJumpTile = false;}, 500);
-					whichCar.inJumpTile = true;
-				}
+			else {
+				// When invincible make the car turn randomly.
+     			 whichCar.ang += (Math.random() < 0.5) ? -.25 : .25;
 			}
 		}
 
-		if(!whichCar.stuckOnWall){
-			for(var i = 0; i < whichCar.CollisionPoints.length; i++){
-			 // console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
-			 if( trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, whichCar.name)){
-				carCollisionSound.play();
-				if(!whichCar.isAI) {
-					screenshake(20);
-				}
-				wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
-
-				// @todo see if this way of setting cars back to a previous postion fixes the enemy cars pushing player past walls
-				var test_place_car_back = true;
-				if(!test_place_car_back) {
-					// old way
-					whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
-					whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed;
-				}
-				else
-				{
-					// proposed new way
-					whichCar.pos.x = whichCar.prevPos.x;
-					whichCar.pos.y = whichCar.prevPos.y;
-				}
-
-				whichCar.ang = whichCar.prevAng;
-				whichCar.speed *= -0.5;
-				break;
-			 }
-
-			}//end of collision for loop
+		if(tileHere == TRACK_JUMP_TILE){
+			if(!whichCar.inJumpTile && !whichCar.jumping){
+				whichCar.speed *= 2;
+				carJumpSound.play();
+				whichCar.jumping = true;
+     			 addDelayedCall(function(){whichCar.jumping = false; whichCar.inJumpTile = false;}, 500);
+				whichCar.inJumpTile = true;
+			}
 		}
+	}
+
+	if(!whichCar.stuckOnWall){
+		for(var i = 0; i < whichCar.CollisionPoints.length; i++){
+		 // console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
+		 if( trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, whichCar.name)){
+			carCollisionSound.play();
+			if(!whichCar.isAI) {
+				screenshake(20);
+			}
+			wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
+
+			// @todo see if this way of setting cars back to a previous postion fixes the enemy cars pushing player past walls
+			var test_place_car_back = true;
+			if(!test_place_car_back) {
+				// old way
+				whichCar.pos.x -= Math.cos(whichCar.ang) * whichCar.speed;
+				whichCar.pos.y -= Math.sin(whichCar.ang) * whichCar.speed;
+			}
+			else
+			{
+				// proposed new way
+				whichCar.pos.x = whichCar.prevPos.x;
+				whichCar.pos.y = whichCar.prevPos.y;
+			}
+
+			whichCar.ang = whichCar.prevAng;
+			whichCar.speed *= -0.5;
+			break;
+		 }
+
+		}//end of collision for loop
+	}
 } // end of carTrackHandling func
 
 function findCenterPositionOfTileType(tileTypeToCheck) {
@@ -324,9 +313,6 @@ function drawTracks() {
 			else{
 				useImg = trackPics[tileKindHere];
 			}
-			// if(tileKindHere == TURRET){
-			// 	canvasContext.drawImage(trackPics[TURRET_BACKGROUND],drawTileX,drawTileY);
-			// }
 
 			if(tileKindHere == TRACK_LASER_TOWER) {
 				var turretTick = Math.floor(animTileOscillatorFrame*0.1)%13;
