@@ -1,5 +1,5 @@
 
-const DRIVE_POWER = 0.6;
+// var this.drive_power = 0;
 const REVERSE_POWER = 0.2;
 const NOS_BOOST_MULT = 1.5;
 const TURN_RATE = 0.04;
@@ -10,7 +10,6 @@ const INITIAL_HEALTH = 3;
 const CAR_COLLISION_POINTS = 13;
 var enemyCars = [];
 var ai_distance = 250;
-
 const SMOKESCREEN_RANGE = 128; // distance to a player car with smokescreen to be affected if you're an AI
 const SMOKESCREEN_STEERING_DRIFT = 0.25; // +- this range in radians if an enemy hits smoke it makes steering mistakes
 const SMOKESCREEN_SLOWDOWN_SCALE = 0.25; // ai speed is multiplied by this when distracted by smoke
@@ -106,16 +105,18 @@ function carClass() {
 			this.height = 25;
 			this.weight = 44;
 			this.bulletImg = playerBulletPic;
-			this.trailColor = "rgb(46,148,193)"
+			this.trailColor = "rgb(46,148,193)";
+			this.drive_power = 0.7;
 
 		}
-		else{
+		else if(this.name == "Enemy"){
 			trackValueToCheck = TRACK_ENEMYSTART;
 			this.height = 18;
 			this.weight = 44;
 			this.isAI = true;
 			this.bulletImg = enemyBulletPic;
-			this.trailColor = "rgb(201, 102, 249)"
+			this.trailColor = "rgb(201, 102, 249)";
+			this.drive_power = 0.55;
 			// console.log("Enemy AI is set to " + this.isAI);
 		}
 		placeCarOnTrackTileType(this, trackValueToCheck);
@@ -376,7 +377,7 @@ function carClass() {
 
 		// Acceleration
 		if(this.keyHeld_Gas &&  !this.inTileBroken){
-			this.speed += DRIVE_POWER * boostMult;
+			this.speed += this.drive_power * boostMult;
 		}
 		if(this.keyHeld_Reverse &&  !this.inTileBroken) {
 			this.speed -= REVERSE_POWER * boostMult;

@@ -34,7 +34,8 @@ window.onload = function() {
 	setupInput();
 	mainMenu();
 	menuMusic.loopSong();
-	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic, misfortuneMusic];
+	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic];
+	// misfortuneMusic
 	window.addEventListener('blur', pauseGame);
 	window.addEventListener('focus', continueGame);
 };
@@ -71,7 +72,6 @@ function slowSpeedGame(){
 
 function normalSpeedGame(){
 	if(isPlaying && gameLoop){
-		console.log('slowing game - game feel ;)');
 		clearInterval(gameLoop);
 		framesPerSecond = DEFAULT_FRAME_PER_SEC;
 		msPerFrame = 1000 / framesPerSecond;

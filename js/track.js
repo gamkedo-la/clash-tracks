@@ -54,7 +54,7 @@ const passableTiles =	[
 	TRACK_CHECKPOINT,
 	TRACK_SMOOTH,
 	TRACK_MINE,
-	TRACK_POWERUP
+	TRACK_POWERUP,
 ];
 
 function returnTileTypeAtColRow(col, row) {
