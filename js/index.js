@@ -153,7 +153,7 @@ function resetCheckPoint() {
 }
 
 function carsReset(){
-	playerCar.reset(playerCarPic, "Player");
+	playerCar.reset(playerCarPic, "Player", levelData.playerCarAngle);
 	for(var i = 0; i < numOfEnemiesCars; i++){
 		var enemyCar = new carClass();
 		enemyCar.reset(enemyCarPic, "Enemy");

@@ -77,7 +77,7 @@ function carClass() {
 		}
 	}
 
-	this.reset = function(whichImage, carName) {
+	this.reset = function(whichImage, carName, carAngle = -Math.PI/2){
 		this.isDead = false;
 		this.isInvincible = false;
 		this.autoShoot = false;
@@ -86,7 +86,7 @@ function carClass() {
 		this.health = INITIAL_HEALTH;
 		this.name = carName;
 		this.myCarPic = whichImage;
-		this.ang = -Math.PI/2;
+		this.ang = carAngle;
 		this.prevAng = this.ang;
 		this.speed = 0;
 		this.skidSpeed = 0;
