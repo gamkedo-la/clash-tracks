@@ -173,12 +173,6 @@ function mineDetonatesEffect(x,y, dist = 60.0, ang = 2.0)
     }
 }
 
-function spaceshipBlastEffect(x,y){
-    for (var i=0; i<8; i++) { // fire
-        particles.add(x+randomInt(0,20)-10,y+randomInt(0,20)-10,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+ randomInt(0,130) + "," + randomInt(0,50) + "," + randomInt(170,255)+ ")",0.1,0,Math.random()*1-0.5,Math.random()*1-0.5);
-    }
-}
-
 // smokeScreen Powerup Particles
 const SMOKE_LIFESPAN = 3000; // ms
 const SMOKE_SIZE = 100; // px - unimplemented

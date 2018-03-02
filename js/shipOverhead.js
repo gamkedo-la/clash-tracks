@@ -112,7 +112,8 @@ function shipOverheadClass() {
 		this.health--;
 		if(this.health <= 0){
 			this.remove = true;
-			mineDetonatesEffect(this.pos.x, this.pos.y,20.0,0.5)
+			mineDetonatesEffect(this.pos.x, this.pos.y,20.0,0.5);
+			carHitSound.play();
 
 		}
 	}

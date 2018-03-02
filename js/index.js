@@ -8,7 +8,6 @@ var playerCar = new carClass();
 //Used for testing bullet Collisions. Includes all cars.
 var carList = [playerCar];
 var numOfEnemiesCars = 0;
-var overheadShip = new shipOverheadClass();
 var numOfEnemiesShips = 0;
 var overheadSpaceshipList= [];
 var timeToFinishLevel;
@@ -18,6 +17,7 @@ var backgroundMusicArray;
 var powerupText = "";
 var musicIndex = 0;
 var delayedCallbacks = [];
+var obstacle = new obstacleClass();
 
 
 window.onload = function() {
@@ -201,6 +201,8 @@ function carsReset(){
 		overheadShip.reset();
 		overheadSpaceshipList.push(overheadShip);
 	}
+
+	obstacle.reset();
 	
 }
 
@@ -262,9 +264,6 @@ function moveAll() {
 			overheadSpaceshipList[j].move();
 		}
 	}
-
-	
-
 	updateBullets();
 	removeSpaceship()
 	cameraFollow();
@@ -287,6 +286,7 @@ function drawAll() {
 	particles.draw();
 
 	playerCar.draw();
+	obstacle.draw();
 	for(i = 0; i < enemyCars.length; i++){
 		if(!enemyCars[i].remove){
 			enemyCars[i].draw();

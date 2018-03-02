@@ -29,6 +29,8 @@ const TRACK_FRICTION_SMOOTH = 0.80;
 const TRACK_FRICTION_NORMAL = 0.94;
 const MINE_DAMAGE = 2;
 const TIMER_INCREASE_AMT = 20 * framesPerSecond; // Change digit to number of seconds a powerup adds
+const TRACK_BALL = 21;
+
 
 var trackGrid = [];
 var trackGridCopy = []; //checkpoint
@@ -338,11 +340,13 @@ function drawTracks() {
 							laserSound.play();
 						}
 					}
-
-					spawnBulletWithoutOriginObject(drawTileX+TRACK_W/2,
+					if(animTileOscillatorFrame%2 == 0){
+						spawnBulletWithoutOriginObject(drawTileX+TRACK_W/2,
 													drawTileY+TRACK_H/2,
 													(Math.PI*0.5)*turretTick,
 													TRACK_W/2);
+					}
+					
 				}
 			}
 
