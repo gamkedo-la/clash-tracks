@@ -298,6 +298,15 @@ function positionToIndex(position) {
 	return rowColToArrayIndex(col,row);
 }
 
+function tileVisible(tx,ty) {
+	//console.log("tileVisible "+tx+","+ty+" must be inside " + camPanX+","+camPanY+" and "+camPanX+canvas.width+","+camPanY+canvas.height);
+	return (
+		(tx >= camPanX -TRACK_W) &&
+		(ty >= camPanY - TRACK_H) &&
+		(tx <= camPanX+canvas.width) &&
+		(ty <= camPanY+canvas.height));
+}
+
 function drawTracks() {
 	var arrayIndex = 0;
 	var drawTileX = 0;
@@ -360,7 +369,10 @@ function drawTracks() {
 			// }
 
 			 else {
-				canvasContext.drawImage(useImg,drawTileX,drawTileY);
+				// quick optimization: only draw on-screen tiles
+				if (tileVisible(drawTileX,drawTileY)) {
+					canvasContext.drawImage(useImg,drawTileX,drawTileY);
+				}
 			}
 			drawTileX += TRACK_W;
 			arrayIndex++;

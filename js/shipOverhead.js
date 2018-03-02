@@ -101,6 +101,7 @@ function shipOverheadClass() {
 	}
 
 	this.draw = function() {
+		particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(255,255,32)",0,this.ang-Math.PI);
 		drawBitmapCenteredWithRotation(shipOverheadPic, this.pos.x,this.pos.y, this.ang);
 	}
 }
