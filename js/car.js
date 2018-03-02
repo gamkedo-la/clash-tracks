@@ -1,6 +1,6 @@
 
 // var this.drive_power = 0;
-const REVERSE_POWER = 0.2;
+const REVERSE_POWER = 0.4;
 const NOS_BOOST_MULT = 1.5;
 const TURN_RATE = 0.04;
 const DRIFT_TURN_RATE = 0.18;
