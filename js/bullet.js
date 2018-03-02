@@ -1,15 +1,6 @@
 let bullets = [];
 
-function spawnBulletWithoutOriginObject(fromX,fromY,withAng,startGap) {
-	var tempObj = {pos:{x:fromX+Math.cos(withAng)*startGap,
-						y:fromY+Math.sin(withAng)*startGap},
-					ang: withAng,
-					speed: 0,
-					bulletImg: turretPic};
-	// laserSound.play();
-	bullets.push(new bulletClass(tempObj));
 
-}
 
 var muzzleTicker = 0;
 
@@ -54,6 +45,7 @@ function bulletClass(origin,ang) {
 	this.collisionHandling = function() {
 		this.carHandling();
 		this.brickHandling();
+		this.overheadSpaceshipHandling();
 	}
 
 	this.carHandling = function() {
@@ -66,6 +58,15 @@ function bulletClass(origin,ang) {
 		}
 	}
 
+	this.overheadSpaceshipHandling = function(){
+		for(var i = 0; i < overheadSpaceshipList.length; i++) {
+			if (this.origin == playerCar && playerCar.jumping && overheadSpaceshipList[i].withinDistOfCollision(this.speed *0.9, this.pos.x, this.pos.y)) {
+				this.remove = true;
+				bulletHitWallEffect(this.pos.x,this.pos.y);
+				overheadSpaceshipList[i].gotHurt(this.damage);
+			}
+		}
+	}
 	this.brickHandling = function(){
 		let tileHere = returnTileTypeAtPixelXY(this.pos.x, this.pos.y);
 		if( trackTypeIsPassable(tileHere) == false ) {
@@ -102,3 +103,14 @@ function updateBullets(){
 	} // each bullet
 	removeBullets();
 } // end updateBullets
+
+function spawnBulletWithoutOriginObject(fromX,fromY,withAng,startGap) {
+	var tempObj = {pos:{x:fromX+Math.cos(withAng)*startGap,
+						y:fromY+Math.sin(withAng)*startGap},
+					ang: withAng,
+					speed: 0,
+					bulletImg: turretPic};
+	// laserSound.play();
+	bullets.push(new bulletClass(tempObj));
+
+}

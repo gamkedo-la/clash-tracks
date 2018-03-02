@@ -14,6 +14,9 @@ function shipOverheadClass() {
 	this.followingTarget = false;
 	this.movingToWaypoint = false;
 	this.attackTimer = SHIP_OVERHEAD_ATTACK_RATE;
+	this.health = 3;
+	this.isdead = false;
+	this.remove = false;
 
 	this.reset = function() {
 		placeShipOnTrack(this, TRACK_SHIP_OVERHEAD_START);
@@ -93,10 +96,30 @@ function shipOverheadClass() {
 		}
 	} // end attackTarget
 
+
+	this.withinDistOfCollision = function(dist, testX, testY) {
+
+		var distToShip = distance(this.pos.x, this.pos.y, testX, testY);
+		if (distToShip > shipOverheadPic.width/2) {
+			return;  // nowhere near close enough to bother checking individual points
+		}
+		
+		return true;
+
+	}
+
+	this.gotHurt = function(){
+		this.health--;
+		if(this.health <= 0){
+			this.remove = true;
+			mineDetonatesEffect(this.pos.x, this.pos.y,20.0,0.5)
+
+		}
+	}
+
 	this.move = function() {
 		this.followTarget();
 		this.moveToWayPoint();
-
 		this.attackTarget();
 	}
 
@@ -121,3 +144,12 @@ function placeShipOnTrack(whichShip, tileTypeToCheck) {
 	whichShip.pos = findCenterPositionOfTileType(tileTypeToCheck);
 	setTileAtPositionToType(whichShip.pos, TRACK_ROAD);
 }
+
+
+function removeSpaceship(){
+	for(var i = 0; i < overheadSpaceshipList.length; i++){
+		if(overheadSpaceshipList[i].remove){
+			overheadSpaceshipList.splice(i,1);
+		} // overheadSpaceship to be removed
+	} // each spaceship
+} // end removeSpaceship

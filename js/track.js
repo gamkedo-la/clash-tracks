@@ -8,7 +8,6 @@ const TRACK_WALL = 1;
 const TRACK_PLAYERSTART = 2;
 const TRACK_GOAL = 3;
 const TRACK_CHECKPOINT_FLAG = 4;
-
 const TRACK_BRICKS_BLUE = 5;
 const TRACK_BRICKS_VIOLET = 6;
 const TRACK_ENEMYSTART = 7;
@@ -346,12 +345,6 @@ function drawTracks() {
 													TRACK_W/2);
 				}
 			}
-			// if(tileKindHere == TRACK_POWERUP) {
-			//
-			// 	canvasContext.drawImage(useImg,
-			// 		(Math.floor(animTileOscillatorFrame*0.085)%4)*TRACK_W,0,TRACK_W,TRACK_H,
-			// 		drawTileX,drawTileY,TRACK_W,TRACK_H);
-			// }
 
 			if(tileKindHere == TRACK_MINE) {
 				canvasContext.drawImage(useImg,
@@ -359,16 +352,7 @@ function drawTracks() {
 					drawTileX,drawTileY,TRACK_W,TRACK_H);
 			}
 
-
-			// if(tileKindHere == TRACK_POWERUP_SMOKESCREEN) {
-			// 	canvasContext.drawImage(trackPics[TRACK_ROAD],drawTileX,drawTileY);
-			// 	//canvasContext.drawImage(useImg,
-			// 	//	(Math.floor(animTileOscillatorFrame*0.075)%4)*TRACK_W,0,TRACK_W,TRACK_H,
-			// 	//	drawTileX,drawTileY,TRACK_W,TRACK_H);
-			// 	smokeScreenEffect(drawTileX+TRACK_W/2,drawTileY+TRACK_H/2);
-			// }
-
-			 else {
+			else {
 				// quick optimization: only draw on-screen tiles
 				if (tileVisible(drawTileX,drawTileY)) {
 					canvasContext.drawImage(useImg,drawTileX,drawTileY);

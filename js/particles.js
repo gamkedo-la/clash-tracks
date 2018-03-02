@@ -163,13 +163,19 @@ function bulletHitWallEffect(x,y)
     sparksEffect(x,y);
 }
 
-function mineDetonatesEffect(x,y)
+function mineDetonatesEffect(x,y, dist = 60.0, ang = 2.0)
 {
     for (var i=0; i<15; i++) { // scattered bullet hit walls
-        var randAng = Math.random() * Math.PI * 2.0;
-        var randDist = Math.random() * 60.0;
+        var randAng = Math.random() * Math.PI * ang;
+        var randDist = Math.random() * dist;
         carCollisionEffect(x + Math.cos(randAng)*randDist,
                             y + Math.sin(randAng)*randDist);
+    }
+}
+
+function spaceshipBlastEffect(x,y){
+    for (var i=0; i<8; i++) { // fire
+        particles.add(x+randomInt(0,20)-10,y+randomInt(0,20)-10,particlePic,randomInt(800,1600),randomInt(24,48),"rgb("+ randomInt(0,130) + "," + randomInt(0,50) + "," + randomInt(170,255)+ ")",0.1,0,Math.random()*1-0.5,Math.random()*1-0.5);
     }
 }
 

@@ -257,12 +257,16 @@ function moveAll() {
 		enemyCars[i].move();
 	}
 
-	for(var j = 0; j < numOfOverheadShips; j++){
-		
-		overheadSpaceshipList[j].move();
+	for(var j = 0; j < overheadSpaceshipList.length; j++){
+		if(!overheadSpaceshipList[j].remove){
+			overheadSpaceshipList[j].move();
+		}
 	}
 
+	
+
 	updateBullets();
+	removeSpaceship()
 	cameraFollow();
 }
 
@@ -294,12 +298,13 @@ function drawAll() {
 	// 	}
 	// }
 	drawBullets();
-
-	for(var j = 0; j < numOfOverheadShips; j++){
-		
-		overheadSpaceshipList[j].draw();
+	if(overheadSpaceshipList.length > 0){
+		for(var j = 0; j < overheadSpaceshipList.length; j++){
+			if(!overheadSpaceshipList[j].remove){
+				overheadSpaceshipList[j].draw();
+			}
+		}
 	}
-
 
 	canvasContext.restore(); // undoes the .translate() used for cam scroll
 	
