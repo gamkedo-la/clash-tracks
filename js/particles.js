@@ -191,3 +191,19 @@ function smokeScreenEffect(x,y)
         Math.random()*SMOKE_VEL_RANGE*2-SMOKE_VEL_RANGE);
     
 }
+
+function collectibleEffect(x, y) {
+    var randAng = Math.random() * Math.PI * 2.0;
+    var randDist = Math.random() * 60.0;
+    for (var i = 0; i<100; ++i) {
+        particles.add(x,y,particlePic,500, 200,"rgb(255,0,0)",0.3,0,Math.random()*20-10,Math.random()*20-10);	
+    }
+    for (var i = 0; i<100; ++i) {
+        particles.add(x,y,particlePic,500, 200,"rgb(0,255,0)",0.3,0,Math.random()*20-10,Math.random()*20-10);	
+    }
+    for (var i = 0; i<100; ++i) {
+        particles.add(x,y,particlePic,500, 200,"rgb(0,0,255)",0.3,0,Math.random()*20-10,Math.random()*20-10);	
+    }
+}
+
+
