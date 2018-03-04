@@ -47,6 +47,7 @@ function bulletClass(origin,ang) {
 		this.brickHandling();
 		this.overheadSpaceshipHandling();
 		this.mineHandling();
+		this.obstacleHandling();
 	}
 
 	this.carHandling = function() {
@@ -58,6 +59,17 @@ function bulletClass(origin,ang) {
 			}
 		}
 	}
+
+	this.obstacleHandling = function() {
+		for(var j = 0; j < oscillatingObstacleList.length; j++){
+			if(distance(this.pos.x,this.pos.y, oscillatingObstacleList[j].pos.x, oscillatingObstacleList[j].pos.y) < 30){
+				bulletHitWallEffect(this.pos.x,this.pos.y);
+				this.remove = true;
+			}
+		}
+	}
+	
+
 
 	this.overheadSpaceshipHandling = function(){
 		for(var i = 0; i < overheadSpaceshipList.length; i++) {
