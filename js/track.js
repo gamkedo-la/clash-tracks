@@ -321,12 +321,27 @@ function drawTracks() {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = trackGrid[arrayIndex];
 			var useImg;
-			if(tileKindHere == TRACK_CHECKPOINT || tileKindHere == TRACK_PLAYERSTART){ //Removes checkpoint bug
+			
+			if (trackPics[tileKindHere]) { // does this image exist?
+				useImg = trackPics[tileKindHere];
+			}
+			else {
+				useImg = trackPics[TRACK_ROAD];
+			}
+			
+			/*
+			// old hardcoded version replaced by above
+			// account for missing images: replace with standard road tile
+			if(tileKindHere == TRACK_CHECKPOINT || 
+				tileKindHere == TRACK_PLAYERSTART ||
+				tileKindHere == TRACK_SHIP_OVERHEAD_START ||
+				tileKindHere == TRACK_BALL ){ //Removes checkpoint bug
 				useImg = trackPics[TRACK_ROAD];
 			}
 			else{
 				useImg = trackPics[tileKindHere];
 			}
+			*/
 
 			if(tileKindHere == TRACK_LASER_TOWER) {
 				var turretTick = Math.floor(animTileOscillatorFrame*0.1)%13;
@@ -359,7 +374,10 @@ function drawTracks() {
 			else {
 				// quick optimization: only draw on-screen tiles
 				if (tileVisible(drawTileX,drawTileY)) {
-					canvasContext.drawImage(useImg,drawTileX,drawTileY);
+					if (!useImg)
+						console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!")
+					else
+						canvasContext.drawImage(useImg,drawTileX,drawTileY);
 				}
 			}
 			drawTileX += TRACK_W;
