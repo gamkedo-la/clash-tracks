@@ -126,6 +126,7 @@ function carTrackHandling(whichCar) {
 			trackGrid[trackIndexUnderCar] = TRACK_ROAD;
 			whichCar.inTrackPowerup = true;
 			whichCar.isPowered = true;
+			collectibleEffect(carTrackCol*TRACK_W+TRACK_W/2, carTrackRow*TRACK_H+TRACK_H/2);
 			switch(random){
 				//free life
 				case 1:
