@@ -214,10 +214,70 @@ function keyPressed(evt) {
 			}
 			break;
 
+		// remove this
 		case KEY_1:
 			if(isPlaying){
-				playerCar.splitShoot = !playerCar.splitShoot;
-				playerCar.autoShoot = !playerCar.autoShoot;
+							var random = Math.ceil(Math.random()*7);
+			
+			switch(random){
+				//free life
+				case 1:
+					playerLives++;
+					playerCar.health = INITIAL_HEALTH;
+					console.log('Health increase');
+					powerupText = "Health Increase";
+					playerCar.isPowered = false;
+					break;
+
+				case 2:
+					console.log('Timer increase');
+					timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
+					powerupText = "Timer Increase";
+					playerCar.isPowered = false;
+					break;
+
+				case 3:
+					console.log('Touched a smokescreen powerup!');
+					playerCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
+					powerupText = "Smokescreen Activated";
+					break;
+
+				case 4:
+					console.log('Invinvibility Mode!');
+					playerCar.isInvincible = true;
+     				addDelayedCall(function(){playerCar.isInvincible = false;playerCar.isPowered = false;},5000);
+					powerupText = "Shield Activated";
+					break;
+
+				case 5:
+					console.log('You shoot!');
+					playerCar.autoShoot = true;
+     				addDelayedCall(function(){playerCar.autoShoot = false;playerCar.isPowered = false;},5000);
+					powerupText = "Turret Activated";
+					break;
+
+				case 6:
+					console.log('You multi - shoot!');
+					playerCar.splitShoot = true;
+					playerCar.autoShoot = true;
+					playerCar.bulletImg = splitShootPic;
+      				addDelayedCall(function(){
+      					playerCar.splitShoot = false;
+      					playerCar.autoShoot = false;
+      					playerCar.isPowered = false;
+      					playerCar.bulletImg = playerBulletPic;
+      				},5000);
+					powerupText = "Split-Turret Activated";
+					break;
+				//should be nitros replanish
+				case 7:
+					console.log('Nitros!');
+					playerCar.nitroFramesRemaining = NITRO_TIMESPAN;
+					powerupText = "Nitros Activated";
+      				addDelayedCall(function(){playerCar.isPowered = false;},5000);
+					break;
+			}
+ 			addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
 			}
 			else{
 				if(menuState.isLevelDiv){

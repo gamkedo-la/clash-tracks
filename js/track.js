@@ -152,23 +152,32 @@ function carTrackHandling(whichCar) {
 
 				case 4:
 					console.log('Invinvibility Mode!');
-					playerCar.isInvincible = true;
+					whichCar.isInvincible = true;
      				addDelayedCall(function(){whichCar.isInvincible = false;whichCar.isPowered = false;},5000);
 					powerupText = "Shield Activated";
 					break;
 
 				case 5:
 					console.log('You shoot!');
-					playerCar.autoShoot = true;
+					whichCar.autoShoot = true;
      				addDelayedCall(function(){whichCar.autoShoot = false;whichCar.isPowered = false;},5000);
 					powerupText = "Turret Activated";
 					break;
 
 				case 6:
 					console.log('You multi - shoot!');
-					playerCar.splitShoot = true;
-					playerCar.autoShoot = true;
-      				addDelayedCall(function(){whichCar.splitShoot = false;whichCar.autoShoot = false;whichCar.isPowered = false;},5000);
+					whichCar.splitShoot = true;
+					whichCar.autoShoot = true;
+					whichCar.bulletImg = splitShootPic;
+					shoot_delay = SPLIT_SHOOT_DELAY;
+      				addDelayedCall(function(){
+      					whichCar.splitShoot = false;
+      					whichCar.autoShoot = false;
+      					whichCar.isPowered = false;
+      					whichCar.bulletImg = playerBulletPic;
+      					shoot_delay = DEFAULT_SHOOT_DELAY;
+
+      				},5000);
 					powerupText = "Split-Turret Activated";
 					break;
 				//should be nitros replanish

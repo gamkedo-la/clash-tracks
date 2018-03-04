@@ -11,6 +11,7 @@ var turretPic = document.createElement("img");
 var lightBallPic = document.createElement("img");
 var alienBallPic = document.createElement("img");
 var alienBallAnimPic = document.createElement("img");
+var splitShootPic = document.createElement("img");
 
 
 
@@ -53,6 +54,8 @@ function loadImages() {
 		{varName: lightBallPic, theFile: "lightBall.png"},
 		{varName: alienBallPic, theFile: "alienBall.png"},
 		{varName: alienBallAnimPic, theFile: "alienBallAnim.png"},
+		{varName: splitShootPic, theFile: "splitBullet.png"},
+
 
     	{trackType: TRACK_ROAD, theFile: "track_road.png"},
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},

@@ -13,8 +13,11 @@ var ai_distance = 250;
 const SMOKESCREEN_RANGE = 128; // distance to a player car with smokescreen to be affected if you're an AI
 const SMOKESCREEN_STEERING_DRIFT = 0.25; // +- this range in radians if an enemy hits smoke it makes steering mistakes
 const SMOKESCREEN_SLOWDOWN_SCALE = 0.25; // ai speed is multiplied by this when distracted by smoke
-const DEFAULT_SHOOT_DELAY = 0.1;
+//USED only for PLAYER
+const DEFAULT_SHOOT_DELAY = 0.3;
+const SPLIT_SHOOT_DELAY = 0.18;
 var shoot_delay = DEFAULT_SHOOT_DELAY;
+
 
 //TODO Drift
 //TODO Building stuck jitter.
