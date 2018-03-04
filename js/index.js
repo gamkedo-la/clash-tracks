@@ -20,6 +20,7 @@ var backgroundMusicArray;
 var powerupText = "";
 var musicIndex = 0;
 var delayedCallbacks = [];
+var amtOfNos;
 // var obstacle = new obstacleClass(0,5);
 
 
@@ -34,6 +35,7 @@ window.onload = function() {
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	level = 0;
 	playerLives = 3;
+	amtOfNos = 3
 	loadImages();
 	setupInput();
 	mainMenu();
@@ -141,6 +143,7 @@ function loadLevel(whichLevel) {
 	numOfEnemiesCars = levelData.enemyCars;
 	numOfOverheadShips = levelData.overheadSpaceships;
 	numOfOscillatingObstacles = levelData.oscillatingObstacles;
+	amtOfNos = 3;
 	carsReset();
 	// console.log(currentBackgroundMusic);
 	if(currentBackgroundMusic != undefined)
@@ -341,9 +344,11 @@ function drawAll() {
 		colorText(powerupText,30, 60, '#acacac');
 	}
 
+	colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
+	colorText( playerLives,canvas.width - 30,30,'cyan','right' )
 	colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
 	colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
-  	colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
-	colorText( playerLives,canvas.width - 30,30,'cyan','right' )
+	colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - 30, 90, 'white', 'right');
+	colorText( amtOfNos,canvas.width - 30,90,'cyan','right' )
 
 }

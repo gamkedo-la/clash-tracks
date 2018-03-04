@@ -21,7 +21,7 @@ const TRACK_BUILDING_BLUE = 23;
 const TRACK_BUILDING_VIOLET = 27;
 const TRACK_POWERUP = 29;
 const SMOKESCREEN_TIMESPAN = 300; // in FRAMES
-const NITRO_TIMESPAN = 180; // in FRAMES
+const NITRO_TIMESPAN = 100; // in FRAMES
 const TRACK_MINE = 50;
 const TRACK_LASER_TOWER = 51;
 const TRACK_SHIP_OVERHEAD_START = 90;
@@ -183,9 +183,8 @@ function carTrackHandling(whichCar) {
 				//should be nitros replanish
 				case 7:
 					console.log('Nitros!');
-					whichCar.nitroFramesRemaining = NITRO_TIMESPAN;
-					powerupText = "Nitros Activated";
-      				addDelayedCall(function(){whichCar.isPowered = false;},5000);
+					amtOfNos++;
+					powerupText = "Nitros Picked up";
 					break;
 			}
  			addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);

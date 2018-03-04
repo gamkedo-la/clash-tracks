@@ -16,6 +16,7 @@ const KEY_P = 80;
 const KEY_H = 72;
 const KEY_C = 67;
 const KEY_M = 77;
+const KEY_N = 78;
 const KEY_SHIFT = 16;
 const KEY_ENTER = 13;
 const KEY_ESC = 27;
@@ -147,6 +148,18 @@ function keyPressed(evt) {
 			}
       		evt.preventDefault();
 			break;
+
+		case KEY_N:
+			if (isPlaying) {
+				if(amtOfNos > 0){
+					amtOfNos--;
+					playerCar.nitroFramesRemaining = NITRO_TIMESPAN;
+				}				
+	        }
+	        evt.preventDefault();
+			break;
+		case KEY_SHIFT:
+		
 
 		case KEY_ESC:
 		case KEY_P:
