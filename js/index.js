@@ -21,6 +21,10 @@ var powerupText = "";
 var musicIndex = 0;
 var delayedCallbacks = [];
 var amtOfNos;
+var loseScreenDisplay = false;
+var winScreenDisplay = false;
+
+
 // var obstacle = new obstacleClass(0,5);
 
 
@@ -291,64 +295,75 @@ function moveAll() {
 
 
 function drawAll() {
-	canvasContext.save(); // needed to undo this .translate() used for scroll
-    // this next line is like subtracting camPanX and camPanY from every
-    // canvasContext draw operation up until we call canvasContext.restore
-    // this way we can just draw them at their "actual" position coordinates
+	if(loseScreenDisplay){
+		colorRect(0,0, canvas.width, canvas.height, "violet");
+		colorText("You have failed us",canvas.width/2, canvas.height/2, 'cyan', 'center' );
+	}
 
-    canvasContext.translate(-camPanX,-camPanY);
-	drawTracks();
-	playerCar.drawShadow(playerCar.shadowColor);
-	//To draw shadow underneath particles
-	for(var i = 0; i < enemyCars.length; i++){
-		enemyCars[i].drawShadow(enemyCars[i].shadowColor)
+	if(winScreenDisplay){
+
 	}
-	particles.draw();
-	playerCar.draw();
-	for(i = 0; i < enemyCars.length; i++){
-		if(!enemyCars[i].remove){
-			enemyCars[i].draw();
+
+	else{
+		canvasContext.save(); // needed to undo this .translate() used for scroll
+	    // this next line is like subtracting camPanX and camPanY from every
+	    // canvasContext draw operation up until we call canvasContext.restore
+	    // this way we can just draw them at their "actual" position coordinates
+
+	    canvasContext.translate(-camPanX,-camPanY);
+		drawTracks();
+		playerCar.drawShadow(playerCar.shadowColor);
+		//To draw shadow underneath particles
+		for(var i = 0; i < enemyCars.length; i++){
+			enemyCars[i].drawShadow(enemyCars[i].shadowColor)
 		}
-	}
-	drawBullets();
-	for(var k = 0; k < oscillatingObstacleList.length; k++){
-		oscillatingObstacleList[k].draw();
-	}
-	// for(i = 0; i < enemyCars.length; i++){
-	// 	if(enemyCars[i].remove){
-	// 		enemyCars.slice(i,1);
-	// 	}
-	// }
-	
-	if(overheadSpaceshipList.length > 0){
-		for(var j = 0; j < overheadSpaceshipList.length; j++){
-			if(!overheadSpaceshipList[j].remove){
-				overheadSpaceshipList[j].draw();
+		particles.draw();
+		playerCar.draw();
+		for(i = 0; i < enemyCars.length; i++){
+			if(!enemyCars[i].remove){
+				enemyCars[i].draw();
 			}
 		}
-	}
+		drawBullets();
+		for(var k = 0; k < oscillatingObstacleList.length; k++){
+			oscillatingObstacleList[k].draw();
+		}
+		// for(i = 0; i < enemyCars.length; i++){
+		// 	if(enemyCars[i].remove){
+		// 		enemyCars.slice(i,1);
+		// 	}
+		// }
+		
+		if(overheadSpaceshipList.length > 0){
+			for(var j = 0; j < overheadSpaceshipList.length; j++){
+				if(!overheadSpaceshipList[j].remove){
+					overheadSpaceshipList[j].draw();
+				}
+			}
+		}
 
-	canvasContext.restore(); // undoes the .translate() used for cam scroll
-	
-	var time = Math.ceil(timeToFinishLevel / framesPerSecond)
-	colorText("TIME: " , 30, 30, 'white');
+		canvasContext.restore(); // undoes the .translate() used for cam scroll
+		
+		var time = Math.ceil(timeToFinishLevel / framesPerSecond)
+		colorText("TIME: " , 30, 30, 'white');
 
-	if(time <= 10){
-		colorText(time, canvasContext.measureText("TIME: ").width + 20, 30, '#ee00ee');
-	}
-	else{
-		colorText(time, canvasContext.measureText("TIME: ").width + 20, 30, 'cyan');
-	}
+		if(time <= 10){
+			colorText(time, canvasContext.measureText("TIME: ").width + 20, 30, '#ee00ee');
+		}
+		else{
+			colorText(time, canvasContext.measureText("TIME: ").width + 20, 30, 'cyan');
+		}
 
-	if(powerupText != ""){
-		colorText(powerupText,30, 60, '#acacac');
-	}
+		if(powerupText != ""){
+			colorText(powerupText,30, 60, '#acacac');
+		}
 
-	colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
-	colorText( playerLives,canvas.width - 30,30,'cyan','right' )
-	colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
-	colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
-	colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - 30, 90, 'white', 'right');
-	colorText( amtOfNos,canvas.width - 30,90,'cyan','right' )
+		colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
+		colorText( playerLives,canvas.width - 30,30,'cyan','right' );
+		colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
+		colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
+		colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - 30, 90, 'white', 'right');
+		colorText( amtOfNos,canvas.width - 30,90,'cyan','right' );
+	}
 
 }

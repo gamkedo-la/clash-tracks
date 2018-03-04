@@ -575,7 +575,9 @@ function playerResetCondition(){
 					}
 					else{
 						playerCar.resetAngle = 0;
-						resetLevel();
+						level = 0;
+						loadLevel(level);
+						loseScreenDisplay = true;
 					}
 				}, 1000);
 }
