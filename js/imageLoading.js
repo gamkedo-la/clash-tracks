@@ -10,6 +10,8 @@ var dropBombPic = document.createElement("img");
 var turretPic = document.createElement("img");
 var lightBallPic = document.createElement("img");
 var alienBallPic = document.createElement("img");
+var alienBallAnimPic = document.createElement("img");
+
 
 
 
@@ -50,6 +52,7 @@ function loadImages() {
 		{varName: turretPic, theFile: "turret.png"},
 		{varName: lightBallPic, theFile: "lightBall.png"},
 		{varName: alienBallPic, theFile: "alienBall.png"},
+		{varName: alienBallAnimPic, theFile: "alienBallAnim.png"},
 
     	{trackType: TRACK_ROAD, theFile: "track_road.png"},
 		{trackType: TRACK_WALL, theFile: "track_wall.png"},

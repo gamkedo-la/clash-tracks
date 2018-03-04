@@ -17,7 +17,7 @@ var backgroundMusicArray;
 var powerupText = "";
 var musicIndex = 0;
 var delayedCallbacks = [];
-var obstacle = new obstacleClass();
+var obstacle = new obstacleClass(0,5);
 
 
 window.onload = function() {
@@ -264,8 +264,9 @@ function moveAll() {
 			overheadSpaceshipList[j].move();
 		}
 	}
+	obstacle.move();
 	updateBullets();
-	removeSpaceship()
+	removeSpaceship();
 	cameraFollow();
 }
 
