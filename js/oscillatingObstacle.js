@@ -1,4 +1,6 @@
 const OBSTACLE_COLLISION_POINTS = 4;
+var counter = 0;
+setInterval(function(){counter++}, 400)
 
 function obstacleClass(velocityX = 5, velocityY= 0) {
 	this.pos = vector.create(0, 0);
@@ -7,13 +9,14 @@ function obstacleClass(velocityX = 5, velocityY= 0) {
 	this.width = 52;
 	this.height = 51;
 	this.CollisionPoints = initializeCollisionPoints(OBSTACLE_COLLISION_POINTS);
-	var counter = 0;
+	
+	this.frameNow = 0;
 
 
 	this.reset = function() {
 		
 		// this.pic = alienBallAnimPic;
-		this.pic = alienBallPic;
+		this.pic = alienBallAnimPic;
 
 		for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
@@ -46,19 +49,21 @@ function obstacleClass(velocityX = 5, velocityY= 0) {
 	}
 
 	this.draw = function() {
-		drawBitmapCenteredWithRotation(this.pic, this.pos.x,this.pos.y, this.ang);
+		// drawBitmapCenteredWithRotation(this.pic, this.pos.x,this.pos.y, this.ang);
 		
-		counter++;
+		// counter++;
 		
 		// canvasContext.drawImage(this.pic,
 		// 			0,0,this.width,this.height,
 		// 			this.pos.x,this.pos.y,this.width,this.height);
-
-		// canvasContext.drawImage(this.pic,
-	 //                        this.frameNow * this.width, 0,
-	 //                        this.width, this.height,
-	 //                        this.pos.x - this.width / 2, this.pos.y - this.height,
-	 //                        this.animPicWidth, this.animPicHeight
+		
+		// 1, 2, 3, 4
+		this.frameNow = counter%4;
+		canvasContext.drawImage(this.pic,
+	                        this.frameNow * this.width + this.frameNow*2, 0,
+	                        this.width, this.height,
+	                        this.pos.x - this.width / 2, this.pos.y - this.height/2,
+	                        this.width, this.height)
 	}
 }
 
