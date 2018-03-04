@@ -70,8 +70,7 @@ input[type=range] {
   -webkit-appearance: none;
   width: 100%;
   margin: 9.5px 0;
-  background-color: hsl(0,85%,92%)
-
+  background-color: hsl(0,85%,92%);
 }
 @-moz-document url-prefix() {
    input[type=range] {
@@ -158,3 +157,8 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #67204b;
 }
+
+
+/* fix for ms edge not displaying the slider */
+#musicVolume, #soundVolume { display:block; width:256px; height:32px;  }
+

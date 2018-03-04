@@ -1,6 +1,6 @@
 var vector = {
-	_x: 1,
-	_y: 0,
+	x: 1,
+	y: 0,
 
 	create: function(x, y) {
 		var obj = Object.create(this);
@@ -10,74 +10,74 @@ var vector = {
 	},
 
 	setX: function(value) {
-		this._x = value;
+		this.x = value;
 	},
 
 	getX: function() {
-		return this._x;
+		return this.x;
 	},
 
 	setY: function(value) {
-		this._y = value;
+		this.y = value;
 	},
 
 	getY: function() {
-		return this._y;
+		return this.y;
 	},
 
 	setAngle: function(angle) {
 		var length = this.getLength();
-		this._x = Math.cos(angle) * length;
-		this._y = Math.sin(angle) * length;
+		this.x = Math.cos(angle) * length;
+		this.y = Math.sin(angle) * length;
 	},
 
 	getAngle: function() {
-		return Math.atan2(this._y, this._x);
+		return Math.atan2(this.y, this.x);
 	},
 
 	setLength: function(length) {
 		var angle = this.getAngle();
-		this._x = Math.cos(angle) * length;
-		this._y = Math.sin(angle) * length;
+		this.x = Math.cos(angle) * length;
+		this.y = Math.sin(angle) * length;
 	},
 
 	getLength: function() {
-		return Math.sqrt(this._x * this._x + this._y * this._y);
+		return Math.sqrt(this.x * this.x + this.y * this.y);
 	},
 
 	add: function(v2) {
-		return vector.create(this._x + v2.getX(), this._y + v2.getY());
+		return vector.create(this.x + v2.getX(), this.y + v2.getY());
 	},
 
 	subtract: function(v2) {
-		return vector.create(this._x - v2.getX(), this._y - v2.getY());
+		return vector.create(this.x - v2.getX(), this.y - v2.getY());
 	},
 
 	multiply: function(val) {
-		return vector.create(this._x * val, this._y * val);
+		return vector.create(this.x * val, this.y * val);
 	},
 
 	divide: function(val) {
-		return vector.create(this._x / val, this._y / val);
+		return vector.create(this.x / val, this.y / val);
 	},
 
 	addTo: function(v2) {
-		this._x += v2.getX();
-		this._y += v2.getY();
+		this.x += v2.getX();
+		this.y += v2.getY();
 	},
 
 	subtractFrom: function(v2) {
-		this._x -= v2.getX();
-		this._y -= v2.getY();
+		this.x -= v2.getX();
+		this.y -= v2.getY();
 	},
 
 	multiplyBy: function(val) {
-		this._x *= val;
-		this._y *= val;
+		this.x *= val;
+		this.y *= val;
 	},
 
 	divideBy: function(val) {
-		this._x /= val;
-		this._y /= val;
+		this.x /= val;
+		this.y /= val;
 	}
 };

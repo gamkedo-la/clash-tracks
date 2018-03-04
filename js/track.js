@@ -322,12 +322,27 @@ function drawTracks() {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = trackGrid[arrayIndex];
 			var useImg;
-			if(tileKindHere == TRACK_CHECKPOINT || tileKindHere == TRACK_PLAYERSTART){ //Removes checkpoint bug
+			
+			if (trackPics[tileKindHere]) { // does this image exist?
+				useImg = trackPics[tileKindHere];
+			}
+			else {
+				useImg = trackPics[TRACK_ROAD];
+			}
+			
+			/*
+			// old hardcoded version replaced by above
+			// account for missing images: replace with standard road tile
+			if(tileKindHere == TRACK_CHECKPOINT || 
+				tileKindHere == TRACK_PLAYERSTART ||
+				tileKindHere == TRACK_SHIP_OVERHEAD_START ||
+				tileKindHere == TRACK_BALL ){ //Removes checkpoint bug
 				useImg = trackPics[TRACK_ROAD];
 			}
 			else{
 				useImg = trackPics[tileKindHere];
 			}
+			*/
 
 			if(tileKindHere == TRACK_LASER_TOWER) {
 				var turretTick = Math.floor(animTileOscillatorFrame*0.1)%13;
@@ -360,7 +375,10 @@ function drawTracks() {
 			else {
 				// quick optimization: only draw on-screen tiles
 				if (tileVisible(drawTileX,drawTileY)) {
-					canvasContext.drawImage(useImg,drawTileX,drawTileY);
+					if (!useImg)
+						console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!")
+					else
+						canvasContext.drawImage(useImg,drawTileX,drawTileY);
 				}
 			}
 			drawTileX += TRACK_W;
@@ -409,61 +427,7 @@ function trackTypeIsPassable(checkTrackType)
 	return false;
 } // end trackTypeIsPassable
 
-function updateCollisionPoints(whichCar){
-{	//Center Point
-	 whichCar.CollisionPoints[0].x = whichCar.pos.x;
-	 whichCar.CollisionPoints[0].y = whichCar.pos.y;
 
-	 //top Collision
-	 whichCar.CollisionPoints[1].x = whichCar.pos.x +  Math.cos(whichCar.ang)* whichCar.width/2;
-	 whichCar.CollisionPoints[1].y = whichCar.pos.y + Math.sin(whichCar.ang)* whichCar.width/2;;
-
-	 //bottom collision
-	 whichCar.CollisionPoints[2].x = whichCar.pos.x - Math.cos(whichCar.ang)*whichCar.width/2;
-	 whichCar.CollisionPoints[2].y = whichCar.pos.y - Math.sin(whichCar.ang)* whichCar.width/2;;
-
-	 //left collision
-	 whichCar.CollisionPoints[3].x = whichCar.pos.x  + Math.sin(whichCar.ang)*whichCar.height/2; ;
-	 whichCar.CollisionPoints[3].y = whichCar.pos.y - Math.cos(whichCar.ang)*whichCar.height/2;
-
-	 //right collision
-	 whichCar.CollisionPoints[4].x = whichCar.pos.x  - Math.sin(whichCar.ang)*whichCar.height/2;
-	 whichCar.CollisionPoints[4].y = whichCar.pos.y + Math.cos(whichCar.ang)*whichCar.height/2;
-
-	 //top right corner collision body
-	 whichCar.CollisionPoints[5].x = whichCar.pos.x +  Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
-	 whichCar.CollisionPoints[5].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
-
-	 //top left corner collision body
-	 whichCar.CollisionPoints[6].x = whichCar.pos.x + Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
-	 whichCar.CollisionPoints[6].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
-
-	 //bottom left corner collision body
-	 whichCar.CollisionPoints[7].x = whichCar.pos.x -  Math.cos(whichCar.ang)* whichCar.width/4 +  Math.sin(whichCar.ang)* whichCar.width/4;
-	 whichCar.CollisionPoints[7].y = whichCar.pos.y - Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
-
-	 //bottom right corner collision body
-	 whichCar.CollisionPoints[8].x = whichCar.pos.x - Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
-	 whichCar.CollisionPoints[8].y = whichCar.pos.y + Math.cos(whichCar.ang)* whichCar.width/4 -  Math.sin(whichCar.ang)* whichCar.width/4;
-
-	 //Collision points between middle and corner.
-	 //top right corner collision body
-	 whichCar.CollisionPoints[9].x = whichCar.pos.x +  Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3;
-	 whichCar.CollisionPoints[9].y = whichCar.pos.y + Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; ;
-
-	 // top left corner collision body
-	 whichCar.CollisionPoints[10].x = whichCar.pos.x + Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
-	 whichCar.CollisionPoints[10].y = whichCar.pos.y - Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
-
-	 //bottom left corner collision body
-	 whichCar.CollisionPoints[11].x = whichCar.pos.x -  Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 +  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3;
-	 whichCar.CollisionPoints[11].y = whichCar.pos.y - Math.cos(whichCar.ang - Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang - Math.PI/7)* whichCar.width/3; ;
-
-	 //bottom right corner collision body
-	 whichCar.CollisionPoints[12].x = whichCar.pos.x - Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
-	 whichCar.CollisionPoints[12].y = whichCar.pos.y + Math.cos(whichCar.ang + Math.PI/7)* whichCar.width/3 -  Math.sin(whichCar.ang + Math.PI/7)* whichCar.width/3;
-}
-}
 //goal Check is used to check goal collision is checked only for player car.
 function trackCollisionCheck(x,y,goalCheck){
 	var carTrackCol = Math.floor(x / TRACK_W);
@@ -508,3 +472,22 @@ function loadNextLevel() {
 		resetLevel();
 	}
 }
+
+
+function obstacleTrackHandling(whichObstacle){
+	for(var i = 0; i < whichObstacle.CollisionPoints.length; i++){
+		 	var obstacleTrackCol = Math.floor((whichObstacle.pos.x) /TRACK_W);
+			var obstacleTrackRow = Math.floor((whichObstacle.pos.y)/TRACK_H);
+			var trackIndexUnderCar = rowColToArrayIndex(obstacleTrackCol, obstacleTrackRow);
+			
+			if(obstacleTrackCol >= 0 && obstacleTrackCol < TRACK_COLS &&
+				obstacleTrackRow >= 0 && obstacleTrackRow < TRACK_ROWS) {
+				var tileHere = returnTileTypeAtColRow( obstacleTrackCol,obstacleTrackRow );
+				return !trackTypeIsPassable(tileHere)
+				
+			}
+	
+	}
+
+}
+

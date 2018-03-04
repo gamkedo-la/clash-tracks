@@ -46,6 +46,7 @@ function bulletClass(origin,ang) {
 		this.carHandling();
 		this.brickHandling();
 		this.overheadSpaceshipHandling();
+		this.mineHandling();
 	}
 
 	this.carHandling = function() {
@@ -81,6 +82,17 @@ function bulletClass(origin,ang) {
 		}
   	} // en brickHandling
 
+  	this.mineHandling = function(){ // Blows up mine when shot
+  		var bulletCol = Math.floor((this.pos.x) /TRACK_W);
+		var bulletRow = Math.floor((this.pos.y)/TRACK_H);
+		var trackIndexAtBullet = rowColToArrayIndex(bulletCol, bulletRow);
+  		if(trackGrid[trackIndexAtBullet] == TRACK_MINE) {
+			trackGrid[trackIndexAtBullet] = TRACK_ROAD;
+			mineDetonatesEffect(bulletCol*TRACK_W+TRACK_W/2,
+								bulletRow*TRACK_H+TRACK_H/2);
+			boomSound.play();	
+		}
+  	}
 }
 
 function drawBullets(){
