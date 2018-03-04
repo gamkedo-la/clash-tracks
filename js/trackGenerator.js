@@ -15,14 +15,14 @@ function generateRandomTrack(w,h) {
         TRACK_JUMP_TILE,
         TRACK_SMOOTH,
         TRACK_ROAD_BROKEN,
-        TRACK_TIMER_POWERUP,
+//        TRACK_TIMER_POWERUP,
 //        TURRET_BACKGROUND,
         TRACK_BUILDING_RED,
         TRACK_BUILDING_BLUE,
         TRACK_BUILDING_VIOLET,
-        SKYSCRAPER_VIOLET,
+//        SKYSCRAPER_VIOLET,
         TRACK_POWERUP,
-        TRACK_POWERUP_SMOKESCREEN
+//        TRACK_POWERUP_SMOKESCREEN
     ];
 
     var numCoolThings = Math.round(w*h/10); // 10% coverage

@@ -26,8 +26,10 @@ function obstacleClass(velocityX = 5, velocityY= 0) {
 				} // end of player start if
 			} // end of col for
 		} // end of row for
-		console.log("NO OBSTACLE START FOUND!");
-	} // end of obstacleReset func
+
+		console.log("NO TRACK_BALL TILE FOUND");
+	} // end of carReset func
+
 
 	this.move = function() {
 		// console.log(this.pos.x);
