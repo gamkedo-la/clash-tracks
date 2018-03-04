@@ -13,6 +13,8 @@ var ai_distance = 250;
 const SMOKESCREEN_RANGE = 128; // distance to a player car with smokescreen to be affected if you're an AI
 const SMOKESCREEN_STEERING_DRIFT = 0.25; // +- this range in radians if an enemy hits smoke it makes steering mistakes
 const SMOKESCREEN_SLOWDOWN_SCALE = 0.25; // ai speed is multiplied by this when distracted by smoke
+const DEFAULT_SHOOT_DELAY = 0.1;
+var shoot_delay = DEFAULT_SHOOT_DELAY;
 
 //TODO Drift
 //TODO Building stuck jitter.
@@ -70,8 +72,8 @@ function carClass() {
 		if(this.name == 'Player'){
 			shootSound.play();
 			if(this.splitShoot){
-				bullets.push(new bulletClass(this, this.ang + 0.5));
-				bullets.push(new bulletClass(this, this.ang - 0.5));
+				bullets.push(new bulletClass(this, this.ang + 0.3));
+				bullets.push(new bulletClass(this, this.ang - 0.3));
 			}
 		}
 		else{
@@ -227,7 +229,7 @@ function carClass() {
 
 		//only for player car.
 		else{
-				if(playerCar.autoShoot && Math.random() < 0.2){
+				if(playerCar.autoShoot && Math.random() < shoot_delay){
 						playerCar.shoot()
 				}
 		}

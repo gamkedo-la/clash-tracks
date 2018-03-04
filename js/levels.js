@@ -17,7 +17,7 @@ var  levels = [
                 rows: 12, 
                 cols: 20, 
                 enemyCars: 1, 
-                timeLimit: 1 * 100 * framesPerSecond,
+                timeLimit: 1 * 300 * framesPerSecond,
                 playerCarAngle : -Math.PI/3,
                 overheadSpaceships: 0,
                 oscillatingObstacles: 2
@@ -52,7 +52,7 @@ var  levels = [
                 rows: 24, 
                 cols: 20, 
                 enemyCars: 1, 
-                timeLimit: 1 * 100 * framesPerSecond,
+                timeLimit: 1 * 300 * framesPerSecond,
                 playerCarAngle : Math.PI/2,
                 overheadSpaceships: 0
               }, 
@@ -93,7 +93,7 @@ var  levels = [
                 rows: 31,
                 cols: 20,
                 enemyCars: 1,
-                timeLimit: 1 * 29 * framesPerSecond,
+                timeLimit: 1 * 300 * framesPerSecond,
                 playerCarAngle : -Math.PI/2,
                 overheadSpaceships: 1
               },
@@ -140,7 +140,7 @@ var  levels = [
                 rows: 36, 
                 cols: 20, 
                 enemyCars: 1, 
-                timeLimit: 1 * 50 * framesPerSecond,
+                timeLimit: 1 * 300 * framesPerSecond,
                 playerCarAngle : -Math.PI/2,
                 overheadSpaceships: 1
               }, 
@@ -185,7 +185,7 @@ var  levels = [
                 rows: 35,
                 cols: 25,
                 enemyCars: 3,
-                timeLimit: 1 * 100 * framesPerSecond,
+                timeLimit: 1 * 300 * framesPerSecond,
                 playerCarAngle : 0,
                 overheadSpaceships: 1
               },
@@ -234,7 +234,7 @@ var  levels = [
                 rows: 38,
                 cols: 26,
                 enemyCars: 2,
-                timeLimit: 1 * 50 * framesPerSecond,
+                timeLimit: 1 * 300 * framesPerSecond,
                 playerCarAngle : -Math.PI,
                 overheadSpaceships: 2,
                 oscillatingObstacles: 1
