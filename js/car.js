@@ -574,10 +574,10 @@ function playerResetCondition(){
 						}
 					}
 					else{
-						playerCar.resetAngle = 0;
-						level = 0;
-						loadLevel(level);
-						loseScreenDisplay = true;
+						// Note: Moved existing code from this else to input.js lines 226-229. Erase comment if no issue caused.
+						resetLevel();
+						pauseGame();
+						gameOverScreen();
 					}
 				}, 1000);
 }

@@ -17,6 +17,7 @@ const KEY_H = 72;
 const KEY_C = 67;
 const KEY_M = 77;
 const KEY_N = 78;
+const KEY_Y = 89;
 const KEY_SHIFT = 16;
 const KEY_ENTER = 13;
 const KEY_ESC = 27;
@@ -26,6 +27,7 @@ const KEY_2 = 50;
 const KEY_3 = 51;
 const KEY_4 = 52;
 const KEY_5 = 53;
+
 
 
 var mouseX = 0;
@@ -154,7 +156,9 @@ function keyPressed(evt) {
 				if(amtOfNos > 0){
 					amtOfNos--;
 					playerCar.nitroFramesRemaining = NITRO_TIMESPAN;
-				}				
+				} 				
+	        } else { // Returns user to main menu if on Game Over screen
+	        	mainMenu();
 	        }
 	        evt.preventDefault();
 			break;
@@ -214,6 +218,18 @@ function keyPressed(evt) {
 				if(menuState.isPlayMenuDiv){
 					menuLevel(0)
 				}
+			}
+			break;
+
+		case KEY_Y:
+			if(isGameOver) {
+				playerCar.resetAngle = 0;
+				level = 0;
+				loadLevel(level);
+				loseScreenDisplay = true;
+				isGameOver = false;
+				continueGame();
+				currentBackgroundMusic.startOrStopMusic();
 			}
 			break;
 
