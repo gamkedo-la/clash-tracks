@@ -59,8 +59,8 @@ function carClass() {
 	this.invincibleAngle = 0;
 	this.splitShoot = false;
 	this.isFollowing = false;
+	this.resetAngle = 0;
 	var leftPos = rightPos = frontPos = vector.create();
-
 
 	// Clear tracks when creating a new car
 	if (window.tireTracks) tireTracks.reset();
@@ -564,8 +564,12 @@ function playerResetCondition(){
 					if(playerLives > 1){
 						playerLives--;
 						resetCheckPoint();
+						if(playerCar.resetAngle!=0){
+							playerCar.ang = playerCar.resetAngle;
+						}
 					}
 					else{
+						playerCar.resetAngle = 0;
 						resetLevel();
 					}
 				}, 1000);

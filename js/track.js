@@ -448,6 +448,7 @@ function trackCollisionCheck(x,y,goalCheck){
 				}
 			}
 			trackGridCopy[trackIndexUnderCar] = TRACK_PLAYERSTART; //add new player start
+			playerCar.resetAngle = playerCar.ang;
 		}
 
 		if(goalCheck){
