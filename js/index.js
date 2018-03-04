@@ -44,7 +44,7 @@ window.onload = function() {
 	setupInput();
 	mainMenu();
 	menuMusic.loopSong();
-	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic];
+	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic, escapeToCoreMusic];
 	// misfortuneMusic
 	window.addEventListener('blur', pauseGame);
 	window.addEventListener('focus', continueGame);

@@ -16,6 +16,7 @@ var menuMusic = new backgroundMusicClass("./audio/Funky Menu");
 var draftMonkMusic = new backgroundMusicClass("./audio/draft monk - ambience");
 var varyzeMusic = new backgroundMusicClass("./audio/Varyze");
 var misfortuneMusic = new backgroundMusicClass("./audio/misfortune");
+var escapeToCoreMusic = new backgroundMusicClass("./audio/escape-to-the-core");
 
 
 var currentBackgroundMusic;
