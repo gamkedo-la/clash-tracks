@@ -30,7 +30,7 @@ function obstacleClass(velocityX = 5, velocityY= 0) {
 			} // end of col for
 		} // end of row for
 
-		console.log("NO TRACK_BALL TILE FOUND");
+		console.log("NO OBSTACLE BALL FOUND");
 	} // end of carReset func
 
 

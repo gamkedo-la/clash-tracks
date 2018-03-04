@@ -422,15 +422,18 @@ function carClass() {
 
 	this.carObstacleHandling = function(){
 		for(var i = 0; i < this.CollisionPoints.length; i++){
-			if(distance(this.CollisionPoints[i].x,this.CollisionPoints[i].y, obstacle.pos.x, obstacle.pos.y) < 25){
-					this.health--;
+			for(var j = 0; j < oscillatingObstacleList.length; j++){
+				if(distance(this.CollisionPoints[i].x,this.CollisionPoints[i].y, oscillatingObstacleList[j].pos.x, oscillatingObstacleList[j].pos.y) < 25){
 					this.speed *= 0.5
 					this.pos.x -= Math.cos(this.ang) * this.speed ;
 					this.pos.y -= Math.sin(this.ang) * this.speed ;
-					this.carHealthCheck(this);
-					carCollisionEffect(this.pos.x, this.pos.y) 
-
+					if(this.name == "Player" && !this.isDead && this.health > 0 && !this.isInvincible){
+						this.health--;
+						this.carHealthCheck(this);
+						carCollisionEffect(this.pos.x, this.pos.y);
+					}
 				}
+			}
 		}
 	}
 

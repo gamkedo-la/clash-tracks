@@ -7,7 +7,7 @@ var  levels = [
                                 1, 10,  0, 0,  0, 11,  0,  0,  0,  0,  0,  0,  0,  0, 11,  0,  0,  0,  0,  1, 
                                 1, 10,  0,  0,  0,  0,  0,  0, 29,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, 
                                 1, 10, 50,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, 
-                                1,  0,  0, 51,  0,  0,  9,  0,  0,  0,  9,  0,  0,  0,  0,  0,  0,  0,  0,  1, 
+                                1,  0,  0, 51,  0,  0,  9, 21,  0,  0,  9,  0,  0,  0,  0,  0,  0,  0,  0,  1, 
                                 1,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 11,  0,  0,  0,  0,  1, 
                                 1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 10,  0,  0,  0,  0,  0,  0,  1, 
                                 1,  0,  0,  0,  0, 11,  0,  0,  0,  0,  0, 10, 10,  0,  0,  0,  0,  0,  0,  1, 
@@ -19,7 +19,8 @@ var  levels = [
                 enemyCars: 1, 
                 timeLimit: 1 * 100 * framesPerSecond,
                 playerCarAngle : -Math.PI/3,
-                overheadSpaceships: 0
+                overheadSpaceships: 0,
+                oscillatingObstacles: 2
 
               }, 
               //level 1
@@ -235,7 +236,8 @@ var  levels = [
                 enemyCars: 2,
                 timeLimit: 1 * 50 * framesPerSecond,
                 playerCarAngle : -Math.PI,
-                overheadSpaceships: 2
+                overheadSpaceships: 2,
+                oscillatingObstacles: 1
               },
 
            //level 6 - long and thin

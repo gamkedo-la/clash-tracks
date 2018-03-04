@@ -9,7 +9,10 @@ var playerCar = new carClass();
 var carList = [playerCar];
 var numOfEnemiesCars = 0;
 var numOfEnemiesShips = 0;
+var numOfOscillatingObstacles = 0;
 var overheadSpaceshipList= [];
+var oscillatingObstacleList= [];
+
 var timeToFinishLevel;
 var level;
 var playerLives = 3;
@@ -17,7 +20,7 @@ var backgroundMusicArray;
 var powerupText = "";
 var musicIndex = 0;
 var delayedCallbacks = [];
-var obstacle = new obstacleClass(0,5);
+// var obstacle = new obstacleClass(0,5);
 
 
 window.onload = function() {
@@ -137,6 +140,7 @@ function loadLevel(whichLevel) {
 	timeToFinishLevel = levelData.timeLimit;
 	numOfEnemiesCars = levelData.enemyCars;
 	numOfOverheadShips = levelData.overheadSpaceships;
+	numOfOscillatingObstacles = levelData.oscillatingObstacles;
 	carsReset();
 	// console.log(currentBackgroundMusic);
 	if(currentBackgroundMusic != undefined)
@@ -164,7 +168,9 @@ function levelDataReset(){
 		carList.pop();
 	}
 
-	overheadSpaceshipList = []
+	overheadSpaceshipList = [];
+	oscillatingObstacleList = [];
+
 	bullets = [];
 	particles.clear();
 	ai_distance = 250;
@@ -180,6 +186,7 @@ function resetCheckPoint() {
 	track_rows = levelData.rows;
 	numOfEnemiesCars = levelData.enemyCars;
 	numOfOverheadShips = levelData.overheadSpaceships;
+	numOfOscillatingObstacles = levelData.oscillatingObstacles;
 	carsReset();
 
 }
@@ -202,7 +209,14 @@ function carsReset(){
 		overheadSpaceshipList.push(overheadShip);
 	}
 
-	obstacle.reset();
+	for(var k = 0; k < numOfOscillatingObstacles; k++){
+		var velocity = [{x: 5, y: 0}, {x : 0, y: 5}];
+		var obstacleVelocity = velocity[Math.floor(Math.random()*velocity.length)];
+		var obstacle = new obstacleClass(obstacleVelocity.x,obstacleVelocity.y);
+		obstacle.reset();
+		oscillatingObstacleList.push(obstacle);
+	}
+
 	
 }
 
@@ -264,7 +278,9 @@ function moveAll() {
 			overheadSpaceshipList[j].move();
 		}
 	}
-	obstacle.move();
+	for(var k = 0; k < oscillatingObstacleList.length; k++){
+		oscillatingObstacleList[k].move();
+	}
 	updateBullets();
 	removeSpaceship();
 	cameraFollow();
@@ -285,20 +301,22 @@ function drawAll() {
 		enemyCars[i].drawShadow(enemyCars[i].shadowColor)
 	}
 	particles.draw();
-
 	playerCar.draw();
-	obstacle.draw();
 	for(i = 0; i < enemyCars.length; i++){
 		if(!enemyCars[i].remove){
 			enemyCars[i].draw();
 		}
+	}
+	drawBullets();
+	for(var k = 0; k < oscillatingObstacleList.length; k++){
+		oscillatingObstacleList[k].draw();
 	}
 	// for(i = 0; i < enemyCars.length; i++){
 	// 	if(enemyCars[i].remove){
 	// 		enemyCars.slice(i,1);
 	// 	}
 	// }
-	drawBullets();
+	
 	if(overheadSpaceshipList.length > 0){
 		for(var j = 0; j < overheadSpaceshipList.length; j++){
 			if(!overheadSpaceshipList[j].remove){
