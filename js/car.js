@@ -147,10 +147,12 @@ function carClass() {
 				screenshake(15);
 			}
 			carCollisionEffect(this.pos.x, this.pos.y);
-			this.health -= damageDealt;
-			ai_distance = 150; // To show ai knows it has been hit and follows player.
-			console.log("New health is " + this.health + " due to damage " + damageDealt);
-			this.carHealthCheck(this);
+			if(this.health > 0){
+				this.health -= damageDealt;
+				ai_distance = 150; // To show ai knows it has been hit and follows player.
+				console.log("New health is " + this.health + " due to damage " + damageDealt);
+				this.carHealthCheck(this);
+			}		
 		}			
 	}
 

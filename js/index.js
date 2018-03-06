@@ -217,6 +217,7 @@ function resetCheckPoint() {
 	numOfEnemiesCars = levelData.enemyCars;
 	numOfOverheadShips = levelData.overheadSpaceships;
 	numOfOscillatingObstacles = levelData.oscillatingObstacles;
+	amtOfNos = 100;
 	carsReset();
 
 }

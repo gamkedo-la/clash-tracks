@@ -182,8 +182,8 @@ function carTrackHandling(whichCar) {
 				//should be nitros replanish
 				case 7:
 					console.log('Nitros!');
-					amtOfNos++;
-					powerupText = "Nitros Picked up";
+					amtOfNos = 100;
+					powerupText = "Nitros Refilled";
 					break;
 			}
  			addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
