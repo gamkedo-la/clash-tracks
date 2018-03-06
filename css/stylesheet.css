@@ -30,6 +30,10 @@ div {
   text-align:center; line-height:32px; padding-top:64px;
 }
 
+div#Credits{
+  padding: 40px;
+}
+
 #Options table{
   margin:auto;
 }

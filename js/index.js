@@ -24,6 +24,8 @@ var amtOfNos;
 var loseScreenDisplay = false;
 var winScreenDisplay = false;
 
+const DEFAULT_NOS_AMT = 60;
+
 
 
 
@@ -41,7 +43,7 @@ window.onload = function() {
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	level = 0;
 	playerLives = 3;
-	amtOfNos = 100;
+	amtOfNos = DEFAULT_NOS_AMT;
 	loadImages();
 	setupInput();
 	mainMenu();
@@ -159,7 +161,7 @@ function loadLevel(whichLevel) {
 	numOfEnemiesCars = levelData.enemyCars;
 	numOfOverheadShips = levelData.overheadSpaceships;
 	numOfOscillatingObstacles = levelData.oscillatingObstacles;
-	amtOfNos = 100;
+	amtOfNos = DEFAULT_NOS_AMT;
 	carsReset();
 	playerCar.resetAngle = 0;
 
@@ -217,7 +219,7 @@ function resetCheckPoint() {
 	numOfEnemiesCars = levelData.enemyCars;
 	numOfOverheadShips = levelData.overheadSpaceships;
 	numOfOscillatingObstacles = levelData.oscillatingObstacles;
-	amtOfNos = 100;
+	amtOfNos = DEFAULT_NOS_AMT;
 	carsReset();
 
 }
@@ -376,14 +378,14 @@ function drawAll() {
 
 		colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
 		colorText( playerLives,canvas.width - 30,30,'cyan','right' );
-		colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
-		colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
-		colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - 30, 90, 'white', 'right');
-		colorText( Math.floor(amtOfNos),canvas.width - 30,90,'cyan','right' );
+		// colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
+		// colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
+		colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - 30, 60, 'white', 'right');
+		colorText( Math.floor(amtOfNos),canvas.width - 30, 60,'cyan','right' );
 }
 
 function playerNosReplenish(){
-	if(amtOfNos < 100){
+	if(amtOfNos < DEFAULT_NOS_AMT){
 		amtOfNos++;
 	}
 }

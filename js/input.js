@@ -253,7 +253,8 @@ function keyPressed(evt) {
 				//should be nitros replanish
 				case 7:
 					console.log('Nitros!');
-					playerCar.nitroFramesRemaining = NITRO_TIMESPAN;
+					// playerCar.nitroFramesRemaining = NITRO_TIMESPAN;
+					amtOfNos = 100;
 					powerupText = "Nitros Activated";
       				addDelayedCall(function(){playerCar.isPowered = false;},5000);
 					break;

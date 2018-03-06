@@ -14,7 +14,7 @@ const SMOKESCREEN_RANGE = 128; // distance to a player car with smokescreen to b
 const SMOKESCREEN_STEERING_DRIFT = 0.25; // +- this range in radians if an enemy hits smoke it makes steering mistakes
 const SMOKESCREEN_SLOWDOWN_SCALE = 0.25; // ai speed is multiplied by this when distracted by smoke
 //USED only for PLAYER
-const DEFAULT_SHOOT_DELAY = 0.3;
+const DEFAULT_SHOOT_DELAY = 0.2;
 const SPLIT_SHOOT_DELAY = 0.18;
 var shoot_delay = DEFAULT_SHOOT_DELAY;
 
@@ -201,13 +201,12 @@ function carClass() {
 				this.steeringForAI();
 			}
 			
-			
 			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y)
 					&& !debug && !this.isDead
 					&& !playerCar.isDead
 					&& !this.inTileBroken) {
 
-					if(distancePlayerEnemy < ai_distance  ){
+					if(distancePlayerEnemy < ai_distance){
 
 							// this.keyHeld_Gas = true;
 							var dx = playerCar.pos.x - this.pos.x;
@@ -233,8 +232,8 @@ function carClass() {
 
 		//only for player car.
 		else{
-				if(playerCar.autoShoot && Math.random() < shoot_delay){
-						playerCar.shoot()
+				if(playerCar.autoShoot){
+						this.keyHeld_Shooting = Math.random() < shoot_delay
 				}
 		}
 
@@ -283,10 +282,10 @@ function carClass() {
 		}
 
 		if (this.isInvincible) {
-	      this.invincibleAngle -= .13;
-	      if (this.invincibleAngle < 0) {
-	      	this.invincibleAngle = Math.PI * 2;
-				}
+	     	this.invincibleAngle -= .13;
+	      	if (this.invincibleAngle < 0) {
+		      	this.invincibleAngle = Math.PI * 2;
+			}
 		}
 
 
