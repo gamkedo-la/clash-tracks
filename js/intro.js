@@ -94,5 +94,7 @@ function gameOverScreen() {
 	drawStory(gameOverArray);
 	canvasContext.globalAlpha = 1;
 	isGameOver = true;
+	// Need to put user entered name and actual score in as variables in updateLeaderboard()
+	// updateLeaderboard("WoweeThatWorked", 10);
 }
 
