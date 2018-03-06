@@ -4,12 +4,7 @@ var StoryArray = [
 					["The rebellion had occurred many times", "but all efforts have been thwarted", " by the superior minds."],
 					["According to a Legend the only way", "to defeat the superior minds ", "is by destroying their core and"],
 					[" there is only one person strong", "enough to complete this challenge","It's You"]
-				];
-var gameOverArray =[
-					 ["GAME OVER"],
-					 [],
-					 ["Try again? [Y]es or [N]o"]
-				];		
+				];	
 
 var fontSize = 20;
 var leadingBuffer = 10; // The vertical space between lines of text
@@ -88,13 +83,5 @@ function skipStory() {
 	introDone();
 }
 
-function gameOverScreen() {
-	colorRect(0,0, canvas.width,canvas.height, '#0e0015');
-	canvasContext.globalAlpha = 1;
-	drawStory(gameOverArray);
-	canvasContext.globalAlpha = 1;
-	isGameOver = true;
-	// Need to put user entered name and actual score in as variables in updateLeaderboard()
-	// updateLeaderboard("WoweeThatWorked", 10);
-}
+
 
