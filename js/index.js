@@ -70,7 +70,10 @@ function pauseGame() {
 	    isPlaying = false;
 	    clearInterval(gameLoop);
 	    gameLoop = false;
-	    colorText('Game paused!', canvas.width / 2, canvas.height / 2, 'white', 'center', "40px '04b30'");
+	    colorText('Game paused!', canvas.width / 2, canvas.height / 2 - 60, 'white', 'center', "40px '04b30'");
+	    colorText('[M] for Main Menu', canvas.width / 2, canvas.height / 2 , '#acacac', 'center', "24px 'audiowide'");
+	    colorText('[P] to resume', canvas.width / 2, canvas.height / 2 + 30, '#acacac', 'center', "24px 'audiowide'");
+
 	    currentBackgroundMusic.pauseSound();
 	    menuMusic.loopSong();
   	}
@@ -106,11 +109,14 @@ function normalSpeedGame(){
 function continueGame() {
 
 	if (gameHasStarted && !gameLoop) {
-	    console.log('Continue game');
-	    isPlaying = true;
-	    gameLoop = setInterval(updateAll, msPerFrame);
-	    menuMusic.pauseSound();
-	    currentBackgroundMusic.startOrStopMusic();
+	    console.log('Resuming...');
+	    setTimeout(function(){
+			isPlaying = true;
+		    gameLoop = setInterval(updateAll, msPerFrame);
+		    menuMusic.pauseSound();
+		    currentBackgroundMusic.startOrStopMusic();
+	    }, 500)
+	   
   	}
 
 }
@@ -149,6 +155,8 @@ function loadLevel(whichLevel) {
 	numOfOscillatingObstacles = levelData.oscillatingObstacles;
 	amtOfNos = 3;
 	carsReset();
+	playerCar.resetAngle = 0;
+
 	// console.log(currentBackgroundMusic);
 	if(currentBackgroundMusic != undefined)
 			currentBackgroundMusic.pauseSound();
@@ -211,6 +219,7 @@ function resetCheckPoint() {
 function carsReset(){
 
 	playerCar.reset(playerCarPic, "Player", levelData.playerCarAngle);
+
 
 	for(var i = 0; i < numOfEnemiesCars; i++){
 		var enemyCar = new carClass();
@@ -304,16 +313,7 @@ function moveAll() {
 
 
 function drawAll() {
-	if(loseScreenDisplay){
-		colorRect(0,0, canvas.width, canvas.height, "violet");
-		colorText("You have failed us",canvas.width/2, canvas.height/2, 'cyan', 'center' );
-	}
 
-	if(winScreenDisplay){
-
-	}
-
-	else{
 		canvasContext.save(); // needed to undo this .translate() used for scroll
 	    // this next line is like subtracting camPanX and camPanY from every
 	    // canvasContext draw operation up until we call canvasContext.restore
@@ -373,6 +373,6 @@ function drawAll() {
 		colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
 		colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - 30, 90, 'white', 'right');
 		colorText( amtOfNos,canvas.width - 30,90,'cyan','right' );
-	}
+	
 
 }

@@ -162,9 +162,6 @@ function keyPressed(evt) {
 	        }
 	        evt.preventDefault();
 			break;
-		case KEY_SHIFT:
-		
-
 		case KEY_ESC:
 		case KEY_P:
 			if(menuState.isMenuDiv){
@@ -361,10 +358,8 @@ function keyPressed(evt) {
 			break;
 			
 		case KEY_M:
-			if(isPlaying){
-			}
-			else{
-					mainMenu();
+			if(!isPlaying){
+				mainMenu();
 			}
 			break;
 	}
