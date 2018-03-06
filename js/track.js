@@ -122,7 +122,7 @@ function carTrackHandling(whichCar) {
 
 	if(whichCar.name == 'Player' && !whichCar.inTrackPowerup){
 		if(tileHere == TRACK_POWERUP && !whichCar.isPowered){
-			var random = Math.ceil(Math.random()*7);
+			var random =  getRandomInt(1, 8)
 			trackGrid[trackIndexUnderCar] = TRACK_ROAD;
 			whichCar.inTrackPowerup = true;
 			whichCar.isPowered = true;
