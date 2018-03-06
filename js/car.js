@@ -282,7 +282,7 @@ function carClass() {
 		}
 
     	this.nitroFramesRemaining -= 1;
-
+       
 		if (this.isInvincible) {
 	      this.invincibleAngle -= .13;
 	      if (this.invincibleAngle < 0) {
@@ -378,8 +378,9 @@ function carClass() {
 		this.speed *= this.friction;
 		// Boosts
 		var boostMult = 1.0;
-		if(this.keyHeld_Nos || (0 < this.nitroFramesRemaining)){
+		if(this.keyHeld_Nos && amtOfNos >0 || (0 < this.nitroFramesRemaining) ){
 			boostMult *= NOS_BOOST_MULT;
+			amtOfNos--;
 		}
 		// Acceleration
 		if(this.keyHeld_Gas &&  !this.inTileBroken){

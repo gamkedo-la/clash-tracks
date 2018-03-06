@@ -25,6 +25,8 @@ var loseScreenDisplay = false;
 var winScreenDisplay = false;
 
 
+
+
 // var obstacle = new obstacleClass(0,5);
 
 
@@ -39,7 +41,7 @@ window.onload = function() {
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
 	level = 0;
 	playerLives = 3;
-	amtOfNos = 3
+	amtOfNos = 100;
 	loadImages();
 	setupInput();
 	mainMenu();
@@ -59,6 +61,7 @@ function startGame() {
 	loadLevel(level);
 	isPlaying = true;
     gameLoop = setInterval(updateAll, msPerFrame);
+    playerNosReplenishLoop = setInterval(playerNosReplenish, msPerFrame*8);
 
 }
 
@@ -69,6 +72,7 @@ function pauseGame() {
 	    console.log('Pause game');
 	    isPlaying = false;
 	    clearInterval(gameLoop);
+	    clearInterval(playerNosReplenishLoop);
 	    gameLoop = false;
 	    colorText('Game paused!', canvas.width / 2, canvas.height / 2 - 60, 'white', 'center', "40px '04b30'");
 	    colorText('[M] for Main Menu', canvas.width / 2, canvas.height / 2 , '#acacac', 'center', "24px 'audiowide'");
@@ -86,9 +90,11 @@ function slowSpeedGame(){
 	if(isPlaying && gameLoop){
 		console.log('slowing game - game feel ;)');
 		clearInterval(gameLoop);
+		clearInterval(playerNosReplenishLoop);
 		framesPerSecond = 12;
 		msPerFrame = 1000 / framesPerSecond;
 		gameLoop = setInterval(updateAll, msPerFrame);
+		playerNosReplenishLoop = setInterval(playerNosReplenish, msPerFrame*8);
 	}
 
 }
@@ -98,11 +104,12 @@ function normalSpeedGame(){
 
 	if(isPlaying && gameLoop){
 		clearInterval(gameLoop);
+		clearInterval(playerNosReplenishLoop);
 		framesPerSecond = DEFAULT_FRAME_PER_SEC;
 		msPerFrame = 1000 / framesPerSecond;
 		gameLoop = setInterval(updateAll, msPerFrame);
+		playerNosReplenishLoop = setInterval(playerNosReplenish, msPerFrame*8);
 	}
-
 }
 
 
@@ -113,12 +120,11 @@ function continueGame() {
 	    setTimeout(function(){
 			isPlaying = true;
 		    gameLoop = setInterval(updateAll, msPerFrame);
+		    playerNosReplenishLoop = setInterval(playerNosReplenish, msPerFrame*8);
 		    menuMusic.pauseSound();
 		    currentBackgroundMusic.startOrStopMusic();
-	    }, 500)
-	   
+	    }, 500)  
   	}
-
 }
 
 function togglePause() {
@@ -153,7 +159,7 @@ function loadLevel(whichLevel) {
 	numOfEnemiesCars = levelData.enemyCars;
 	numOfOverheadShips = levelData.overheadSpaceships;
 	numOfOscillatingObstacles = levelData.oscillatingObstacles;
-	amtOfNos = 3;
+	amtOfNos = 100;
 	carsReset();
 	playerCar.resetAngle = 0;
 
@@ -372,7 +378,11 @@ function drawAll() {
 		colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
 		colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
 		colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - 30, 90, 'white', 'right');
-		colorText( amtOfNos,canvas.width - 30,90,'cyan','right' );
-	
+		colorText( Math.floor(amtOfNos),canvas.width - 30,90,'cyan','right' );
+}
 
+function playerNosReplenish(){
+	if(amtOfNos < 100){
+		amtOfNos++;
+	}
 }
