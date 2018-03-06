@@ -28,30 +28,11 @@ const KEY_3 = 51;
 const KEY_4 = 52;
 const KEY_5 = 53;
 
-
-
-var mouseX = 0;
-var mouseY = 0;
-
 function setupInput() {
 	// canvas.addEventListener('mousemove', updateMousePos);
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 }
-
-// function updateMousePos(evt) {
-// 	var rect = canvas.getBoundingClientRect();
-// 	var root = document.documentElement;
-
-// 	mouseX = evt.clientX - rect.left - root.scrollLeft;
-// 	mouseY = evt.clientY - rect.top - root.scrollTop;
-
-// 	// cheat / hack to test car in any position
-// 	/*carX = mouseX;
-// 	carY = mouseY;
-// 	carSpeedX = 4;
-// 	carSpeedY = -4;*/
-// }
 
 function keySet(evt, setTo){
 	
@@ -101,6 +82,7 @@ function keyPressed(evt) {
 
 	switch(evt.keyCode){
 
+		//isplaying actually works only on playscreen.
 		case KEY_R:
 			if (isPlaying) {
 				resetCheckPoint();
@@ -120,18 +102,6 @@ function keyPressed(evt) {
       		evt.preventDefault();
 			break;
 
-		case KEY_I:
-			if (debug && isPlaying) {
-				playerCar.isInvincible = !playerCar.isInvincible;
-		        evt.preventDefault();
-		    }
-			break;
-
-		case KEY_U:
-			toggleScreenShake();
-    		evt.preventDefault();
-			break;
-
 		case KEY_ENTER:
 			if (isPlaying) {
 				console.log("Level Changing..");
@@ -147,17 +117,6 @@ function keyPressed(evt) {
       		evt.preventDefault();
 			break;
 
-		case KEY_N:
-			if (isPlaying) {
-				if(amtOfNos > 0){
-					amtOfNos--;
-					playerCar.nitroFramesRemaining = NITRO_TIMESPAN;
-				} 				
-	        } else { // Returns user to main menu if on Game Over screen
-	        	mainMenu();
-	        }
-	        evt.preventDefault();
-			break;
 		case KEY_ESC:
 		case KEY_P:
 			if(menuState.isMenuDiv){
@@ -310,8 +269,6 @@ function keyPressed(evt) {
 
 		case KEY_2:
 			if(isPlaying){
-				playerCar.isInvincible = !playerCar.isInvincible;
-
 			}
 			else{
 				if(menuState.isLevelDiv){
@@ -322,9 +279,6 @@ function keyPressed(evt) {
 
 		case KEY_3:
 			if(isPlaying){
-				playerCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
-				powerupText = "Smokescreen Activated";
-				playerCar.isPowered = true;
 			}
 			else{
 				if(menuState.isLevelDiv){

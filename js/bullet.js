@@ -1,7 +1,4 @@
 let bullets = [];
-
-
-
 var muzzleTicker = 0;
 
 function bulletClass(origin,ang) {

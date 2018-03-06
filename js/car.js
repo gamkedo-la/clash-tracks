@@ -103,7 +103,6 @@ function carClass() {
 		this.skidAngle = 0;
 		this.keyHeld_Nos = false;
 		this.smokeScreenFramesRemaining = 0;
-		this.nitroFramesRemaining = 0;
 		this.invincibleAngle = 0;
 	
 		if (!this.invinciblePic) {
@@ -281,8 +280,6 @@ function carClass() {
 			smokeScreenEffect(this.pos.x,this.pos.y);
 		}
 
-    	this.nitroFramesRemaining -= 1;
-       
 		if (this.isInvincible) {
 	      this.invincibleAngle -= .13;
 	      if (this.invincibleAngle < 0) {
@@ -378,7 +375,7 @@ function carClass() {
 		this.speed *= this.friction;
 		// Boosts
 		var boostMult = 1.0;
-		if(this.keyHeld_Nos && amtOfNos >0 || (0 < this.nitroFramesRemaining) ){
+		if(this.keyHeld_Nos && amtOfNos >0){
 			boostMult *= NOS_BOOST_MULT;
 			amtOfNos--;
 		}
