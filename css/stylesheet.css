@@ -31,8 +31,9 @@ div {
 }
 
 div#Credits{
-  padding: 40px;
+  padding: 10px;
 }
+
 
 #Options table{
   margin:auto;
@@ -50,7 +51,7 @@ div#Credits{
 }
 */
 
-body #MainGame-Menu, #MainGame-Menu div {background-color: #fcdbdb}
+body #MainGame-Menu, #MainGame-Menu > div, div {background-color: #fcdbdb}
 
 #MainGame-Menu, #gameCanvas{
   margin-top: 0px;
