@@ -44,7 +44,7 @@ function particleSystem() {
             p.x = x;
             p.y = y;
             p.inactive = false;
-            p.sprite = sprite;
+            p.sprite = tintImage(sprite, color);
             p.size = size;
             p.life = life;
             p.birth = (new Date()).getTime();
@@ -106,7 +106,6 @@ function particleSystem() {
     {
         if (!PARTICLES_ENABLED) return;
 
-        var drew = 0;
         particle.forEach(
             function (p) {
                 if (!p.inactive &&
@@ -114,20 +113,17 @@ function particleSystem() {
                         (drawTheFrontLayer && p.drawInFrontOfEverything)) // muzzle flashes, in front of cars
                 ) // FIXME: check if visible for better perf
                 {
-                    drew++;
-                    //drawImageRotatedAlpha(
-                    drawImageTinted(
+                    drawImageRotatedAlpha(
+                    //drawImageTinted(
                         canvasContext,
                         p.sprite,
                         p.x, 
                         p.y,
                         p.angle,
-                        p.color,
                         p.alpha);
                 }
             }
         );
-        //console.log('drew'+drew);
     }
 
     this.clear = function(){
@@ -180,8 +176,14 @@ function bulletHitWallEffect(x,y)
     sparksEffect(x,y);
 }
 
-function mineDetonatesEffect(x,y, dist = 60.0, ang = 2.0)
+function mineDetonatesEffect(x,y, dist, ang)
 {
+    if (dist === undefined) {
+        dist = 60.0;
+    }
+    if (ang === undefined) {
+        ang = 2.0;
+    }
     for (var i=0; i<15; i++) { // scattered bullet hit walls
         var randAng = Math.random() * Math.PI * ang;
         var randDist = Math.random() * dist;
