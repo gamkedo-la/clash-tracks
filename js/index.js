@@ -363,13 +363,14 @@ function drawAll() {
 		canvasContext.restore(); // undoes the .translate() used for cam scroll
 		
 		var time = Math.ceil(timeToFinishLevel / framesPerSecond)
-		colorText("TIME: " , 30, 30, 'white');
+		var timeText = (isHighScoreMode ? "SCORE: " : "TIME: ");
+		colorText(timeText , 30, 30, 'white');
 
 		if(time <= 10){
-			colorText(time, canvasContext.measureText("TIME: ").width + 20, 30, '#ee00ee');
+			colorText(time, canvasContext.measureText(timeText).width + 20, 30, '#ee00ee');
 		}
 		else{
-			colorText(time, canvasContext.measureText("TIME: ").width + 20, 30, 'cyan');
+			colorText(time, canvasContext.measureText(timeText).width + 20, 30, 'cyan');
 		}
 
 		if(powerupText != ""){
