@@ -31,9 +31,21 @@ const DEFAULT_NOS_AMT = 60;
 
 // var obstacle = new obstacleClass(0,5);
 
+var levelNames = ["Demo","Small","Fast","Furious","Large","Zig Zag","Long Road","Random"];
+
+function regenerateLevelMenu() {
+	var levelSelectMenu = document.getElementById('Levels');
+	var levelSelectMenuFirstLine = '<h1 class = "animated bounceInLeft">LEVEL SELECT:</h1>';
+	var levelSelectMenuLastLine = '<br><br><a href="#" onclick="mainMenu()" class = "animated bounceInRight">[M]ain Menu</a>';
+	levelSelectMenu.innerHTML = levelSelectMenuFirstLine;
+	for(var i=0;i<levelNames.length;i++) {
+		levelSelectMenu.innerHTML += "<a href='#' onclick='menuLevel("+i+")'>["+i+"] "+levelNames[i]+"</a>"
+	}
+	levelSelectMenu.innerHTML += levelSelectMenuLastLine;
+}
 
 window.onload = function() {
-
+	regenerateLevelMenu();
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 	canvas.width = 700;
@@ -150,7 +162,11 @@ function loadLevel(whichLevel) {
 	//clearing previously saved objects and data
 	menuMusic.pauseSound();
 	levelDataReset();
-	playerLives = 3;
+	if(isHighScoreMode) {
+		playerLives = 1;
+	} else {
+		playerLives = 3;
+	}
 	//loading level data to current level
 	levelData = levels[whichLevel];
 	trackGrid = levelData.trackLayout.slice();
