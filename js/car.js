@@ -18,7 +18,6 @@ const DEFAULT_SHOOT_DELAY = 0.2;
 const SPLIT_SHOOT_DELAY = 0.18;
 var shoot_delay = DEFAULT_SHOOT_DELAY;
 
-
 //TODO Drift
 //TODO Building stuck jitter.
 
@@ -65,6 +64,9 @@ function carClass() {
 	this.splitShoot = false;
 	this.isFollowing = false;
 	this.resetAngle = 0;
+
+	this.aiReloadLock = 0;
+
 	var leftPos = rightPos = frontPos = vector.create();
 
 	// Clear tracks when creating a new car
@@ -195,7 +197,7 @@ function carClass() {
 
 			//need to change AI angle to match angle of player car
 			//check what is 45 degree to the right and left of it.
-			this.keyHeld_Gas = true;
+			this.keyHeld_Gas = Math.random()<0.7; // speed penalty so it can't as aggressively smack into player
 			this.setAIMovementPoints();
 			if(!this.isFollowing){
 				this.steeringForAI();
@@ -209,14 +211,21 @@ function carClass() {
 					if(distancePlayerEnemy < ai_distance){
 
 							// this.keyHeld_Gas = true;
-							var dx = playerCar.pos.x - this.pos.x;
+							/*var dx = playerCar.pos.x - this.pos.x;
 							var dy = playerCar.pos.y - this.pos.y;
 
-							var angle = Math.atan2(dy, dx);
-							this.keyHeld_Shooting = Math.random() < 0.2;
+							var angle = Math.atan2(dy, dx);*/
+							this.keyHeld_Shooting = (this.aiReloadLock-- < 0);
+							if(this.keyHeld_Shooting > 0) {
+								this.aiReloadLock = 20;
+							}
 							this.isFollowing = true;
-							this.ang = angle;
-							
+							var forwardX = Math.cos(this.ang) * 40.0;
+							var forwardY = Math.sin(this.ang) * 40.0;
+
+							var turnDiff = -(playerCar.pos.y - this.pos.y) * forwardX + (playerCar.pos.x - this.pos.x) * forwardY;
+							var maxTurnRadius = 0.075;
+							this.ang += (turnDiff < 0 ? maxTurnRadius : -maxTurnRadius);
 					}
 			}
 			else if (!debug || !this.isDead || !playerCar.isDead || !this.inTileBroken){
