@@ -460,7 +460,12 @@ function trackCollisionCheck(x,y,goalCheck){
 
 		if(goalCheck){
 			if(tileHere == TRACK_GOAL) {
-				loadNextLevel();
+				if(isHighScoreMode) {
+					compareOrUpdateBestTime();
+					mainMenu();
+				} else {
+					loadNextLevel();
+				}
 			}
 		}
 

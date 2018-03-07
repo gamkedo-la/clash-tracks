@@ -337,15 +337,15 @@ function carClass() {
 	}
 
 	this.steeringForAI = function(){
-			if(trackCollisionCheck(frontPos.x, frontPos.y, goalCheck = false)){
+			if(trackCollisionCheck(frontPos.x, frontPos.y, false)){
 				this.ang += 0.5;
 			}
 
-			if(trackCollisionCheck(leftPos.x, leftPos.y, goalCheck = false)){
+			if(trackCollisionCheck(leftPos.x, leftPos.y, false)){
 				this.ang += 0.15;
 			}
 
-			if(trackCollisionCheck(rightPos.x, rightPos.y, goalCheck = false)){
+			if(trackCollisionCheck(rightPos.x, rightPos.y, false)){
 				this.ang -= 0.15;
 			}
 	}

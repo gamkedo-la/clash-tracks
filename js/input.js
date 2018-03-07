@@ -13,6 +13,7 @@ const KEY_L = 76;
 const KEY_U = 85;
 const KEY_I = 73;
 const KEY_P = 80;
+const KEY_B = 66;
 const KEY_H = 72;
 const KEY_C = 67;
 const KEY_M = 77;
@@ -126,7 +127,17 @@ function keyPressed(evt) {
         		togglePause();
 			}
 			break;
-
+		case KEY_B:
+			if(isPlaying){
+				//Pause screen function
+			}
+			else{
+				if(menuState.isPlayMenuDiv){
+					highScoreModePlay();
+				}
+			}
+			break;
+			break
 		case KEY_H:
 			if(isPlaying){
 				//Pause screen function
@@ -134,9 +145,6 @@ function keyPressed(evt) {
 			else{
 				if(menuState.isMenuDiv){
 					menuHelp();
-				}
-				if(menuState.isPlayMenuDiv){
-					highScoreModePlay();
 				}
 			}
 			break;
@@ -176,7 +184,9 @@ function keyPressed(evt) {
 		case KEY_Y:
 			if(isGameOver) {
 				playerCar.resetAngle = 0;
-				level = 0;
+				if(isHighScoreMode == false) {
+					level = 0;
+				}
 				loadLevel(level);
 				loseScreenDisplay = true;
 				isGameOver = false;

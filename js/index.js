@@ -32,15 +32,49 @@ const DEFAULT_NOS_AMT = 60;
 // var obstacle = new obstacleClass(0,5);
 
 var levelNames = ["Demo","Small","Fast","Furious","Large","Zig Zag","Long Road","Random"];
+var levelIndex;
+var bestTimeToBeat = 300;
+function getBestLevelTime(index) {
+	var localStorageName = "highScore_"+levelNames[index]; // name instead of index in case we rearrange array/order
+	var oldHighScore = localStorage.getItem(localStorageName);
+    if ((oldHighScore === "null") || (oldHighScore == null)) {
+        localStorage.setItem(localStorageName, 300);
+    }
+    var scoreVal = parseInt(localStorage.getItem(localStorageName));
+    return (scoreVal < 300 ? scoreVal : "No Record");
+}
+
+function compareOrUpdateBestTime() {
+	var localStorageName = "highScore_"+levelNames[level]; // name instead of index in case we rearrange array/order
+	var oldHighScore = localStorage.getItem(localStorageName);
+	if ((oldHighScore === "null") || (oldHighScore == null)) {
+        oldHighScore = 300;
+    } else {
+    	oldHighScore = parseInt(oldHighScore);
+    }
+    var newTime = Math.ceil(timeToFinishLevel / framesPerSecond);
+    console.log(oldHighScore);
+    if(newTime > oldHighScore || oldHighScore == 300) {
+	    localStorage.setItem(localStorageName, newTime);
+	}
+
+	regenerateLevelMenu();
+}
+
+function resetBestTimes() {
+	localStorage.clear();
+	regenerateLevelMenu();
+}
 
 function regenerateLevelMenu() {
 	var levelSelectMenu = document.getElementById('Levels');
 	var levelSelectMenuFirstLine = '<h1 class = "animated bounceInLeft">LEVEL SELECT:</h1>';
-	var levelSelectMenuLastLine = '<br><br><a href="#" onclick="mainMenu()" class = "animated bounceInRight">[M]ain Menu</a>';
+	var levelSelectMenuLastLine = '<br><a href="#" onclick="mainMenu()" class = "animated bounceInRight">[M]ain Menu</a>';
 	levelSelectMenu.innerHTML = levelSelectMenuFirstLine;
 	for(var i=0;i<levelNames.length;i++) {
-		levelSelectMenu.innerHTML += "<a href='#' onclick='menuLevel("+i+")'>["+i+"] "+levelNames[i]+"</a>"
+		levelSelectMenu.innerHTML += "<a href='#' onclick='menuLevel("+i+")'>["+i+"] "+levelNames[i]+" ("+getBestLevelTime(i)+")</a>"
 	}
+	levelSelectMenu.innerHTML += "<br/><a href='#' onclick='resetBestTimes()'>Reset all local best times</a>";
 	levelSelectMenu.innerHTML += levelSelectMenuLastLine;
 }
 
@@ -70,7 +104,7 @@ window.onload = function() {
 
 // used to be called imageLoadingDoneSoStart but now we run the main menu first
 function startGame() {
-
+	clearInterval(gameLoop); // prevents it from stacking due to previous plays
   	gameHasStarted = true;
 	loadLevel(level);
 	isPlaying = true;
@@ -379,26 +413,44 @@ function drawAll() {
 		canvasContext.restore(); // undoes the .translate() used for cam scroll
 		
 		var time = Math.ceil(timeToFinishLevel / framesPerSecond)
-		var timeText = (isHighScoreMode ? "SCORE: " : "TIME: ");
-		colorText(timeText , 30, 30, 'white');
-
-		if(time <= 10){
-			colorText(time, canvasContext.measureText(timeText).width + 20, 30, '#ee00ee');
-		}
-		else{
-			colorText(time, canvasContext.measureText(timeText).width + 20, 30, 'cyan');
-		}
+		var timeText = "TIME: ";
 
 		if(powerupText != ""){
-			colorText(powerupText,30, 60, '#acacac');
+			colorText(powerupText,20, 60, '#acacac');
 		}
 
-		colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
-		colorText( playerLives,canvas.width - 30,30,'cyan','right' );
+		var rightMargin = 20;
+		if(isHighScoreMode) {
+			colorText(timeText, canvas.width - canvasContext.measureText(""+time).width - rightMargin, 30, 'white', 'right');
+
+			if(time <= 10){
+				colorText(time, canvas.width - rightMargin, 30, '#ee00ee', 'right');
+			}
+			else{
+				colorText(time, canvas.width - rightMargin, 30, 'cyan', 'right');
+			}
+
+			var bestTime = bestTimeToBeat;
+			colorText("BEST: ", 20, 30, 'white', 'left');
+			colorText( bestTime,canvasContext.measureText("BEST: ").width + 20,30,'cyan','left' );
+		} else {
+			colorText(timeText , 30, 30, 'white');
+
+			if(time <= 10){
+				colorText(time, canvasContext.measureText(timeText).width + 20, 30, '#ee00ee');
+			}
+			else{
+				colorText(time, canvasContext.measureText(timeText).width + 20, 30, 'cyan');
+			}
+
+			colorText("LIVES: ", canvas.width - canvasContext.measureText(playerLives).width - 30, 30, 'white', 'right');
+			colorText( playerLives,canvas.width - 30,30,'cyan','right' );
+		}
+		
 		// colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
 		// colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
-		colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - 30, 60, 'white', 'right');
-		colorText( Math.floor(amtOfNos),canvas.width - 30, 60,'cyan','right' );
+		colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - rightMargin, 60, 'white', 'right');
+		colorText( Math.floor(amtOfNos),canvas.width - rightMargin, 60,'cyan','right' );
 }
 
 function playerNosReplenish(){

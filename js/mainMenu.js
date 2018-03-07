@@ -19,6 +19,7 @@ var menuState = {
 };
 
 function mainMenu() {
+    clearInterval(gameLoop); // prevents it from stacking due to previous plays
     console.log('Main menu...');
     menuDiv.style.display = 'block';
     helpDiv.style.display = 'none';
@@ -78,6 +79,9 @@ function highScoreModePlay() {
 }
 
 function menuLevel(num) {
+    if(isHighScoreMode) {
+      bestTimeToBeat = getBestLevelTime(num);
+    }
     console.log('Main menu: PLAY LEVEL ' + num);
     levelDiv.style.display = 'none';
     menuDiv.style.display = 'none';
