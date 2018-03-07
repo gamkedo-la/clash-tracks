@@ -273,12 +273,13 @@ function carClass() {
 		//
 		// }
 
-		if(!this.keyHeld_Nos){
+		if(this.keyHeld_Nos){
 			particles.add(this.pos.x,this.pos.y,particlePic,1000,32,"rgb(240,248,255)",0,this.ang-Math.PI);
 		}
-
-		// regular trail behind the vehicle
-		particles.add(this.pos.x,this.pos.y,particlePic,500,64,this.trailColor,0,this.ang-Math.PI);
+		else {
+      // regular trail behind the vehicle
+      particles.add(this.pos.x, this.pos.y, particlePic, 500, 64, this.trailColor, 0, this.ang - Math.PI);
+    }
 
 		// smoke screen powerup
 		if (this.smokeScreenFramesRemaining>0)

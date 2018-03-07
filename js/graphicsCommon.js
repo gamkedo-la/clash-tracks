@@ -39,9 +39,9 @@ function colorLine(x1, y1, x2, y2, color) {
 // takes an image and colors and fades it as required
 // returns a new canvas we can use as a sprite
 // reuses the same temp buffer over and over for performance reasons
-var _tintImageCanvas = document.createElement('canvas');
-var _tintImageCTX = _tintImageCanvas.getContext('2d');
 function tintImage(image, color) {
+  var _tintImageCanvas = document.createElement('canvas');
+  var _tintImageCTX = _tintImageCanvas.getContext('2d');
 	_tintImageCanvas.width = image.width;
 	_tintImageCanvas.height = image.height;
 	_tintImageCTX.fillStyle = color;
