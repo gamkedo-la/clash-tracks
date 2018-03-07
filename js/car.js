@@ -21,6 +21,8 @@ var shoot_delay = DEFAULT_SHOOT_DELAY;
 //TODO Drift
 //TODO Building stuck jitter.
 
+const ENNEMY_HELD_GAS_RATE = 0.85;
+
 function carClass() {
 	//position
 	this.pos = vector.create(75,75);
@@ -197,12 +199,13 @@ function carClass() {
 
 			//need to change AI angle to match angle of player car
 			//check what is 45 degree to the right and left of it.
-			this.keyHeld_Gas = Math.random()<0.7; // speed penalty so it can't as aggressively smack into player
+
+			this.keyHeld_Gas = Math.random() < ENNEMY_HELD_GAS_RATE; // speed penalty so it can't as aggressively smack into player
 			this.setAIMovementPoints();
 			if(!this.isFollowing){
 				this.steeringForAI();
 			}
-			
+
 			if (!anyWallsBetweenTwoPoints(this.pos.x, this.pos.y, playerCar.pos.x, playerCar.pos.y)
 					&& !debug && !this.isDead
 					&& !playerCar.isDead
