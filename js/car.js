@@ -376,9 +376,9 @@ function carClass() {
 		this.speed *= this.friction;
 		// Boosts
 		var boostMult = 1.0;
-		if(this.keyHeld_Nos && amtOfNos >0){
+		if(this.keyHeld_Nos && amtOfNos > 1){
 			boostMult *= NOS_BOOST_MULT;
-			amtOfNos--;
+			amtOfNos -= 2;
 		}
 		// Acceleration
 		if(this.keyHeld_Gas &&  !this.inTileBroken){

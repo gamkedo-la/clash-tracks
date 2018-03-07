@@ -24,7 +24,7 @@ var amtOfNos;
 var loseScreenDisplay = false;
 var winScreenDisplay = false;
 
-const DEFAULT_NOS_AMT = 60;
+const DEFAULT_NOS_AMT = 100;
 
 
 
