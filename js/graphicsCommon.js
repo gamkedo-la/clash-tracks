@@ -73,7 +73,7 @@ function drawImageTinted(canvasContext, image, x, y, angle, color, opacity) {
 	if (angle !== undefined) {
 		canvasContext.rotate(angle);
 	}
-	if (opacity != null) canvasContext.globalAlpha = opacity;
+	if (opacity !== undefined) canvasContext.globalAlpha = opacity;
 	canvasContext.drawImage(tintImage(image, color), -image.width / 2, -image.height / 2);
 	canvasContext.restore();
 }
@@ -84,7 +84,7 @@ function drawImageRotatedAlpha(canvasContext, image, x, y, angle, opacity) {
 	if (angle !== undefined) {
 		canvasContext.rotate(angle);
 	}
-	if (opacity != null) canvasContext.globalAlpha = opacity;
+	if (opacity !== undefined) canvasContext.globalAlpha = opacity;
 	canvasContext.drawImage(image, -image.width / 2, -image.height / 2);
 	canvasContext.restore();
 }
