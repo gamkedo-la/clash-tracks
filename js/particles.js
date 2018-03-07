@@ -1,5 +1,8 @@
 // a very simple particle system that rotates scales and fades sprites
 
+const PARTICLES_ENABLED = true; // if false, no particles at all
+const HALF_AS_MANY_PARTICLES = true; // if true, ignore some requests for particles!
+
 var particles = new particleSystem();
 
 function particleSystem() {
@@ -8,6 +11,12 @@ function particleSystem() {
         
     this.add = function(x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY) {
 
+        if (!PARTICLES_ENABLED) return;
+
+        if (HALF_AS_MANY_PARTICLES) { // optimization
+            if (Math.random()>0.5) return;
+        }
+        
         var p, pnum, pcount;
         if (velX==undefined) velX = 0;
         if (velY==undefined) velY = 0;
@@ -52,6 +61,8 @@ function particleSystem() {
 
     this.update = function()
     {
+        if (!PARTICLES_ENABLED) return;
+        
         // get the current time
         var timestamp = (new Date()).getTime();
 
@@ -92,6 +103,8 @@ function particleSystem() {
 
     this.draw = function()
     {
+        if (!PARTICLES_ENABLED) return;
+
         var drew = 0;
         particle.forEach(
             function (p) {
