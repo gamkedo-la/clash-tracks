@@ -335,14 +335,18 @@ function drawAll() {
 		for(var i = 0; i < enemyCars.length; i++){
 			enemyCars[i].drawShadow(enemyCars[i].shadowColor)
 		}
-		particles.draw();
+		
+		particles.draw(); // regular particles like trails are draw below the car sprites
+		
 		playerCar.draw();
 		for(i = 0; i < enemyCars.length; i++){
 			if(!enemyCars[i].remove){
 				enemyCars[i].draw();
 			}
 		}
+		
 		drawBullets();
+		
 		for(var k = 0; k < oscillatingObstacleList.length; k++){
 			oscillatingObstacleList[k].draw();
 		}
@@ -359,6 +363,8 @@ function drawAll() {
 				}
 			}
 		}
+
+		particles.draw(true); // muzzle flashes etc that are above car sprites
 
 		canvasContext.restore(); // undoes the .translate() used for cam scroll
 		

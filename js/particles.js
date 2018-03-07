@@ -9,7 +9,7 @@ function particleSystem() {
 
     var particle = [];
         
-    this.add = function(x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY) {
+    this.add = function(x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY, drawInFrontOfEverything) {
 
         if (!PARTICLES_ENABLED) return;
 
@@ -55,6 +55,7 @@ function particleSystem() {
             p.rotSpd = rotationSpeed;
             p.velX = velX;
             p.velY = velY;
+            p.drawInFrontOfEverything = drawInFrontOfEverything;
         }
 
     }
@@ -101,14 +102,17 @@ function particleSystem() {
 
     }
 
-    this.draw = function()
+    this.draw = function(drawTheFrontLayer)
     {
         if (!PARTICLES_ENABLED) return;
 
         var drew = 0;
         particle.forEach(
             function (p) {
-                if (!p.inactive) // and visible in screen bbox
+                if (!p.inactive &&
+                    ((!drawTheFrontLayer && !p.drawInFrontOfEverything) || // normal sprites, behind cars
+                        (drawTheFrontLayer && p.drawInFrontOfEverything)) // muzzle flashes, in front of cars
+                ) // FIXME: check if visible for better perf
                 {
                     drew++;
                     //drawImageRotatedAlpha(
