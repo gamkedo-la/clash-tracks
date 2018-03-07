@@ -150,7 +150,7 @@ function sparksEffect(x,y) {
 function muzzleEffect(x,y) {
     var num = randomInt(2,9);
     for (var i=0; i<num; i++) { // sparks
-        particles.add(x,y,particlePic,randomInt(200,500),randomInt(1,4),"rgb(255,230,255)",0.1,0,1,1);                    
+        particles.add(x,y,particlePic,randomInt(200,500),randomInt(1,4),"rgb(255,230,255)",0.1,0,1,1,true); // true means render in front of the car sprite
     }
     //x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY
 }
