@@ -85,14 +85,13 @@ window.onload = function() {
 	canvas.width = 700;
 	canvas.height = 525;
 	canvasContext.font = "04b30";
-	colorRect(0,0, canvas.width,canvas.height, 'black');
-	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
+	canvasContext.clearRect(0,0, canvas.width,canvas.height);
+	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, '541a3d');
 	level = 0;
 	playerLives = 3;
 	amtOfNos = DEFAULT_NOS_AMT;
 	loadImages();
 	setupInput();
-	mainMenu();
 	menuMusic.loopSong();
 	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic, escapeToCoreMusic];
 	// misfortuneMusic
@@ -414,7 +413,7 @@ function drawAll() {
 			}
 		}
 
-		particles.draw(true); // muzzle flashes etc that are above car sprites
+    particlesOntop.draw(); // muzzle flashes etc that are above car sprites
 
 		canvasContext.restore(); // undoes the .translate() used for cam scroll
 		

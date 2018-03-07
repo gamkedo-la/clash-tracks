@@ -53,6 +53,10 @@ div#Credits{
 
 body #MainGame-Menu, #MainGame-Menu > div, div {background-color: #fcdbdb}
 
+#MainGame-Menu > div {
+  display: none;
+}
+
 #MainGame-Menu, #gameCanvas{
   margin-top: 0px;
   padding: 9px;

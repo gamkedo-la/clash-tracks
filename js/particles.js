@@ -4,12 +4,13 @@ const PARTICLES_ENABLED = true; // if false, no particles at all
 const HALF_AS_MANY_PARTICLES = true; // if true, ignore some requests for particles!
 
 var particles = new particleSystem();
+var particlesOntop = new particleSystem();
 
 function particleSystem() {
 
     var particle = [];
         
-    this.add = function(x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY, drawInFrontOfEverything) {
+    this.add = function(x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY) {
 
         if (!PARTICLES_ENABLED) return;
 
@@ -55,7 +56,6 @@ function particleSystem() {
             p.rotSpd = rotationSpeed;
             p.velX = velX;
             p.velY = velY;
-            p.drawInFrontOfEverything = drawInFrontOfEverything;
         }
 
     }
@@ -102,16 +102,13 @@ function particleSystem() {
 
     }
 
-    this.draw = function(drawTheFrontLayer)
+    this.draw = function()
     {
         if (!PARTICLES_ENABLED) return;
 
         particle.forEach(
             function (p) {
-                if (!p.inactive &&
-                    ((!drawTheFrontLayer && !p.drawInFrontOfEverything) || // normal sprites, behind cars
-                        (drawTheFrontLayer && p.drawInFrontOfEverything)) // muzzle flashes, in front of cars
-                ) // FIXME: check if visible for better perf
+                if (!p.inactive) // FIXME: check if visible for better perf
                 {
                     drawImageRotatedAlpha(
                     //drawImageTinted(
@@ -120,6 +117,7 @@ function particleSystem() {
                         p.x, 
                         p.y,
                         p.angle,
+                        //p.color,
                         p.alpha);
                 }
             }
@@ -146,7 +144,7 @@ function sparksEffect(x,y) {
 function muzzleEffect(x,y) {
     var num = randomInt(2,9);
     for (var i=0; i<num; i++) { // sparks
-        particles.add(x,y,particlePic,randomInt(200,500),randomInt(1,4),"rgb(255,230,255)",0.1,0,1,1,true); // true means render in front of the car sprite
+      particlesOntop.add(x,y,particlePic,randomInt(200,500),randomInt(1,4),"rgb(255,230,255)",0.1,0,1,1,true); // true means render in front of the car sprite
     }
     //x, y, sprite, life, size, color, rotationSpeed, forcedAngle, velX, velY
 }
