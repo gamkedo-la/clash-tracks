@@ -453,11 +453,16 @@ function drawAll() {
 			colorText( playerLives,canvas.width - 30,30,'cyan','right' );
 		}
 		
+		
 		// colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
 		// colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
-		colorText("NOS: ", canvas.width - canvasContext.measureText(amtOfNos).width - rightMargin, 60, 'white', 'right');
+		colorText("[N]OS: ", canvas.width - canvasContext.measureText(amtOfNos).width - rightMargin, 60, 'white', 'right');
 		colorText( Math.floor(amtOfNos),canvas.width - rightMargin, 60,'cyan','right' );
-}
+
+		colorText("LEVEL: ", canvas.width - canvasContext.measureText(level).width -rightMargin , canvas.height - 40, 'white', 'right');
+		colorText( level + 1 ,canvas.width -rightMargin,  canvas.height - 40,'cyan','right' );
+
+	}
 
 function playerNosReplenish(){
 	if(amtOfNos < DEFAULT_NOS_AMT){

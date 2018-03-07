@@ -69,6 +69,7 @@ function keySet(evt, setTo){
       		evt.preventDefault();
 			break;
 		case KEY_SHIFT:
+		case KEY_N:
 			playerCar.keyHeld_Nos = setTo;
 			evt.preventDefault();
 			break;

@@ -27,7 +27,7 @@ const TRACK_SHIP_OVERHEAD_START = 90;
 const TRACK_FRICTION_SMOOTH = 0.80;
 const TRACK_FRICTION_NORMAL = 0.94;
 const MINE_DAMAGE = 2;
-const TIMER_INCREASE_AMT = 20 * framesPerSecond; // Change digit to number of seconds a powerup adds
+const TIMER_INCREASE_AMT = 10 * framesPerSecond; // Change digit to number of seconds a powerup adds
 const TRACK_BALL = 21;
 
 
