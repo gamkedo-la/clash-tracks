@@ -31,9 +31,21 @@ const DEFAULT_NOS_AMT = 100;
 
 // var obstacle = new obstacleClass(0,5);
 
+var levelNames = ["Demo","Small","Fast","Furious","Large","Zig Zag","Long Road","Random"];
+
+function regenerateLevelMenu() {
+	var levelSelectMenu = document.getElementById('Levels');
+	var levelSelectMenuFirstLine = '<h1 class = "animated bounceInLeft">LEVEL SELECT:</h1>';
+	var levelSelectMenuLastLine = '<br><br><a href="#" onclick="mainMenu()" class = "animated bounceInRight">[M]ain Menu</a>';
+	levelSelectMenu.innerHTML = levelSelectMenuFirstLine;
+	for(var i=0;i<levelNames.length;i++) {
+		levelSelectMenu.innerHTML += "<a href='#' onclick='menuLevel("+i+")'>["+i+"] "+levelNames[i]+"</a>"
+	}
+	levelSelectMenu.innerHTML += levelSelectMenuLastLine;
+}
 
 window.onload = function() {
-
+	regenerateLevelMenu();
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 	canvas.width = 700;
@@ -150,7 +162,11 @@ function loadLevel(whichLevel) {
 	//clearing previously saved objects and data
 	menuMusic.pauseSound();
 	levelDataReset();
-	playerLives = 3;
+	if(isHighScoreMode) {
+		playerLives = 1;
+	} else {
+		playerLives = 3;
+	}
 	//loading level data to current level
 	levelData = levels[whichLevel];
 	trackGrid = levelData.trackLayout.slice();
@@ -335,14 +351,18 @@ function drawAll() {
 		for(var i = 0; i < enemyCars.length; i++){
 			enemyCars[i].drawShadow(enemyCars[i].shadowColor)
 		}
-		particles.draw();
+		
+		particles.draw(); // regular particles like trails are draw below the car sprites
+		
 		playerCar.draw();
 		for(i = 0; i < enemyCars.length; i++){
 			if(!enemyCars[i].remove){
 				enemyCars[i].draw();
 			}
 		}
+		
 		drawBullets();
+		
 		for(var k = 0; k < oscillatingObstacleList.length; k++){
 			oscillatingObstacleList[k].draw();
 		}
@@ -360,16 +380,19 @@ function drawAll() {
 			}
 		}
 
+		particles.draw(true); // muzzle flashes etc that are above car sprites
+
 		canvasContext.restore(); // undoes the .translate() used for cam scroll
 		
 		var time = Math.ceil(timeToFinishLevel / framesPerSecond)
-		colorText("TIME: " , 30, 30, 'white');
+		var timeText = (isHighScoreMode ? "SCORE: " : "TIME: ");
+		colorText(timeText , 30, 30, 'white');
 
 		if(time <= 10){
-			colorText(time, canvasContext.measureText("TIME: ").width + 20, 30, '#ee00ee');
+			colorText(time, canvasContext.measureText(timeText).width + 20, 30, '#ee00ee');
 		}
 		else{
-			colorText(time, canvasContext.measureText("TIME: ").width + 20, 30, 'cyan');
+			colorText(time, canvasContext.measureText(timeText).width + 20, 30, 'cyan');
 		}
 
 		if(powerupText != ""){

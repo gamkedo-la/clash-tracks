@@ -224,7 +224,7 @@ function keyPressed(evt) {
 					break;
 
 				case 4:
-					console.log('Invinvibility Mode!');
+					console.log('Invincibility Mode!');
 					playerCar.isInvincible = true;
      				addDelayedCall(function(){playerCar.isInvincible = false;playerCar.isPowered = false;},5000);
 					powerupText = "Shield Activated";
