@@ -418,6 +418,12 @@ function drawAll() {
 		canvasContext.restore(); // undoes the .translate() used for cam scroll
 		
 		var time = Math.ceil(timeToFinishLevel / framesPerSecond)
+		if (framesPerSecond < DEFAULT_FRAME_PER_SEC) {
+			// dividing the time by 2.5 brings it back to 
+			// what it should be when it's FPS is slowed down to 12:)
+			time = Math.ceil(time/2.5);
+		}
+
 		var timeText = "TIME: ";
 
 		if(powerupText != ""){
