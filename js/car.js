@@ -386,7 +386,11 @@ function carClass() {
 			this.semiAutoLock = false;
 		}
 		// Friction
-		this.speed *= this.friction;
+        if (Math.abs(this.speed) < 0.02) {
+            this.speed = 0
+        } else {
+            this.speed *= this.friction;
+        }
 		// Boosts
 		var boostMult = 1.0;
 		if(this.keyHeld_Nos && amtOfNos > 1){
@@ -406,14 +410,14 @@ function carClass() {
                 //invert turning direction if in reverse
 				if (this.speed < 0) {
                     this.ang += DRIFT_TURN_RATE;
-                } else {
+                } else if (this.speed != 0) {
                     this.ang -= DRIFT_TURN_RATE;
                 }
 			}
 			if(this.keyHeld_TurnRight  && !this.jumping) {
 				if (this.speed < 0) {
                     this.ang -= DRIFT_TURN_RATE;
-                } else {
+                } else if (this.speed != 0) {
                     this.ang += DRIFT_TURN_RATE;
                 }
 			}
@@ -423,14 +427,14 @@ function carClass() {
                 //invert turning direction if in reverse
 				if (this.speed < 0) {
                     this.ang += TURN_RATE;
-                } else {
+                } else if (this.speed != 0) {
                     this.ang -= TURN_RATE;
                 }
 			}
 			if(this.keyHeld_TurnRight) {
 				if (this.speed < 0) {
                     this.ang -= TURN_RATE;
-                } else {
+                } else if (this.speed != 0) {
                     this.ang += TURN_RATE;
                 }
 			}
