@@ -422,9 +422,9 @@ function carClass() {
 			if(this.keyHeld_TurnLeft) {
                 //invert turning direction if in reverse
 				if (this.speed < 0) {
-                    this.ang += DRIFT_TURN_RATE;
+                    this.ang += TURN_RATE;
                 } else {
-                    this.ang -= DRIFT_TURN_RATE;
+                    this.ang -= TURN_RATE;
                 }
 			}
 			if(this.keyHeld_TurnRight) {
