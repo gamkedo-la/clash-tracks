@@ -400,18 +400,36 @@ function carClass() {
 		// Turning
 		if(Math.abs(this.speed) > DRIFT_MIN_SPEED){
 			if(this.keyHeld_TurnLeft  && !this.jumping) {
-				this.ang -= DRIFT_TURN_RATE;
+                //invert turning direction if in reverse
+				if (this.speed < 0) {
+                    this.ang += DRIFT_TURN_RATE;
+                } else {
+                    this.ang -= DRIFT_TURN_RATE;
+                }
 			}
 			if(this.keyHeld_TurnRight  && !this.jumping) {
-				this.ang += DRIFT_TURN_RATE;
+				if (this.speed < 0) {
+                    this.ang -= DRIFT_TURN_RATE;
+                } else {
+                    this.ang += DRIFT_TURN_RATE;
+                }
 			}
 		}
 		else{
 			if(this.keyHeld_TurnLeft) {
-				this.ang -= TURN_RATE;
+                //invert turning direction if in reverse
+				if (this.speed < 0) {
+                    this.ang += DRIFT_TURN_RATE;
+                } else {
+                    this.ang -= DRIFT_TURN_RATE;
+                }
 			}
 			if(this.keyHeld_TurnRight) {
-				this.ang += TURN_RATE;
+				if (this.speed < 0) {
+                    this.ang -= TURN_RATE;
+                } else {
+                    this.ang += TURN_RATE;
+                }
 			}
 		} // end car is below DRIFT_MIN_SPEED
 	} // end handleControls
