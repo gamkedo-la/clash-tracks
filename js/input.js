@@ -28,6 +28,9 @@ const KEY_2 = 50;
 const KEY_3 = 51;
 const KEY_4 = 52;
 const KEY_5 = 53;
+const KEY_6 = 54;
+const KEY_7 = 55;
+const KEY_8 = 56;
 
 function setupInput() {
 	// canvas.addEventListener('mousemove', updateMousePos);
@@ -196,16 +199,6 @@ function keyPressed(evt) {
 			}
 			break;
 
-		case KEY_0:
-			if(isPlaying){
-			}
-			else{
-				if(menuState.isLevelDiv){
-					menuLevel(0)
-				}
-			}
-			break;
-
 		// remove this
 		case KEY_1:
 			if(isPlaying){
@@ -274,48 +267,20 @@ function keyPressed(evt) {
 			}
 			else{
 				if(menuState.isLevelDiv){
-					menuLevel(1)
+					menuLevel(0)
 				}
 			}
 			break;
 
 		case KEY_2:
-			if(isPlaying){
-			}
-			else{
-				if(menuState.isLevelDiv){
-					menuLevel(2)
-				}
-			}
-			break;
-
 		case KEY_3:
-			if(isPlaying){
-			}
-			else{
-				if(menuState.isLevelDiv){
-					menuLevel(3)
-				}
-			}
-			break;
-
 		case KEY_4:
-			if(isPlaying){
-			}
-			else{
-				if(menuState.isLevelDiv){
-					menuLevel(4)
-				}
-			}
-			break;
-
 		case KEY_5:
-			if(isPlaying){
-			}
-			else{
-				if(menuState.isLevelDiv){
-					menuLevel(5)
-				}
+		case KEY_6:
+		case KEY_7:
+		case KEY_8:
+			if(isPlaying == false && menuState.isLevelDiv) {
+				menuLevel(evt.keyCode-KEY_1);
 			}
 			break;
 			

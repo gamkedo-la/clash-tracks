@@ -72,7 +72,7 @@ function regenerateLevelMenu() {
 	var levelSelectMenuLastLine = '<br><a href="#" onclick="mainMenu()" class = "animated bounceInRight">[M]ain Menu</a>';
 	levelSelectMenu.innerHTML = levelSelectMenuFirstLine;
 	for(var i=0;i<levelNames.length;i++) {
-		levelSelectMenu.innerHTML += "<a href='#' onclick='menuLevel("+i+")'>["+i+"] "+levelNames[i]+" ("+getBestLevelTime(i)+")</a>"
+		levelSelectMenu.innerHTML += "<a href='#' onclick='menuLevel("+i+")'>["+(i+1)+"] "+levelNames[i]+" ("+getBestLevelTime(i)+")</a>"
 	}
 	levelSelectMenu.innerHTML += "<br/><a href='#' onclick='resetBestTimes()'>Reset all local best times</a>";
 	levelSelectMenu.innerHTML += levelSelectMenuLastLine;

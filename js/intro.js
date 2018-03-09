@@ -18,6 +18,11 @@ var introInterval, fadeInterval, startTimeout;
 var isGameOver = false;
 
 function showIntro() {
+	if(isHighScoreMode) {
+		skipStory();
+		return;
+	}
+	storyPart = 0;
 	fadeInStory();
   introInterval = setInterval(function() {
 		// masterTick++;
