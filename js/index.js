@@ -26,9 +26,6 @@ var winScreenDisplay = false;
 
 const DEFAULT_NOS_AMT = 100;
 
-
-
-
 // var obstacle = new obstacleClass(0,5);
 
 var levelNames = ["Demo","Small","Fast","Furious","Large","Zig Zag","Long Road","Random"];
@@ -211,7 +208,7 @@ function loadLevel(whichLevel) {
 	numOfOverheadShips = levelData.overheadSpaceships;
 	numOfOscillatingObstacles = levelData.oscillatingObstacles;
 	amtOfNos = DEFAULT_NOS_AMT;
-	carsReset();
+	entitiesReset();
 	playerCar.resetAngle = 0;
 
 	// console.log(currentBackgroundMusic);
@@ -269,12 +266,12 @@ function resetCheckPoint() {
 	numOfOverheadShips = levelData.overheadSpaceships;
 	numOfOscillatingObstacles = levelData.oscillatingObstacles;
 	amtOfNos = DEFAULT_NOS_AMT;
-	carsReset();
+	entitiesReset();
 
 }
 
 
-function carsReset(){
+function entitiesReset(){
 
 	playerCar.reset(playerCarPic, "Player", levelData.playerCarAngle);
 
@@ -462,7 +459,12 @@ function drawAll() {
 		// colorText("HP: " , canvas.width  - canvasContext.measureText(playerCar.health).width- 30, 60, 'white', 'right');
 		// colorText(playerCar.health, canvas.width - 30, 60, 'cyan', 'right');
 		colorText("[N]OS: ", canvas.width - canvasContext.measureText(amtOfNos).width - rightMargin, 60, 'white', 'right');
-		colorText( Math.floor(amtOfNos),canvas.width - rightMargin, 60,'cyan','right' );
+		if(amtOfNos < 10){
+			colorText( amtOfNos,canvas.width - rightMargin, 60,'#ee00ee','right' );
+		}
+		else{
+			colorText( amtOfNos,canvas.width - rightMargin, 60,'cyan','right' );
+		}
 
 		colorText("LEVEL: ", canvas.width - canvasContext.measureText(level).width -rightMargin , canvas.height - 40, 'white', 'right');
 		colorText( level + 1 ,canvas.width -rightMargin,  canvas.height - 40,'cyan','right' );

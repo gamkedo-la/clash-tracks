@@ -88,7 +88,7 @@ function carClass() {
 		}
 	}
 
-	this.reset = function(whichImage, carName, carAngle = -Math.PI/2){
+	this.reset = function(whichImage, carName, carAngle = Math.random() * 2 -1){
 		this.isDead = false;
 		this.isInvincible = false;
 		this.autoShoot = false;
@@ -132,6 +132,7 @@ function carClass() {
 			this.bulletImg = enemyBulletPic;
 			this.trailColor = "rgb(201, 102, 249)";
 			this.drive_power = 0.55;
+			// this.angle = Math.random()
 			// console.log("Enemy AI is set to " + this.isAI);
 		}
 
@@ -220,11 +221,11 @@ function carClass() {
 							var angle = Math.atan2(dy, dx);*/
 							this.keyHeld_Shooting = (this.aiReloadLock-- < 0);
 							if(this.keyHeld_Shooting > 0) {
-								this.aiReloadLock = 20;
+								this.aiReloadLock = 10;
 							}
 							this.isFollowing = true;
-							var forwardX = Math.cos(this.ang) * 40.0;
-							var forwardY = Math.sin(this.ang) * 40.0;
+							var forwardX = Math.cos(this.ang) * 2;
+							var forwardY = Math.sin(this.ang) * 2;
 
 							var turnDiff = -(playerCar.pos.y - this.pos.y) * forwardX + (playerCar.pos.x - this.pos.x) * forwardY;
 							var maxTurnRadius = 0.075;
