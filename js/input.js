@@ -55,7 +55,7 @@ function keySet(evt, setTo){
 			}
 			else{
 				if(menuState.isPlayMenuDiv){
-					menuLevel(0);
+					menuLevel(1);
 				}
 			}
 			break;
@@ -297,6 +297,7 @@ function keyPressed(evt) {
 			}
 			if(isGameWin){
 				isGameWin = false;
+				clearTimeout(winTimeout);
 				mainMenu();
 			}
 			break;

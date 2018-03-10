@@ -32,6 +32,7 @@ div {
 
 div#Credits{
   padding: 10px;
+  font-size: 20px;
 }
 
 
@@ -81,6 +82,7 @@ input[type=range] {
   margin: 9.5px 0;
   background-color: hsl(0,85%,92%);
 }
+/*Firefox padding bug*/
 @-moz-document url-prefix() {
    input[type=range] {
    padding-top: 9px;

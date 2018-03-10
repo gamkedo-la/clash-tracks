@@ -83,15 +83,14 @@ window.onload = function() {
 	canvas.height = 525;
 	canvasContext.font = "04b30";
 	canvasContext.clearRect(0,0, canvas.width,canvas.height);
-	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, '541a3d');
-	level = 0;
+	colorText("LOADING ASSETS", canvas.width/2, canvas.height/2, '541a3d', 'center', "30px '04b30'");
+	level = 1;
 	playerLives = DEFAULT_PLAYER_LIVES;
 	amtOfNos = DEFAULT_NOS_AMT;
 	loadImages();
 	setupInput();
 	menuMusic.loopSong();
 	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic, escapeToCoreMusic, clashLegendsMusic, misfortuneMusic];
-	// 
 	window.addEventListener('blur', pauseGame);
 	window.addEventListener('focus', continueGame);
 	isGameLose = false;

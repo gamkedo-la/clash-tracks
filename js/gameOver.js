@@ -14,6 +14,8 @@ var gameWinArray = [["Well done"],
   					["[M] for Main Menu"]  					
   				   ]
 
+ var winTimeout;
+
 function gameOverScreen(gameArray, gameStatus) {
 	colorRect(0,0, canvas.width,canvas.height, '#0e0015');
 	canvasContext.globalAlpha = 1;
@@ -38,11 +40,13 @@ function gameLoseScreen(){
 	menuMusic.loopSong();
 }
 
+
 function gameWinScreen(){
 	gameOverScreen(gameWinArray, "Win");
-	setTimeout(function(){
+	winTimeout = setTimeout(function(){
 		isGameWin = false;
 		menuCredits();
+		level = 1;
 
 
 	}, 8000)

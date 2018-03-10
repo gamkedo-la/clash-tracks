@@ -605,7 +605,7 @@ function playerResetCondition(){
 					}
 					else{
 						// Note: Moved existing code from this else to input.js lines 226-229. Erase comment if no issue caused.
-						resetLevel();
+						// resetLevel();
 						pauseGame();
 						gameLoseScreen();
 					}
