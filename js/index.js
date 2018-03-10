@@ -50,7 +50,7 @@ function compareOrUpdateBestTime() {
     	oldHighScore = parseInt(oldHighScore);
     }
     var newTime = Math.ceil(timeToFinishLevel / framesPerSecond);
-    console.log(oldHighScore);
+    // console.log(oldHighScore);
     if(newTime > oldHighScore || oldHighScore == 300) {
 	    localStorage.setItem(localStorageName, newTime);
 	}
@@ -114,7 +114,7 @@ function startGame() {
 function pauseGame() {
 
 	if (isPlaying && gameLoop) {
-	    console.log('Pause game');
+	    // console.log('Pause game');
 	    isPlaying = false;
 	    clearInterval(gameLoop);
 	    clearInterval(playerNosReplenishLoop);
@@ -132,7 +132,7 @@ function pauseGame() {
 function slowSpeedGame(){
 
 	if(isPlaying && gameLoop){
-		console.log('slowing game - game feel ;)');
+		// console.log('slowing game - game feel ;)');
 		clearInterval(gameLoop);
 		clearInterval(playerNosReplenishLoop);
 		framesPerSecond = 12;
@@ -160,7 +160,7 @@ function normalSpeedGame(){
 function continueGame() {
 
 	if (gameHasStarted && !gameLoop) {
-	    console.log('Resuming...');
+	    // console.log('Resuming...');
 	    setTimeout(function(){
 			isPlaying = true;
 		    gameLoop = setInterval(updateAll, msPerFrame);
@@ -182,7 +182,7 @@ function togglePause() {
 
 
 function introDone() {
-	console.log('Intro complete. Starting game!');
+	// console.log('Intro complete. Starting game!');
 	startGame();
 }
 

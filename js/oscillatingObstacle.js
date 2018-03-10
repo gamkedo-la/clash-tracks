@@ -24,17 +24,12 @@ function obstacleClass(velocityX = 5, velocityY= 0) {
 
 
 	this.move = function() {
-		// console.log(this.pos.x);
-		// c
-		// this.pos.x += this.velocity.x;
-		// this.pos.y += this.velocity.y;
 		this.pos = this.pos.add(this.velocity);
 		updateObstacleCollisionPoints(this);
 		if(obstacleTrackHandling(this)){
 
 			this.velocity = this.velocity.multiply(-1);
-		}
-				
+		}		
 	}
 
 	this.draw = function() {

@@ -20,7 +20,7 @@ var menuState = {
 
 function mainMenu() {
     clearInterval(gameLoop); // prevents it from stacking due to previous plays
-    console.log('Main menu...');
+    // console.log('Main menu...');
     menuDiv.style.display = 'block';
     helpDiv.style.display = 'none';
     creditsDiv.style.display = 'none';
@@ -41,7 +41,7 @@ function mainMenu() {
 function menuPlay() {
     isHighScoreMode = false; // resetting here since both modes pass through menuLevel
 
-    console.log('Main menu: PLAY');
+    // console.log('Main menu: PLAY');
     levelDiv.style.display = 'none';
     menuDiv.style.display = 'none';
     helpDiv.style.display = 'none';
@@ -62,7 +62,7 @@ function menuPlay() {
 // Over-rides default race against time and you instead set the best time for particular level.
 function highScoreModePlay() {
     isHighScoreMode = true;
-    console.log('High Score mode: PLAY');
+    // console.log('High Score mode: PLAY');
     levelDiv.style.display = 'block';
     menuDiv.style.display = 'none';
     helpDiv.style.display = 'none';
@@ -82,7 +82,7 @@ function menuLevel(num) {
     if(isHighScoreMode) {
       bestTimeToBeat = getBestLevelTime(num);
     }
-    console.log('Main menu: PLAY LEVEL ' + num);
+    // console.log('Main menu: PLAY LEVEL ' + num);
     levelDiv.style.display = 'none';
     menuDiv.style.display = 'none';
     helpDiv.style.display = 'none';
@@ -119,7 +119,7 @@ function menuLeaderboard(){
 }
 
 function menuHelp() {
-    console.log('Main menu: HELP');
+    // console.log('Main menu: HELP');
     levelDiv.style.display = 'none';
     menuDiv.style.display = 'none';
     helpDiv.style.display = 'block';
@@ -136,7 +136,7 @@ function menuHelp() {
 }
 
 function menuCredits() {
-    console.log('Main menu: CREDITS');
+    // console.log('Main menu: CREDITS');
     levelDiv.style.display = 'none';
     menuDiv.style.display = 'none';
     helpDiv.style.display = 'none';
@@ -153,7 +153,7 @@ function menuCredits() {
 }
 
 function menuOptions() {
-    console.log('Main menu: OPTIONS');
+    // console.log('Main menu: OPTIONS');
     levelDiv.style.display = 'none';
     menuDiv.style.display = 'none';
     helpDiv.style.display = 'none';

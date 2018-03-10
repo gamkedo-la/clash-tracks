@@ -5,7 +5,7 @@
 
 function generateRandomTrack(w,h) {
 
-    console.log("Generating random track...");
+    // console.log("Generating random track...");
 
     var data = [];
     var row, col, loop, spriteNum;
@@ -78,7 +78,7 @@ function generateRandomTrack(w,h) {
 // Maze Generator, used in an old game of mine called Gates of Rath
 // Algorithm credit: http://www.roguebasin.roguelikedevelopment.org/index.php?title=Simple_maze
 function mazeGeneration(world, size) {
-    console.log('maze gen...');
+    // console.log('maze gen...');
     // Coordinates of N(x,y) S(x,y) E(x,y) W(x,y)
     // it's necessary to have one of each so that if one direction
     // doesn't work properly, we can try each direction until one
@@ -100,9 +100,11 @@ function mazeGeneration(world, size) {
     var recursecount = 0;
     do {
         recursecount++;
-        if (recursecount % 25 == 0) console.log('Maze gen recursing ' + recursecount);
+        if (recursecount % 25 == 0) {
+            console.log('Maze gen recursing ' + recursecount);
+        }
         if (recursecount > 2000) {
-            console.log('MAZE GEN FAILED - took too long...');
+            // console.log('MAZE GEN FAILED - took too long...');
             failed = true; // no infinite loops, invalid is fine!
             //return;
         }
@@ -159,6 +161,6 @@ function mazeGeneration(world, size) {
         }
     }
 
-    console.log('Maze Generation Complete!');
+    // console.log('Maze Generation Complete!');
 
 }

@@ -53,11 +53,6 @@ function keySet(evt, setTo){
 				playerCar.keyHeld_Reverse = setTo;
 				evt.preventDefault();
 			}
-			else{
-				if(menuState.isPlayMenuDiv){
-					menuLevel(1);
-				}
-			}
 			break;
 
 		case KEY_LEFT_ARROW:
@@ -96,24 +91,20 @@ function keyPressed(evt) {
 		    break;
 
 		case KEY_L:
-			if (isPlaying) {
-				// playerCar.autoShoot = !playerCar.autoShoot;
-     		}
-			else{
-				if(menuState.isMenuDiv){
+			if(menuState.isMenuDiv){
 					console.log('going to leaderboards');
-				}
 			}
       		evt.preventDefault();
 			break;
 
-		case KEY_ENTER:
+		/*case KEY_ENTER:
 			if (isPlaying) {
 				console.log("Level Changing..");
 				loadNextLevel();
 	        }
 	        evt.preventDefault();
 			break;
+		*/
 
 		case SPACE_BAR:
 			if (startTimeout) {
@@ -131,32 +122,23 @@ function keyPressed(evt) {
         		togglePause();
 			}
 			break;
+		
 		case KEY_B:
-			if(isPlaying){
-				//Pause screen function
-			}
-			else{
-				if(menuState.isPlayMenuDiv){
+			if(menuState.isPlayMenuDiv){
 					highScoreModePlay();
-				}
 			}
 			break;
-			break
+
 		case KEY_H:
-			if(isPlaying){
-				//Pause screen function
-			}
-			else{
-				if(menuState.isMenuDiv){
+			if(menuState.isMenuDiv){
 					menuHelp();
-				}
 			}
 			break;
 
 		case KEY_O:
 			if(isPlaying){
-				debug = !debug;
-				evt.preventDefault();
+				// debug = !debug;
+				// evt.preventDefault();
 			}
 			else{
 				if(menuState.isMenuDiv){
@@ -166,12 +148,8 @@ function keyPressed(evt) {
 			break;
 
 		case KEY_C:
-			if(isPlaying){
-			}
-			else{
-				if(menuState.isMenuDiv){
+			if(menuState.isMenuDiv){
 					menuCredits();
-				}
 			}
 			break;
 
@@ -180,7 +158,7 @@ function keyPressed(evt) {
 			}
 			else{
 				if(menuState.isPlayMenuDiv){
-					menuLevel(0)
+					menuLevel(level)
 				}
 			}
 			break;
@@ -204,91 +182,20 @@ function keyPressed(evt) {
 				isGameLose = false;
 			}
 			break;
+
 		case KEY_M:
-		if(!isPlaying){
-			mainMenu();
-		}
-		if(isGameWin){
-			isGameWin = false;
-			clearTimeout(winTimeout);
-			mainMenu();
-		}
-		break;
-
-
-		// remove this
-		case KEY_1:
-			if(isPlaying){
-							var random = Math.ceil(Math.random()*7);
-			
-			switch(random){
-				//free life
-				case 1:
-					playerLives++;
-					playerCar.health = INITIAL_HEALTH;
-					console.log('Health increase');
-					powerupText = "Health Increase";
-					playerCar.isPowered = false;
-					break;
-
-				case 2:
-					console.log('Timer increase');
-					timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
-					powerupText = "Timer Increase";
-					playerCar.isPowered = false;
-					break;
-
-				case 3:
-					console.log('Touched a smokescreen powerup!');
-					playerCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
-					powerupText = "Smokescreen Activated";
-					break;
-
-				case 4:
-					console.log('Invincibility Mode!');
-					playerCar.isInvincible = true;
-     				addDelayedCall(function(){playerCar.isInvincible = false;playerCar.isPowered = false;},5000);
-					powerupText = "Shield Activated";
-					break;
-
-				case 5:
-					console.log('You shoot!');
-					playerCar.autoShoot = true;
-     				addDelayedCall(function(){playerCar.autoShoot = false;playerCar.isPowered = false;},5000);
-					powerupText = "Turret Activated";
-					break;
-
-				case 6:
-					console.log('You multi - shoot!');
-					playerCar.splitShoot = true;
-					playerCar.autoShoot = true;
-					playerCar.bulletImg = splitShootPic;
-      				addDelayedCall(function(){
-      					playerCar.splitShoot = false;
-      					playerCar.autoShoot = false;
-      					playerCar.isPowered = false;
-      					playerCar.bulletImg = playerBulletPic;
-      				},5000);
-					powerupText = "Split-Turret Activated";
-					break;
-				//should be nitros replanish
-				case 7:
-					console.log('Nitros!');
-					// playerCar.nitroFramesRemaining = NITRO_TIMESPAN;
-					amtOfNos = 100;
-					powerupText = "Nitros Activated";
-      				addDelayedCall(function(){playerCar.isPowered = false;},5000);
-					break;
+			if(!isPlaying){
+				mainMenu();
 			}
- 			addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
-			}
-			else{
-				if(menuState.isLevelDiv){
-					menuLevel(0)
-				}
+			if(isGameWin){
+				isGameWin = false;
+				clearTimeout(winTimeout);
+				mainMenu();
 			}
 			break;
+		
 
+		case KEY_1:
 		case KEY_2:
 		case KEY_3:
 		case KEY_4:

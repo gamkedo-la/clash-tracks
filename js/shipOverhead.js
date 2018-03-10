@@ -28,7 +28,7 @@ function shipOverheadClass() {
 
 	this.followTarget = function() {
 		if(this.target == null) {
-			console.log("ERROR: no target found");
+			// console.log("ERROR: no target found");
 			return;
 		}
 		this.followingTarget = false;
@@ -48,7 +48,7 @@ function shipOverheadClass() {
 				// may be affected by a smokeScreen
 				if ((distToTarget < SMOKESCREEN_RANGE) && (playerCar.smokeScreenFramesRemaining > 0))
 				{
-					console.log('Ship is close to smokescreen');
+					// console.log('Ship is close to smokescreen');
 					this.ang += Math.random()*SMOKESCREEN_STEERING_DRIFT*2-SMOKESCREEN_STEERING_DRIFT;
 					shipSpeed *= SMOKESCREEN_SLOWDOWN_SCALE;
 					smokeScreenEffect(this.pos.x,this.pos.y);

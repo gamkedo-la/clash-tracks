@@ -132,7 +132,6 @@ function carClass() {
 			this.bulletImg = enemyBulletPic;
 			this.trailColor = "rgb(201, 102, 249)";
 			this.drive_power = 0.55;
-			// this.angle = Math.random()
 			// console.log("Enemy AI is set to " + this.isAI);
 		}
 
@@ -155,7 +154,7 @@ function carClass() {
 			if(this.health > 0){
 				this.health -= damageDealt;
 				ai_distance = 150; // To show ai knows it has been hit and follows player.
-				console.log("New health is " + this.health + " due to damage " + damageDealt);
+				// console.log("New health is " + this.health + " due to damage " + damageDealt);
 				this.carHealthCheck(this);
 			}		
 		}			
@@ -192,7 +191,7 @@ function carClass() {
 			// may be affected by a smokeScreen
 			if ((distancePlayerEnemy < SMOKESCREEN_RANGE) && (playerCar.smokeScreenFramesRemaining > 0))
 			{
-				console.log('Enemy is close to smokescreen');
+				// console.log('Enemy is close to smokescreen');
 				this.ang += Math.random()*SMOKESCREEN_STEERING_DRIFT*2-SMOKESCREEN_STEERING_DRIFT;
 				this.speed *= SMOKESCREEN_SLOWDOWN_SCALE;
 				smokeScreenEffect(this.pos.x,this.pos.y);
@@ -288,7 +287,7 @@ function carClass() {
 		// smoke screen powerup
 		if (this.smokeScreenFramesRemaining>0)
 		{
-			//console.log("smoking! " + this.smokeScreenFramesRemaining);
+			// console.log("smoking! " + this.smokeScreenFramesRemaining);
 
 			this.smokeScreenFramesRemaining -= 1;
 
@@ -472,17 +471,17 @@ function carClass() {
 					//safe distance to check collision points
 
 					if(Math.sqrt(xDistance + yDistance) <= this.myCarPic.width/1.5 && !this.jumping){
-						console.log("car to car collision!");
+						// console.log("car to car collision!");
 						screenshake(14);
 						carCollisionSound.play();
-						console.log(this.health);
+						// console.log(this.health);
 						if(this.isInvincible ){
 							carList[i].health--;
 							this.carHealthCheck(carList[i]);
 
 							carList[i].pos.x -= Math.cos(carList[i].ang) * carList[i].speed;
 							carList[i].pos.y -= Math.sin(carList[i].ang) * carList[i].speed;
-							muzzleEffect(carList[i].pos.x, carList[i].pos.y);
+							// muzzleEffect(carList[i].pos.x, carList[i].pos.y);
 
 						}
 						if(carList[i].isInvincible){

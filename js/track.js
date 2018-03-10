@@ -131,40 +131,34 @@ function carTrackHandling(whichCar) {
 				case 1:
 					playerLives++;
 					whichCar.health = INITIAL_HEALTH;
-					console.log('Health increase');
 					powerupText = "Health Increase";
 					whichCar.isPowered = false;
 					break;
 
 				case 2:
-					console.log('Timer increase');
 					timeToFinishLevel += TIMER_INCREASE_AMT; // Adds time to clock
 					powerupText = "Timer Increase";
 					whichCar.isPowered = false;
 					break;
 
 				case 3:
-					console.log('Touched a smokescreen powerup!');
 					whichCar.smokeScreenFramesRemaining = SMOKESCREEN_TIMESPAN;
 					powerupText = "Smokescreen Activated";
 					break;
 
 				case 4:
-					console.log('Invinvibility Mode!');
 					whichCar.isInvincible = true;
      				addDelayedCall(function(){whichCar.isInvincible = false;whichCar.isPowered = false;},5000);
 					powerupText = "Shield Activated";
 					break;
 
 				case 5:
-					console.log('You shoot!');
 					whichCar.autoShoot = true;
      				addDelayedCall(function(){whichCar.autoShoot = false;whichCar.isPowered = false;},5000);
 					powerupText = "Turret Activated";
 					break;
 
 				case 6:
-					console.log('You multi - shoot!');
 					whichCar.splitShoot = true;
 					whichCar.autoShoot = true;
 					whichCar.bulletImg = splitShootPic;
@@ -181,7 +175,6 @@ function carTrackHandling(whichCar) {
 					break;
 				//should be nitros replanish
 				case 7:
-					console.log('Nitros!');
 					amtOfNos = 100;
 					powerupText = "Nitros Refilled";
 					break;
@@ -389,7 +382,7 @@ function drawTracks() {
 				// quick optimization: only draw on-screen tiles
 				if (tileVisible(drawTileX,drawTileY)) {
 					if (!useImg)
-						console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!")
+						console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!");
 					else
 						canvasContext.drawImage(useImg,drawTileX,drawTileY);
 				}
