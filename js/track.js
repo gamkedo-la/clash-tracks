@@ -485,9 +485,7 @@ function loadNextLevel() {
 		loadLevel(level);
 	}
 	else{
-		console.log('You saved Humanity')
-		level = 0;
-		resetLevel();
+		gameWinScreen();
 	}
 }
 

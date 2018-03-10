@@ -12,7 +12,6 @@ var numOfEnemiesShips = 0;
 var numOfOscillatingObstacles = 0;
 var overheadSpaceshipList= [];
 var oscillatingObstacleList= [];
-
 var timeToFinishLevel;
 var level;
 var playerLives;

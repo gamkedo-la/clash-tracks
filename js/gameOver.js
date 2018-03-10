@@ -30,12 +30,20 @@ function gameOverScreen(gameArray, gameStatus) {
 
 function gameLoseScreen(){
 	gameOverScreen(gameOverArray, "Lose");
+	currentBackgroundMusic.pauseSound();
+	menuMusic.loopSong();
 }
 
 function gameWinScreen(){
 	gameOverScreen(gameWinArray, "Win");
+	currentBackgroundMusic.pauseSound();
+	menuMusic.loopSong();
+	setTimeout(function(){
+		isGameLose = false;
+		isGameWin = false;
+		menuCredits();
+
+
+	}, 6000)
 }
 
-
-gameOverScreen
-isGameOver
