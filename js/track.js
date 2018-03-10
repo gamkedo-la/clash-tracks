@@ -235,9 +235,10 @@ function carTrackHandling(whichCar) {
 		for(var i = 0; i < whichCar.CollisionPoints.length; i++){
 		 // console.log("car" + whichCar.name +  whichCar.CollisionPoints[i].x);
 		 if( trackCollisionCheck(whichCar.CollisionPoints[i].x, whichCar.CollisionPoints[i].y, whichCar.name)){
-			carCollisionSound.play();
 			if(!whichCar.isAI) {
-				screenshake(20);
+				screenshake(25);
+				carCollisionSound.play();
+
 			}
 			wallCollisionEffect(whichCar.CollisionPoints[i].x,whichCar.CollisionPoints[i].y)
 
