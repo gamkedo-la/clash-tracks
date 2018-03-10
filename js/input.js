@@ -295,6 +295,10 @@ function keyPressed(evt) {
 			if(!isPlaying){
 				mainMenu();
 			}
+			if(isGameWin){
+				isGameWin = false;
+				mainMenu();
+			}
 			break;
 	}
 }

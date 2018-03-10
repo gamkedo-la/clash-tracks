@@ -485,6 +485,7 @@ function loadNextLevel() {
 		loadLevel(level);
 	}
 	else{
+		pauseGame();
 		gameWinScreen();
 	}
 }

@@ -1,6 +1,6 @@
 var gameOverArray =[
 					 ["GAME OVER"],
-					 [],
+					 ["You failed Humanity"],
 					 ["Try again? [Y]es or [N]o"]
 				];	
 
@@ -9,12 +9,16 @@ var gameWinArray = [["Well done"],
   					["Your legacy shall shine"],
   					["Even though"], 
   					["You may not live to see"],
-  					["another sunshine."]  					
+  					["another sunshine."],
+  					[],
+  					["[M] for Main Menu"]  					
   				   ]
 
 function gameOverScreen(gameArray, gameStatus) {
 	colorRect(0,0, canvas.width,canvas.height, '#0e0015');
 	canvasContext.globalAlpha = 1;
+	currentBackgroundMusic.pauseSound();
+	menuMusic.loopSong();
 	drawStory(gameArray);
 	canvasContext.globalAlpha = 1;
 	if(gameStatus == "Lose"){
@@ -36,14 +40,11 @@ function gameLoseScreen(){
 
 function gameWinScreen(){
 	gameOverScreen(gameWinArray, "Win");
-	currentBackgroundMusic.pauseSound();
-	menuMusic.loopSong();
 	setTimeout(function(){
-		isGameLose = false;
 		isGameWin = false;
 		menuCredits();
 
 
-	}, 6000)
+	}, 8000)
 }
 
