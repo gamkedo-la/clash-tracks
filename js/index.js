@@ -93,7 +93,7 @@ window.onload = function() {
 	loadImages();
 	setupInput();
 	menuMusic.loopSong();
-	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic, escapeToCoreMusic];
+	backgroundMusicArray = [trancyMusic, draftMonkMusic, varyzeMusic, escapeToCoreMusic, clashLegendsMusic];
 	// misfortuneMusic
 	window.addEventListener('blur', pauseGame);
 	window.addEventListener('focus', continueGame);

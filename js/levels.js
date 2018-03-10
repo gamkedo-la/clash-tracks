@@ -174,7 +174,7 @@ var  levels = [
                 rows: 37, 
                 cols: 20, 
                 enemyCars: 2, 
-                timeLimit: 50 * framesPerSecond,
+                timeLimit: 30 * framesPerSecond,
                 playerCarAngle : -Math.PI/2,
                 overheadSpaceships: 0,
                 oscillatingObstacles: 1
@@ -220,7 +220,7 @@ var  levels = [
                 rows: 35,
                 cols: 25,
                 enemyCars: 2,
-                timeLimit: 1 * 60 * framesPerSecond,
+                timeLimit: 1 * 50 * framesPerSecond,
                 playerCarAngle : 0,
                 overheadSpaceships: 1,
                 oscillatingObstacles: 2
@@ -270,7 +270,7 @@ var  levels = [
                 rows: 38,
                 cols: 26,
                 enemyCars: 2,
-                timeLimit: 1 * 70 * framesPerSecond,
+                timeLimit: 1 * 60 * framesPerSecond,
                 playerCarAngle : -Math.PI,
                 overheadSpaceships: 2,
                 oscillatingObstacles: 0
