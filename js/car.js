@@ -366,8 +366,8 @@ function carClass() {
 
 	this.setAIMovementPoints = function(){
 		// Navigation for AI cars to see bricks are nearby
-		frontPos.x = this.pos.x + Math.cos(this.ang)* this.width;
- 		frontPos.y = this.pos.y + Math.sin(this.ang)* this.width;;
+		frontPos.x = this.pos.x + Math.cos(this.ang)* this.width * 2;
+ 		frontPos.y = this.pos.y + Math.sin(this.ang)* this.width * 2;
 		leftPos.x =  this.pos.x + Math.cos(this.ang - Math.PI/5)* this.width -  Math.sin(this.ang - Math.PI/5)* this.width;
 		leftPos.y =  this.pos.y + Math.cos(this.ang - Math.PI/5)* this.width +  Math.sin(this.ang - Math.PI/5)* this.width;
 		rightPos.x = this.pos.x + Math.cos(this.ang + Math.PI/5)* this.width + Math.sin(this.ang + Math.PI/5)* this.width;
@@ -607,7 +607,7 @@ function playerResetCondition(){
 						// Note: Moved existing code from this else to input.js lines 226-229. Erase comment if no issue caused.
 						resetLevel();
 						pauseGame();
-						gameOverScreen();
+						gameLoseScreen();
 					}
 				}, 1000);
 }

@@ -186,18 +186,25 @@ function keyPressed(evt) {
 			break;
 
 		case KEY_Y:
-			if(isGameOver) {
+			if(isGameLose) {
 				playerCar.resetAngle = 0;
 				if(isHighScoreMode == false) {
 					level = 0;
 				}
 				loadLevel(level);
-				loseScreenDisplay = true;
-				isGameOver = false;
+				isGameLose = false;
 				continueGame();
 				currentBackgroundMusic.startOrStopMusic();
 			}
 			break;
+
+		case KEY_N:
+			if(isGameLose && !isPlaying) {
+				mainMenu();
+				isGameLose = false;
+			}
+			break;
+
 
 		// remove this
 		case KEY_1:

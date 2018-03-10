@@ -13,10 +13,6 @@ var alienBallPic = document.createElement("img");
 var alienBallAnimPic = document.createElement("img");
 var splitShootPic = document.createElement("img");
 
-
-
-
-
 var trackPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()

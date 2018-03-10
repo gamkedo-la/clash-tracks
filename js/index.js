@@ -15,14 +15,15 @@ var oscillatingObstacleList= [];
 
 var timeToFinishLevel;
 var level;
-var playerLives = 3;
+var playerLives;
+const DEFAULT_PLAYER_LIVES = 3;
+const HIGHSCORE_PLAYER_LIVES = 1;
 var backgroundMusicArray;
 var powerupText = "";
 var musicIndex = 0;
 var delayedCallbacks = [];
 var amtOfNos;
-var loseScreenDisplay = false;
-var winScreenDisplay = false;
+var isGameLose, isGameWin;
 
 const DEFAULT_NOS_AMT = 100;
 
@@ -85,7 +86,7 @@ window.onload = function() {
 	canvasContext.clearRect(0,0, canvas.width,canvas.height);
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, '541a3d');
 	level = 0;
-	playerLives = 3;
+	playerLives = DEFAULT_PLAYER_LIVES;
 	amtOfNos = DEFAULT_NOS_AMT;
 	loadImages();
 	setupInput();
@@ -94,6 +95,8 @@ window.onload = function() {
 	// 
 	window.addEventListener('blur', pauseGame);
 	window.addEventListener('focus', continueGame);
+	isGameLose = false;
+	isGameWin = false;
 
 };
 
@@ -121,7 +124,6 @@ function pauseGame() {
 	    colorText('Game paused!', canvas.width / 2, canvas.height / 2 - 60, 'white', 'center', "40px '04b30'");
 	    colorText('[M] for Main Menu', canvas.width / 2, canvas.height / 2 , '#acacac', 'center', "24px 'audiowide'");
 	    colorText('[P] to resume', canvas.width / 2, canvas.height / 2 + 30, '#acacac', 'center', "24px 'audiowide'");
-
 	    currentBackgroundMusic.pauseSound();
 	    menuMusic.loopSong();
   	}
@@ -190,14 +192,28 @@ function introDone() {
 function loadLevel(whichLevel) {
 
 	//clearing previously saved objects and data
-	menuMusic.pauseSound();
 	levelDataReset();
 	if(isHighScoreMode) {
-		playerLives = 1;
+		playerLives = HIGHSCORE_PLAYER_LIVES;
 	} else {
-		playerLives = 3;
+		playerLives = DEFAULT_PLAYER_LIVES;
 	}
-	//loading level data to current level
+	resetLevel(level);
+}
+
+// Returns random integer between the provided minimum inclusive and maximum exclusive values.
+// Implemented with the correct way to get uniform values.
+// Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}
+
+
+function resetLevel(whichLevel) {
+
+    menuMusic.pauseSound();
 	levelData = levels[whichLevel];
 	trackGrid = levelData.trackLayout.slice();
 	trackGridCopy = trackGrid.slice();
@@ -221,34 +237,15 @@ function loadLevel(whichLevel) {
 
 }
 
-// Returns random integer between the provided minimum inclusive and maximum exclusive values.
-// Implemented with the correct way to get uniform values.
-// Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-function getRandomInt(min, max) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
-}
-
-
-function resetLevel() {
-
-    loadLevel(level);
-
-}
-
 
 function levelDataReset(){
 
 	enemyCars = [];
-
 	while(carList.length > 1){
 		carList.pop();
 	}
-
 	overheadSpaceshipList = [];
 	oscillatingObstacleList = [];
-
 	bullets = [];
 	particles.clear();
 	ai_distance = 250;
@@ -304,7 +301,6 @@ function entitiesReset(){
 function updateLevelCounter() {
 
     timeToFinishLevel--;
-
 }
 
 
@@ -321,7 +317,14 @@ function updateAll() {
     if (timeToFinishLevel > 0) {
         updateLevelCounter();
 	} else {
-    	resetLevel();
+		playerLives--;
+		if(playerLives > 0){
+    		resetLevel(level);
+		}
+		else{
+			pauseGame();
+			gameLoseScreen();
+		}
 	}
 	moveAll();
 	drawAll();
@@ -369,6 +372,7 @@ function moveAll() {
 
 function drawAll() {
 
+	if(!isGameLose && !isGameWin){
 		canvasContext.save(); // needed to undo this .translate() used for scroll
 	    // this next line is like subtracting camPanX and camPanY from every
 	    // canvasContext draw operation up until we call canvasContext.restore
@@ -410,7 +414,7 @@ function drawAll() {
 			}
 		}
 
-    particlesOntop.draw(); // muzzle flashes etc that are above car sprites
+    	particlesOntop.draw(); // muzzle flashes etc that are above car sprites
 
 		canvasContext.restore(); // undoes the .translate() used for cam scroll
 		
@@ -468,6 +472,7 @@ function drawAll() {
 
 		colorText("LEVEL: ", canvas.width - canvasContext.measureText(level).width -rightMargin , canvas.height - 40, 'white', 'right');
 		colorText( level + 1 ,canvas.width -rightMargin,  canvas.height - 40,'cyan','right' );
+		}
 
 	}
 
