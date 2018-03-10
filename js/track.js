@@ -194,7 +194,7 @@ function carTrackHandling(whichCar) {
 
 		//code for handling car and broken tile collision
 		if(tileHere == TRACK_ROAD_BROKEN){
-			if (!whichCar.isInvincible) {
+			if (!whichCar.isInvincible && whichCar.name == "Player") {
 					whichCar.ang += 0.25;
 					whichCar.speed = 0;
 					// carHitSound.play();
