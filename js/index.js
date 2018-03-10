@@ -28,7 +28,7 @@ const DEFAULT_NOS_AMT = 100;
 
 // var obstacle = new obstacleClass(0,5);
 
-var levelNames = ["Demo","Small","Fast","Furious","Large","Zig Zag","Long Road","Random"];
+var levelNames = ["Random","Tut","Obstacles","Traps","EnemyCars","SpaceCars","Assault","Long Road",];
 var levelIndex;
 var bestTimeToBeat = 300;
 function getBestLevelTime(index) {
@@ -469,7 +469,7 @@ function drawAll() {
 		}
 
 		colorText("LEVEL: ", canvas.width - canvasContext.measureText(level).width -rightMargin , canvas.height - 40, 'white', 'right');
-		colorText( level + 1 ,canvas.width -rightMargin,  canvas.height - 40,'cyan','right' );
+		colorText( level ,canvas.width -rightMargin,  canvas.height - 40,'cyan','right' );
 		}
 
 	}

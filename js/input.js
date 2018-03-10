@@ -189,7 +189,7 @@ function keyPressed(evt) {
 			if(isGameLose) {
 				playerCar.resetAngle = 0;
 				if(isHighScoreMode == false) {
-					level = 0;
+					level = 1;
 				}
 				loadLevel(level);
 				isGameLose = false;
@@ -204,6 +204,16 @@ function keyPressed(evt) {
 				isGameLose = false;
 			}
 			break;
+		case KEY_M:
+		if(!isPlaying){
+			mainMenu();
+		}
+		if(isGameWin){
+			isGameWin = false;
+			clearTimeout(winTimeout);
+			mainMenu();
+		}
+		break;
 
 
 		// remove this
@@ -291,17 +301,7 @@ function keyPressed(evt) {
 			}
 			break;
 			
-		case KEY_M:
-			if(!isPlaying){
-				mainMenu();
-			}
-			if(isGameWin){
-				isGameWin = false;
-				clearTimeout(winTimeout);
-				mainMenu();
-			}
-			break;
-	}
+		}
 }
 
 function keyReleased(evt) {
