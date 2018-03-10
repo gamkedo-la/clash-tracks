@@ -288,6 +288,11 @@ function setTileAtPositionToType(position, newType)
 }
 
 
+function placeEntityOnTrackTileType(whichEntity, tileTypeToCheck) {
+	whichEntity.pos = findCenterPositionOfTileType(tileTypeToCheck);
+	setTileAtPositionToType(whichEntity.pos, TRACK_ROAD);
+}
+
 function getFrictionForTileType(tileKindHere) {
 	switch(tileKindHere) {
 		case TRACK_SMOOTH:

@@ -18,19 +18,8 @@ function obstacleClass(velocityX = 5, velocityY= 0) {
 		// this.pic = alienBallAnimPic;
 		this.pic = alienBallAnimPic;
 
-		for(var eachRow=0;eachRow<TRACK_ROWS;eachRow++) {
-			for(var eachCol=0;eachCol<TRACK_COLS;eachCol++) {
-				var arrayIndex = rowColToArrayIndex(eachCol, eachRow); 
-				if(trackGrid[arrayIndex] == TRACK_BALL) {
-					trackGrid[arrayIndex] = TRACK_ROAD;
-					this.pos.x = eachCol * TRACK_W + TRACK_W/2;
-					this.pos.y = eachRow * TRACK_H + TRACK_H/2;
-					return;
-				} // end of player start if
-			} // end of col for
-		} // end of row for
+		placeEntityOnTrackTileType(this, TRACK_BALL);
 
-		console.log("NO OBSTACLE BALL FOUND");
 	} // end of carReset func
 
 

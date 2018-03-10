@@ -135,7 +135,7 @@ function carClass() {
 			// console.log("Enemy AI is set to " + this.isAI);
 		}
 
-		placeCarOnTrackTileType(this, trackValueToCheck);
+		placeEntityOnTrackTileType(this, trackValueToCheck);
 		this.prevPos.x = this.pos.x;
 		this.prevPos.y = this.pos.y;
 	} // end of carReset func
@@ -590,11 +590,6 @@ function stopControlsForDeadCar(whichCar) {
 		whichCar.keyHeld_Nos = false;
 		whichCar.keyHeld_Shooting = false;
 	}
-}
-
-function placeCarOnTrackTileType(whichCar, tileTypeToCheck) {
-	whichCar.pos = findCenterPositionOfTileType(tileTypeToCheck);
-	setTileAtPositionToType(whichCar.pos, TRACK_ROAD);
 }
 
 function playerResetCondition(){
