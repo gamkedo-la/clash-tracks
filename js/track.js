@@ -461,9 +461,12 @@ function trackCollisionCheck(x,y,goalCheck){
 			if(tileHere == TRACK_GOAL) {
 				if(isHighScoreMode) {
 					compareOrUpdateBestTime();
-					// clearInterval(gameLoop);
-					// currentBackgroundMusic.pauseSound();
-					// menuMusic.loopSong();
+					clearInterval(gameLoop);
+					isPlaying = false;
+					gameLoop = false;
+					currentBackgroundMusic.pauseSound();
+					menuMusic.loopSong();
+
 					mainMenu();
 				} 
 				else {

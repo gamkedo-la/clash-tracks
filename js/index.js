@@ -52,27 +52,26 @@ function compareOrUpdateBestTime() {
     }
     var newTime = Math.ceil(timeToFinishLevel / framesPerSecond);
     // console.log(oldHighScore);
- //    if(newTime > oldHighScore || oldHighScore == 300) {
- //    	var person = prompt("Please enter your name*:");
- //    	if (person == null || person == "") {
-	//         console.log("User cancelled the prompt.");
-	//     } 
-	//     else {
-	//     	localStorage.setItem(localStorageName, newTime);
-	//     	console.log("Thank you " + person+ ". Saving record to database");
-	//   //   	pauseGame();
-	//   //   	currentBackgroundMusic.pauseSound();
-	// 		// menuMusic.loopSong();
-	// 		regenerateLevelMenu();
+    if(newTime > oldHighScore || oldHighScore == 300) {
+    	var person = prompt("Please enter your name*:");
+    	if (person == null || person == "") {
+	        console.log("User cancelled the prompt.");
+	    } 
+	    else {
+	    	localStorage.setItem(localStorageName, newTime);
+	    	console.log("Thank you " + person+ ". Saving record to database");
 
-	//     }
-	// }
+	    }
+	}
+	regenerateLevelMenu();
 
-	  if(newTime > oldHighScore || oldHighScore == 300) {
+	/*
+	if(newTime > oldHighScore || oldHighScore == 300) {
 	    localStorage.setItem(localStorageName, newTime);
 	}
 
 	regenerateLevelMenu();
+	*/
 
 }
 
