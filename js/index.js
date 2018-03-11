@@ -28,7 +28,7 @@ const DEFAULT_NOS_AMT = 100;
 
 // var obstacle = new obstacleClass(0,5);
 
-var levelNames = ["Random","Tut","Obstacles","Traps","EnemyCars","SpaceCars","Assault","Long Road",];
+var levelNames = ["Random","Tut","Obstacles","Traps","Enemy Drills","Space Cars","Assault","Damage","Long Road",];
 var levelIndex;
 var bestTimeToBeat = 300;
 function getBestLevelTime(index) {
@@ -52,10 +52,18 @@ function compareOrUpdateBestTime() {
     var newTime = Math.ceil(timeToFinishLevel / framesPerSecond);
     // console.log(oldHighScore);
     if(newTime > oldHighScore || oldHighScore == 300) {
-	    localStorage.setItem(localStorageName, newTime);
+    	var person = prompt("Please enter your name*:");
+    	if (person == null || person == "") {
+	        console.log("User cancelled the prompt.");
+	    } 
+	    else {
+	    	localStorage.setItem(localStorageName, newTime);
+	    	console.log("Thank you " + person+ ". Saving record to database");
+			regenerateLevelMenu();
+
+	    }
 	}
 
-	regenerateLevelMenu();
 }
 
 function resetBestTimes() {
@@ -190,7 +198,6 @@ function introDone() {
 function loadLevel(whichLevel) {
 
 	//clearing previously saved objects and data
-	levelDataReset();
 	if(isHighScoreMode) {
 		playerLives = HIGHSCORE_PLAYER_LIVES;
 	} else {
@@ -210,7 +217,7 @@ function getRandomInt(min, max) {
 
 
 function resetLevel(whichLevel) {
-
+	levelDataReset();
     menuMusic.pauseSound();
 	levelData = levels[whichLevel];
 	trackGrid = levelData.trackLayout.slice();

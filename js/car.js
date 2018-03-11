@@ -106,6 +106,10 @@ function carClass() {
 		this.skidSpeed = 0;
 		this.skidAngle = 0;
 		this.keyHeld_Nos = false;
+		this.keyHeld_Gas = false;
+		this.keyHeld_Reverse = false;
+		this.keyHeld_TurnLeft = false;
+		this.keyHeld_TurnRight = false;
 		this.smokeScreenFramesRemaining = 0;
 		this.invincibleAngle = 0;
 	
