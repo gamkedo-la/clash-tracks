@@ -97,14 +97,14 @@ function keyPressed(evt) {
       		evt.preventDefault();
 			break;
 
-		/*case KEY_ENTER:
+		case KEY_ENTER:
 			if (isPlaying) {
 				console.log("Level Changing..");
 				loadNextLevel();
 	        }
 	        evt.preventDefault();
 			break;
-		*/
+		
 
 		case SPACE_BAR:
 			if (startTimeout) {
@@ -180,6 +180,7 @@ function keyPressed(evt) {
 			if(isGameLose && !isPlaying) {
 				mainMenu();
 				isGameLose = false;
+				isGameWin = false;
 			}
 			break;
 
@@ -189,6 +190,8 @@ function keyPressed(evt) {
 			}
 			if(isGameWin){
 				isGameWin = false;
+				isGameLose = false;
+				level = 1; 
 				clearTimeout(winTimeout);
 				mainMenu();
 			}

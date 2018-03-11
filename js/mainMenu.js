@@ -61,6 +61,7 @@ function menuPlay() {
 
 // Over-rides default race against time and you instead set the best time for particular level.
 function highScoreModePlay() {
+ 
     isHighScoreMode = true;
     // console.log('High Score mode: PLAY');
     levelDiv.style.display = 'block';

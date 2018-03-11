@@ -24,9 +24,9 @@ function showIntro() {
 	}
 	storyPart = 0;
 	fadeInStory();
-  introInterval = setInterval(function() {
+    introInterval = setInterval(function() {
 		// masterTick++;
-		opacity += 0.05;
+		opacity += 0.08;
 		if (opacity < 1) {
 			fadeInStory();
 		}

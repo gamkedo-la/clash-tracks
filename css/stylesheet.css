@@ -35,6 +35,12 @@ div#Credits{
   font-size: 20px;
 }
 
+div#Levels{
+  /*padding: 10px;*/
+  line-height:28px;
+  font-size: 22px;
+}
+
 
 #Options table{
   margin:auto;

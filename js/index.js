@@ -31,6 +31,7 @@ const DEFAULT_NOS_AMT = 100;
 var levelNames = ["Random","Tut","Obstacles","Traps","Enemy Drills","Space Cars","Assault","Damage","Long Road",];
 var levelIndex;
 var bestTimeToBeat = 300;
+
 function getBestLevelTime(index) {
 	var localStorageName = "highScore_"+levelNames[index]; // name instead of index in case we rearrange array/order
 	var oldHighScore = localStorage.getItem(localStorageName);
@@ -51,18 +52,27 @@ function compareOrUpdateBestTime() {
     }
     var newTime = Math.ceil(timeToFinishLevel / framesPerSecond);
     // console.log(oldHighScore);
-    if(newTime > oldHighScore || oldHighScore == 300) {
-    	var person = prompt("Please enter your name*:");
-    	if (person == null || person == "") {
-	        console.log("User cancelled the prompt.");
-	    } 
-	    else {
-	    	localStorage.setItem(localStorageName, newTime);
-	    	console.log("Thank you " + person+ ". Saving record to database");
-			regenerateLevelMenu();
+ //    if(newTime > oldHighScore || oldHighScore == 300) {
+ //    	var person = prompt("Please enter your name*:");
+ //    	if (person == null || person == "") {
+	//         console.log("User cancelled the prompt.");
+	//     } 
+	//     else {
+	//     	localStorage.setItem(localStorageName, newTime);
+	//     	console.log("Thank you " + person+ ". Saving record to database");
+	//   //   	pauseGame();
+	//   //   	currentBackgroundMusic.pauseSound();
+	// 		// menuMusic.loopSong();
+	// 		regenerateLevelMenu();
 
-	    }
+	//     }
+	// }
+
+	  if(newTime > oldHighScore || oldHighScore == 300) {
+	    localStorage.setItem(localStorageName, newTime);
 	}
+
+	regenerateLevelMenu();
 
 }
 
@@ -117,6 +127,16 @@ function startGame() {
     playerNosReplenishLoop = setInterval(playerNosReplenish, msPerFrame*8);
 
 }
+
+function stopGame() {
+	clearInterval(gameLoop); // prevents it from stacking due to previous plays
+	clearInterval(playerNosReplenish); 
+  	gameHasStarted = false;
+	isPlaying = false;
+	currentBackgroundMusic.pauseSound();
+	menuMusic.loopSong();
+}
+
 
 
 function pauseGame() {
@@ -318,17 +338,20 @@ function addDelayedCall(callback, timeout) {
 
 
 function updateAll() {
-
+	//if timer runs out. Take one life away and reset level
     if (timeToFinishLevel > 0) {
         updateLevelCounter();
 	} else {
+
 		playerLives--;
 		if(playerLives > 0){
     		resetLevel(level);
 		}
 		else{
 			pauseGame();
-			gameLoseScreen();
+			if(!isHighScoreMode){
+				gameLoseScreen();
+			}
 		}
 	}
 	moveAll();
@@ -377,7 +400,7 @@ function moveAll() {
 
 function drawAll() {
 
-	if(!isGameLose && !isGameWin){
+	if(!isGameLose && !isGameWin && gameHasStarted){
 		canvasContext.save(); // needed to undo this .translate() used for scroll
 	    // this next line is like subtracting camPanX and camPanY from every
 	    // canvasContext draw operation up until we call canvasContext.restore

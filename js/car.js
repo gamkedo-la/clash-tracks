@@ -599,8 +599,8 @@ function stopControlsForDeadCar(whichCar) {
 function playerResetCondition(){
   addDelayedCall(function(){
   					normalSpeedGame();
-					if(playerLives > 1){
-						playerLives--;
+					playerLives--;
+					if(playerLives > 0){
 						resetCheckPoint();
 						if(playerCar.resetAngle!=0){
 							playerCar.ang = playerCar.resetAngle;

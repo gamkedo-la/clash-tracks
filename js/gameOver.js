@@ -49,6 +49,6 @@ function gameWinScreen(){
 		level = 1;
 
 
-	}, 8000)
+	}, 6000)
 }
 
