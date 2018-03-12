@@ -15,7 +15,7 @@ var oscillatingObstacleList= [];
 var timeToFinishLevel;
 var level;
 var playerLives;
-const DEFAULT_PLAYER_LIVES = 3;
+const DEFAULT_PLAYER_LIVES = 1;
 const HIGHSCORE_PLAYER_LIVES = 1;
 var backgroundMusicArray;
 var powerupText = "";

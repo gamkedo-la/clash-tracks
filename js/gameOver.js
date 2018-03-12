@@ -36,7 +36,9 @@ function gameOverScreen(gameArray, gameStatus) {
 function gameLoseScreen(){
 	gameOverScreen(gameOverArray, "Lose");
 	pauseGame();
-	gameHasStarted = false;
+	if(isHighScoreMode){
+		gameHasStarted = false;
+	}
 }
 
 
@@ -55,6 +57,8 @@ function gameWinScreen(){
 		highScoreModePlay();
 	}
 	pauseGame();
-	gameHasStarted = false;
+	if(isHighScoreMode){
+		gameHasStarted = false;
+	}
 }
 

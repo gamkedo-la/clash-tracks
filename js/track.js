@@ -179,7 +179,7 @@ function carTrackHandling(whichCar) {
 					powerupText = "Nitros Refilled";
 					break;
 			}
- 			addDelayedCall(function(){playerCar.inTrackPowerup = false; powerupText = ""},3000);
+ 			addDelayedCall(function(){playerCar.inTrackPowerup = false;powerupText = ""},4500);
 
 		}
 	}
