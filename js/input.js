@@ -98,14 +98,14 @@ function keyPressed(evt) {
       		evt.preventDefault();
 			break;
 
-		case KEY_ENTER:
+		/*case KEY_ENTER:
 			if (isPlaying) {
 				console.log("Level Changing..");
 				loadNextLevel();
 	        }
 	        evt.preventDefault();
 			break;
-				
+		*/	
 
 		case SPACE_BAR:
 			if (startTimeout) {

@@ -17,6 +17,7 @@
   font-family: audiowide;
   margin:0;
   padding:0;
+  
 }
 
 h1 {
@@ -30,10 +31,14 @@ div {
   text-align:center; line-height:32px; padding-top:64px;
 }
 
+a.animated.bounceInRight{background-color: #fcdbdb; padding:12px 0 12px 0;color: #e01a52;}
+
 div#Credits{
-  padding: 10px;
+  padding: 14px;
   font-size: 20px;
+  line-height:28px;
 }
+
 
 div#Levels{
   /*padding: 10px;*/

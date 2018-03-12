@@ -137,7 +137,6 @@ function pauseGame() {
 	    colorText('Game paused!', canvas.width / 2, canvas.height / 2 - 60, 'white', 'center', "40px '04b30'");
 	    colorText('[M] for Main Menu', canvas.width / 2, canvas.height / 2 , '#acacac', 'center', "24px 'audiowide'");
 	    colorText('[P] to resume', canvas.width / 2, canvas.height / 2 + 30, '#acacac', 'center', "24px 'audiowide'");
-	    console.log('hey')
 	   	currentBackgroundMusic.pauseSound();
 	  	menuMusic.loopSong();	  
   	}
