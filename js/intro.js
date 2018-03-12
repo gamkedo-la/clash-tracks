@@ -18,19 +18,18 @@ var introInterval, fadeInterval, startTimeout;
 var isGameOver = false;
 
 function showIntro() {
-	if(isHighScoreMode) {
-		skipStory();
-		return;
-	}
-	storyPart = 0;
-	fadeInStory();
+    fadeInStory();
     introInterval = setInterval(function() {
 		// masterTick++;
-		opacity += 0.08;
+		opacity += 0.05;
 		if (opacity < 1) {
 			fadeInStory();
 		}
 	}, blurRate);
+	// if(isHighScoreMode) {
+	// 	skipStory();
+	// 	return;
+	// }
 }
 
 //Go through loop,
@@ -52,14 +51,19 @@ function drawStory(storyLine) { // Draws each StoryArray array element as a new 
 }
 
 function fadeInIntroThenStartGame() {
-	showIntro();
-  fadeInterval = setInterval(function(){
-		if(storyPart < StoryArray.length - 1 ){
+	if(!isHighScoreMode){
+		showIntro();
+		fadeInterval = setInterval(function(){
+			if(storyPart < StoryArray.length - 1 ){
 				storyPart++;
 				opacity = 0.0;
-		}
-	}, durationForEachPart);
-  startTimeout = setTimeout(introDone, introDuration);
+			}
+		}, durationForEachPart);
+		startTimeout = setTimeout(introDone, introDuration);
+	} else {
+		introDone();
+	}
+	
 }
 
 function fadeInStory() {
@@ -79,11 +83,11 @@ function skipStory() {
 	}
 	if (fadeInterval) {
 		clearInterval(fadeInterval);
-    fadeInterval = null;
+    	fadeInterval = null;
 	}
 	if (startTimeout) {
 		clearTimeout(startTimeout);
-    startTimeout = null;
+   		startTimeout = null;
 	}
 	introDone();
 }

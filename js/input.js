@@ -31,6 +31,7 @@ const KEY_5 = 53;
 const KEY_6 = 54;
 const KEY_7 = 55;
 const KEY_8 = 56;
+const KEY_9 = 57;
 
 function setupInput() {
 	// canvas.addEventListener('mousemove', updateMousePos);
@@ -92,7 +93,7 @@ function keyPressed(evt) {
 
 		case KEY_L:
 			if(menuState.isMenuDiv){
-					console.log('going to leaderboards');
+					// console.log('going to leaderboards');
 			}
       		evt.preventDefault();
 			break;
@@ -104,7 +105,7 @@ function keyPressed(evt) {
 	        }
 	        evt.preventDefault();
 			break;
-		
+				
 
 		case SPACE_BAR:
 			if (startTimeout) {
@@ -206,6 +207,7 @@ function keyPressed(evt) {
 		case KEY_6:
 		case KEY_7:
 		case KEY_8:
+		case KEY_9:
 			if(isPlaying == false && menuState.isLevelDiv) {
 				menuLevel(evt.keyCode-KEY_1);
 			}

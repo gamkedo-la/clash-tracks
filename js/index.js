@@ -52,6 +52,7 @@ function compareOrUpdateBestTime() {
     }
     var newTime = Math.ceil(timeToFinishLevel / framesPerSecond);
     // console.log(oldHighScore);
+    /*
     if(newTime > oldHighScore || oldHighScore == 300) {
     	var person = prompt("Please enter your name*:");
     	if (person == null || person == "") {
@@ -64,15 +65,12 @@ function compareOrUpdateBestTime() {
 	    }
 	}
 	regenerateLevelMenu();
-
-	/*
+	*/
+	
 	if(newTime > oldHighScore || oldHighScore == 300) {
 	    localStorage.setItem(localStorageName, newTime);
 	}
-
 	regenerateLevelMenu();
-	*/
-
 }
 
 function resetBestTimes() {
@@ -127,16 +125,6 @@ function startGame() {
 
 }
 
-function stopGame() {
-	clearInterval(gameLoop); // prevents it from stacking due to previous plays
-	clearInterval(playerNosReplenish); 
-  	gameHasStarted = false;
-	isPlaying = false;
-	currentBackgroundMusic.pauseSound();
-	menuMusic.loopSong();
-}
-
-
 
 function pauseGame() {
 
@@ -149,10 +137,10 @@ function pauseGame() {
 	    colorText('Game paused!', canvas.width / 2, canvas.height / 2 - 60, 'white', 'center', "40px '04b30'");
 	    colorText('[M] for Main Menu', canvas.width / 2, canvas.height / 2 , '#acacac', 'center', "24px 'audiowide'");
 	    colorText('[P] to resume', canvas.width / 2, canvas.height / 2 + 30, '#acacac', 'center', "24px 'audiowide'");
-	    currentBackgroundMusic.pauseSound();
-	    menuMusic.loopSong();
+	    console.log('hey')
+	   	currentBackgroundMusic.pauseSound();
+	  	menuMusic.loopSong();	  
   	}
-
 }
 
 
@@ -167,7 +155,6 @@ function slowSpeedGame(){
 		gameLoop = setInterval(updateAll, msPerFrame);
 		playerNosReplenishLoop = setInterval(playerNosReplenish, msPerFrame*8);
 	}
-
 }
 
 
@@ -189,11 +176,17 @@ function continueGame() {
 	if (gameHasStarted && !gameLoop) {
 	    // console.log('Resuming...');
 	    setTimeout(function(){
+
 			isPlaying = true;
 		    gameLoop = setInterval(updateAll, msPerFrame);
 		    playerNosReplenishLoop = setInterval(playerNosReplenish, msPerFrame*8);
-		    menuMusic.pauseSound();
-		    currentBackgroundMusic.startOrStopMusic();
+		    if(menuMusic.isPlaying){
+		    	menuMusic.pauseSound();
+		    	currentBackgroundMusic.startOrStopMusic();
+		    }else{
+		    	currentBackgroundMusic.startOrStopMusic();
+		    }
+		    
 	    }, 500)  
   	}
 }

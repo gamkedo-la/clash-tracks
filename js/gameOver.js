@@ -19,10 +19,9 @@ var gameWinArray = [["Well done"],
 function gameOverScreen(gameArray, gameStatus) {
 	colorRect(0,0, canvas.width,canvas.height, '#0e0015');
 	canvasContext.globalAlpha = 1;
-	currentBackgroundMusic.pauseSound();
-	menuMusic.loopSong();
 	drawStory(gameArray);
 	canvasContext.globalAlpha = 1;
+
 	if(gameStatus == "Lose"){
 		isGameLose = true;
 	}
@@ -36,19 +35,26 @@ function gameOverScreen(gameArray, gameStatus) {
 
 function gameLoseScreen(){
 	gameOverScreen(gameOverArray, "Lose");
-	currentBackgroundMusic.pauseSound();
-	menuMusic.loopSong();
+	pauseGame();
+	gameHasStarted = false;
 }
 
 
 function gameWinScreen(){
-	gameOverScreen(gameWinArray, "Win");
-	winTimeout = setTimeout(function(){
+	if(!isHighScoreMode){
+		gameOverScreen(gameWinArray, "Win");
+			winTimeout = setTimeout(function(){
+				isGameWin = false;
+				menuCredits();
+				level = 1;
+			}, 6000)
+	} 
+	else {
+		gameOverScreen(gameWinArray, "Win");
 		isGameWin = false;
-		menuCredits();
-		level = 1;
-
-
-	}, 6000)
+		highScoreModePlay();
+	}
+	pauseGame();
+	gameHasStarted = false;
 }
 

@@ -58,6 +58,10 @@ function backgroundMusicClass(filenameWithPath) {
         }
     }
 
+    this.isPlaying = function(){
+        return !musicSound.paused;
+    }
+
     this.startOrStopMusic = function() {
         if (musicSound.paused) {
             musicSound.play();
