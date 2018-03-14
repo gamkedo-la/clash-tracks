@@ -172,6 +172,7 @@ function keyPressed(evt) {
 				}
 				loadLevel(level);
 				isGameLose = false;
+				gameHasStarted = true;
 				continueGame();
 				currentBackgroundMusic.startOrStopMusic();
 			}
