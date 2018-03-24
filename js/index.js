@@ -26,23 +26,47 @@ var isGameLose, isGameWin;
 
 const DEFAULT_NOS_AMT = 100;
 
+const TEXT_NO_RECORD = "No Record";
+const TEXT_RECORDS_UNAVAILABLE = "Records Unavailable";
+
 // var obstacle = new obstacleClass(0,5);
 
 var levelNames = ["Random","Tut","Obstacles","Traps","Enemy Drills","Space Cars","Assault","Damage","Long Road",];
 var levelIndex;
 var bestTimeToBeat = 300;
 
+function isLocalStorageAllowed() {
+	try {
+		var localStorageName = "highScore_"+levelNames[0];
+		var oldHighScore = localStorage.getItem(localStorageName);
+		return true;
+	}
+	catch(ex) // Assuming DOMException
+	{
+		console.log("Failed to access storage: " + ex.message);
+		return false;
+	}
+}
+
 function getBestLevelTime(index) {
+	if(!isLocalStorageAllowed()) {
+		return TEXT_RECORDS_UNAVAILABLE;
+	}
+
 	var localStorageName = "highScore_"+levelNames[index]; // name instead of index in case we rearrange array/order
 	var oldHighScore = localStorage.getItem(localStorageName);
     if ((oldHighScore === "null") || (oldHighScore == null)) {
         localStorage.setItem(localStorageName, 300);
     }
     var scoreVal = parseInt(localStorage.getItem(localStorageName));
-    return (scoreVal < 300 ? scoreVal : "No Record");
+    return (scoreVal < 300 ? scoreVal : TEXT_NO_RECORD);
 }
 
 function compareOrUpdateBestTime() {
+	if(!isLocalStorageAllowed()) {
+		return;
+	}
+
 	var localStorageName = "highScore_"+levelNames[level]; // name instead of index in case we rearrange array/order
 	var oldHighScore = localStorage.getItem(localStorageName);
 	if ((oldHighScore === "null") || (oldHighScore == null)) {
@@ -74,6 +98,10 @@ function compareOrUpdateBestTime() {
 }
 
 function resetBestTimes() {
+	if(!isLocalStorageAllowed()) {
+		return;
+	}
+
 	localStorage.clear();
 	regenerateLevelMenu();
 }
